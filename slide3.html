@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ARF Pitch – Slide 3: Current Limitations</title>
+<title>ARF Pitch – Slide 3: Current Limitations (Technical)</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -101,7 +101,6 @@
     border-radius: 8px;
     padding: 16px;
     margin-bottom: 16px;
-    transition: all 0.2s ease;
   }
   .feature-item i {
     font-size: 20px;
@@ -150,6 +149,17 @@
     font-family: monospace;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+  }
+  .qr {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .qr img {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
   }
 </style>
 </head>
@@ -169,7 +179,7 @@
         <div class="feature-item">
           <i class="fas fa-circle-exclamation"></i>
           <div class="title">Reactive & Partial</div>
-          <div class="desc">Relies on logs/traces after failure. Blind to prompt drift and agent internal state.</div>
+          <div class="desc">Relies on logs/traces after failure. No uncertainty quantification; blind to prompt drift.</div>
         </div>
         <div class="feature-item">
           <i class="fas fa-user-clock"></i>
@@ -185,31 +195,34 @@
       <div class="column right-col">
         <div class="column-header">
           <i class="fas fa-shield-halved" style="color:#238636;"></i>
-          <h2>ARF GOVERNANCE</h2>
+          <h2>ARF GOVERNANCE (OSS v4.2.0+)</h2>
         </div>
         <div class="feature-item">
           <i class="fas fa-scale-balanced"></i>
           <div class="title">Bayesian Risk Modeling</div>
-          <div class="desc">Quantifies uncertainty before execution (pre‑emptive).</div>
+          <div class="desc">Quantifies uncertainty using hierarchical priors and HMC sampling. Provides calibrated risk probabilities.</div>
         </div>
         <div class="feature-item">
           <i class="fas fa-gavel"></i>
-          <div class="title">Deterministic Policy</div>
-          <div class="desc">Enforces auditable thresholds (Approve/Deny/Escalate) with full traceability.</div>
+          <div class="title">Deterministic Policy Thresholds (DPT)</div>
+          <div class="desc">Approve if P(failure) &lt; 0.2, Escalate if 0.2 ≤ P(failure) ≤ 0.8, Deny if &gt; 0.8. Fully auditable.</div>
         </div>
         <div class="feature-item">
           <i class="fas fa-heart-pulse"></i>
-          <div class="title">Autonomous Self-Healing</div>
-          <div class="desc">Automatically triggers rollback, throttle, or quarantine actions.</div>
+          <div class="title">HealingIntent & Self‑Healing</div>
+          <div class="desc">Immutable advisory output with 30+ fields capturing uncertainty, evidence, remediation parameters, and decision justification.</div>
         </div>
       </div>
     </div>
     <div class="outcome">
-      Outcome: Shift from <span class="strike">passive monitoring</span> to <span class="highlight">bounded, deterministic control</span>.
+      Outcome: Shift from <span class="strike">passive monitoring</span> to <span class="highlight">deterministic, auditable control</span>.
     </div>
     <div class="footer">
       <span>ARF // CURRENT LIMITATIONS</span>
-      <span></span>
+      <div class="qr">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=60x60&data=https://calendly.com/petter2025us/30min" alt="Book a call QR">
+        <span>Book a technical call</span>
+      </div>
     </div>
   </div>
 </div>
