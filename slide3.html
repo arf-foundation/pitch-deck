@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARF Pitch – Slide 3: Current Limitations</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d1117;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  }
+  .slide {
+    width: 1280px;
+    height: 720px;
+    background: #0d1117;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    border-radius: 8px;
+  }
+  .grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(#30363d 1px, transparent 1px),
+                      linear-gradient(90deg, #30363d 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.08;
+    pointer-events: none;
+  }
+  .vertical-divider {
+    position: absolute;
+    left: 50%;
+    top: 140px;
+    bottom: 80px;
+    width: 1px;
+    background: #30363d;
+    opacity: 0.5;
+    transform: translateX(-50%);
+  }
+  .content {
+    position: relative;
+    z-index: 2;
+    padding: 60px 80px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+  }
+  h1 span:first-child { color: #8b949e; }
+  h1 span:last-child { color: #238636; }
+  .subhead {
+    font-size: 20px;
+    font-weight: 300;
+    color: #8b949e;
+    margin-bottom: 48px;
+  }
+  .two-columns {
+    display: flex;
+    gap: 60px;
+    flex: 1;
+  }
+  .column {
+    flex: 1;
+  }
+  .column-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    border-bottom: 2px solid #8b949e;
+    padding-bottom: 12px;
+  }
+  .column-header i {
+    font-size: 24px;
+  }
+  .column-header h2 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px;
+    font-weight: 700;
+    color: #c9d1d9;
+    letter-spacing: -0.5px;
+  }
+  .feature-item {
+    background: rgba(13, 17, 23, 0.6);
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    transition: all 0.2s ease;
+  }
+  .feature-item i {
+    font-size: 20px;
+    margin-right: 12px;
+    width: 28px;
+    display: inline-block;
+  }
+  .feature-item .title {
+    font-weight: 600;
+    font-size: 18px;
+    color: white;
+    margin-bottom: 4px;
+  }
+  .feature-item .desc {
+    font-size: 14px;
+    color: #8b949e;
+    line-height: 1.4;
+    margin-left: 40px;
+  }
+  .left-col .feature-item i { color: #da3633; }
+  .right-col .feature-item i { color: #238636; }
+  .right-col .feature-item {
+    border-color: #238636;
+  }
+  .outcome {
+    margin-top: auto;
+    text-align: center;
+    padding: 16px 0;
+    border-top: 1px solid #30363d;
+    font-size: 18px;
+    font-weight: 500;
+    color: white;
+  }
+  .outcome span.strike {
+    text-decoration: line-through;
+    color: #8b949e;
+  }
+  .outcome span.highlight {
+    color: #1f6feb;
+    font-weight: 700;
+  }
+  .footer {
+    margin-top: 12px;
+    font-size: 12px;
+    color: #484f58;
+    font-family: monospace;
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="grid"></div>
+  <div class="vertical-divider"></div>
+  <div class="content">
+    <h1>Current Limitations: <span>Observability</span> ≠ <span>Governance</span></h1>
+    <div class="subhead">Why dashboards fail to control autonomous agents</div>
+    <div class="two-columns">
+      <div class="column left-col">
+        <div class="column-header">
+          <i class="fas fa-chart-bar" style="color:#8b949e;"></i>
+          <h2>CONVENTIONAL OBSERVABILITY</h2>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-circle-exclamation"></i>
+          <div class="title">Reactive & Partial</div>
+          <div class="desc">Relies on logs/traces after failure. Blind to prompt drift and agent internal state.</div>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-user-clock"></i>
+          <div class="title">Human Bottlenecks</div>
+          <div class="desc">Operators cannot interpret agent traces at machine speed; alert fatigue leads to missed signals.</div>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-eye-slash"></i>
+          <div class="title">Emergent Blind Spots</div>
+          <div class="desc">Misses latent coupling in multi‑agent systems and non‑stationary behavior.</div>
+        </div>
+      </div>
+      <div class="column right-col">
+        <div class="column-header">
+          <i class="fas fa-shield-halved" style="color:#238636;"></i>
+          <h2>ARF GOVERNANCE</h2>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-scale-balanced"></i>
+          <div class="title">Bayesian Risk Modeling</div>
+          <div class="desc">Quantifies uncertainty before execution (pre‑emptive).</div>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-gavel"></i>
+          <div class="title">Deterministic Policy</div>
+          <div class="desc">Enforces auditable thresholds (Approve/Deny/Escalate) with full traceability.</div>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-heart-pulse"></i>
+          <div class="title">Autonomous Self-Healing</div>
+          <div class="desc">Automatically triggers rollback, throttle, or quarantine actions.</div>
+        </div>
+      </div>
+    </div>
+    <div class="outcome">
+      Outcome: Shift from <span class="strike">passive monitoring</span> to <span class="highlight">bounded, deterministic control</span>.
+    </div>
+    <div class="footer">
+      <span>ARF // CURRENT LIMITATIONS</span>
+      <span></span>
+    </div>
+  </div>
+</div>
+</body>
+</html>
