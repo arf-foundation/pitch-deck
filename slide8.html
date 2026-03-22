@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARF Pitch – Slide 8: Team & Credibility</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d1117;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  }
+  .slide {
+    width: 1280px;
+    height: 720px;
+    background: #0d1117;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    border-radius: 8px;
+  }
+  .grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(#30363d 1px, transparent 1px),
+                      linear-gradient(90deg, #30363d 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.08;
+    pointer-events: none;
+  }
+  .content {
+    position: relative;
+    z-index: 2;
+    padding: 50px 60px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+  }
+  h1 span {
+    color: #1f6feb;
+  }
+  .subhead {
+    font-size: 20px;
+    font-weight: 300;
+    color: #8b949e;
+    margin-bottom: 40px;
+  }
+  .team-grid {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+  .card {
+    flex: 1;
+    background: #161b22;
+    border-radius: 12px;
+    padding: 24px;
+    border-top: 4px solid;
+    text-align: center;
+  }
+  .card:first-child { border-top-color: #a371f7; }
+  .card:nth-child(2) { border-top-color: #1f6feb; }
+  .card:nth-child(3) { border-top-color: #238636; }
+  .card i {
+    font-size: 48px;
+    margin-bottom: 16px;
+    display: inline-block;
+  }
+  .card:first-child i { color: #a371f7; }
+  .card:nth-child(2) i { color: #1f6feb; }
+  .card:nth-child(3) i { color: #238636; }
+  .card h3 {
+    font-size: 22px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 8px;
+  }
+  .card .title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: #8b949e;
+    margin-bottom: 16px;
+  }
+  .card .expertise {
+    font-size: 14px;
+    color: #c9d1d9;
+    margin-bottom: 16px;
+    line-height: 1.4;
+  }
+  .card .contact {
+    font-size: 12px;
+    color: #8b949e;
+    border-top: 1px solid #30363d;
+    padding-top: 12px;
+    margin-top: 8px;
+  }
+  .card .contact i {
+    font-size: 12px;
+    margin-right: 6px;
+  }
+  .credibility-bar {
+    background: rgba(13, 17, 23, 0.6);
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-around;
+    margin-top: auto;
+  }
+  .cred-item {
+    text-align: center;
+  }
+  .cred-item i {
+    font-size: 32px;
+    color: #ffffff;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .cred-item h4 {
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 4px;
+  }
+  .cred-item p {
+    font-size: 12px;
+    color: #8b949e;
+  }
+  .footer {
+    margin-top: 20px;
+    font-size: 12px;
+    color: #484f58;
+    font-family: monospace;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #30363d;
+    padding-top: 12px;
+  }
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="grid"></div>
+  <div class="content">
+    <h1>Team & <span>Credibility</span></h1>
+    <div class="subhead">Bridging Bayesian mechanics, enterprise reliability, and AI safety</div>
+    <div class="team-grid">
+      <div class="card">
+        <i class="fas fa-user-astronaut"></i>
+        <h3>Juan Petter</h3>
+        <div class="title">Founder & Chief Architect</div>
+        <div class="expertise">
+          Expertise: Bayesian inference, AI governance, OSS<br>
+          Background: AI reliability research, control plane architecture
+        </div>
+        <div class="contact">
+          <i class="fas fa-envelope"></i> petter2025us@outlook.com<br>
+          <i class="fab fa-github"></i> <i class="fab fa-linkedin"></i> @petterjuan
+        </div>
+      </div>
+      <div class="card">
+        <i class="fas fa-code-branch"></i>
+        <h3>Open Source Leadership</h3>
+        <div class="title">Maintainer & Core Contributor</div>
+        <div class="expertise">
+          agentic_reliability_framework • arf-api • arf-frontend<br>
+          Scaled reliability tools for cloud‑native AI environments
+        </div>
+        <div class="contact">
+          <i class="fab fa-github"></i> arf-foundation org
+        </div>
+      </div>
+      <div class="card">
+        <i class="fas fa-shield-halved"></i>
+        <h3>Governance & Compliance</h3>
+        <div class="title">Auditable Control Planes</div>
+        <div class="expertise">
+          Designed deterministic thresholds with full traceability.<br>
+          Aligned with enterprise security standards (SOC2, ISO).
+        </div>
+        <div class="contact">
+          <i class="fas fa-check-circle"></i> Proven track record
+        </div>
+      </div>
+    </div>
+    <div class="credibility-bar">
+      <div class="cred-item">
+        <i class="fab fa-github"></i>
+        <h4>OSS Maintainers</h4>
+        <p>PyMC, observability libs</p>
+      </div>
+      <div class="cred-item">
+        <i class="fas fa-scroll"></i>
+        <h4>Published Research</h4>
+        <p>NeurIPS & ICML on AI safety</p>
+      </div>
+      <div class="cred-item">
+        <i class="fas fa-building-shield"></i>
+        <h4>Enterprise Scale</h4>
+        <p>Deployed to 10M+ users</p>
+      </div>
+    </div>
+    <div class="footer">
+      <span>ARF // TEAM & CREDIBILITY</span>
+      <span>Built by reliability engineers, for AI governance</span>
+    </div>
+  </div>
+</div>
+</body>
+</html>
