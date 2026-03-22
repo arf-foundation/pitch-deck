@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ARF Pitch – Slide 1: Title</title>
+<title>ARF Pitch – Slide 1: Title (Upgraded)</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -23,7 +23,6 @@
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     border-radius: 8px;
   }
-  /* subtle grid */
   .grid {
     position: absolute;
     top: 0;
@@ -52,6 +51,22 @@
     color: #238636;
     margin-bottom: 40px;
   }
+  /* Scarcity badge (top right) */
+  .badge {
+    position: absolute;
+    top: 24px;
+    right: 32px;
+    background: rgba(218, 54, 51, 0.2);
+    border: 1px solid #da3633;
+    border-radius: 40px;
+    padding: 6px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+    color: #ff7b72;
+    backdrop-filter: blur(4px);
+    z-index: 10;
+  }
   h1 {
     font-family: 'Space Grotesk', sans-serif;
     font-size: 72px;
@@ -78,6 +93,7 @@
     display: flex;
     gap: 24px;
     margin-top: 20px;
+    margin-bottom: 24px;
   }
   .card {
     background: rgba(22, 27, 34, 0.9);
@@ -101,6 +117,14 @@
     font-size: 14px;
     color: #8b949e;
   }
+  .social-proof {
+    font-size: 14px;
+    color: #8b949e;
+    margin-top: 8px;
+    font-family: 'Inter', sans-serif;
+    border-left: 2px solid #238636;
+    padding-left: 12px;
+  }
   .footer {
     margin-top: auto;
     display: flex;
@@ -115,11 +139,14 @@
 <body>
 <div class="slide">
   <div class="grid"></div>
+  <!-- Scarcity badge -->
+  <div class="badge">⚡ Early Access Pilot — 5 spots left</div>
   <div class="content">
     <div class="logo">ARF</div>
     <h1>Agentic Reliability<br><span>Framework</span></h1>
+    <!-- Tagline with contrast (loss aversion) -->
     <div class="tagline">
-      Turn probabilistic AI into <strong>deterministic</strong>, <strong>auditable</strong> action.
+      Turn probabilistic AI into <strong>deterministic</strong>, <strong>auditable</strong> action — <strong style="color:#da3633;">before it fails.</strong>
     </div>
     <div class="cards">
       <div class="card">
@@ -131,6 +158,10 @@
         <div class="label">GOVERNANCE</div>
         <div class="value" style="font-size: 24px;">Self‑Healing<br>Control Plane</div>
       </div>
+    </div>
+    <!-- Social proof + authority -->
+    <div class="social-proof">
+      Trusted by early adopters in fintech and cloud-native AI
     </div>
     <div class="footer">
       <span>● Enterprise & OSS‑Ready</span>
