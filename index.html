@@ -3,58 +3,106 @@
 <head>
   <meta charset="utf-8">
   <title>ARF Pitch</title>
+
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/black.css">
+
   <style>
-    h1, h2 { text-transform: none; }
-    .reveal h1 { font-size: 2.5em; }
-    .reveal p, .reveal li { font-size: 1.2em; }
+    body { background: #0d1117; }
+
+    .reveal h1 {
+      font-size: 2.8em;
+      line-height: 1.1;
+      letter-spacing: -1px;
+    }
+
+    .reveal h2 {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+
+    .reveal p {
+      font-size: 1.3em;
+      color: #8b949e;
+    }
+
+    .reveal strong {
+      color: #58a6ff;
+    }
+
+    .reveal ul {
+      margin-top: 20px;
+    }
+
+    .reveal li {
+      font-size: 1.3em;
+      margin-bottom: 12px;
+    }
+
+    .accent {
+      color: #3fb950;
+      font-weight: 600;
+    }
+
+    .tagline {
+      margin-top: 20px;
+      font-size: 1.2em;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 20px;
+      left: 40px;
+      font-size: 12px;
+      color: #6e7681;
+    }
   </style>
 </head>
+
 <body>
 <div class="reveal">
 <div class="slides">
 
 <section>
-  <h1>Agentic Reliability Framework</h1>
-  <p>Control plane for autonomous AI systems</p>
+  <h1>Agentic Reliability<br><span class="accent">Framework</span></h1>
+  <p class="tagline">Control plane for autonomous AI systems</p>
   <p><strong>Deterministic. Auditable. Reliable.</strong></p>
 </section>
 
 <section>
   <h2>Problem</h2>
   <ul>
-    <li>AI agents fail silently</li>
-    <li>No visibility into decisions</li>
-    <li>Failures cascade quickly</li>
+    <li class="fragment">AI agents fail silently</li>
+    <li class="fragment">No visibility into decisions</li>
+    <li class="fragment">Failures cascade quickly</li>
   </ul>
 </section>
 
 <section>
   <h2>Solution</h2>
   <ul>
-    <li>Reliability control plane for AI</li>
-    <li>Real-time anomaly detection</li>
-    <li>Automated self-healing</li>
+    <li class="fragment">Reliability control plane for AI</li>
+    <li class="fragment">Real-time anomaly detection</li>
+    <li class="fragment">Automated self-healing</li>
   </ul>
 </section>
 
 <section>
   <h2>How It Works</h2>
   <ul>
-    <li>Signal ingestion</li>
-    <li>Anomaly detection engine</li>
-    <li>Decision engine executes fixes</li>
-    <li>Feedback loop improves system</li>
+    <li class="fragment">Signal ingestion layer</li>
+    <li class="fragment">Anomaly detection engine</li>
+    <li class="fragment">Decision engine executes fixes</li>
+    <li class="fragment">Feedback loop improves system</li>
   </ul>
 </section>
 
 <section>
-  <h2>Traction & CTA</h2>
+  <h2>Traction & Call to Action</h2>
   <ul>
-    <li>Working prototype deployed</li>
-    <li>Live demo available</li>
-    <li>Seeking early adopters</li>
+    <li class="fragment">Working prototype deployed</li>
+    <li class="fragment">Live demo available</li>
+    <li class="fragment">Seeking early adopters</li>
   </ul>
 </section>
 
@@ -66,9 +114,11 @@
   Reveal.initialize({
     width: 1280,
     height: 720,
-    margin: 0.1,
-    minScale: 0.5,
-    maxScale: 1.5
+    margin: 0.08,
+    controls: true,
+    progress: true,
+    center: true,
+    transition: 'fade'
   });
 </script>
 </body>
