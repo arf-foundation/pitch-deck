@@ -63,6 +63,31 @@
       background: rgba(13,17,23,0.7);
     }
 
+    .qr-container {
+      display: flex;
+      gap: 40px;
+      margin-top: 30px;
+    }
+
+    .qr-box {
+      text-align: center;
+    }
+
+    .qr-box img {
+      width: 150px;
+      height: 150px;
+      border: 2px solid #30363d;
+      border-radius: 12px;
+      background: #0d1117;
+      padding: 6px;
+    }
+
+    .qr-box p {
+      margin-top: 8px;
+      font-size: 0.9em;
+      color: #8b949e;
+    }
+
     .footer {
       position: absolute;
       bottom: 15px;
@@ -134,6 +159,17 @@
 
   <div class="panel fragment">
     Building the reliability layer for autonomous systems
+  </div>
+
+  <div class="qr-container">
+    <div class="qr-box">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https%3A%2F%2Farf-frontend-sandy.vercel.app%2F" alt="Live Demo QR">
+      <p>Live Demo</p>
+    </div>
+    <div class="qr-box">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https%3A%2F%2Fwww.linkedin.com%2Fin%2Fpetterjuan%2F" alt="LinkedIn QR">
+      <p>LinkedIn</p>
+    </div>
   </div>
 
   <div class="footer">ARF — Juan Petter</div>
