@@ -12,7 +12,7 @@
     <!-- Font Awesome 6 (free) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Global reset to match reveal.js behavior, but we'll let individual slides override */
+        /* Base reveal overrides */
         .reveal {
             background: #0d1117;
         }
@@ -24,18 +24,15 @@
             justify-content: center;
             overflow: auto;
         }
-        /* Ensure each slide's own styles are scoped */
-        .reveal .slides section[data-state] {
-            all: initial; /* Reset reveal's default styles for that section only */
-            display: block;
-            width: 100%;
-            height: 100%;
+        /* Each slide's container will be sized to 1280x720 and centered */
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            margin: 0 auto;
         }
-        /* Reapply basic typography for content inside slides (optional) */
-        .reveal .slides section[data-state] * {
-            font-family: inherit;
-        }
-        /* We'll inject each slide's CSS within its section via style tags; no global overrides needed */
     </style>
 </head>
 <body>
@@ -43,590 +40,293 @@
     <div class="slides">
 
         <!-- ==================== SLIDE 1 ==================== -->
-        <section data-state="slide1">
-            <style>
-                /* Slide 1 styles (copied from slide1.html) */
-                .slide1-container {
-                    width: 1280px;
-                    height: 720px;
-                    background: radial-gradient(circle at 100% 0%, #161b22 0%, #0d1117 100%);
-                    position: relative;
-                    overflow: hidden;
-                    border-radius: 8px;
-                    margin: 0 auto;
-                }
-                .slide1-container .grid {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background-image: linear-gradient(#30363d 1px, transparent 1px),
-                                      linear-gradient(90deg, #30363d 1px, transparent 1px);
-                    background-size: 40px 40px;
-                    opacity: 0.15;
-                    pointer-events: none;
-                }
-                .slide1-container .content {
-                    position: relative;
-                    z-index: 2;
-                    padding: 60px 80px;
-                    height: 100%;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                }
-                .slide1-container .logo {
-                    font-family: 'Space Grotesk', monospace;
-                    font-weight: 700;
-                    font-size: 24px;
-                    color: #238636;
-                    margin-bottom: 40px;
-                }
-                .slide1-container .badge {
-                    position: absolute;
-                    top: 24px;
-                    right: 32px;
-                    background: rgba(218, 54, 51, 0.2);
-                    border: 1px solid #da3633;
-                    border-radius: 40px;
-                    padding: 6px 16px;
-                    font-size: 12px;
-                    font-weight: 600;
-                    font-family: 'JetBrains Mono', monospace;
-                    color: #ff7b72;
-                    backdrop-filter: blur(4px);
-                    z-index: 10;
-                }
-                .slide1-container h1 {
-                    font-family: 'Space Grotesk', sans-serif;
-                    font-size: 72px;
-                    font-weight: 700;
-                    line-height: 1.1;
-                    color: white;
-                    letter-spacing: -2px;
-                    margin-bottom: 24px;
-                }
-                .slide1-container h1 span {
-                    color: #238636;
-                }
-                .slide1-container .tagline {
-                    font-size: 28px;
-                    font-weight: 300;
-                    color: #8b949e;
-                    margin-bottom: 48px;
-                }
-                .slide1-container .tagline strong {
-                    color: white;
-                    font-weight: 500;
-                }
-                .slide1-container .cards {
-                    display: flex;
-                    gap: 24px;
-                    margin-top: 20px;
-                    margin-bottom: 24px;
-                }
-                .slide1-container .card {
-                    background: rgba(22, 27, 34, 0.9);
-                    border: 1px solid #30363d;
-                    border-radius: 12px;
-                    padding: 20px;
-                    width: 280px;
-                }
-                .slide1-container .card .label {
-                    font-family: 'JetBrains Mono', monospace;
-                    font-size: 14px;
-                    color: #8b949e;
-                    margin-bottom: 8px;
-                }
-                .slide1-container .card .value {
-                    font-size: 48px;
-                    font-weight: 700;
-                    color: white;
-                }
-                .slide1-container .card .sub {
-                    font-size: 14px;
-                    color: #8b949e;
-                }
-                .slide1-container .social-proof {
-                    font-size: 14px;
-                    color: #8b949e;
-                    margin-top: 8px;
-                    font-family: 'Inter', sans-serif;
-                    border-left: 2px solid #238636;
-                    padding-left: 12px;
-                }
-                .slide1-container .footer {
-                    margin-top: auto;
-                    display: flex;
-                    justify-content: space-between;
-                    font-size: 12px;
-                    color: #484f58;
-                    font-family: monospace;
-                    padding-top: 40px;
-                }
-            </style>
-            <div class="slide1-container">
-                <div class="grid"></div>
-                <div class="badge">⚡ Early Access Pilot — 5 spots left</div>
-                <div class="content">
-                    <div class="logo">ARF</div>
-                    <h1>Agentic Reliability<br><span>Framework</span></h1>
-                    <div class="tagline">
-                        Turn probabilistic AI into <strong>deterministic</strong>, <strong>auditable</strong> action — <strong style="color:#da3633;">before it fails.</strong>
+        <section>
+            <div class="slide-container" style="background: radial-gradient(circle at 100% 0%, #161b22 0%, #0d1117 100%);">
+                <div style="position: absolute; top:0; left:0; width:100%; height:100%; background-image: linear-gradient(#30363d 1px, transparent 1px), linear-gradient(90deg, #30363d 1px, transparent 1px); background-size: 40px 40px; opacity:0.15; pointer-events:none;"></div>
+                <div style="position: absolute; top:24px; right:32px; background: rgba(218,54,51,0.2); border:1px solid #da3633; border-radius:40px; padding:6px 16px; font-size:12px; font-weight:600; font-family:'JetBrains Mono', monospace; color:#ff7b72; backdrop-filter:blur(4px); z-index:10;">⚡ Early Access Pilot — 5 spots left</div>
+                <div style="position: relative; z-index:2; padding:60px 80px; height:100%; display:flex; flex-direction:column; justify-content:center;">
+                    <div style="font-family:'Space Grotesk', monospace; font-weight:700; font-size:24px; color:#238636; margin-bottom:40px;">ARF</div>
+                    <h1 style="font-family:'Space Grotesk', sans-serif; font-size:72px; font-weight:700; line-height:1.1; color:white; letter-spacing:-2px; margin-bottom:24px;">Agentic Reliability<br><span style="color:#238636;">Framework</span></h1>
+                    <div style="font-size:28px; font-weight:300; color:#8b949e; margin-bottom:48px;">Turn probabilistic AI into <strong style="color:white;">deterministic</strong>, <strong style="color:white;">auditable</strong> action — <strong style="color:#da3633;">before it fails.</strong></div>
+                    <div style="display:flex; gap:24px; margin-top:20px; margin-bottom:24px;">
+                        <div style="background: rgba(22,27,34,0.9); border:1px solid #30363d; border-radius:12px; padding:20px; width:280px;"><div style="font-family:'JetBrains Mono', monospace; font-size:14px; color:#8b949e; margin-bottom:8px;">MTTR REDUCTION</div><div style="font-size:48px; font-weight:700; color:white;">85%</div><div style="font-size:14px; color:#8b949e;">up to</div></div>
+                        <div style="background: rgba(22,27,34,0.9); border:1px solid #30363d; border-radius:12px; padding:20px; width:280px;"><div style="font-family:'JetBrains Mono', monospace; font-size:14px; color:#8b949e; margin-bottom:8px;">GOVERNANCE</div><div style="font-size:24px; font-weight:700; color:white;">Self‑Healing<br>Control Plane</div></div>
                     </div>
-                    <div class="cards">
-                        <div class="card">
-                            <div class="label">MTTR REDUCTION</div>
-                            <div class="value">85%</div>
-                            <div class="sub">up to</div>
-                        </div>
-                        <div class="card">
-                            <div class="label">GOVERNANCE</div>
-                            <div class="value" style="font-size: 24px;">Self‑Healing<br>Control Plane</div>
-                        </div>
-                    </div>
-                    <div class="social-proof">
-                        Trusted by early adopters in fintech and cloud-native AI
-                    </div>
-                    <div class="footer">
-                        <span>● Enterprise & OSS‑Ready</span>
-                        <span>v1.0 // PITCH DECK</span>
-                    </div>
+                    <div style="font-size:14px; color:#8b949e; margin-top:8px; border-left:2px solid #238636; padding-left:12px;">Trusted by early adopters in fintech and cloud-native AI</div>
+                    <div style="margin-top:auto; display:flex; justify-content:space-between; font-size:12px; color:#484f58; font-family:monospace; padding-top:40px;"><span>● Enterprise & OSS‑Ready</span><span>v1.0 // PITCH DECK</span></div>
                 </div>
             </div>
         </section>
 
         <!-- ==================== SLIDE 2 ==================== -->
-        <section data-state="slide2">
-            <style>
-                /* Slide 2 styles */
-                .slide2-container {
-                    width: 1280px;
-                    height: 720px;
-                    background: radial-gradient(circle at 0% 0%, #1a0e0e 0%, #0d1117 100%);
-                    position: relative;
-                    overflow: hidden;
-                    border-radius: 8px;
-                    margin: 0 auto;
-                }
-                .slide2-container .grid {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background-image: linear-gradient(#30363d 1px, transparent 1px),
-                                      linear-gradient(90deg, #30363d 1px, transparent 1px);
-                    background-size: 40px 40px;
-                    opacity: 0.08;
-                    pointer-events: none;
-                }
-                .slide2-container .content {
-                    position: relative;
-                    z-index: 2;
-                    padding: 60px 80px;
-                    height: 100%;
-                    display: flex;
-                    flex-direction: column;
-                }
-                .slide2-container h1 {
-                    font-family: 'Space Grotesk', sans-serif;
-                    font-size: 48px;
-                    font-weight: 700;
-                    color: white;
-                    letter-spacing: -1px;
-                    margin-bottom: 32px;
-                }
-                .slide2-container h1 span {
-                    color: #da3633;
-                }
-                .slide2-container .two-columns {
-                    display: flex;
-                    gap: 60px;
-                    flex: 1;
-                }
-                .slide2-container .column {
-                    flex: 1;
-                }
-                .slide2-container .metric-card {
-                    background: rgba(22, 27, 34, 0.8);
-                    border: 1px solid #da3633;
-                    border-radius: 12px;
-                    padding: 24px;
-                    margin-bottom: 24px;
-                }
-                .slide2-container .metric-card .icon {
-                    font-size: 32px;
-                    color: #da3633;
-                    margin-bottom: 12px;
-                }
-                .slide2-container .metric-card .label {
-                    font-family: 'JetBrains Mono', monospace;
-                    font-size: 14px;
-                    color: #da3633;
-                    font-weight: 600;
-                    margin-bottom: 8px;
-                }
-                .slide2-container .metric-card .big-number {
-                    font-size: 72px;
-                    font-weight: 700;
-                    color: white;
-                    line-height: 1;
-                    margin-bottom: 12px;
-                }
-                .slide2-container .metric-card .description {
-                    font-size: 16px;
-                    color: #c9d1d9;
-                    line-height: 1.4;
-                }
-                .slide2-container .metric-card .footnote {
-                    font-size: 12px;
-                    color: #8b949e;
-                    margin-top: 12px;
-                    border-top: 1px solid #30363d;
-                    padding-top: 8px;
-                }
-                .slide2-container .reason-card {
-                    background: rgba(22, 27, 34, 0.6);
-                    border-left: 4px solid #da3633;
-                    border-radius: 8px;
-                    padding: 20px;
-                    margin-bottom: 20px;
-                }
-                .slide2-container .reason-card h3 {
-                    font-size: 20px;
-                    font-weight: 600;
-                    color: white;
-                    margin-bottom: 8px;
-                }
-                .slide2-container .reason-card p {
-                    font-size: 16px;
-                    color: #8b949e;
-                    line-height: 1.4;
-                }
-                .slide2-container .reason-card i {
-                    color: #da3633;
-                    margin-right: 8px;
-                }
-                .slide2-container .result-box {
-                    background: rgba(218, 54, 51, 0.1);
-                    border-left: 4px solid #da3633;
-                    padding: 12px;
-                    margin-top: 12px;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                }
-                .slide2-container .result-text {
-                    font-family: monospace;
-                    font-size: 14px;
-                    color: #ff7b72;
-                }
-                .slide2-container .next-arrow {
-                    font-size: 20px;
-                    color: #238636;
-                    opacity: 0.8;
-                }
-                .slide2-container .footer {
-                    margin-top: auto;
-                    font-size: 12px;
-                    color: #484f58;
-                    font-family: monospace;
-                    padding-top: 20px;
-                    display: flex;
-                    justify-content: space-between;
-                }
-            </style>
-            <div class="slide2-container">
-                <div class="grid"></div>
-                <div class="content">
-                    <h1>The Problem: <span>Silent AI Failures at Scale</span></h1>
-                    <div class="two-columns">
-                        <div class="column">
-                            <div class="metric-card">
-                                <div class="icon">⚠️</div>
-                                <div class="label">OBSERVABILITY GAP</div>
-                                <div class="big-number">40%</div>
-                                <div class="description">of production AI incidents lack a clear root cause, leading to <strong>“silent failures”</strong> that <strong style="color:#da3633;">cost teams hours of unplanned work</strong> and erode trust.</div>
+        <section>
+            <div class="slide-container" style="background: radial-gradient(circle at 0% 0%, #1a0e0e 0%, #0d1117 100%);">
+                <div style="position: absolute; top:0; left:0; width:100%; height:100%; background-image: linear-gradient(#30363d 1px, transparent 1px), linear-gradient(90deg, #30363d 1px, transparent 1px); background-size:40px 40px; opacity:0.08; pointer-events:none;"></div>
+                <div style="position: relative; z-index:2; padding:60px 80px; height:100%; display:flex; flex-direction:column;">
+                    <h1 style="font-family:'Space Grotesk', sans-serif; font-size:48px; font-weight:700; color:white; letter-spacing:-1px; margin-bottom:32px;">The Problem: <span style="color:#da3633;">Silent AI Failures at Scale</span></h1>
+                    <div style="display:flex; gap:60px; flex:1;">
+                        <div style="flex:1;">
+                            <div style="background: rgba(22,27,34,0.8); border:1px solid #da3633; border-radius:12px; padding:24px; margin-bottom:24px;">
+                                <div style="font-size:32px; color:#da3633; margin-bottom:12px;">⚠️</div>
+                                <div style="font-family:'JetBrains Mono', monospace; font-size:14px; color:#da3633; font-weight:600; margin-bottom:8px;">OBSERVABILITY GAP</div>
+                                <div style="font-size:72px; font-weight:700; color:white; line-height:1; margin-bottom:12px;">40%</div>
+                                <div style="font-size:16px; color:#c9d1d9;">of production AI incidents lack a clear root cause, leading to <strong>“silent failures”</strong> that <strong style="color:#da3633;">cost teams hours of unplanned work</strong> and erode trust.</div>
                             </div>
-                            <div class="metric-card" style="border-color: #30363d;">
-                                <div class="icon">⏱️</div>
-                                <div class="label">OPERATIONAL IMPACT</div>
-                                <div class="big-number">&gt;4h</div>
-                                <div class="description">Mean Time To Recovery (MTTR) in complex agentic stacks due to non‑deterministic behavior.</div>
-                                <div class="footnote">Based on internal benchmarks from 50+ production AI environments</div>
+                            <div style="background: rgba(22,27,34,0.8); border:1px solid #30363d; border-radius:12px; padding:24px;">
+                                <div style="font-size:32px; color:#da3633; margin-bottom:12px;">⏱️</div>
+                                <div style="font-family:'JetBrains Mono', monospace; font-size:14px; color:#da3633; font-weight:600; margin-bottom:8px;">OPERATIONAL IMPACT</div>
+                                <div style="font-size:72px; font-weight:700; color:white; line-height:1; margin-bottom:12px;">&gt;4h</div>
+                                <div style="font-size:16px; color:#c9d1d9;">Mean Time To Recovery (MTTR) in complex agentic stacks due to non‑deterministic behavior.</div>
+                                <div style="font-size:12px; color:#8b949e; margin-top:12px; border-top:1px solid #30363d; padding-top:8px;">Based on internal benchmarks from 50+ production AI environments</div>
                             </div>
                         </div>
-                        <div class="column">
-                            <div class="reason-card">
-                                <h3><i>🧠</i> Cognitive Blind Spots</h3>
-                                <p>Operators suffer from anchoring bias, trusting probabilistic LLM outputs as factual, leading to delayed intervention.</p>
-                            </div>
-                            <div class="reason-card">
-                                <h3><i>🔔</i> Insufficient Trust Calibration</h3>
-                                <p>Static alerts fail to capture emergent behaviors in multi‑agent systems, causing silent drift.</p>
-                            </div>
-                            <div class="reason-card">
-                                <h3><i>🤖</i> Autonomous Execution Risk</h3>
-                                <p>Without deterministic guardrails, probabilistic agents can execute harmful actions at machine speed.</p>
-                            </div>
-                            <div class="result-box">
-                                <span class="result-text">Without ARF → Unmanaged probabilistic risk</span>
-                                <span class="next-arrow">→ ARF: Deterministic control</span>
-                            </div>
+                        <div style="flex:1;">
+                            <div style="background: rgba(22,27,34,0.6); border-left:4px solid #da3633; border-radius:8px; padding:20px; margin-bottom:20px;"><h3 style="font-size:20px; font-weight:600; color:white; margin-bottom:8px;"><i style="color:#da3633; margin-right:8px;">🧠</i> Cognitive Blind Spots</h3><p style="font-size:16px; color:#8b949e;">Operators suffer from anchoring bias, trusting probabilistic LLM outputs as factual, leading to delayed intervention.</p></div>
+                            <div style="background: rgba(22,27,34,0.6); border-left:4px solid #da3633; border-radius:8px; padding:20px; margin-bottom:20px;"><h3 style="font-size:20px; font-weight:600; color:white; margin-bottom:8px;"><i style="color:#da3633; margin-right:8px;">🔔</i> Insufficient Trust Calibration</h3><p style="font-size:16px; color:#8b949e;">Static alerts fail to capture emergent behaviors in multi‑agent systems, causing silent drift.</p></div>
+                            <div style="background: rgba(22,27,34,0.6); border-left:4px solid #da3633; border-radius:8px; padding:20px; margin-bottom:20px;"><h3 style="font-size:20px; font-weight:600; color:white; margin-bottom:8px;"><i style="color:#da3633; margin-right:8px;">🤖</i> Autonomous Execution Risk</h3><p style="font-size:16px; color:#8b949e;">Without deterministic guardrails, probabilistic agents can execute harmful actions at machine speed.</p></div>
+                            <div style="background: rgba(218,54,51,0.1); border-left:4px solid #da3633; padding:12px; margin-top:12px; display:flex; justify-content:space-between; align-items:center;"><span style="font-family:monospace; font-size:14px; color:#ff7b72;">Without ARF → Unmanaged probabilistic risk</span><span style="font-size:20px; color:#238636; opacity:0.8;">→ ARF: Deterministic control</span></div>
                         </div>
                     </div>
-                    <div class="footer">
-                        <span>ARF // THE PROBLEM</span>
-                        <span>Data sources: Google SRE Book, IBM AI Outcomes Report 2024</span>
-                    </div>
+                    <div style="margin-top:auto; font-size:12px; color:#484f58; font-family:monospace; padding-top:20px; display:flex; justify-content:space-between;"><span>ARF // THE PROBLEM</span><span>Data sources: Google SRE Book, IBM AI Outcomes Report 2024</span></div>
                 </div>
             </div>
         </section>
 
         <!-- ==================== SLIDE 3 ==================== -->
-        <section data-state="slide3">
-            <style>
-                /* Slide 3 styles (condensed for brevity – full CSS copied from original) */
-                .slide3-container {
-                    width: 1280px;
-                    height: 720px;
-                    background: #0d1117;
-                    position: relative;
-                    overflow: hidden;
-                    border-radius: 8px;
-                    margin: 0 auto;
-                }
-                .slide3-container .grid {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background-image: linear-gradient(#30363d 1px, transparent 1px),
-                                      linear-gradient(90deg, #30363d 1px, transparent 1px);
-                    background-size: 40px 40px;
-                    opacity: 0.08;
-                    pointer-events: none;
-                }
-                .slide3-container .vertical-divider {
-                    position: absolute;
-                    left: 50%;
-                    top: 140px;
-                    bottom: 80px;
-                    width: 1px;
-                    background: #30363d;
-                    opacity: 0.5;
-                    transform: translateX(-50%);
-                }
-                .slide3-container .content {
-                    position: relative;
-                    z-index: 2;
-                    padding: 60px 80px;
-                    height: 100%;
-                    display: flex;
-                    flex-direction: column;
-                }
-                .slide3-container h1 {
-                    font-family: 'Space Grotesk', sans-serif;
-                    font-size: 48px;
-                    font-weight: 700;
-                    color: white;
-                    letter-spacing: -1px;
-                    margin-bottom: 12px;
-                }
-                .slide3-container h1 span:first-child { color: #8b949e; }
-                .slide3-container h1 span:last-child { color: #238636; }
-                .slide3-container .subhead {
-                    font-size: 20px;
-                    font-weight: 300;
-                    color: #8b949e;
-                    margin-bottom: 48px;
-                }
-                .slide3-container .two-columns {
-                    display: flex;
-                    gap: 60px;
-                    flex: 1;
-                }
-                .slide3-container .column {
-                    flex: 1;
-                }
-                .slide3-container .column-header {
-                    display: flex;
-                    align-items: center;
-                    gap: 12px;
-                    margin-bottom: 24px;
-                    border-bottom: 2px solid #8b949e;
-                    padding-bottom: 12px;
-                }
-                .slide3-container .column-header i { font-size: 24px; }
-                .slide3-container .column-header h2 {
-                    font-family: 'JetBrains Mono', monospace;
-                    font-size: 18px;
-                    font-weight: 700;
-                    color: #c9d1d9;
-                    letter-spacing: -0.5px;
-                }
-                .slide3-container .feature-item {
-                    background: rgba(13, 17, 23, 0.6);
-                    border: 1px solid #30363d;
-                    border-radius: 8px;
-                    padding: 16px;
-                    margin-bottom: 16px;
-                }
-                .slide3-container .feature-item i {
-                    font-size: 20px;
-                    margin-right: 12px;
-                    width: 28px;
-                    display: inline-block;
-                }
-                .slide3-container .feature-item .title {
-                    font-weight: 600;
-                    font-size: 18px;
-                    color: white;
-                    margin-bottom: 4px;
-                }
-                .slide3-container .feature-item .desc {
-                    font-size: 14px;
-                    color: #8b949e;
-                    line-height: 1.4;
-                    margin-left: 40px;
-                }
-                .slide3-container .left-col .feature-item i { color: #da3633; }
-                .slide3-container .right-col .feature-item i { color: #238636; }
-                .slide3-container .right-col .feature-item { border-color: #238636; }
-                .slide3-container .outcome {
-                    margin-top: auto;
-                    text-align: center;
-                    padding: 16px 0;
-                    border-top: 1px solid #30363d;
-                    font-size: 18px;
-                    font-weight: 500;
-                    color: white;
-                }
-                .slide3-container .outcome span.strike {
-                    text-decoration: line-through;
-                    color: #8b949e;
-                }
-                .slide3-container .outcome span.highlight {
-                    color: #1f6feb;
-                    font-weight: 700;
-                }
-                .slide3-container .footer {
-                    margin-top: 12px;
-                    font-size: 12px;
-                    color: #484f58;
-                    font-family: monospace;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                }
-                .slide3-container .qr {
-                    display: flex;
-                    align-items: center;
-                    gap: 8px;
-                }
-                .slide3-container .qr img {
-                    width: 32px;
-                    height: 32px;
-                    border-radius: 4px;
-                }
-            </style>
-            <div class="slide3-container">
-                <div class="grid"></div>
-                <div class="vertical-divider"></div>
-                <div class="content">
-                    <h1>Current Limitations: <span>Observability</span> ≠ <span>Governance</span></h1>
-                    <div class="subhead">Why dashboards fail to control autonomous agents</div>
-                    <div class="two-columns">
-                        <div class="column left-col">
-                            <div class="column-header">
-                                <i class="fas fa-chart-bar" style="color:#8b949e;"></i>
-                                <h2>CONVENTIONAL OBSERVABILITY</h2>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-circle-exclamation"></i>
-                                <div class="title">Reactive & Partial</div>
-                                <div class="desc">Relies on logs/traces after failure. No uncertainty quantification; blind to prompt drift.</div>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-user-clock"></i>
-                                <div class="title">Human Bottlenecks</div>
-                                <div class="desc">Operators cannot interpret agent traces at machine speed; alert fatigue leads to missed signals.</div>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-eye-slash"></i>
-                                <div class="title">Emergent Blind Spots</div>
-                                <div class="desc">Misses latent coupling in multi‑agent systems and non‑stationary behavior.</div>
-                            </div>
+        <section>
+            <div class="slide-container" style="background:#0d1117;">
+                <div style="position: absolute; top:0; left:0; width:100%; height:100%; background-image: linear-gradient(#30363d 1px, transparent 1px), linear-gradient(90deg, #30363d 1px, transparent 1px); background-size:40px 40px; opacity:0.08; pointer-events:none;"></div>
+                <div style="position: absolute; left:50%; top:140px; bottom:80px; width:1px; background:#30363d; opacity:0.5; transform:translateX(-50%);"></div>
+                <div style="position: relative; z-index:2; padding:60px 80px; height:100%; display:flex; flex-direction:column;">
+                    <h1 style="font-family:'Space Grotesk', sans-serif; font-size:48px; font-weight:700; color:white; letter-spacing:-1px; margin-bottom:12px;">Current Limitations: <span style="color:#8b949e;">Observability</span> ≠ <span style="color:#238636;">Governance</span></h1>
+                    <div style="font-size:20px; font-weight:300; color:#8b949e; margin-bottom:48px;">Why dashboards fail to control autonomous agents</div>
+                    <div style="display:flex; gap:60px; flex:1;">
+                        <div style="flex:1;">
+                            <div style="display:flex; align-items:center; gap:12px; margin-bottom:24px; border-bottom:2px solid #8b949e; padding-bottom:12px;"><i class="fas fa-chart-bar" style="font-size:24px; color:#8b949e;"></i><h2 style="font-family:'JetBrains Mono', monospace; font-size:18px; font-weight:700; color:#c9d1d9;">CONVENTIONAL OBSERVABILITY</h2></div>
+                            <div style="background:rgba(13,17,23,0.6); border:1px solid #30363d; border-radius:8px; padding:16px; margin-bottom:16px;"><i class="fas fa-circle-exclamation" style="font-size:20px; margin-right:12px; width:28px; display:inline-block; color:#da3633;"></i><div class="title" style="font-weight:600; font-size:18px; color:white; margin-bottom:4px;">Reactive & Partial</div><div class="desc" style="font-size:14px; color:#8b949e; margin-left:40px;">Relies on logs/traces after failure. No uncertainty quantification; blind to prompt drift.</div></div>
+                            <div style="background:rgba(13,17,23,0.6); border:1px solid #30363d; border-radius:8px; padding:16px; margin-bottom:16px;"><i class="fas fa-user-clock" style="font-size:20px; margin-right:12px; width:28px; display:inline-block; color:#da3633;"></i><div class="title" style="font-weight:600; font-size:18px; color:white; margin-bottom:4px;">Human Bottlenecks</div><div class="desc" style="font-size:14px; color:#8b949e; margin-left:40px;">Operators cannot interpret agent traces at machine speed; alert fatigue leads to missed signals.</div></div>
+                            <div style="background:rgba(13,17,23,0.6); border:1px solid #30363d; border-radius:8px; padding:16px; margin-bottom:16px;"><i class="fas fa-eye-slash" style="font-size:20px; margin-right:12px; width:28px; display:inline-block; color:#da3633;"></i><div class="title" style="font-weight:600; font-size:18px; color:white; margin-bottom:4px;">Emergent Blind Spots</div><div class="desc" style="font-size:14px; color:#8b949e; margin-left:40px;">Misses latent coupling in multi‑agent systems and non‑stationary behavior.</div></div>
                         </div>
-                        <div class="column right-col">
-                            <div class="column-header">
-                                <i class="fas fa-shield-halved" style="color:#238636;"></i>
-                                <h2>ARF GOVERNANCE (OSS v4.2.0+)</h2>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-scale-balanced"></i>
-                                <div class="title">Bayesian Risk Modeling</div>
-                                <div class="desc">Quantifies uncertainty using hierarchical priors and HMC sampling. Provides calibrated risk probabilities.</div>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-gavel"></i>
-                                <div class="title">Deterministic Policy Thresholds (DPT)</div>
-                                <div class="desc">Approve if P(failure) &lt; 0.2, Escalate if 0.2 ≤ P(failure) ≤ 0.8, Deny if &gt; 0.8. Fully auditable.</div>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-heart-pulse"></i>
-                                <div class="title">HealingIntent & Self‑Healing</div>
-                                <div class="desc">Immutable advisory output with 30+ fields capturing uncertainty, evidence, remediation parameters, and decision justification.</div>
-                            </div>
+                        <div style="flex:1;">
+                            <div style="display:flex; align-items:center; gap:12px; margin-bottom:24px; border-bottom:2px solid #8b949e; padding-bottom:12px;"><i class="fas fa-shield-halved" style="font-size:24px; color:#238636;"></i><h2 style="font-family:'JetBrains Mono', monospace; font-size:18px; font-weight:700; color:#c9d1d9;">ARF GOVERNANCE (OSS v4.2.0+)</h2></div>
+                            <div style="background:rgba(13,17,23,0.6); border:1px solid #238636; border-radius:8px; padding:16px; margin-bottom:16px;"><i class="fas fa-scale-balanced" style="font-size:20px; margin-right:12px; width:28px; display:inline-block; color:#238636;"></i><div class="title" style="font-weight:600; font-size:18px; color:white; margin-bottom:4px;">Bayesian Risk Modeling</div><div class="desc" style="font-size:14px; color:#8b949e; margin-left:40px;">Quantifies uncertainty using hierarchical priors and HMC sampling. Provides calibrated risk probabilities.</div></div>
+                            <div style="background:rgba(13,17,23,0.6); border:1px solid #238636; border-radius:8px; padding:16px; margin-bottom:16px;"><i class="fas fa-gavel" style="font-size:20px; margin-right:12px; width:28px; display:inline-block; color:#238636;"></i><div class="title" style="font-weight:600; font-size:18px; color:white; margin-bottom:4px;">Deterministic Policy Thresholds (DPT)</div><div class="desc" style="font-size:14px; color:#8b949e; margin-left:40px;">Approve if P(failure) &lt; 0.2, Escalate if 0.2 ≤ P(failure) ≤ 0.8, Deny if &gt; 0.8. Fully auditable.</div></div>
+                            <div style="background:rgba(13,17,23,0.6); border:1px solid #238636; border-radius:8px; padding:16px; margin-bottom:16px;"><i class="fas fa-heart-pulse" style="font-size:20px; margin-right:12px; width:28px; display:inline-block; color:#238636;"></i><div class="title" style="font-weight:600; font-size:18px; color:white; margin-bottom:4px;">HealingIntent & Self‑Healing</div><div class="desc" style="font-size:14px; color:#8b949e; margin-left:40px;">Immutable advisory output with 30+ fields capturing uncertainty, evidence, remediation parameters, and decision justification.</div></div>
                         </div>
                     </div>
-                    <div class="outcome">
-                        Outcome: Shift from <span class="strike">passive monitoring</span> to <span class="highlight">deterministic, auditable control</span>.
-                    </div>
-                    <div class="footer">
-                        <span>ARF // CURRENT LIMITATIONS</span>
-                        <div class="qr">
-                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=60x60&data=https://calendly.com/petter2025us/30min" alt="Book a call QR">
-                            <span>Book a technical call</span>
-                        </div>
-                    </div>
+                    <div style="margin-top:auto; text-align:center; padding:16px 0; border-top:1px solid #30363d; font-size:18px; font-weight:500; color:white;">Outcome: Shift from <span style="text-decoration:line-through; color:#8b949e;">passive monitoring</span> to <span style="color:#1f6feb; font-weight:700;">deterministic, auditable control</span>.</div>
+                    <div style="margin-top:12px; font-size:12px; color:#484f58; font-family:monospace; display:flex; justify-content:space-between;"><span>ARF // CURRENT LIMITATIONS</span><div style="display:flex; align-items:center; gap:8px;"><img src="https://api.qrserver.com/v1/create-qr-code/?size=60x60&data=https://calendly.com/petter2025us/30min" style="width:32px; height:32px; border-radius:4px;"><span>Book a technical call</span></div></div>
                 </div>
             </div>
         </section>
 
         <!-- ==================== SLIDE 4 ==================== -->
-        <section data-state="slide4">
-            <style>
-                /* Slide 4 styles (excerpt) – full copy from original */
-                .slide4-container {
-                    width: 1280px;
-                    height: 720px;
-                    background: radial-gradient(circle at 100% 100%, #1c2128 0%, #0d1117 100%);
-                    position: relative;
-                    overflow: hidden;
-                    border-radius: 8px;
-                    margin: 0 auto;
-                }
-                /* ... (all original styles for slide4) ... */
-                /* For brevity, we include the full CSS from the original slide4.html */
-                /* I'll copy the exact CSS from the provided slide4.html content */
-                /* (We'll inline it fully, but to keep this answer manageable, I'm showing a representative block) */
-                /* In actual final file, we would paste the entire slide4 CSS here */
-            </style>
-            <div class="slide4-container">
-                <!-- Full content of slide4.html goes here, including the Mermaid diagram -->
-                <!-- For brevity in this answer, I'm indicating that the full content is used -->
-                <!-- In practice, we would copy the entire slide4 HTML content here -->
+        <section>
+            <div class="slide-container" style="background: radial-gradient(circle at 100% 100%, #1c2128 0%, #0d1117 100%);">
+                <div style="position: absolute; top:0; left:0; width:100%; height:100%; background-image: linear-gradient(#30363d 1px, transparent 1px), linear-gradient(90deg, #30363d 1px, transparent 1px); background-size:40px 40px; opacity:0.08; pointer-events:none;"></div>
+                <div style="position: relative; z-index:2; padding:60px 80px; height:100%; display:flex; flex-direction:column;">
+                    <h1 style="font-family:'Space Grotesk', sans-serif; font-size:48px; font-weight:700; color:white; letter-spacing:-1px; margin-bottom:12px;">The Solution: <span style="color:#238636;">ARF Core Engine</span></h1>
+                    <div style="font-size:20px; font-weight:300; color:#8b949e; margin-bottom:40px;">Hybrid Bayesian‑Deterministic Control Plane (OSS v4.2.0+)</div>
+                    <div style="display:flex; gap:40px; flex:1;">
+                        <div style="flex:1; display:flex; flex-direction:column; gap:16px;">
+                            <div style="background:rgba(13,17,23,0.5); border-left:4px solid #238636; border-radius:8px; padding:16px;"><i class="fas fa-brain" style="font-size:20px; margin-right:12px; width:28px; display:inline-block; color:#238636;"></i><div class="title" style="font-weight:600; font-size:18px; color:white; margin-bottom:6px;">Bayesian Risk Engine</div><div class="desc" style="font-size:14px; color:#c9d1d9; margin-left:40px;">Computes <code>P(risk|signals)</code> using hierarchical priors and Hamiltonian Monte Carlo (HMC). Provides calibrated uncertainty intervals.</div></div>
+                            <div style="background:rgba(13,17,23,0.5); border-left:4px solid #1f6feb; border-radius:8px; padding:16px;"><i class="fas fa-database" style="font-size:20px; margin-right:12px; width:28px; display:inline-block; color:#1f6feb;"></i><div class="title" style="font-weight:600; font-size:18px; color:white; margin-bottom:6px;">Semantic Memory (FAISS)</div><div class="desc" style="font-size:14px; color:#c9d1d9; margin-left:40px;">Retrieves similar past incidents to calibrate risk priors in real time. Supports similarity search and outcome tracking.</div></div>
+                            <div style="background:rgba(13,17,23,0.5); border-left:4px solid #a371f7; border-radius:8px; padding:16px;"><i class="fas fa-scale-balanced" style="font-size:20px; margin-right:12px; width:28px; display:inline-block; color:#a371f7;"></i><div class="title" style="font-weight:600; font-size:18px; color:white; margin-bottom:6px;">Deterministic Policy Thresholds (DPT)</div></div>
+                            <div style="background:rgba(163,113,247,0.1); border:1px solid #a371f7; border-radius:8px; padding:12px; font-family:'JetBrains Mono', monospace; font-size:13px; color:#e6edf3; text-align:center;"><code>Approve if P(failure) < 0.2</code><br><code>Escalate if 0.2 ≤ P(failure) ≤ 0.8</code><br><code>Deny if P(failure) > 0.8</code></div>
+                            <div style="background:rgba(13,17,23,0.5); border-left:4px solid #da3633; border-radius:8px; padding:16px;"><i class="fas fa-kit-medical" style="font-size:20px; margin-right:12px; width:28px; display:inline-block; color:#da3633;"></i><div class="title" style="font-weight:600; font-size:18px; color:white; margin-bottom:6px;">HealingIntent & Advisory Output</div><div class="desc" style="font-size:14px; color:#c9d1d9; margin-left:40px;">Immutable intent with 30+ fields: uncertainty metrics, supporting evidence, remediation parameters, escalation indicators, decision justification, governance metadata. OSS advisory only – no execution.</div></div>
+                        </div>
+                        <div style="flex:1.2; background:rgba(13,17,23,0.4); border-radius:12px; padding:20px; display:flex; align-items:center; justify-content:center;">
+                            <pre class="mermaid" style="background:transparent;">
+                                flowchart TD
+                                    subgraph Input["🔌 Input Sources"]
+                                        Services[Agents / Services]
+                                        Metrics[Metrics / Logs]
+                                    end
+                                    Services --> Signals[Observability Signals]
+                                    Metrics --> Signals
+                                    Signals --> Interpreter[ARF Reliability Interpreter]
+                                    subgraph Engine["⚙️ ARF Core Engine (v4.2.0+)"]
+                                        Interpreter --> Risk[Bayesian Risk Engine]
+                                        Risk --> Intent[Healing Intent Engine]
+                                    end
+                                    Intent --> Recovery[Advisory Output]
+                                    style Interpreter fill:#e1f5fe,stroke:#01579b
+                                    style Risk fill:#fff3e0,stroke:#e65100
+                                    style Intent fill:#e8f5e8,stroke:#1b5e20
+                            </pre>
+                        </div>
+                    </div>
+                    <div style="margin-top:20px; font-size:12px; color:#484f58; font-family:monospace; display:flex; justify-content:space-between; border-top:1px solid #30363d; padding-top:16px;"><span>ARF // ARCHITECTURE</span><div style="display:flex; align-items:center; gap:8px;"><img src="https://api.qrserver.com/v1/create-qr-code/?size=60x60&data=https://calendly.com/petter2025us/30min" style="width:32px; height:32px; border-radius:4px;"><span>Book a technical call</span></div></div>
+                </div>
             </div>
         </section>
 
         <!-- ==================== SLIDE 5 ==================== -->
-        <!-- Similarly for slides 5–10, we would embed their full HTML content and styles -->
+        <section>
+            <div class="slide-container" style="background:#0d1117;">
+                <div style="position: absolute; top:0; left:0; width:100%; height:100%; background-image: linear-gradient(#30363d 1px, transparent 1px), linear-gradient(90deg, #30363d 1px, transparent 1px); background-size:40px 40px; opacity:0.08; pointer-events:none;"></div>
+                <div style="position: relative; z-index:2; padding:50px 60px; height:100%; display:flex; flex-direction:column;">
+                    <h1 style="font-family:'Space Grotesk', sans-serif; font-size:48px; font-weight:700; color:white; letter-spacing:-1px; margin-bottom:24px;">How It Works: <span style="color:#1f6feb;">From Signals to Advisory Output</span></h1>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:40px; background:rgba(13,17,23,0.6); padding:20px 30px; border-radius:60px; border:1px solid #30363d;">
+                        <div style="text-align:center; flex:1;"><i class="fas fa-right-to-bracket" style="font-size:28px; margin-bottom:8px; display:block;"></i><div style="font-family:'JetBrains Mono', monospace; font-size:13px; font-weight:600; color:#8b949e;">1. INPUT</div></div>
+                        <div class="arrow" style="color:#30363d; font-size:20px; margin:0 5px;"><i class="fas fa-chevron-right"></i></div>
+                        <div style="text-align:center; flex:1;"><i class="fas fa-eye" style="font-size:28px; margin-bottom:8px; display:block;"></i><div style="font-family:'JetBrains Mono', monospace; font-size:13px; font-weight:600; color:#8b949e;">2. SIGNALS</div></div>
+                        <div class="arrow" style="color:#30363d; font-size:20px; margin:0 5px;"><i class="fas fa-chevron-right"></i></div>
+                        <div style="text-align:center; flex:1;"><i class="fas fa-brain" style="font-size:28px; margin-bottom:8px; display:block; color:#238636; text-shadow:0 0 8px rgba(35,134,54,0.3);"></i><div style="font-family:'JetBrains Mono', monospace; font-size:13px; font-weight:600; color:#238636;">3. RISK ENGINE</div></div>
+                        <div class="arrow" style="color:#30363d; font-size:20px; margin:0 5px;"><i class="fas fa-chevron-right"></i></div>
+                        <div style="text-align:center; flex:1;"><i class="fas fa-file-medical" style="font-size:28px; margin-bottom:8px; display:block;"></i><div style="font-family:'JetBrains Mono', monospace; font-size:13px; font-weight:600; color:#8b949e;">4. HEALING INTENT</div></div>
+                        <div class="arrow" style="color:#30363d; font-size:20px; margin:0 5px;"><i class="fas fa-chevron-right"></i></div>
+                        <div style="text-align:center; flex:1;"><i class="fas fa-rotate-left" style="font-size:28px; margin-bottom:8px; display:block;"></i><div style="font-family:'JetBrains Mono', monospace; font-size:13px; font-weight:600; color:#8b949e;">5. ADVISORY</div></div>
+                    </div>
+                    <div style="display:flex; gap:24px; margin-bottom:30px;">
+                        <div style="flex:1; background:#161b22; border:1px solid #30363d; border-radius:8px; overflow:hidden;">
+                            <div style="background:#21262d; padding:8px 12px; font-family:'JetBrains Mono', monospace; font-size:12px; color:#8b949e; border-bottom:1px solid #30363d; display:flex; align-items:center; gap:8px;"><i class="fas fa-terminal" style="color:#238636;"></i> bash — curl</div>
+                            <div style="padding:12px; font-family:'JetBrains Mono', monospace; font-size:11px; line-height:1.5; color:#e6edf3; overflow-x:auto; white-space:pre-wrap;">curl -X POST https://a-r-f-agentic-reliability-framework-api.hf.space/api/v1/incidents/evaluate \<br>&nbsp;&nbsp;-H <span style="color:#a5d6ff;">"Content-Type: application/json"</span> \<br>&nbsp;&nbsp;-d <span style="color:#a5d6ff;">'{<br>&nbsp;&nbsp;&nbsp;&nbsp;"service_name": "api",<br>&nbsp;&nbsp;&nbsp;&nbsp;"event_type": "latency",<br>&nbsp;&nbsp;&nbsp;&nbsp;"severity": "high",<br>&nbsp;&nbsp;&nbsp;&nbsp;"metrics": {"latency_ms": 450}<br>&nbsp;&nbsp;}'</span></div>
+                        </div>
+                        <div style="flex:1; background:#161b22; border:1px solid #30363d; border-radius:8px; overflow:hidden;">
+                            <div style="background:#21262d; padding:8px 12px; font-family:'JetBrains Mono', monospace; font-size:12px; color:#8b949e; border-bottom:1px solid #30363d; display:flex; align-items:center; gap:8px;"><i class="fas fa-code" style="color:#238636;"></i> policy_engine.py</div>
+                            <div style="padding:12px; font-family:'JetBrains Mono', monospace; font-size:11px; line-height:1.5; color:#e6edf3;"><span style="color:#8b949e;"># Bayesian Inference</span><br>risk_p = model.<span style="color:#d2a8ff;">sample</span>(priors, signals)<br><br><span style="color:#ff7b72;">if</span> risk_p &lt; <span style="color:#79c0ff;">0.2</span>:<br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ff7b72;">return</span> Action.<span style="color:#d2a8ff;">APPROVE</span><br><span style="color:#ff7b72;">elif</span> risk_p &gt; <span style="color:#79c0ff;">0.8</span>:<br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ff7b72;">return</span> Action.<span style="color:#d2a8ff;">DENY</span><br><span style="color:#ff7b72;">else</span>:<br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ff7b72;">return</span> Action.<span style="color:#d2a8ff;">ESCALATE</span></div>
+                        </div>
+                        <div style="flex:1; background:#161b22; border:1px solid #30363d; border-radius:8px; overflow:hidden;">
+                            <div style="background:#21262d; padding:8px 12px; font-family:'JetBrains Mono', monospace; font-size:12px; color:#8b949e; border-bottom:1px solid #30363d; display:flex; align-items:center; gap:8px;"><i class="fas fa-file-code" style="color:#238636;"></i> HealingIntent (advisory output)</div>
+                            <div style="padding:12px; font-family:'JetBrains Mono', monospace; font-size:11px; line-height:1.5; color:#e6edf3;">{<br>&nbsp;&nbsp;<span style="color:#a5d6ff;">"risk_probability"</span>: <span style="color:#79c0ff;">0.86</span>,<br>&nbsp;&nbsp;<span style="color:#a5d6ff;">"decision"</span>: <span style="color:#a5d6ff;">"deny"</span>,<br>&nbsp;&nbsp;<span style="color:#a5d6ff;">"action"</span>: <span style="color:#a5d6ff;">"rollback"</span>,<br>&nbsp;&nbsp;<span style="color:#a5d6ff;">"explanation"</span>: <span style="color:#a5d6ff;">"Posterior &gt; 0.8 DPT"</span>,<br>&nbsp;&nbsp;<span style="color:#a5d6ff;">"audit_id"</span>: <span style="color:#a5d6ff;">"evt_992a8c"</span>,<br>&nbsp;&nbsp;<span style="color:#a5d6ff;">"source"</span>: <span style="color:#a5d6ff;">"oss_analysis"</span><br>}</div>
+                        </div>
+                    </div>
+                    <div style="background:rgba(163,113,247,0.1); border:1px solid #a371f7; border-radius:12px; padding:16px 20px; display:flex; align-items:center; justify-content:space-between; margin-top:10px;">
+                        <div style="display:flex; align-items:center; gap:20px;">
+                            <div style="font-family:'JetBrains Mono', monospace; font-size:14px; background:#0d1117; padding:8px 16px; border-radius:8px; color:#a371f7;">P(risk) = 0.86</div>
+                            <div style="color:#a371f7; font-size:20px;">→</div>
+                            <div style="display:flex; gap:24px;">
+                                <div style="text-align:center;"><div style="font-family:'JetBrains Mono', monospace; font-weight:700; font-size:16px; color:#238636;">&lt; 0.2</div><div style="font-size:12px; color:#8b949e;">APPROVE</div></div>
+                                <div style="text-align:center;"><div style="font-family:'JetBrains Mono', monospace; font-weight:700; font-size:16px; color:#e3b341;">0.2 – 0.8</div><div style="font-size:12px; color:#8b949e;">ESCALATE</div></div>
+                                <div style="text-align:center;"><div style="font-family:'JetBrains Mono', monospace; font-weight:700; font-size:16px; color:#da3633;">&gt; 0.8</div><div style="font-size:12px; color:#8b949e;">DENY</div></div>
+                            </div>
+                        </div>
+                        <div style="font-size:12px; color:#a371f7;"><i class="fas fa-robot"></i> OSS advisory only – no automated execution</div>
+                    </div>
+                    <div style="margin-top:20px; font-size:12px; color:#484f58; font-family:monospace; display:flex; justify-content:space-between; border-top:1px solid #30363d; padding-top:12px;"><span>ARF // WORKFLOW</span><div style="display:flex; align-items:center; gap:8px;"><img src="https://api.qrserver.com/v1/create-qr-code/?size=60x60&data=https://calendly.com/petter2025us/30min" style="width:32px; height:32px; border-radius:4px;"><span>Book a technical call</span></div></div>
+                </div>
+            </div>
+        </section>
 
-        <!-- But to keep the answer manageable, I'll illustrate the pattern: each slide gets its own section with its own CSS and content. -->
+        <!-- ==================== SLIDE 6 ==================== -->
+        <section>
+            <div class="slide-container" style="background:#0d1117;">
+                <div style="position: absolute; top:0; left:0; width:100%; height:100%; background-image: linear-gradient(#30363d 1px, transparent 1px), linear-gradient(90deg, #30363d 1px, transparent 1px); background-size:40px 40px; opacity:0.08; pointer-events:none;"></div>
+                <div style="position: relative; z-index:2; padding:50px 60px; height:100%; display:flex; flex-direction:column;">
+                    <h1 style="font-family:'Space Grotesk', sans-serif; font-size:48px; font-weight:700; color:white; letter-spacing:-1px; margin-bottom:12px;">Key Capabilities & <span style="color:#a371f7;">Differentiators</span></h1>
+                    <div style="font-size:20px; font-weight:300; color:#8b949e; margin-bottom:40px;">Technical foundations for deterministic AI governance</div>
+                    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px; flex:1;">
+                        <div style="background:#161b22; border-radius:12px; border-top:4px solid #238636; padding:20px;"><i class="fas fa-chart-area" style="font-size:28px; margin-bottom:12px; display:inline-block; color:#238636;"></i><h3 style="font-family:'Space Grotesk', sans-serif; font-size:20px; font-weight:600; color:white; margin-bottom:12px;">Bayesian Risk Scoring</h3><p style="font-size:14px; color:#c9d1d9; line-height:1.5;">Hierarchical priors + HMC sampling → calibrated uncertainty intervals (95% CI). Quantifies "how much we don't know" instead of point estimates.</p></div>
+                        <div style="background:#161b22; border-radius:12px; border-top:4px solid #238636; padding:20px;"><i class="fas fa-microchip" style="font-size:28px; margin-bottom:12px; display:inline-block; color:#238636;"></i><h3 style="font-family:'Space Grotesk', sans-serif; font-size:20px; font-weight:600; color:white; margin-bottom:12px;">Hybrid Inference Engine</h3><p style="font-size:14px; color:#c9d1d9; line-height:1.5;">HMC for complex posteriors + online conjugate updates → millisecond latency for real‑time guardrails.</p></div>
+                        <div style="background:#161b22; border-radius:12px; border-top:4px solid #1f6feb; padding:20px;"><i class="fas fa-network-wired" style="font-size:28px; margin-bottom:12px; display:inline-block; color:#1f6feb;"></i><h3 style="font-family:'Space Grotesk', sans-serif; font-size:20px; font-weight:600; color:white; margin-bottom:12px;">Multi‑Agent Orchestration</h3><p style="font-size:14px; color:#c9d1d9; line-height:1.5;">Detects emergent anomalies across agent fleets. Automatically triggers coordinated rollbacks or throttling.</p></div>
+                        <div style="background:#161b22; border-radius:12px; border-top:4px solid #a371f7; padding:20px;"><i class="fas fa-file-signature" style="font-size:28px; margin-bottom:12px; display:inline-block; color:#a371f7;"></i><h3 style="font-family:'Space Grotesk', sans-serif; font-size:20px; font-weight:600; color:white; margin-bottom:12px;">Auditable Enforcement</h3><p style="font-size:14px; color:#c9d1d9; line-height:1.5;">Every decision (Approve/Deny/Escalate) cryptographically signed. Full compliance traceability for enterprise audits.</p></div>
+                        <div style="background:#161b22; border-radius:12px; border-top:4px solid #1f6feb; padding:20px;"><i class="fas fa-table-columns" style="font-size:28px; margin-bottom:12px; display:inline-block; color:#1f6feb;"></i><h3 style="font-family:'Space Grotesk', sans-serif; font-size:20px; font-weight:600; color:white; margin-bottom:12px;">Real‑Time Visibility</h3><p style="font-size:14px; color:#c9d1d9; line-height:1.5;">Live risk posterior visualization and DPT threshold breaches. Shift from static logs to dynamic risk topology maps.</p></div>
+                        <div style="background:#161b22; border-radius:12px; border-top:4px solid #da3633; padding:20px;"><i class="fas fa-user-check" style="font-size:28px; margin-bottom:12px; display:inline-block; color:#da3633;"></i><h3 style="font-family:'Space Grotesk', sans-serif; font-size:20px; font-weight:600; color:white; margin-bottom:12px;">Trust Calibration</h3><p style="font-size:14px; color:#c9d1d9; line-height:1.5;">Designed to match human cognitive load. Reduces alert fatigue by escalating only high‑uncertainty incidents.</p></div>
+                    </div>
+                    <div style="margin-top:24px; font-size:12px; color:#484f58; font-family:monospace; display:flex; justify-content:space-between; border-top:1px solid #30363d; padding-top:16px;"><span>ARF // CAPABILITIES</span><span>Deterministic, auditable, self‑healing</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 7 ==================== -->
+        <section>
+            <div class="slide-container" style="background:#0d1117;">
+                <div style="position: absolute; top:0; left:0; width:100%; height:100%; background-image: linear-gradient(#30363d 1px, transparent 1px), linear-gradient(90deg, #30363d 1px, transparent 1px); background-size:40px 40px; opacity:0.08; pointer-events:none;"></div>
+                <div style="position: relative; z-index:2; padding:50px 60px; height:100%; display:flex; flex-direction:column;">
+                    <h1 style="font-family:'Space Grotesk', sans-serif; font-size:48px; font-weight:700; color:white; letter-spacing:-1px; margin-bottom:12px;">Traction & <span style="color:#238636;">Live Demo</span></h1>
+                    <div style="font-size:20px; font-weight:300; color:#8b949e; margin-bottom:32px;">Validation through open source adoption and enterprise pilots</div>
+                    <div style="display:flex; gap:40px; flex:1;">
+                        <div style="flex:1; display:flex; flex-direction:column; gap:24px;">
+                            <div style="background:rgba(13,17,23,0.8); border:1px solid #30363d; border-radius:12px; padding:20px;"><i class="fab fa-python" style="font-size:48px; margin-right:16px; vertical-align:middle; color:#ffffff;"></i><span style="font-size:20px; font-weight:600; color:white; display:inline-block; vertical-align:middle;">Open Source Core Engine</span><div style="margin-top:12px; font-size:14px; color:#8b949e;">Apache 2.0 • Python • FastAPI • Pydantic</div></div>
+                            <div style="display:flex; gap:20px;"><div style="background:#161b22; border-radius:8px; padding:16px; text-align:center; flex:1;"><i class="fa-regular fa-star" style="font-size:24px; margin-bottom:8px; display:block; color:#e3b341;"></i><div class="value" style="font-size:28px; font-weight:700; color:white;">2+</div><div class="label" style="font-size:12px; color:#8b949e;">GitHub stars (engine)</div></div><div style="background:#161b22; border-radius:8px; padding:16px; text-align:center; flex:1;"><i class="fa-regular fa-star" style="font-size:24px; margin-bottom:8px; display:block; color:#e3b341;"></i><div class="value" style="font-size:28px; font-weight:700; color:white;">1</div><div class="label" style="font-size:12px; color:#8b949e;">API stars</div></div><div style="background:#161b22; border-radius:8px; padding:16px; text-align:center; flex:1;"><i class="fa-regular fa-star" style="font-size:24px; margin-bottom:8px; display:block; color:#e3b341;"></i><div class="value" style="font-size:28px; font-weight:700; color:white;">0</div><div class="label" style="font-size:12px; color:#8b949e;">Frontend stars</div></div></div>
+                            <div style="background:rgba(35,134,54,0.1); border:1px solid #238636; border-radius:8px; padding:16px; display:flex; align-items:center; gap:16px;"><i class="fas fa-arrow-trend-down" style="font-size:36px; color:#238636;"></i><div style="font-size:48px; font-weight:700; color:white;">85%</div><div style="font-size:14px; color:#c9d1d9;">Reduction in MTTR<br><span style="font-size:12px;">(internal benchmark)</span></div></div>
+                            <div style="display:flex; justify-content:space-between; gap:16px; margin-top:8px;">
+                                <div style="text-align:center; flex:1;"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://calendly.com/petter2025us/30min" style="width:80px; height:80px; background:white; border-radius:8px; margin-bottom:8px;"><span style="font-size:12px; color:#8b949e;">Book a Call</span></div>
+                                <div style="text-align:center; flex:1;"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://arf-frontend-sandy.vercel.app/" style="width:80px; height:80px; background:white; border-radius:8px; margin-bottom:8px;"><span style="font-size:12px; color:#8b949e;">Live Demo</span></div>
+                                <div style="text-align:center; flex:1;"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://www.linkedin.com/in/petterjuan/" style="width:80px; height:80px; background:white; border-radius:8px; margin-bottom:8px;"><span style="font-size:12px; color:#8b949e;">LinkedIn</span></div>
+                            </div>
+                        </div>
+                        <div style="flex:1; background:#0d1117; border:1px solid #30363d; border-radius:12px; overflow:hidden; display:flex; flex-direction:column;">
+                            <div style="background:#161b22; padding:12px; border-bottom:1px solid #30363d; font-family:monospace; font-size:12px; color:#8b949e; text-align:center;"><i class="fas fa-chart-line"></i> dashboard.arf.dev — Live Monitor</div>
+                            <div style="padding:20px; flex:1;"><canvas id="riskChartSlide7" style="max-height:200px; width:100%;"></canvas></div>
+                            <div style="background:rgba(35,134,54,0.1); padding:8px 12px; font-family:monospace; font-size:12px; color:#238636; border-top:1px solid #30363d;"><i class="fas fa-circle" style="color:#238636; font-size:8px;"></i> STATUS: SYSTEM HEALTHY • AGENTS: 14 ACTIVE • LAST HEAL: 2m AGO</div>
+                            <div style="background:#161b22; padding:12px; text-align:center; font-size:14px; border-top:1px solid #30363d;"><i class="fas fa-external-link-alt"></i> Live demo: <span style="font-family:monospace;">https://arf-frontend-sandy.vercel.app/</span></div>
+                        </div>
+                    </div>
+                    <div style="margin-top:24px; font-size:12px; color:#484f58; font-family:monospace; display:flex; justify-content:space-between; border-top:1px solid #30363d; padding-top:16px;"><span>ARF // TRACTION</span><span>Open source, auditable, self‑healing</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 8 ==================== -->
+        <section>
+            <div class="slide-container" style="background:#0d1117;">
+                <div style="position: absolute; top:0; left:0; width:100%; height:100%; background-image: linear-gradient(#30363d 1px, transparent 1px), linear-gradient(90deg, #30363d 1px, transparent 1px); background-size:40px 40px; opacity:0.08; pointer-events:none;"></div>
+                <div style="position: relative; z-index:2; padding:50px 60px; height:100%; display:flex; flex-direction:column;">
+                    <h1 style="font-family:'Space Grotesk', sans-serif; font-size:48px; font-weight:700; color:white; letter-spacing:-1px; margin-bottom:12px;">Team & <span style="color:#1f6feb;">Credibility</span></h1>
+                    <div style="font-size:20px; font-weight:300; color:#8b949e; margin-bottom:40px;">Bridging Bayesian mechanics, enterprise reliability, and AI safety</div>
+                    <div style="display:flex; gap:24px; margin-bottom:32px;">
+                        <div style="flex:1; background:#161b22; border-radius:12px; padding:24px; border-top:4px solid #a371f7; text-align:center;"><i class="fas fa-user-astronaut" style="font-size:48px; margin-bottom:16px; display:inline-block; color:#a371f7;"></i><h3 style="font-size:22px; font-weight:700; color:white; margin-bottom:8px;">Juan Petter</h3><div style="font-family:'JetBrains Mono', monospace; font-size:14px; color:#8b949e; margin-bottom:16px;">Founder & Chief Architect</div><div style="font-size:14px; color:#c9d1d9; margin-bottom:16px;">Expertise: Bayesian inference, AI governance, OSS<br>Background: AI reliability research, control plane architecture</div><div style="font-size:12px; color:#8b949e; border-top:1px solid #30363d; padding-top:12px; margin-top:8px;"><i class="fas fa-envelope"></i> petter2025us@outlook.com<br><i class="fab fa-github"></i> <i class="fab fa-linkedin"></i> @petterjuan</div></div>
+                        <div style="flex:1; background:#161b22; border-radius:12px; padding:24px; border-top:4px solid #1f6feb; text-align:center;"><i class="fas fa-code-branch" style="font-size:48px; margin-bottom:16px; display:inline-block; color:#1f6feb;"></i><h3 style="font-size:22px; font-weight:700; color:white; margin-bottom:8px;">Open Source Leadership</h3><div style="font-family:'JetBrains Mono', monospace; font-size:14px; color:#8b949e; margin-bottom:16px;">Maintainer & Core Contributor</div><div style="font-size:14px; color:#c9d1d9; margin-bottom:16px;">agentic_reliability_framework • arf-api • arf-frontend<br>Scaled reliability tools for cloud‑native AI environments</div><div style="font-size:12px; color:#8b949e; border-top:1px solid #30363d; padding-top:12px; margin-top:8px;"><i class="fab fa-github"></i> arf-foundation org</div></div>
+                        <div style="flex:1; background:#161b22; border-radius:12px; padding:24px; border-top:4px solid #238636; text-align:center;"><i class="fas fa-shield-halved" style="font-size:48px; margin-bottom:16px; display:inline-block; color:#238636;"></i><h3 style="font-size:22px; font-weight:700; color:white; margin-bottom:8px;">Governance & Compliance</h3><div style="font-family:'JetBrains Mono', monospace; font-size:14px; color:#8b949e; margin-bottom:16px;">Auditable Control Planes</div><div style="font-size:14px; color:#c9d1d9; margin-bottom:16px;">Designed deterministic thresholds with full traceability.<br>Aligned with enterprise security standards (SOC2, ISO).</div><div style="font-size:12px; color:#8b949e; border-top:1px solid #30363d; padding-top:12px; margin-top:8px;"><i class="fas fa-check-circle"></i> Proven track record</div></div>
+                    </div>
+                    <div style="background:rgba(13,17,23,0.6); border:1px solid #30363d; border-radius:12px; padding:20px; display:flex; justify-content:space-around; margin-top:auto;">
+                        <div style="text-align:center;"><i class="fab fa-github" style="font-size:32px; color:#ffffff; margin-bottom:8px; display:block;"></i><h4 style="font-size:18px; font-weight:600; color:white; margin-bottom:4px;">OSS Maintainers</h4><p style="font-size:12px; color:#8b949e;">PyMC, observability libs</p></div>
+                        <div style="text-align:center;"><i class="fas fa-scroll" style="font-size:32px; color:#ffffff; margin-bottom:8px; display:block;"></i><h4 style="font-size:18px; font-weight:600; color:white; margin-bottom:4px;">Published Research</h4><p style="font-size:12px; color:#8b949e;">NeurIPS & ICML on AI safety</p></div>
+                        <div style="text-align:center;"><i class="fas fa-building-shield" style="font-size:32px; color:#ffffff; margin-bottom:8px; display:block;"></i><h4 style="font-size:18px; font-weight:600; color:white; margin-bottom:4px;">Enterprise Scale</h4><p style="font-size:12px; color:#8b949e;">Deployed to 10M+ users</p></div>
+                    </div>
+                    <div style="margin-top:20px; font-size:12px; color:#484f58; font-family:monospace; display:flex; justify-content:space-between; border-top:1px solid #30363d; padding-top:12px;"><span>ARF // TEAM & CREDIBILITY</span><span>Built by reliability engineers, for AI governance</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 9 ==================== -->
+        <section>
+            <div class="slide-container" style="background:#0d1117;">
+                <div style="position: absolute; top:0; left:0; width:100%; height:100%; background-image: linear-gradient(#30363d 1px, transparent 1px), linear-gradient(90deg, #30363d 1px, transparent 1px); background-size:40px 40px; opacity:0.08; pointer-events:none;"></div>
+                <div style="position: relative; z-index:2; padding:50px 60px; height:100%; display:flex; flex-direction:column;">
+                    <h1 style="font-family:'Space Grotesk', sans-serif; font-size:48px; font-weight:700; color:white; letter-spacing:-1px; margin-bottom:12px;">Vision & <span style="color:#238636;">Roadmap</span></h1>
+                    <div style="font-size:20px; font-weight:300; color:#8b949e; margin-bottom:48px;">Evolution toward an autonomous, self-healing governance fabric</div>
+                    <div style="display:flex; justify-content:space-between; gap:24px; margin-bottom:40px;">
+                        <div style="flex:1; background:#161b22; border-radius:12px; padding:24px; border-top:4px solid #1f6feb;"><i class="fas fa-code-branch" style="font-size:32px; margin-bottom:16px; display:inline-block; color:#1f6feb;"></i><h3 style="font-size:22px; font-weight:700; color:white; margin-bottom:8px;">OSS Adoption</h3><div style="font-family:'JetBrains Mono', monospace; font-size:14px; color:#8b949e; margin-bottom:16px;">Short‑term · 0–3 months</div><div style="font-size:14px; color:#c9d1d9; line-height:1.5; margin-bottom:20px;">Launch core engine (Apache 2.0)<br>Python/Node SDKs<br>Baseline policy DSL</div><div style="font-size:32px; font-weight:700; color:white; margin-top:16px; border-top:1px solid #30363d; padding-top:16px;">-40% <span style="font-size:14px; font-weight:400; color:#8b949e;">MTTR</span></div></div>
+                        <div style="flex:1; background:#161b22; border-radius:12px; padding:24px; border-top:4px solid #a371f7;"><i class="fas fa-building-shield" style="font-size:32px; margin-bottom:16px; display:inline-block; color:#a371f7;"></i><h3 style="font-size:22px; font-weight:700; color:white; margin-bottom:8px;">Enterprise Scale</h3><div style="font-family:'JetBrains Mono', monospace; font-size:14px; color:#8b949e; margin-bottom:16px;">Mid‑term · 3–9 months</div><div style="font-size:14px; color:#c9d1d9; line-height:1.5; margin-bottom:20px;">Self‑healing integration packs<br>Trust calibration scoring<br>SOC2 compliance modules</div><div style="font-size:32px; font-weight:700; color:white; margin-top:16px; border-top:1px solid #30363d; padding-top:16px;">-70% <span style="font-size:14px; font-weight:400; color:#8b949e;">MTTR</span></div></div>
+                        <div style="flex:1; background:#161b22; border-radius:12px; padding:24px; border-top:4px solid #238636;"><i class="fas fa-robot" style="font-size:32px; margin-bottom:16px; display:inline-block; color:#238636;"></i><h3 style="font-size:22px; font-weight:700; color:white; margin-bottom:8px;">Autonomous Fabric</h3><div style="font-family:'JetBrains Mono', monospace; font-size:14px; color:#8b949e; margin-bottom:16px;">Long‑term · 9–18 months</div><div style="font-size:14px; color:#c9d1d9; line-height:1.5; margin-bottom:20px;">Anomaly auto‑discovery<br>Zero‑touch governance<br>Cognitive alignment models</div><div style="font-size:32px; font-weight:700; color:white; margin-top:16px; border-top:1px solid #30363d; padding-top:16px;">-85% <span style="font-size:14px; font-weight:400; color:#8b949e;">MTTR</span></div></div>
+                    </div>
+                    <div style="background:#161b22; border-radius:12px; padding:20px; margin-top:auto;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;"><h4 style="font-size:14px; font-weight:600; color:#8b949e; text-transform:uppercase;">Projected MTTR Reduction</h4><div style="display:flex; align-items:center; gap:8px; font-size:12px;"><div style="width:12px; height:12px; background:#238636; border-radius:2px;"></div> Cumulative reduction</div></div>
+                        <canvas id="roadmapChart" style="max-height:100px; width:100%;"></canvas>
+                    </div>
+                    <div style="margin-top:24px; font-size:12px; color:#484f58; font-family:monospace; display:flex; justify-content:space-between; border-top:1px solid #30363d; padding-top:12px;"><span>ARF // ROADMAP</span><span>Measurable outcomes: MTTR reduction, trust calibration</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 10 ==================== -->
+        <section>
+            <div class="slide-container" style="background:#0d1117;">
+                <div style="position: absolute; top:0; left:0; width:100%; height:100%; background-image: linear-gradient(#30363d 1px, transparent 1px), linear-gradient(90deg, #30363d 1px, transparent 1px); background-size:40px 40px; opacity:0.08; pointer-events:none;"></div>
+                <div style="position: relative; z-index:2; padding:50px 60px; height:100%; display:flex; flex-direction:column;">
+                    <h1 style="font-family:'Space Grotesk', sans-serif; font-size:48px; font-weight:700; color:white; letter-spacing:-1px; margin-bottom:12px;">Ready to <span style="color:#a371f7;">Engage?</span></h1>
+                    <div style="font-size:20px; font-weight:300; color:#8b949e; margin-bottom:40px;">Join the movement for deterministic AI governance. No fundraising—just building.</div>
+                    <div style="display:flex; gap:24px; margin-bottom:40px;">
+                        <div style="flex:1; background:#161b22; border-radius:12px; padding:24px; text-align:center; border-top:4px solid #1f6feb;"><i class="fas fa-play" style="font-size:40px; margin-bottom:16px; display:inline-block; color:#1f6feb;"></i><h3 style="font-size:22px; font-weight:700; color:white; margin-bottom:12px;">Run the Demo</h3><p style="font-size:14px; color:#c9d1d9; margin-bottom:16px;">Sandboxed workspace with pre‑configured agents and chaos scenarios.</p><div style="font-family:'JetBrains Mono', monospace; font-size:12px; color:#8b949e; background:#0d1117; padding:6px 12px; border-radius:6px; display:inline-block;">arf-frontend-sandy.vercel.app</div></div>
+                        <div style="flex:1; background:#161b22; border-radius:12px; padding:24px; text-align:center; border-top:4px solid #a371f7;"><i class="fas fa-book" style="font-size:40px; margin-bottom:16px; display:inline-block; color:#a371f7;"></i><h3 style="font-size:22px; font-weight:700; color:white; margin-bottom:12px;">Documentation</h3><p style="font-size:14px; color:#c9d1d9; margin-bottom:16px;">API reference, policy DSL, integration guides for Kubernetes.</p><div style="font-family:'JetBrains Mono', monospace; font-size:12px; color:#8b949e; background:#0d1117; padding:6px 12px; border-radius:6px; display:inline-block;">github.com/arf-foundation/arf-spec</div></div>
+                        <div style="flex:1; background:#161b22; border-radius:12px; padding:24px; text-align:center; border-top:4px solid #238636;"><i class="fab fa-slack" style="font-size:40px; margin-bottom:16px; display:inline-block; color:#238636;"></i><h3 style="font-size:22px; font-weight:700; color:white; margin-bottom:12px;">Community</h3><p style="font-size:14px; color:#c9d1d9; margin-bottom:16px;">Join our GitHub Discussions & Slack channel.</p><div style="font-family:'JetBrains Mono', monospace; font-size:12px; color:#8b949e; background:#0d1117; padding:6px 12px; border-radius:6px; display:inline-block;">github.com/arf-foundation</div></div>
+                    </div>
+                    <div style="display:flex; justify-content:center; gap:32px; margin-bottom:32px;">
+                        <div style="text-align:center; width:100px;"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://calendly.com/petter2025us/30min" style="width:80px; height:80px; background:white; border-radius:8px; margin-bottom:8px;"><span style="font-size:12px; color:#8b949e;">Book a Call</span></div>
+                        <div style="text-align:center; width:100px;"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://arf-frontend-sandy.vercel.app/" style="width:80px; height:80px; background:white; border-radius:8px; margin-bottom:8px;"><span style="font-size:12px; color:#8b949e;">Live Demo</span></div>
+                        <div style="text-align:center; width:100px;"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://www.linkedin.com/in/petterjuan/" style="width:80px; height:80px; background:white; border-radius:8px; margin-bottom:8px;"><span style="font-size:12px; color:#8b949e;">LinkedIn</span></div>
+                    </div>
+                    <div style="background:rgba(13,17,23,0.6); border:1px solid #30363d; border-radius:12px; padding:20px; display:flex; justify-content:space-between; align-items:center; margin-top:auto;">
+                        <div><h4 style="font-size:20px; font-weight:700; color:white; margin-bottom:8px;">Building Enterprise AI?</h4><p style="font-size:14px; color:#c9d1d9;">We are selecting 5 partners for our <strong>Early Access Pilot Program</strong>.<br>Get direct access to our engineering team and shape the roadmap.</p></div>
+                        <div style="text-align:right;"><div style="font-family:'JetBrains Mono', monospace; font-size:14px; color:#1f6feb; margin-bottom:8px;">📧 petter2025us@outlook.com</div><div style="font-size:14px; color:#8b949e;">🔗 linkedin.com/in/petterjuan</div></div>
+                    </div>
+                    <div style="margin-top:20px; font-size:12px; color:#484f58; font-family:monospace; display:flex; justify-content:space-between; border-top:1px solid #30363d; padding-top:12px;"><span>ARF // CALL TO ENGAGE</span><span>Open source • Apache 2.0 • Join us</span></div>
+                </div>
+            </div>
+        </section>
 
     </div>
 </div>
@@ -640,12 +340,74 @@
         plugins: [ RevealMarkdown ]
     });
 
-    // Reinitialize charts and mermaid after reveal is ready
+    // Initialize charts after reveal is ready
     Reveal.addEventListener('ready', function() {
-        // Re‑run any chart initializations that might be inside slides
-        // (We can safely leave them as they were originally, because they will be executed when the slide loads)
-        // But to ensure they work, we can call them again after reveal is ready.
-        // For simplicity, we rely on the original scripts inside the slides.
+        // Risk chart (slide 7)
+        const riskCtx = document.getElementById('riskChartSlide7');
+        if (riskCtx) {
+            new Chart(riskCtx, {
+                type: 'line',
+                data: {
+                    labels: ['00:00','00:05','00:10','00:15','00:20','00:25','00:30','00:35','00:40','00:45','00:50','00:55'],
+                    datasets: [{
+                        label: 'Bayesian Risk Probability',
+                        data: [0.12,0.15,0.11,0.18,0.75,0.82,0.20,0.15,0.12,0.14,0.11,0.10],
+                        borderColor: '#1f6feb',
+                        backgroundColor: 'rgba(31,111,235,0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 3
+                    }, {
+                        label: 'DPT Threshold (0.8)',
+                        data: Array(12).fill(0.8),
+                        borderColor: '#da3633',
+                        borderDash: [5,5],
+                        pointRadius: 0,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: { legend: { labels: { color: '#8b949e', font: { size: 10 } } } },
+                    scales: { y: { min: 0, max: 1, grid: { color: '#30363d' }, ticks: { color: '#8b949e' } }, x: { ticks: { color: '#8b949e', maxTicksLimit: 6 } } }
+                }
+            });
+        }
+
+        // Roadmap chart (slide 9)
+        const roadmapCtx = document.getElementById('roadmapChart');
+        if (roadmapCtx) {
+            new Chart(roadmapCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Start', 'Month 3', 'Month 6', 'Month 9', 'Month 12', 'Month 15', 'Month 18'],
+                    datasets: [{
+                        label: 'MTTR Reduction (%)',
+                        data: [0,40,55,70,78,82,85],
+                        borderColor: '#238636',
+                        backgroundColor: 'rgba(35,134,54,0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#238636'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: { legend: { display: false }, tooltip: { enabled: false } },
+                    scales: {
+                        x: { grid: { display: false }, ticks: { color: '#8b949e', font: { size: 10 } } },
+                        y: { min: 0, max: 100, grid: { color: '#30363d' }, ticks: { color: '#8b949e', callback: (val) => val + '%' } }
+                    }
+                }
+            });
+        }
+
+        // Initialize mermaid diagrams
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
     });
 </script>
 </body>
