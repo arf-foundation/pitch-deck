@@ -1,632 +1,101 @@
 <!doctype html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ARF Pitch Deck</title>
+  <meta charset="utf-8">
+  <title>ARF Pitch</title>
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/black.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/black.css">
 
   <style>
-    :root {
-      --bg: #0d1117;
-      --panel: rgba(22, 27, 34, 0.92);
-      --panel-2: rgba(13, 17, 23, 0.9);
-      --border: #30363d;
-      --text: #e6edf3;
-      --muted: #8b949e;
-      --accent: #58a6ff;
-      --accent-2: #3fb950;
-      --warn: #f85149;
-      --code: #c9d1d9;
-    }
+    body { background: #0d1117; }
 
-    html, body {
-      background: var(--bg);
-    }
-
-    .reveal {
-      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      color: var(--text);
-    }
-
-    .reveal .slides {
-      text-align: left;
-    }
-
-    .reveal h1,
-    .reveal h2,
-    .reveal h3 {
-      text-transform: none;
-      letter-spacing: -0.03em;
-      margin: 0;
-    }
-
-    .reveal h1 {
-      font-size: 2.65em;
-      line-height: 1.05;
-      font-weight: 800;
-    }
-
-    .reveal h2 {
-      font-size: 1.95em;
-      line-height: 1.1;
-      font-weight: 750;
-      margin-bottom: 18px;
-    }
-
-    .reveal p {
-      color: var(--muted);
-      font-size: 1.18em;
-      line-height: 1.45;
-      margin: 0;
-    }
+    .reveal h1 { font-size: 2.6em; }
+    .reveal h2 { font-size: 2em; }
 
     .reveal li {
-      font-size: 1.18em;
-      line-height: 1.35;
-      margin: 0 0 12px 0;
-    }
-
-    .reveal strong {
-      color: var(--text);
-      font-weight: 700;
-    }
-
-    .reveal .slides section {
-      box-sizing: border-box;
-      padding: 26px 46px 28px 46px;
-      background: linear-gradient(180deg, rgba(22,27,34,0.18), rgba(13,17,23,0.08));
-      border-radius: 18px;
-    }
-
-    .hero {
-      display: grid;
-      grid-template-columns: 1.45fr 1fr;
-      gap: 28px;
-      align-items: center;
-      min-height: 100%;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.82em;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 14px;
-    }
-
-    .pill {
-      display: inline-block;
-      padding: 7px 12px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      background: rgba(13, 17, 23, 0.65);
-      color: var(--muted);
-      font-size: 0.62em;
-      font-weight: 650;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .accent {
-      color: var(--accent);
-    }
-
-    .accent-2 {
-      color: var(--accent-2);
-    }
-
-    .warn {
-      color: var(--warn);
-    }
-
-    .tagline {
-      margin-top: 20px;
-      font-size: 1.18em;
-      max-width: 11.5em;
-    }
-
-    .summary {
-      margin-top: 18px;
-      font-size: 1.05em;
-      max-width: 34rem;
-    }
-
-    .metric-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-top: 22px;
-    }
-
-    .metric-card {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 18px 18px 16px 18px;
-      min-height: 118px;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.18);
-    }
-
-    .metric-label {
-      font-size: 0.72em;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 10px;
-      font-weight: 700;
-    }
-
-    .metric-value {
-      font-size: 2.0em;
-      line-height: 1.02;
-      font-weight: 800;
-      color: var(--text);
-      letter-spacing: -0.03em;
-    }
-
-    .metric-sub {
-      margin-top: 8px;
-      font-size: 0.9em;
-      color: var(--muted);
-      line-height: 1.35;
-    }
-
-    .panel {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 22px 22px 20px 22px;
-      box-shadow: 0 12px 36px rgba(0,0,0,0.2);
-    }
-
-    .stack {
-      display: grid;
-      gap: 14px;
-    }
-
-    .stack-tight {
-      display: grid;
-      gap: 10px;
-    }
-
-    .two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      align-items: start;
-    }
-
-    .architecture {
-      display: grid;
-      grid-template-columns: 1fr auto 1fr auto 1fr;
-      gap: 10px;
-      align-items: center;
-      margin-top: 10px;
-      margin-bottom: 6px;
-    }
-
-    .node {
-      background: rgba(13, 17, 23, 0.8);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 16px 14px;
-      min-height: 94px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .node .kicker {
-      font-size: 0.68em;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 8px;
-      font-weight: 700;
-    }
-
-    .node .title {
-      font-size: 1.04em;
-      font-weight: 750;
-      line-height: 1.2;
-      color: var(--text);
-    }
-
-    .node .desc {
-      margin-top: 8px;
-      font-size: 0.88em;
-      line-height: 1.35;
-      color: var(--muted);
-    }
-
-    .arrow {
-      color: var(--accent);
-      font-size: 1.8em;
-      font-weight: 900;
-      padding: 0 2px;
-      user-select: none;
-    }
-
-    .formula {
-      margin-top: 14px;
-      padding: 14px 16px;
-      border-left: 3px solid var(--accent);
-      background: rgba(13, 17, 23, 0.72);
-      border-radius: 10px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      color: var(--code);
-      font-size: 0.95em;
-      line-height: 1.5;
-    }
-
-    .small-note {
-      margin-top: 12px;
-      font-size: 0.88em;
-      color: var(--muted);
-      line-height: 1.4;
-    }
-
-    .footer {
-      margin-top: 18px;
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      align-items: center;
-      color: #6e7681;
-      font-size: 0.72em;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .divider {
-      height: 1px;
-      background: linear-gradient(90deg, rgba(88,166,255,0.0), rgba(88,166,255,0.45), rgba(88,166,255,0.0));
-      margin: 16px 0 18px 0;
-    }
-
-    .quote {
-      font-size: 1.08em;
-      line-height: 1.45;
-      color: var(--text);
-      padding: 16px 18px;
-      background: rgba(22,27,34,0.75);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-    }
-
-    .quote em {
-      color: var(--accent);
-      font-style: normal;
-      font-weight: 700;
-    }
-
-    .list-tight li {
+      font-size: 1.2em;
       margin-bottom: 10px;
     }
 
-    .caption {
-      margin-top: 10px;
-      font-size: 0.92em;
-      color: var(--muted);
+    .highlight {
+      color: #58a6ff;
+      font-weight: 600;
     }
 
-    .centered {
-      min-height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .callout {
-      margin-top: 16px;
-      display: inline-block;
-      padding: 10px 14px;
-      border-radius: 12px;
-      border: 1px solid rgba(63,185,80,0.35);
-      background: rgba(63,185,80,0.08);
-      color: #c9f4d1;
-      font-size: 0.95em;
-      font-weight: 650;
+    .green {
+      color: #3fb950;
     }
 
     .mono {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      color: #c9d1d9;
-      font-size: 0.93em;
-    }
-
-    .tag {
-      display: inline-block;
-      margin-right: 10px;
-      margin-top: 10px;
-      padding: 7px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: rgba(13,17,23,0.75);
-      color: var(--muted);
-      font-size: 0.7em;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      font-weight: 700;
-    }
-
-    .reveal .progress {
-      color: var(--accent);
-    }
-
-    .reveal .controls {
-      color: var(--accent);
-    }
-
-    @media (max-width: 1100px) {
-      .hero, .two-col {
-        grid-template-columns: 1fr;
-      }
-
-      .architecture {
-        grid-template-columns: 1fr;
-      }
-
-      .arrow {
-        transform: rotate(90deg);
-        display: inline-block;
-        text-align: center;
-      }
+      font-family: monospace;
+      font-size: 0.9em;
+      color: #8b949e;
+      margin-top: 20px;
     }
   </style>
 </head>
 
 <body>
-  <div class="reveal">
-    <div class="slides">
+<div class="reveal">
+<div class="slides">
 
-      <section>
-        <div class="hero">
-          <div class="centered">
-            <div class="eyebrow">
-              <span class="pill">Open-source</span>
-              <span class="pill">AI reliability</span>
-              <span class="pill">GitHub Pages</span>
-            </div>
+<section>
+  <h1>Agentic Reliability Framework</h1>
+  <p class="highlight">Control plane for autonomous AI systems</p>
+  <p class="green">Deterministic • Auditable • Self-healing</p>
+</section>
 
-            <h1>Agentic Reliability<br><span class="accent">Framework</span></h1>
+<section>
+  <h2>Problem</h2>
+  <ul>
+    <li class="fragment">Silent failures in agent pipelines</li>
+    <li class="fragment">No observability into decision layers</li>
+    <li class="fragment">Non-deterministic outputs create risk</li>
+  </ul>
+</section>
 
-            <p class="tagline">
-              Control plane for autonomous AI systems.
-            </p>
+<section>
+  <h2>Solution</h2>
+  <ul>
+    <li class="fragment">Reliability control plane abstraction</li>
+    <li class="fragment">Continuous anomaly detection</li>
+    <li class="fragment">Automated remediation workflows</li>
+  </ul>
+</section>
 
-            <p class="summary">
-              Deterministic. Auditable. Self-healing.
-              Built for the failure modes that emerge when probabilistic systems are allowed to act in the world.
-            </p>
+<section>
+  <h2>System Flow</h2>
+  <ul>
+    <li class="fragment">Signal ingestion → telemetry + logs</li>
+    <li class="fragment">Detection → epistemic risk modeling</li>
+    <li class="fragment">Decision engine → corrective actions</li>
+    <li class="fragment">Feedback loop → adaptive improvement</li>
+  </ul>
+  <div class="mono">FAISS • embeddings • anomaly scoring • control loops</div>
+</section>
 
-            <div class="metric-grid">
-              <div class="metric-card">
-                <div class="metric-label">Thesis</div>
-                <div class="metric-value">Turn uncertainty<br>into control</div>
-              </div>
-              <div class="metric-card">
-                <div class="metric-label">Operational goal</div>
-                <div class="metric-value">Reduce MTTR<br>and blast radius</div>
-              </div>
-            </div>
-          </div>
+<section>
+  <h2>Traction & CTA</h2>
+  <ul>
+    <li class="fragment">Prototype deployed and validated</li>
+    <li class="fragment">Live demo with real system signals</li>
+    <li class="fragment">Seeking early design partners</li>
+  </ul>
+</section>
 
-          <div class="panel">
-            <div class="stack">
-              <div class="metric-card">
-                <div class="metric-label">What ARF does</div>
-                <div class="metric-value" style="font-size:1.55em;">Detects, decides, recovers</div>
-                <div class="metric-sub">A reliability layer that sits above agent execution and below user-visible failure.</div>
-              </div>
+</div>
+</div>
 
-              <div class="metric-card">
-                <div class="metric-label">Design principle</div>
-                <div class="metric-value" style="font-size:1.55em;">Make failure observable</div>
-                <div class="metric-sub">If the system cannot be trusted, it must at least be legible.</div>
-              </div>
-
-              <div class="callout">Pitch framing: not “smarter AI,” but safer AI operation.</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <div class="eyebrow">
-          <span class="pill">Problem</span>
-          <span class="pill">Epistemic risk</span>
-        </div>
-        <h2>AI systems fail in ways traditional software does not.</h2>
-
-        <div class="two-col" style="margin-top: 18px;">
-          <div class="panel">
-            <ul class="list-tight">
-              <li class="fragment">Agents act under uncertainty, then compound their own errors.</li>
-              <li class="fragment">Failures are often silent until impact is visible downstream.</li>
-              <li class="fragment">Telemetry exists, but it is rarely aligned to decision quality.</li>
-              <li class="fragment">Reactive monitoring sees symptoms after the system has already drifted.</li>
-            </ul>
-          </div>
-
-          <div class="panel">
-            <div class="quote">
-              In autonomous systems, the core question is not whether failure occurs.
-              It is whether failure is <em>observable</em>, <em>containable</em>, and <em>recoverable</em>.
-            </div>
-
-            <div class="divider"></div>
-
-            <div class="stack-tight">
-              <div class="tag">Non-stationarity</div>
-              <div class="tag">Hidden state</div>
-              <div class="tag">Cascading error</div>
-              <div class="tag">Weak feedback loops</div>
-            </div>
-
-            <div class="small-note">
-              The failure mode is structural: decision-making is probabilistic, but production expectations are deterministic.
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <div class="eyebrow">
-          <span class="pill">Solution</span>
-          <span class="pill">Control plane</span>
-          <span class="pill">System boundary</span>
-        </div>
-        <h2>ARF inserts a reliability layer between agent behavior and operational impact.</h2>
-
-        <div class="architecture" style="margin-top: 24px;">
-          <div class="node">
-            <div class="kicker">1. Observe</div>
-            <div class="title">Signal ingestion</div>
-            <div class="desc">Logs, traces, events, and agent state are normalized into one stream.</div>
-          </div>
-
-          <div class="arrow">→</div>
-
-          <div class="node">
-            <div class="kicker">2. Judge</div>
-            <div class="title">Anomaly and risk detection</div>
-            <div class="desc">ARF estimates epistemic risk, drift, and abnormal execution paths.</div>
-          </div>
-
-          <div class="arrow">→</div>
-
-          <div class="node">
-            <div class="kicker">3. Act</div>
-            <div class="title">Decision engine + remediation</div>
-            <div class="desc">The system chooses a fix, escalates, or isolates the failing path.</div>
-          </div>
-        </div>
-
-        <div class="panel" style="margin-top: 18px;">
-          <ul class="list-tight">
-            <li class="fragment"><strong class="accent">Deterministic policy</strong> over ad hoc recovery.</li>
-            <li class="fragment"><strong class="accent">Auditability</strong> for every detection and intervention.</li>
-            <li class="fragment"><strong class="accent">Self-healing</strong> rather than passive alerting.</li>
-          </ul>
-        </div>
-      </section>
-
-      <section>
-        <div class="eyebrow">
-          <span class="pill">How it works</span>
-          <span class="pill">Mathematical framing</span>
-        </div>
-        <h2>ARF formalizes reliability as a decision problem under uncertainty.</h2>
-
-        <div class="two-col" style="margin-top: 18px;">
-          <div class="panel">
-            <div class="formula">
-              risk_score ≈ uncertainty × impact × propagation × time_to_detection
-              <br><br>
-              if risk_score &gt; threshold:
-              <br>
-              &nbsp;&nbsp;trigger remediation()
-              <br>
-              else:
-              <br>
-              &nbsp;&nbsp;continue_with_observability()
-            </div>
-
-            <div class="small-note">
-              This is a practical control heuristic, not a claim of perfect prediction.
-              The goal is to reduce expected harm by acting earlier on weaker signals.
-            </div>
-          </div>
-
-          <div class="panel">
-            <ul class="list-tight">
-              <li class="fragment">Signal aggregation converts fragmented telemetry into a usable state estimate.</li>
-              <li class="fragment">Risk scoring prioritizes likely failure before hard failure manifests.</li>
-              <li class="fragment">The remediation policy is explicit, inspectable, and versionable.</li>
-              <li class="fragment">A feedback loop updates memory so future decisions are sharper.</li>
-            </ul>
-
-            <div class="divider"></div>
-
-            <div class="mono">
-              P(state | evidence) → risk estimate → policy action → new evidence
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <div class="eyebrow">
-          <span class="pill">Credibility</span>
-          <span class="pill">Traction</span>
-          <span class="pill">Vision</span>
-        </div>
-        <h2>ARF is already a working system, not just a concept.</h2>
-
-        <div class="two-col" style="margin-top: 18px;">
-          <div class="panel">
-            <ul class="list-tight">
-              <li class="fragment">Prototype deployed on GitHub Pages and live demo infrastructure.</li>
-              <li class="fragment">Technical pitch deck, repo structure, and documentation are public.</li>
-              <li class="fragment">The stack is OSS-first and operationally reproducible.</li>
-              <li class="fragment">The narrative is validated for a technical audience, not only a business audience.</li>
-            </ul>
-          </div>
-
-          <div class="panel">
-            <div class="stack-tight">
-              <div class="metric-card" style="min-height: 0;">
-                <div class="metric-label">Vision</div>
-                <div class="metric-value" style="font-size:1.4em;">Standard reliability layer for autonomous AI</div>
-                <div class="metric-sub">A control plane for agents, workflows, and enterprise systems that must fail safely.</div>
-              </div>
-
-              <div class="metric-card" style="min-height: 0;">
-                <div class="metric-label">Ask</div>
-                <div class="metric-value" style="font-size:1.4em;">Collaborators and early adopters</div>
-                <div class="metric-sub">Teams that need observable, debuggable, self-healing AI in production.</div>
-              </div>
-            </div>
-
-            <div class="callout" style="margin-top: 16px;">
-              Philosophically: trust is not declared; it is engineered, measured, and maintained.
-            </div>
-          </div>
-        </div>
-
-        <div class="footer">
-          <span>ARF // Agentic Reliability Framework</span>
-          <span>Open-source pitch deck</span>
-          <span>Juan Petter</span>
-        </div>
-      </section>
-
-    </div>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.js"></script>
-  <script>
-    Reveal.initialize({
-      width: 1280,
-      height: 720,
-      margin: 0.06,
-      minScale: 0.5,
-      maxScale: 1.4,
-      controls: true,
-      progress: true,
-      center: true,
-      hash: true,
-      transition: 'fade',
-      backgroundTransition: 'fade',
-      fragments: true
-    });
-  </script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    width: 1280,
+    height: 720,
+    controls: true,
+    progress: true,
+    transition: 'slide'
+  });
+</script>
 </body>
 </html>
