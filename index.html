@@ -1,37 +1,74 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ARF Pitch</title>
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/black.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/black.css" />
 
   <style>
     body { background: #0d1117; }
 
-    .reveal h1 { font-size: 2.6em; }
-    .reveal h2 { font-size: 2em; }
+    .reveal {
+      font-family: Inter, system-ui, sans-serif;
+      color: #e6edf3;
+    }
+
+    .reveal h1 {
+      font-size: 2.7em;
+      line-height: 1.1;
+      font-weight: 800;
+    }
+
+    .reveal h2 {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+
+    .reveal p {
+      font-size: 1.2em;
+      color: #8b949e;
+    }
 
     .reveal li {
       font-size: 1.2em;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
-    .highlight {
-      color: #58a6ff;
-      font-weight: 600;
-    }
+    .accent { color: #58a6ff; }
+    .green { color: #3fb950; }
 
-    .green {
-      color: #3fb950;
-    }
-
-    .mono {
-      font-family: monospace;
-      font-size: 0.9em;
-      color: #8b949e;
+    .tagline {
       margin-top: 20px;
+      font-size: 1.2em;
+    }
+
+    .panel {
+      background: rgba(22,27,34,0.85);
+      border: 1px solid #30363d;
+      border-radius: 16px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .formula {
+      margin-top: 20px;
+      padding: 14px;
+      border-left: 3px solid #58a6ff;
+      font-family: monospace;
+      font-size: 0.95em;
+      color: #c9d1d9;
+      background: rgba(13,17,23,0.7);
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 15px;
+      left: 30px;
+      font-size: 12px;
+      color: #6e7681;
     }
   </style>
 </head>
@@ -40,48 +77,66 @@
 <div class="reveal">
 <div class="slides">
 
+<!-- Slide 1 -->
 <section>
-  <h1>Agentic Reliability Framework</h1>
-  <p class="highlight">Control plane for autonomous AI systems</p>
-  <p class="green">Deterministic • Auditable • Self-healing</p>
+  <h1>Agentic Reliability <span class="accent">Framework</span></h1>
+  <p class="tagline">Control plane for autonomous AI systems</p>
+  <p><strong>Deterministic. Auditable. Self-healing.</strong></p>
 </section>
 
+<!-- Slide 2 -->
 <section>
   <h2>Problem</h2>
   <ul>
-    <li class="fragment">Silent failures in agent pipelines</li>
-    <li class="fragment">No observability into decision layers</li>
-    <li class="fragment">Non-deterministic outputs create risk</li>
+    <li class="fragment">AI agents fail silently</li>
+    <li class="fragment">No visibility into decisions</li>
+    <li class="fragment">Failures cascade before detection</li>
   </ul>
 </section>
 
+<!-- Slide 3 -->
 <section>
   <h2>Solution</h2>
   <ul>
-    <li class="fragment">Reliability control plane abstraction</li>
-    <li class="fragment">Continuous anomaly detection</li>
-    <li class="fragment">Automated remediation workflows</li>
+    <li class="fragment">Reliability control plane for AI</li>
+    <li class="fragment">Real-time anomaly detection</li>
+    <li class="fragment">Automated recovery actions</li>
   </ul>
+
+  <div class="panel fragment">
+    Detect → Decide → Act  
+    <br><span class="green">Close the loop before failure spreads</span>
+  </div>
 </section>
 
+<!-- Slide 4 -->
 <section>
-  <h2>System Flow</h2>
+  <h2>How It Works</h2>
   <ul>
-    <li class="fragment">Signal ingestion → telemetry + logs</li>
-    <li class="fragment">Detection → epistemic risk modeling</li>
-    <li class="fragment">Decision engine → corrective actions</li>
-    <li class="fragment">Feedback loop → adaptive improvement</li>
+    <li class="fragment">Ingest signals (logs, traces, events)</li>
+    <li class="fragment">Detect anomalies and risk</li>
+    <li class="fragment">Trigger remediation actions</li>
   </ul>
-  <div class="mono">FAISS • embeddings • anomaly scoring • control loops</div>
+
+  <div class="formula fragment">
+    risk ≈ uncertainty × impact × time
+  </div>
 </section>
 
+<!-- Slide 5 -->
 <section>
-  <h2>Traction & CTA</h2>
+  <h2>Traction & Call to Action</h2>
   <ul>
-    <li class="fragment">Prototype deployed and validated</li>
-    <li class="fragment">Live demo with real system signals</li>
-    <li class="fragment">Seeking early design partners</li>
+    <li class="fragment">Prototype deployed</li>
+    <li class="fragment">Live demo available</li>
+    <li class="fragment">Seeking early adopters</li>
   </ul>
+
+  <div class="panel fragment">
+    Building the reliability layer for autonomous systems
+  </div>
+
+  <div class="footer">ARF — Juan Petter</div>
 </section>
 
 </div>
@@ -92,10 +147,12 @@
   Reveal.initialize({
     width: 1280,
     height: 720,
+    margin: 0.08,
     controls: true,
     progress: true,
-    transition: 'slide'
+    transition: 'fade'
   });
 </script>
+
 </body>
 </html>
