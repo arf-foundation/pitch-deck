@@ -469,30 +469,217 @@
             </div>
         </section>
 
-        <!-- SLIDE 3: Current Limitations -->
+        <!-- SLIDE 3: Current Limitations (Improved) -->
         <section>
-            <div class="slide-container" style="background:#0d1117;">
-                <div style="position: absolute; top:0; left:0; width:100%; height:100%; background-image: linear-gradient(#30363d 1px, transparent 1px), linear-gradient(90deg, #30363d 1px, transparent 1px); background-size:40px 40px; opacity:0.08;"></div>
-                <div style="position: absolute; left:50%; top:140px; bottom:80px; width:1px; background:#30363d; opacity:0.5; transform:translateX(-50%);"></div>
-                <div style="position: relative; z-index:2; padding:60px 80px; height:100%; display:flex; flex-direction:column;">
-                    <h1 style="font-size:48px; font-weight:700; color:white;">Current Limitations: <span style="color:#8b949e;">Observability</span> ≠ <span style="color:#238636;">Governance</span></h1>
-                    <div style="font-size:20px; color:#8b949e; margin-bottom:48px;">Why dashboards fail to control autonomous agents</div>
-                    <div style="display:flex; gap:60px; flex:1;">
-                        <div style="flex:1;">
-                            <div style="display:flex; align-items:center; gap:12px; border-bottom:2px solid #8b949e; padding-bottom:12px; margin-bottom:24px;"><i class="fas fa-chart-bar" style="font-size:24px; color:#8b949e;"></i><h2 style="font-family:monospace; font-size:18px; font-weight:700; color:#c9d1d9;">CONVENTIONAL OBSERVABILITY</h2></div>
-                            <div class="feature-item" style="padding:16px; margin-bottom:16px;"><i class="fas fa-circle-exclamation" style="font-size:20px; margin-right:12px; color:#da3633;"></i><div style="font-weight:600; font-size:18px; color:white;">Reactive & Partial</div><div style="font-size:14px; color:#8b949e; margin-left:40px;">Relies on logs/traces after failure. No uncertainty quantification; blind to prompt drift.</div></div>
-                            <div class="feature-item" style="padding:16px; margin-bottom:16px;"><i class="fas fa-user-clock" style="font-size:20px; margin-right:12px; color:#da3633;"></i><div style="font-weight:600; font-size:18px; color:white;">Human Bottlenecks</div><div style="font-size:14px; color:#8b949e; margin-left:40px;">Operators cannot interpret agent traces at machine speed; alert fatigue leads to missed signals.</div></div>
-                            <div class="feature-item" style="padding:16px; margin-bottom:16px;"><i class="fas fa-eye-slash" style="font-size:20px; margin-right:12px; color:#da3633;"></i><div style="font-weight:600; font-size:18px; color:white;">Emergent Blind Spots</div><div style="font-size:14px; color:#8b949e; margin-left:40px;">Misses latent coupling in multi‑agent systems and non‑stationary behavior.</div></div>
+            <style>
+                .slide3-container {
+                    width: 1280px;
+                    height: 720px;
+                    background: #0d1117;
+                    position: relative;
+                    overflow: hidden;
+                    border-radius: 8px;
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                }
+                .slide3-container .grid {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-image: linear-gradient(#30363d 1px, transparent 1px),
+                                      linear-gradient(90deg, #30363d 1px, transparent 1px);
+                    background-size: 40px 40px;
+                    opacity: 0.08;
+                    pointer-events: none;
+                }
+                .slide3-container .vertical-divider {
+                    position: absolute;
+                    left: 50%;
+                    top: 140px;
+                    bottom: 80px;
+                    width: 1px;
+                    background: #30363d;
+                    opacity: 0.5;
+                    transform: translateX(-50%);
+                }
+                .slide3-container .content {
+                    position: relative;
+                    z-index: 2;
+                    padding: 60px 80px;
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                }
+                .slide3-container h1 {
+                    font-family: 'Space Grotesk', sans-serif;
+                    font-size: 48px;
+                    font-weight: 700;
+                    color: white;
+                    letter-spacing: -1px;
+                    margin-bottom: 12px;
+                }
+                .slide3-container h1 span:first-child { color: #8b949e; }
+                .slide3-container h1 span:last-child { color: #238636; }
+                .slide3-container .subhead {
+                    font-size: 20px;
+                    font-weight: 300;
+                    color: #8b949e;
+                    margin-bottom: 48px;
+                }
+                .slide3-container .two-columns {
+                    display: flex;
+                    gap: 60px;
+                    flex: 1;
+                }
+                .slide3-container .column {
+                    flex: 1;
+                }
+                .slide3-container .column-header {
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    margin-bottom: 24px;
+                    border-bottom: 2px solid #8b949e;
+                    padding-bottom: 12px;
+                }
+                .slide3-container .column-header i {
+                    font-size: 24px;
+                }
+                .slide3-container .column-header h2 {
+                    font-family: 'JetBrains Mono', monospace;
+                    font-size: 18px;
+                    font-weight: 700;
+                    color: #c9d1d9;
+                    letter-spacing: -0.5px;
+                }
+                .slide3-container .feature-item {
+                    background: rgba(13, 17, 23, 0.6);
+                    border: 1px solid #30363d;
+                    border-radius: 8px;
+                    padding: 16px;
+                    margin-bottom: 16px;
+                }
+                .slide3-container .feature-item i {
+                    font-size: 20px;
+                    margin-right: 12px;
+                    width: 28px;
+                    display: inline-block;
+                }
+                .slide3-container .feature-item .title {
+                    font-weight: 600;
+                    font-size: 18px;
+                    color: white;
+                    margin-bottom: 4px;
+                }
+                .slide3-container .feature-item .desc {
+                    font-size: 14px;
+                    color: #8b949e;
+                    line-height: 1.4;
+                    margin-left: 40px;
+                }
+                .slide3-container .left-col .feature-item i { color: #da3633; }
+                .slide3-container .right-col .feature-item i { color: #238636; }
+                .slide3-container .right-col .feature-item {
+                    border-color: #238636;
+                }
+                .slide3-container .outcome {
+                    margin-top: auto;
+                    text-align: center;
+                    padding: 16px 0;
+                    border-top: 1px solid #30363d;
+                    font-size: 18px;
+                    font-weight: 500;
+                    color: white;
+                }
+                .slide3-container .outcome span.strike {
+                    text-decoration: line-through;
+                    color: #8b949e;
+                }
+                .slide3-container .outcome span.highlight {
+                    color: #1f6feb;
+                    font-weight: 700;
+                }
+                .slide3-container .footer {
+                    margin-top: 12px;
+                    font-size: 12px;
+                    color: #484f58;
+                    font-family: monospace;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+                .slide3-container .qr {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                }
+                .slide3-container .qr img {
+                    width: 32px;
+                    height: 32px;
+                    border-radius: 4px;
+                }
+            </style>
+            <div class="slide3-container">
+                <div class="grid"></div>
+                <div class="vertical-divider"></div>
+                <div class="content">
+                    <h1>Current Limitations: <span>Observability</span> ≠ <span>Governance</span></h1>
+                    <div class="subhead">Why dashboards fail to control autonomous agents</div>
+                    <div class="two-columns">
+                        <div class="column left-col">
+                            <div class="column-header">
+                                <i class="fas fa-chart-bar" style="color:#8b949e;"></i>
+                                <h2>CONVENTIONAL OBSERVABILITY</h2>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-circle-exclamation"></i>
+                                <div class="title">Reactive & Partial</div>
+                                <div class="desc">Relies on logs/traces after failure. No uncertainty quantification; blind to prompt drift.</div>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-user-clock"></i>
+                                <div class="title">Human Bottlenecks</div>
+                                <div class="desc">Operators cannot interpret agent traces at machine speed; alert fatigue leads to missed signals.</div>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-eye-slash"></i>
+                                <div class="title">Emergent Blind Spots</div>
+                                <div class="desc">Misses latent coupling in multi‑agent systems and non‑stationary behavior.</div>
+                            </div>
                         </div>
-                        <div style="flex:1;">
-                            <div style="display:flex; align-items:center; gap:12px; border-bottom:2px solid #8b949e; padding-bottom:12px; margin-bottom:24px;"><i class="fas fa-shield-halved" style="font-size:24px; color:#238636;"></i><h2 style="font-family:monospace; font-size:18px; font-weight:700; color:#c9d1d9;">ARF GOVERNANCE (OSS v4.2.0+)</h2></div>
-                            <div class="feature-item" style="border:1px solid #238636; padding:16px; margin-bottom:16px;"><i class="fas fa-scale-balanced" style="font-size:20px; margin-right:12px; color:#238636;"></i><div style="font-weight:600; font-size:18px; color:white;">Bayesian Risk Modeling</div><div style="font-size:14px; color:#8b949e; margin-left:40px;">Quantifies uncertainty using hierarchical priors and HMC sampling. Provides calibrated risk probabilities.</div></div>
-                            <div class="feature-item" style="border:1px solid #238636; padding:16px; margin-bottom:16px;"><i class="fas fa-gavel" style="font-size:20px; margin-right:12px; color:#238636;"></i><div style="font-weight:600; font-size:18px; color:white;">Deterministic Policy Thresholds (DPT)</div><div style="font-size:14px; color:#8b949e; margin-left:40px;">Approve if P(failure) &lt; 0.2, Escalate if 0.2 ≤ P(failure) ≤ 0.8, Deny if &gt; 0.8. Fully auditable.</div></div>
-                            <div class="feature-item" style="border:1px solid #238636; padding:16px; margin-bottom:16px;"><i class="fas fa-heart-pulse" style="font-size:20px; margin-right:12px; color:#238636;"></i><div style="font-weight:600; font-size:18px; color:white;">HealingIntent & Self‑Healing</div><div style="font-size:14px; color:#8b949e; margin-left:40px;">Immutable advisory output with 30+ fields capturing uncertainty, evidence, remediation parameters, and decision justification.</div></div>
+                        <div class="column right-col">
+                            <div class="column-header">
+                                <i class="fas fa-shield-halved" style="color:#238636;"></i>
+                                <h2>ARF GOVERNANCE (OSS v4.2.0+)</h2>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-scale-balanced"></i>
+                                <div class="title">Bayesian Risk Modeling</div>
+                                <div class="desc">Quantifies uncertainty using hierarchical priors and HMC sampling. Provides calibrated risk probabilities.</div>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-gavel"></i>
+                                <div class="title">Deterministic Policy Thresholds (DPT)</div>
+                                <div class="desc">Approve if P(failure) &lt; 0.2, Escalate if 0.2 ≤ P(failure) ≤ 0.8, Deny if &gt; 0.8. Fully auditable.</div>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-heart-pulse"></i>
+                                <div class="title">HealingIntent & Self‑Healing</div>
+                                <div class="desc">Immutable advisory output with 30+ fields capturing uncertainty, evidence, remediation parameters, and decision justification.</div>
+                            </div>
                         </div>
                     </div>
-                    <div style="margin-top:auto; text-align:center; padding:16px 0; border-top:1px solid #30363d; font-size:18px; color:white;">Outcome: Shift from <span style="text-decoration:line-through; color:#8b949e;">passive monitoring</span> to <span style="color:#1f6feb;">deterministic, auditable control</span>.</div>
-                    <div style="margin-top:12px; font-size:12px; color:#484f58; font-family:monospace; display:flex; justify-content:space-between;"><span>ARF // CURRENT LIMITATIONS</span><div><img src="https://api.qrserver.com/v1/create-qr-code/?size=60x60&data=https://calendly.com/petter2025us/30min" style="width:32px; height:32px; border-radius:4px; vertical-align:middle;"> <span>Book a technical call</span></div></div>
+                    <div class="outcome">
+                        Outcome: Shift from <span class="strike">passive monitoring</span> to <span class="highlight">deterministic, auditable control</span>.
+                    </div>
+                    <div class="footer">
+                        <span>ARF // CURRENT LIMITATIONS</span>
+                        <div class="qr">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=60x60&data=https://calendly.com/petter2025us/30min" alt="Book a call QR">
+                            <span>Book a technical call</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
