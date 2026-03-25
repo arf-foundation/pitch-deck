@@ -421,30 +421,21 @@
     pre.code {
       margin: 12px 0 0 0;
       padding: 14px 14px;
-      background: linear-gradient(135deg, rgba(88,166,255,0.10), rgba(63,185,80,0.08) 48%, rgba(248,81,73,0.08));
-      border: 1px solid rgba(88,166,255,0.24);
+      background: rgba(13, 17, 23, 0.88);
+      border: 1px solid var(--border);
       border-radius: 14px;
       color: var(--code);
-      overflow: hidden;
-      white-space: pre-wrap;
-      word-break: break-word;
-      font-size: 0.74em;
-      line-height: 1.42;
-      max-height: none;
+      overflow: auto;
+      font-size: 0.8em;
+      line-height: 1.55;
       box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+      max-height: 210px;
       max-width: 100%;
     }
 
     code {
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
     }
-
-    .code-method { color: #95f0a6; font-weight: 700; }
-    .code-url { color: #8ddbff; }
-    .code-header { color: #f4d35e; }
-    .code-field { color: #d2a8ff; }
-    .code-string { color: #ffa657; }
-    .code-number { color: #79c0ff; }
 
     .endpoint-grid {
       display: grid;
@@ -651,41 +642,6 @@
         font-size: 0.82rem;
       }
     }
-
-    @media print {
-      html, body {
-        overflow: visible !important;
-        height: auto !important;
-      }
-
-      .reveal {
-        width: 100% !important;
-        height: auto !important;
-      }
-
-      .reveal .slides,
-      .reveal .slides section {
-        height: auto !important;
-        min-height: 0 !important;
-        overflow: visible !important;
-      }
-
-      .slide-inner {
-        height: auto !important;
-        min-height: 0 !important;
-      }
-
-      .footer,
-      .bottom-left-logo {
-        position: static !important;
-      }
-
-      .fragment {
-        opacity: 1 !important;
-        visibility: visible !important;
-        transform: none !important;
-      }
-    }
   </style>
 </head>
 
@@ -696,7 +652,12 @@
     <section>
       <div class="slide-inner">
         <div class="hero">
-          
+          <div class="centered">
+
+            <div class="brand-card light" style="width: fit-content; margin-bottom: 10px;">
+              <img src="./ARF%20-%20Primary%20Logo.png" alt="ARF Logo" style="width: clamp(150px, 17vw, 210px);" />
+            </div>
+
             <div class="eyebrow">
               <span class="pill">Open source</span>
               <span class="pill">AI reliability</span>
@@ -891,22 +852,14 @@
               Example incident evaluation request:
             </div>
 
-            <pre class="code"><code><span class="code-method">curl</span> -X <span class="code-method">POST</span> <span class="code-url">https://a-r-f-agentic-reliability-framework-api.hf.space/v1/incidents/evaluate</span> \
-  -H <span class="code-header">"Content-Type: application/json"</span> \
+            <pre class="code"><code>curl -X POST https://a-r-f-agentic-reliability-framework-api.hf.space/v1/incidents/evaluate \
+  -H "Content-Type: application/json" \
   -d '{
-    <span class="code-field">"service_name"</span>: <span class="code-string">"api"</span>,
-    <span class="code-field">"event_type"</span>: <span class="code-string">"latency"</span>,
-    <span class="code-field">"severity"</span>: <span class="code-string">"high"</span>,
-    <span class="code-field">"metrics"</span>: { <span class="code-field">"latency_ms"</span>: <span class="code-number">450</span> }
+    "service_name":"api",
+    "event_type":"latency",
+    "severity":"high",
+    "metrics":{"latency_ms":450}
   }'</code></pre>
-
-            <div class="small" style="margin-top: 8px;">
-              This endpoint is POST-only. Direct browser visits can return <strong>Not Found</strong> by design.
-              <br>
-              <a href="https://a-r-f-agentic-reliability-framework-api.hf.space/docs#/" target="_blank" class="accent">
-                Open Swagger UI →
-              </a>
-            </div>
           </div>
 
           <div class="panel">
@@ -1092,28 +1045,28 @@
             </div>
           </div>
         </div>
+
+        <!-- Bottom-left logo (restored position) -->
+        <img 
+          src="ARF%20-%20Primary%20Logo.png" 
+          alt="ARF Logo"
+          style="
+            position: absolute;
+            bottom: 18px;
+            left: 24px;
+            width: clamp(110px, 12vw, 160px);
+            opacity: 0.9;
+          "
+        />
+
+        <div class="footer">
+          <span>ARF — Agentic Reliability Framework</span>
+          <span>Juan Petter</span>
+          <span>Open-source pitch deck</span>
+        </div>
       </div>
     </section>
 
-    <!-- Bottom-left logo (restored position) -->
-    <img 
-      src="ARF%20-%20Primary%20Logo.png" 
-      alt="ARF Logo"
-      class="bottom-left-logo"
-      style="
-        position: absolute;
-        bottom: 18px;
-        left: 24px;
-        width: clamp(110px, 12vw, 160px);
-        opacity: 0.9;
-      "
-    />
-
-    <div class="footer">
-      <span>ARF — Agentic Reliability Framework</span>
-      <span>Juan Petter</span>
-      <span>Open-source pitch deck</span>
-    </div>
   </div>
 </div>
 
@@ -1131,10 +1084,7 @@
     hash: true,
     transition: 'fade',
     backgroundTransition: 'fade',
-    fragments: true,
-    pdfSeparateFragments: false,
-    pdfMaxPagesPerSlide: 1,
-    showSlideNumber: 'print'
+    fragments: true
   });
 </script>
 </body>
