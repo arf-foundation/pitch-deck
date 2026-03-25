@@ -852,15 +852,16 @@
               Example incident evaluation request:
             </div>
 
-            <pre class="code"><code>curl -X POST https://a-r-f-agentic-reliability-framework-api.hf.space/v1/incidents/evaluate \
-  -H "Content-Type: application/json" \
-  -d '{
-    "service_name":"api",
-    "event_type":"latency",
-    "severity":"high",
-    "metrics":{"latency_ms":450}
-  }'</code></pre>
-          </div>
+            <pre class="code" style="font-size:1.05rem; line-height:1.45; color:#d6deeb; background:rgba(13,17,23,0.92); padding:16px; border-radius:14px;">
+            <span style="color:#58a6ff;">curl</span> -X <span style="color:#79c0ff;">POST</span> <span style="color:#ff7b72;">https://a-r-f-agentic-reliability-framework-api.hf.space/v1/incidents/evaluate</span> \
+              -H <span style="color:#a5d6ff;">"Content-Type: application/json"</span> \
+              -d '<span style="color:#ffab70;">{
+                "service_name": "api",
+                "event_type": "latency",
+                "severity": "high",
+                "metrics": {"latency_ms": 450}
+              }</span>'
+            </pre>
 
           <div class="panel">
             <ul>
