@@ -651,6 +651,41 @@
         font-size: 0.82rem;
       }
     }
+
+    @media print {
+      html, body {
+        overflow: visible !important;
+        height: auto !important;
+      }
+
+      .reveal {
+        width: 100% !important;
+        height: auto !important;
+      }
+
+      .reveal .slides,
+      .reveal .slides section {
+        height: auto !important;
+        min-height: 0 !important;
+        overflow: visible !important;
+      }
+
+      .slide-inner {
+        height: auto !important;
+        min-height: 0 !important;
+      }
+
+      .footer,
+      .bottom-left-logo {
+        position: static !important;
+      }
+
+      .fragment {
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+      }
+    }
   </style>
 </head>
 
@@ -1019,53 +1054,56 @@
               <li class="fragment">Next step: validate against real production failure modes.</li>
             </ul>
 
-        <div class="links">
-          <span class="link-pill">Landing Page</span>
-          <span class="link-pill">GitHub Foundation</span>
-          <span class="link-pill">Documentation</span>
-          <span class="link-pill">API</span>
-        </div>
-      </div>
-
-      <div class="panel">
-        <div class="stack">
-          <div class="metric-card" style="min-height: 0;">
-            <div class="metric-label">What I’m looking for</div>
-            <div class="metric-value" style="font-size:clamp(1.0rem, 1.6vw, 1.35rem);">Collaborators and early adopters</div>
-            <div class="metric-sub">Teams building autonomous or agentic systems in production.</div>
+            <div class="links">
+              <span class="link-pill">Landing Page</span>
+              <span class="link-pill">GitHub Foundation</span>
+              <span class="link-pill">Documentation</span>
+              <span class="link-pill">API</span>
+            </div>
           </div>
 
-          <div class="metric-card" style="min-height: 0;">
-            <div class="metric-label">What to scan</div>
-            <div class="metric-sub" style="margin-top: 0;">
-              Use the QR codes below to open the live demo and the ARF Foundation GitHub page.
+          <div class="panel">
+            <div class="stack">
+              <div class="metric-card" style="min-height: 0;">
+                <div class="metric-label">What I’m looking for</div>
+                <div class="metric-value" style="font-size:clamp(1.0rem, 1.6vw, 1.35rem);">Collaborators and early adopters</div>
+                <div class="metric-sub">Teams building autonomous or agentic systems in production.</div>
+              </div>
+
+              <div class="metric-card" style="min-height: 0;">
+                <div class="metric-label">What to scan</div>
+                <div class="metric-sub" style="margin-top: 0;">
+                  Use the QR codes below to open the live demo and the ARF Foundation GitHub page.
+                </div>
+              </div>
+            </div>
+
+            <div class="qr-container">
+              <div class="qr-box">
+                <img
+                  src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https%3A%2F%2Farf-frontend-sandy.vercel.app%2F"
+                  alt="Live Demo QR"
+                />
+                <p>Landing Page</p>
+              </div>
+              <div class="qr-box">
+                <img
+                  src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https%3A%2F%2Fgithub.com%2Farf-foundation%2F"
+                  alt="GitHub QR"
+                />
+                <p>GitHub</p>
+              </div>
             </div>
           </div>
         </div>
-
-        <div class="qr-container">
-          <div class="qr-box">
-            <img
-              src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https%3A%2F%2Farf-frontend-sandy.vercel.app%2F"
-              alt="Live Demo QR"
-            />
-            <p>Landing Page</p>
-          </div>
-          <div class="qr-box">
-            <img
-              src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https%3A%2F%2Fgithub.com%2Farf-foundation%2F"
-              alt="GitHub QR"
-            />
-            <p>GitHub</p>
-          </div>
-        </div>
       </div>
-    </div>
+    </section>
 
     <!-- Bottom-left logo (restored position) -->
     <img 
       src="ARF%20-%20Primary%20Logo.png" 
       alt="ARF Logo"
+      class="bottom-left-logo"
       style="
         position: absolute;
         bottom: 18px;
@@ -1081,9 +1119,6 @@
       <span>Open-source pitch deck</span>
     </div>
   </div>
-</section>
-
-</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.js"></script>
@@ -1100,7 +1135,10 @@
     hash: true,
     transition: 'fade',
     backgroundTransition: 'fade',
-    fragments: true
+    fragments: true,
+    pdfSeparateFragments: false,
+    pdfMaxPagesPerSlide: 1,
+    showSlideNumber: 'print'
   });
 </script>
 </body>
