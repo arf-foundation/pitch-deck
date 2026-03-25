@@ -852,17 +852,29 @@
               Example incident evaluation request:
             </div>
     
-            <pre class="code" style="font-size:1.1rem; line-height:1.7; max-height:none; overflow:visible; padding:16px; background:rgba(18,24,33,0.95); color:#58a6ff; border:1px solid #283241; border-radius:12px;">
-    curl -X POST https://a-r-f-agentic-reliability-framework-api.hf.space/v1/incidents/evaluate \
-      -H "Content-Type: application/json" \
-      -d '{
-        "service_name":"api",
-        "event_type":"latency",
-        "severity":"high",
-        "metrics":{"latency_ms":450}
-      }'
+            <pre class="code" style="
+            font-size:1.1rem;
+            line-height:1.7;
+            max-height:none;
+            overflow:visible;
+            padding:16px;
+            background:rgba(18,24,33,0.95);
+            color:#58a6ff;
+            border:1px solid #283241;
+            border-radius:12px;
+            white-space: pre-wrap;
+            word-break: break-word;
+          ">
+          curl -X POST https://a-r-f-agentic-reliability-framework-api.hf.space/v1/incidents/evaluate \
+            -H "Content-Type: application/json" \
+            -d '{
+              "service_name":"api",
+              "event_type":"latency",
+              "severity":"high",
+              "metrics":{"latency_ms":450}
+            }'
             </pre>
-          </div>
+            </div>
     
           <div class="panel">
             <ul>
