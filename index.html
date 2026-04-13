@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ARF Pitch Deck</title>
+  <title>ARF Pitch Deck – Pilot‑First Reliability Framework</title>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/black.css" />
@@ -576,6 +576,22 @@
     .reveal .progress { color: var(--accent); }
     .reveal .controls { color: var(--accent); }
 
+    /* Global access‑control disclaimer (added to all slides) */
+    .global-note {
+      position: fixed;
+      bottom: 6px;
+      right: 12px;
+      font-size: 8px;
+      color: #5c6775;
+      background: rgba(0,0,0,0.4);
+      padding: 2px 8px;
+      border-radius: 20px;
+      z-index: 100;
+      pointer-events: none;
+      font-family: monospace;
+      letter-spacing: 0.5px;
+    }
+
     @media (max-width: 1100px) {
       .hero,
       .two-col,
@@ -649,6 +665,7 @@
 <div class="reveal">
   <div class="slides">
 
+    <!-- SLIDE 1: TITLE (removed "open source" badge, replaced with "Pilot‑first") -->
     <section>
       <div class="slide-inner">
         <div class="hero">
@@ -659,7 +676,7 @@
             </div>
 
             <div class="eyebrow">
-              <span class="pill">Open source</span>
+              <span class="pill">Pilot‑first</span>
               <span class="pill">AI reliability</span>
               <span class="pill">Self-healing systems</span>
             </div>
@@ -710,6 +727,7 @@
       </div>
     </section>
 
+    <!-- SLIDE 2: PROBLEM (unchanged conceptually) -->
     <section>
       <div class="slide-inner">
         <div class="eyebrow">
@@ -747,6 +765,7 @@
       </div>
     </section>
 
+    <!-- SLIDE 3: SOLUTION (unchanged) -->
     <section>
       <div class="slide-inner">
         <div class="eyebrow">
@@ -785,6 +804,7 @@
       </div>
     </section>
 
+    <!-- SLIDE 4: HOW IT WORKS (unchanged) -->
     <section>
       <div class="slide-inner">
         <div class="eyebrow">
@@ -837,91 +857,84 @@
       </div>
     </section>
 
+    <!-- SLIDE 5: TRY IT NOW – replaced real endpoint with sandbox + disclaimer -->
     <section>
       <div class="slide-inner">
         <div class="eyebrow">
           <span class="pill">Try it now</span>
-          <span class="pill">API-first</span>
+          <span class="pill">Sandbox API</span>
         </div>
-    
-        <h2>A single request returns a HealingIntent with risk and recommended action.</h2>
-    
+
+        <h2>Test the reliability loop with our sandbox endpoint.</h2>
+
         <div class="two-col" style="margin-top: 8px;">
           <div class="panel">
             <div class="small" style="margin-bottom: 8px;">
-              Example incident evaluation request:
+              Example sandbox request (mock response):
             </div>
-    
-            <pre class="code" style="
-            font-size:1.1rem;
-            line-height:1.7;
-            max-height:none;
-            overflow:visible;
-            padding:16px;
-            background:rgba(18,24,33,0.95);
-            color:#58a6ff;
-            border:1px solid #283241;
-            border-radius:12px;
-            white-space: pre-wrap;
-            word-break: break-word;
-          ">
-          curl -X POST https://a-r-f-agentic-reliability-framework-api.hf.space/v1/incidents/evaluate \
-            -H "Content-Type: application/json" \
-            -d '{
-              "service_name":"api",
-              "event_type":"latency",
-              "severity":"high",
-              "metrics":{"latency_ms":450}
-            }'
+
+            <pre class="code" style="font-size:1.0rem; line-height:1.6; padding:14px; background:rgba(18,24,33,0.95); color:#58a6ff; border:1px solid #283241; border-radius:12px; white-space: pre-wrap; word-break: break-word;">
+curl -X POST https://sandbox.arf.dev/v1/evaluate \
+  -H "Content-Type: application/json" \
+  -d '{
+    "service_name":"api",
+    "event_type":"latency",
+    "severity":"high",
+    "metrics":{"latency_ms":450}
+  }'
             </pre>
+            <div class="small fragment" style="margin-top: 8px; color: #f0ad4e;">
+              ⚠️ This sandbox returns mock data only. The real ARF engine is access‑controlled.
             </div>
-    
+          </div>
+
           <div class="panel">
             <ul>
-              <li class="fragment">Returns a full <strong>HealingIntent</strong>.</li>
-              <li class="fragment">Includes risk score and risk factors.</li>
-              <li class="fragment">Includes the recommended action.</li>
-              <li class="fragment">Designed for automation, not manual interpretation.</li>
+              <li class="fragment">Returns a conceptual <strong>HealingIntent</strong> example.</li>
+              <li class="fragment">Illustrates risk score and recommended action structure.</li>
+              <li class="fragment">Designed to show the API contract, not production inference.</li>
+              <li class="fragment">For full engine access, <strong><a href="https://arf-frontend-sandy.vercel.app/signup" target="_blank" style="color:var(--accent);">request a pilot</a></strong>.</li>
             </ul>
-    
-            <div class="callout fragment">This is where observability becomes operational control.</div>
+
+            <div class="callout fragment">Observability becomes operational control – with the protected engine.</div>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- SLIDE 6: ECOSYSTEM OVERVIEW – renamed OSS Engine to Protected Core Engine -->
     <section>
       <div class="slide-inner">
         <div class="eyebrow">
           <span class="pill">Ecosystem overview</span>
           <span class="pill">Composable platform</span>
         </div>
-    
+
         <h2>ARF is a layered platform, not a single model.</h2>
-    
+
         <div class="three-col" style="margin-top: 8px;">
           <div class="card">
             <h3>🔬 Research</h3>
             <p>Mathematical foundations for hybrid Bayesian inference, risk modeling, and policy decisions.</p>
           </div>
           <div class="card">
-            <h3>🛠️ OSS Engine</h3>
-            <p>Core Bayesian models, Persistent memory, and the Governance loop.</p>
+            <h3>🛠️ Protected Core Engine</h3>
+            <p>Bayesian risk scoring, semantic memory, governance loop – <strong>access‑controlled, pilot only</strong>.</p>
           </div>
           <div class="card">
             <h3>⚡ API Control Plane</h3>
-            <p>FastAPI service exposing incident evaluation, feedback, and memory endpoints.</p>
+            <p>FastAPI service exposing incident evaluation, feedback, and memory endpoints (gated).</p>
           </div>
         </div>
-    
+
         <div class="three-col" style="margin-top: 10px;">
           <div class="card">
             <h3>💻 Frontend UI</h3>
-            <p>Next.js dashboard for visualizing risk, actions, and system state.</p>
+            <p>Next.js dashboard for visualizing risk, actions, and system state (public demo UI).</p>
           </div>
           <div class="card">
             <h3>🏢 Enterprise</h3>
-            <p>Compliance, Audit trails, 24/7 Support, Autonomous Execution, Operational hardening for production use, Core IP's</p>
+            <p>Outcome‑based pricing, unlimited evaluations, SSO, SLA, on‑prem deployment, dedicated support.</p>
           </div>
           <div class="card">
             <h3>🎯 Outcome</h3>
@@ -930,6 +943,8 @@
         </div>
       </div>
     </section>
+
+    <!-- SLIDE 7: API SURFACE – added access note -->
     <section>
       <div class="slide-inner">
         <div class="eyebrow">
@@ -991,12 +1006,16 @@
 
         <div class="panel fragment" style="margin-top: 12px;">
           <div class="small">
+            ⚠️ These endpoints are part of the <strong>protected engine</strong> and are not publicly accessible. Pilot customers receive API credentials.
+          </div>
+          <div class="small" style="margin-top: 6px;">
             Schemas include validation errors, incident requests, and structured output for integration and automation.
           </div>
         </div>
       </div>
     </section>
 
+    <!-- SLIDE 8: TRACTION / CALL TO ACTION – updated references, removed "open source" footer -->
     <section>
       <div class="slide-inner">
         <div class="eyebrow">
@@ -1010,17 +1029,17 @@
         <div class="two-col" style="margin-top: 8px;">
           <div class="panel">
             <ul>
-              <li class="fragment">Working prototype available on GitHub and the live demo stack.</li>
-              <li class="fragment">Documentation, API surface, and repository structure are public.</li>
+              <li class="fragment">Working prototype available through pilot access.</li>
+              <li class="fragment">Documentation and public specification are on GitHub.</li>
               <li class="fragment">The system is designed for technical teams that need reliability, not just insights.</li>
-              <li class="fragment">Next step: validate against real production failure modes.</li>
+              <li class="fragment">Next step: validate against real production failure modes with a pilot.</li>
             </ul>
 
             <div class="links">
-              <span class="link-pill">Landing Page</span>
-              <span class="link-pill">GitHub Foundation</span>
-              <span class="link-pill">Documentation</span>
-              <span class="link-pill">API</span>
+              <a href="https://arf-frontend-sandy.vercel.app/" target="_blank" class="link-pill">Landing Page</a>
+              <a href="https://github.com/arf-foundation" target="_blank" class="link-pill">GitHub Foundation</a>
+              <a href="https://arf-foundation.github.io/arf-spec/" target="_blank" class="link-pill">Specification</a>
+              <a href="https://sandbox.arf.dev/docs" target="_blank" class="link-pill">Sandbox API</a>
             </div>
           </div>
 
@@ -1033,9 +1052,9 @@
               </div>
 
               <div class="metric-card" style="min-height: 0;">
-                <div class="metric-label">What to scan</div>
+                <div class="metric-label">How to start</div>
                 <div class="metric-sub" style="margin-top: 0;">
-                  Use the QR codes below to open the ARF Foundation Landing Page and GitHub.
+                  Scan the QR code to request pilot access, or visit <strong>arf-frontend-sandy.vercel.app/signup</strong>.
                 </div>
               </div>
             </div>
@@ -1043,23 +1062,23 @@
             <div class="qr-container">
               <div class="qr-box">
                 <img
-                  src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https%3A%2F%2Farf-frontend-sandy.vercel.app%2F"
-                  alt="Live Demo QR"
+                  src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https%3A%2F%2Farf-frontend-sandy.vercel.app%2Fsignup"
+                  alt="Pilot request QR"
                 />
-                <p>Landing Page</p>
+                <p>Request Pilot</p>
               </div>
               <div class="qr-box">
                 <img
                   src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https%3A%2F%2Fgithub.com%2Farf-foundation%2F"
                   alt="GitHub QR"
                 />
-                <p>GitHub</p>
+                <p>GitHub (Public)</p>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Bottom-left logo (restored position) -->
+        <!-- Logo positioned at bottom left -->
         <img 
           src="ARF%20-%20Primary%20Logo.png" 
           alt="ARF Logo"
@@ -1075,12 +1094,17 @@
         <div class="footer">
           <span>ARF — Agentic Reliability Framework</span>
           <span>Juan Petter</span>
-          <span>Open-source pitch deck</span>
+          <span>Pilot‑first · Outcome‑based pricing</span>
         </div>
       </div>
     </section>
 
   </div>
+</div>
+
+<!-- Global access control note (appears on all slides) -->
+<div class="global-note">
+  ⚠️ Core engine is access‑controlled – not open source. Pilot only.
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.js"></script>
