@@ -64,6 +64,7 @@
     .metric .value { font-size: clamp(1.7rem, 3vw, 2.7rem); line-height: 1; font-weight: 900; color: var(--navy); margin-top: 8px; }
     .metric .desc { color: var(--muted); margin-top: 10px; font-size: 0.92rem; line-height: 1.38; }
     .flow { display:grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+    .flow-5 { display:grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
     .step { padding: 16px; border-radius: 18px; background: linear-gradient(180deg, #ffffff, #f7fbff); border: 1px solid var(--line); box-shadow: var(--shadow-soft); min-width:0; position: relative; }
     .step:not(:last-child)::after { content: "→"; position:absolute; right: -18px; top: 50%; transform: translateY(-50%); color: #9fb0c5; font-size: 1.2rem; font-weight: 800; }
     .step .n { display:inline-flex; align-items:center; justify-content:center; width: 30px; height: 30px; border-radius: 999px; background: rgba(37,99,235,0.10); color: var(--blue); font-size: 0.86rem; font-weight: 800; margin-bottom: 10px; }
@@ -99,10 +100,15 @@
     .tight { line-height: 1.35; }
     .spacer-4 { height: 4px; } .spacer-8 { height: 8px; } .spacer-12 { height: 12px; }
     .footnote { font-size: 0.72rem; color: var(--muted); margin-top: 4px; line-height: 1.35; }
+    .integrate-grid { display:grid; grid-template-columns: 0.5fr auto 1fr; gap: 14px; align-items: center; margin-top: 12px; }
+    .publius-output { background: rgba(255,255,255,0.8); border:1px solid var(--line); border-radius:16px; padding:14px; }
+    .publius-output ul { margin:0; padding-left: 1.2em; }
+    .big-arrow { font-size: 2rem; color: var(--teal); font-weight: 900; }
 
     @media (max-width: 1100px) {
-      .hero, .grid-2, .grid-3, .cta, .outcome-grid, .pricing, .flow { grid-template-columns: 1fr; }
+      .hero, .grid-2, .grid-3, .cta, .outcome-grid, .pricing, .flow, .flow-5, .integrate-grid { grid-template-columns: 1fr; }
       .step:not(:last-child)::after { display:none; }
+      .big-arrow { display:none; }
       h1 { max-width: none; }
       .logo-row { justify-content: center; }
     }
@@ -150,9 +156,9 @@
           <div class="spacer-12"></div>
           <div class="metric"><div><div class="label">Commercial outcome</div><div class="value">Less exposure</div></div><div class="desc">Reduce legal, operational, and reputational risk.</div></div>
           <div class="spacer-12"></div>
-          <div class="formula">
-            Decision = argmin( L_approve, L_deny, L_escalate )
-            <div class="footnote" style="margin-top:6px; color: rgba(255,255,255,0.65);">Each loss term balances Bayesian risk, business impact, forecasted risk, and epistemic uncertainty — calibrated to your firm’s risk tolerance.</div>
+          <div class="card">
+            <p class="tight">The system chooses the action with the <strong>lowest expected cost</strong>, weighing risk, business impact, forecasted risk, and epistemic uncertainty — calibrated to your firm’s risk tolerance.</p>
+            <div class="footnote" style="margin-top:8px; font-size:0.7rem;">Under the hood: Decision = argmin(L_approve, L_deny, L_escalate) — each loss term reflects a configurable cost model.</div>
           </div>
         </div>
       </div>
@@ -199,7 +205,36 @@
       </div>
     </section>
 
-    <!-- 5. AUDITABILITY / TRUST -->
+    <!-- 5. PUBLIUS + ARF INTEGRATION (NEW) -->
+    <section>
+      <div class="slide">
+        <div class="section-head"><div><div class="eyebrow"><span class="chip">Integration</span></div><h2>How Publius and ARF work together.</h2></div><div class="eyebrow-note">Seamless data flow — no workflow changes.</div></div>
+        <div class="integrate-grid">
+          <div class="publius-output">
+            <h3 style="margin-bottom:6px;">Publius Outputs</h3>
+            <ul>
+              <li>Case law summaries</li>
+              <li>Discovery recommendations</li>
+              <li>Document clusters</li>
+              <li>Timeline extraction</li>
+            </ul>
+          </div>
+          <div class="big-arrow" style="text-align:center;">→</div>
+          <div class="flow-5" style="grid-template-columns: repeat(5, minmax(0,1fr)); gap:8px;">
+            <div class="step" style="padding:12px;"><div class="t" style="font-size:0.9rem;">Risk Score</div><div class="d" style="font-size:0.8rem;">Bayesian fusion</div></div>
+            <div class="step" style="padding:12px;"><div class="t" style="font-size:0.9rem;">Policy Check</div><div class="d" style="font-size:0.8rem;">Firm rules</div></div>
+            <div class="step" style="padding:12px;"><div class="t" style="font-size:0.9rem;">Decision</div><div class="d" style="font-size:0.8rem;">Approve / Deny / Escalate</div></div>
+            <div class="step" style="padding:12px;"><div class="t" style="font-size:0.9rem;">Audit Trail</div><div class="d" style="font-size:0.8rem;">Cryptographic log</div></div>
+            <div class="step" style="padding:12px;"><div class="t" style="font-size:0.9rem;">Attorney</div><div class="d" style="font-size:0.8rem;">Review & act</div></div>
+          </div>
+        </div>
+        <div class="card" style="margin-top:12px;">
+          <p class="tight">ARF wraps around the Publius pipeline — no additional login, no export/import. Governance becomes invisible infrastructure.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. AUDITABILITY / TRUST -->
     <section>
       <div class="slide">
         <div class="section-head"><div><div class="eyebrow"><span class="chip">Enterprise trust</span></div><h2>Make decisions explainable.</h2></div><div class="eyebrow-note">Trust comes from traceability, not marketing language.</div></div>
@@ -215,37 +250,28 @@
       </div>
     </section>
 
-    <!-- 6. WHY FIRMS CHOOSE ARF (redesigned) -->
+    <!-- 7. WHY FIRMS CHOOSE ARF -->
     <section>
       <div class="slide">
         <div class="section-head"><div><div class="eyebrow"><span class="chip">Differentiation</span></div><h2>Why firms choose ARF.</h2></div><div class="eyebrow-note">Outcome‑first, not math‑first.</div></div>
         <div class="grid-3">
-          <div class="metric">
-            <div><div class="label">1</div><div class="value" style="font-size:clamp(1.2rem,2vw,1.5rem);">Limit liability</div></div>
-            <div class="desc">Governed AI creates an audit trail that can be produced in court — turning a black‑box decision into a defensible process.</div>
-          </div>
-          <div class="metric">
-            <div><div class="label">2</div><div class="value" style="font-size:clamp(1.2rem,2vw,1.5rem);">Strengthen client trust</div></div>
-            <div class="desc">Every AI‑assisted work product carries a verifiable governance record, demonstrating diligence to clients and regulators.</div>
-          </div>
-          <div class="metric">
-            <div><div class="label">3</div><div class="value" style="font-size:clamp(1.2rem,2vw,1.5rem);">Operationalize oversight</div></div>
-            <div class="desc">Policy enforcement, escalation rules, and calibration reports become routine — not a fire drill.</div>
-          </div>
+          <div class="metric"><div><div class="label">1</div><div class="value" style="font-size:clamp(1.2rem,2vw,1.5rem);">Limit liability</div></div><div class="desc">Governed AI creates an audit trail that can be produced in court.</div></div>
+          <div class="metric"><div><div class="label">2</div><div class="value" style="font-size:clamp(1.2rem,2vw,1.5rem);">Strengthen client trust</div></div><div class="desc">Every AI‑assisted work product carries a verifiable governance record.</div></div>
+          <div class="metric"><div><div class="label">3</div><div class="value" style="font-size:clamp(1.2rem,2vw,1.5rem);">Operationalize oversight</div></div><div class="desc">Policy enforcement, escalation rules, and calibration become routine.</div></div>
         </div>
         <div class="quote" style="margin-top:12px;">Firms invest in governance for one reason: <span>defensibility</span>. The analytics under the hood are powerful, but the conversation stays on outcomes.</div>
       </div>
     </section>
 
-    <!-- 7. PILOT STRUCTURE (paid, gated, conversion path) – language updated -->
+    <!-- 8. PILOT STRUCTURE (non‑refundable language added) -->
     <section>
       <div class="slide">
-        <div class="section-head"><div><div class="eyebrow"><span class="chip">Engagement</span></div><h2>Governance Validation Pilot.</h2></div><div class="eyebrow-note">A paid, time‑bound assessment designed to prove value – not to give away the product. Engagements are selective because the founder leads every pilot.</div></div>
+        <div class="section-head"><div><div class="eyebrow"><span class="chip">Engagement</span></div><h2>Governance Validation Pilot.</h2></div><div class="eyebrow-note">A paid, time‑bound assessment designed to prove value — not to give away the product. Engagements are selective because the founder leads every pilot.</div></div>
         <div class="grid-2">
           <div class="card">
             <h3>60‑Day Governance Assessment</h3>
             <div class="spacer-8"></div>
-            <div class="scorebox"><div class="big">$3,500</div><div class="small">100% credited toward annual contract if converted within 30 days.</div></div>
+            <div class="scorebox"><div class="big">$3,500</div><div class="small">Non‑refundable; 100% credited toward year‑one annual contract if converted within 30 days.</div></div>
             <div class="spacer-12"></div>
             <ul>
               <li>Onboarding & policy configuration</li>
@@ -266,13 +292,13 @@
               <li>No automatic roll‑overs; no unbounded free usage</li>
             </ul>
             <div class="spacer-12"></div>
-            <div class="quote">When a firm invests in a pilot, the partnership treats it as a strategic project – not a tire‑kick. That shared investment drives faster, more serious decisions.</div>
+            <div class="quote">When a firm invests in a pilot, the partnership treats it as a strategic project — not a tire‑kick. That shared investment drives faster, more serious decisions.</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 8. PRICING & ENGAGEMENT -->
+    <!-- 9. PRICING & ENGAGEMENT -->
     <section>
       <div class="slide">
         <div class="section-head"><div><div class="eyebrow"><span class="chip">Engagement model</span></div><h2>Annual Governance Agreements.</h2></div><div class="eyebrow-note">Priced like governance infrastructure, not a subscription toy.</div></div>
@@ -299,23 +325,15 @@
         </div>
 
         <div class="grid-2" style="margin-top:12px;">
-          <div class="card">
-            <h3>Support & maintenance</h3>
-            <div class="spacer-8"></div>
-            <p class="tight"><strong>Standard</strong> – included: email support, best‑effort response, self‑service documentation.<br/><strong>Priority Governance Support</strong> – +$500/mo: 24‑hour response, quarterly governance tuning session, escalation review.<br/><strong>Enterprise Reliability Retainer</strong> – $2k–$8k/mo: reserved founder advisory time, audit‑preparation assistance, annual policy redesign, dedicated Slack channel.</p>
-          </div>
-          <div class="card">
-            <h3>Payment terms</h3>
-            <div class="spacer-8"></div>
-            <p class="tight">Annual contracts invoiced upfront. Deployment fees due at contract signing. Pilot fee credited in full upon conversion. Bridge agreements billed quarterly.</p>
-          </div>
+          <div class="card"><h3>Support & maintenance</h3><div class="spacer-8"></div><p class="tight"><strong>Standard</strong> – included: email support, best‑effort response, self‑service documentation.<br/><strong>Priority Governance Support</strong> – +$500/mo: 24‑hour response, quarterly governance tuning session, escalation review.<br/><strong>Enterprise Reliability Retainer</strong> – $2k–$8k/mo: reserved founder advisory time, audit‑preparation assistance, annual policy redesign, dedicated Slack channel.</p></div>
+          <div class="card"><h3>Payment terms</h3><div class="spacer-8"></div><p class="tight">Annual contracts invoiced upfront. Deployment fees due at contract signing. Pilot fee credited in full upon conversion. Bridge agreements billed quarterly.</p></div>
         </div>
 
         <div class="quote" style="margin-top:12px;"><span>Designed for operational trust,</span> not lightweight SaaS.</div>
       </div>
     </section>
 
-    <!-- 9. ENTERPRISE ROADMAP / CLOSE -->
+    <!-- 10. ENTERPRISE ROADMAP / CLOSE -->
     <section>
       <div class="slide">
         <div class="section-head"><div><div class="eyebrow"><span class="chip">Next step</span></div><h2>Start with a structured pilot.</h2></div><div class="eyebrow-note">Selective pilot engagements — limited by founder capacity, not an open waitlist.</div></div>
@@ -352,7 +370,7 @@
       </div>
     </section>
 
-    <!-- 10. CONTACT -->
+    <!-- 11. CONTACT -->
     <section>
       <div class="slide">
         <div class="surface surface-pad" style="text-align:center;">
