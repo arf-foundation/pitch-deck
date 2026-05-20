@@ -12,578 +12,96 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/white.css" />
 
   <style>
-    :root{
-      --bg:#f4f7fb;
-      --bg-2:#eef3f8;
-      --surface:#ffffff;
-      --surface-2:#f8fbff;
-      --ink:#0f172a;
-      --muted:#5b667a;
-      --line:#d7e0ea;
-      --line-strong:#b9c8d9;
-      --navy:#0b1f3a;
-      --blue:#2563eb;
-      --teal:#0f766e;
-      --emerald:#059669;
-      --amber:#b45309;
-      --red:#b42318;
-      --shadow: 0 18px 60px rgba(15,23,42,0.10);
-      --shadow-soft: 0 10px 26px rgba(15,23,42,0.08);
-      --radius: 22px;
-      --radius-sm: 16px;
+    :root {
+      --bg: #f4f7fb; --bg-2: #eef3f8; --surface: #ffffff; --surface-2: #f8fbff;
+      --ink: #0f172a; --muted: #5b667a; --line: #d7e0ea; --line-strong: #b9c8d9;
+      --navy: #0b1f3a; --blue: #2563eb; --teal: #0f766e;
+      --shadow: 0 18px 60px rgba(15,23,42,0.10); --shadow-soft: 0 10px 26px rgba(15,23,42,0.08);
+      --radius: 22px; --radius-sm: 16px;
     }
-
     * { box-sizing: border-box; }
     html, body { margin:0; width:100%; height:100%; background: radial-gradient(circle at top, #ffffff 0%, var(--bg) 48%, #e9eff6 100%); overflow:hidden; }
-    body { font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: var(--ink); }
-
-    .reveal {
-      width:100%;
-      height:100%;
-      font-size: clamp(18px, 1.25vw, 24px);
-      color: var(--ink);
-    }
-
+    body { font-family: Inter, system-ui, -apple-system, sans-serif; color: var(--ink); }
+    .reveal { width:100%; height:100%; font-size: clamp(18px, 1.25vw, 24px); color: var(--ink); }
     .reveal .slides { text-align:left; }
-    .reveal section {
-      width:100%;
-      height:100%;
-      padding: 22px;
-      display:flex !important;
-      align-items:center;
-      justify-content:center;
-      overflow:hidden;
-    }
-
-    .slide {
-      width:min(1240px, 100%);
-      height:100%;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      gap: 18px;
-      min-height:0;
-    }
-
-    .hero {
-      display:grid;
-      grid-template-columns: 1.35fr 0.9fr;
-      gap: 18px;
-      align-items: stretch;
-    }
-
-    .eyebrow {
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      color: var(--muted);
-      font-size: 0.72rem;
-      font-weight: 800;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-    }
-
-    .chip {
-      display:inline-flex;
-      align-items:center;
-      padding: 7px 11px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.9);
-      color: var(--muted);
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
+    .reveal section { width:100%; height:100%; padding: 22px; display:flex !important; align-items:center; justify-content:center; overflow:hidden; }
+    .slide { width:min(1240px, 100%); height:100%; display:flex; flex-direction:column; justify-content:center; gap: 18px; min-height:0; }
+    .hero { display:grid; grid-template-columns: 1.35fr 0.9fr; gap: 18px; align-items: stretch; }
+    .eyebrow { display:inline-flex; align-items:center; gap:10px; color: var(--muted); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; }
+    .chip { display:inline-flex; padding: 7px 11px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,0.9); color: var(--muted); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; }
     h1, h2, h3, p { margin:0; }
     h1, h2, h3 { letter-spacing:-0.04em; text-transform:none; }
-    h1 {
-      font-size: clamp(2.7rem, 5vw, 4.4rem);
-      line-height: 0.95;
-      font-weight: 900;
-      color: var(--navy);
-      max-width: 11ch;
-    }
-    h2 {
-      font-size: clamp(2rem, 3.2vw, 2.9rem);
-      line-height: 1.02;
-      font-weight: 900;
-      color: var(--navy);
-      max-width: 18ch;
-    }
-    h3 {
-      font-size: clamp(1.05rem, 1.55vw, 1.28rem);
-      line-height: 1.1;
-      font-weight: 800;
-      color: var(--navy);
-    }
-
-    .lede {
-      margin-top: 12px;
-      font-size: clamp(1.05rem, 1.3vw, 1.22rem);
-      line-height: 1.5;
-      color: var(--muted);
-      max-width: 48rem;
-    }
-
-    .subcopy {
-      font-size: clamp(0.95rem, 1.02vw, 1.05rem);
-      line-height: 1.45;
-      color: var(--muted);
-      max-width: 45rem;
-    }
-
-    .surface {
-      background: rgba(255,255,255,0.86);
-      border: 1px solid rgba(183,196,213,0.7);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(14px);
-      min-width: 0;
-    }
-
+    h1 { font-size: clamp(2.7rem, 5vw, 4.4rem); line-height: 0.95; font-weight: 900; color: var(--navy); max-width: 11ch; }
+    h2 { font-size: clamp(2rem, 3.2vw, 2.9rem); line-height: 1.02; font-weight: 900; color: var(--navy); max-width: 20ch; }
+    h3 { font-size: clamp(1.05rem, 1.55vw, 1.28rem); line-height: 1.1; font-weight: 800; color: var(--navy); }
+    .lede { margin-top: 12px; font-size: clamp(1.05rem, 1.3vw, 1.22rem); line-height: 1.5; color: var(--muted); max-width: 48rem; }
+    .subcopy { font-size: clamp(0.95rem, 1.02vw, 1.05rem); line-height: 1.45; color: var(--muted); max-width: 45rem; }
+    .surface { background: rgba(255,255,255,0.86); border: 1px solid rgba(183,196,213,0.7); border-radius: var(--radius); box-shadow: var(--shadow); backdrop-filter: blur(14px); min-width: 0; }
     .surface-pad { padding: 20px; }
-    .surface-pad-sm { padding: 16px; }
-
-    .title-card {
-      padding: 24px;
-      background:
-        linear-gradient(135deg, rgba(11,31,58,0.98), rgba(20,63,107,0.92)),
-        linear-gradient(180deg, #0b1f3a, #123);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: 0 24px 72px rgba(11,31,58,0.24);
-      position: relative;
-      overflow:hidden;
-    }
-    .title-card::after{
-      content:"";
-      position:absolute;
-      inset:auto -10% -30% auto;
-      width:320px;
-      height:320px;
-      border-radius:50%;
-      background: radial-gradient(circle, rgba(37,99,235,0.36) 0%, rgba(37,99,235,0) 70%);
-      pointer-events:none;
-    }
+    .title-card { padding: 24px; background: linear-gradient(135deg, rgba(11,31,58,0.98), rgba(20,63,107,0.92)), linear-gradient(180deg, #0b1f3a, #123); color: #fff; border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 24px 72px rgba(11,31,58,0.24); position: relative; overflow:hidden; }
+    .title-card::after { content:""; position:absolute; inset:auto -10% -30% auto; width:320px; height:320px; border-radius:50%; background: radial-gradient(circle, rgba(37,99,235,0.36) 0%, rgba(37,99,235,0) 70%); pointer-events:none; }
     .title-card h1 { color:#fff; }
     .title-card .lede, .title-card .subcopy { color: rgba(255,255,255,0.82); }
-
-    .kpi-grid {
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-      margin-top: 16px;
-    }
-
-    .kpi {
-      padding: 15px 16px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.11);
-      min-width:0;
-    }
-    .kpi-label {
-      font-size: 0.68rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.72);
-      font-weight: 800;
-      margin-bottom: 9px;
-    }
-    .kpi-value {
-      font-size: clamp(1.45rem, 2.5vw, 2.05rem);
-      line-height:1;
-      font-weight: 900;
-      color:#fff;
-    }
-    .kpi-sub {
-      margin-top: 6px;
-      font-size: 0.88rem;
-      line-height:1.35;
-      color: rgba(255,255,255,0.72);
-    }
-
-    .tag-row {
-      display:flex;
-      flex-wrap:wrap;
-      gap: 8px;
-      margin-top: 16px;
-    }
-
-    .section-head {
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap: 14px;
-    }
-
-    .eyebrow-note {
-      font-size: 0.86rem;
-      color: var(--muted);
-      max-width: 34rem;
-      line-height:1.4;
-    }
-
-    .grid-2, .grid-3 {
-      display:grid;
-      gap: 14px;
-      min-width:0;
-      align-items:start;
-    }
+    .kpi-grid { display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+    .kpi { padding: 15px 16px; border-radius: 18px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.11); min-width:0; }
+    .kpi-label { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.72); font-weight: 800; margin-bottom: 9px; }
+    .kpi-value { font-size: clamp(1.45rem, 2.5vw, 2.05rem); line-height:1; font-weight: 900; color:#fff; }
+    .kpi-sub { margin-top: 6px; font-size: 0.88rem; line-height:1.35; color: rgba(255,255,255,0.72); }
+    .tag-row { display:flex; flex-wrap:wrap; gap: 8px; margin-top: 16px; }
+    .section-head { display:flex; align-items:flex-end; justify-content:space-between; gap: 14px; }
+    .eyebrow-note { font-size: 0.86rem; color: var(--muted); max-width: 34rem; line-height:1.4; }
+    .grid-2, .grid-3 { display:grid; gap: 14px; min-width:0; align-items:start; }
     .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-
-    .card {
-      padding: 18px;
-      border-radius: var(--radius);
-      background: rgba(255,255,255,0.92);
-      border: 1px solid rgba(183,196,213,0.72);
-      box-shadow: var(--shadow-soft);
-      min-width:0;
-    }
-
-    .card p, li {
-      color: var(--muted);
-      line-height: 1.44;
-      font-size: 0.98rem;
-    }
-
-    ul, ol {
-      margin: 0;
-      padding-left: 1.15em;
-    }
+    .card { padding: 18px; border-radius: var(--radius); background: rgba(255,255,255,0.92); border: 1px solid rgba(183,196,213,0.72); box-shadow: var(--shadow-soft); min-width:0; }
+    .card p, li { color: var(--muted); line-height: 1.44; font-size: 0.98rem; }
+    ul, ol { margin: 0; padding-left: 1.15em; }
     li { margin-bottom: 10px; }
-
-    .metric {
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-      min-height: 144px;
-      padding: 18px;
-      border-radius: 20px;
-      background: linear-gradient(180deg, #ffffff, #f7fbff);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow-soft);
-    }
-
-    .metric .label {
-      color: var(--muted);
-      font-size: 0.68rem;
-      font-weight: 800;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-    }
-
-    .metric .value {
-      font-size: clamp(1.7rem, 3vw, 2.7rem);
-      line-height: 1;
-      font-weight: 900;
-      color: var(--navy);
-      margin-top: 8px;
-    }
-
-    .metric .desc {
-      color: var(--muted);
-      margin-top: 10px;
-      font-size: 0.92rem;
-      line-height: 1.38;
-    }
-
-    .band {
-      display:flex;
-      gap: 10px;
-      flex-wrap:wrap;
-      margin-top: 12px;
-    }
-
-    .bar {
-      height: 10px;
-      border-radius: 999px;
-      background: linear-gradient(90deg, var(--blue), #60a5fa);
-      width: 100%;
-    }
-    .bar-soft {
-      background: linear-gradient(90deg, rgba(37,99,235,0.14), rgba(15,118,110,0.18));
-    }
-
-    .flow {
-      display:grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 10px;
-    }
-    .step {
-      padding: 16px;
-      border-radius: 18px;
-      background: linear-gradient(180deg, #ffffff, #f7fbff);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow-soft);
-      min-width:0;
-      position: relative;
-    }
-    .step:not(:last-child)::after {
-      content: "→";
-      position:absolute;
-      right: -18px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #9fb0c5;
-      font-size: 1.2rem;
-      font-weight: 800;
-    }
-    .step .n {
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      width: 30px;
-      height: 30px;
-      border-radius: 999px;
-      background: rgba(37,99,235,0.10);
-      color: var(--blue);
-      font-size: 0.86rem;
-      font-weight: 800;
-      margin-bottom: 10px;
-    }
-    .step .t {
-      font-weight: 850;
-      color: var(--navy);
-      margin-bottom: 6px;
-    }
-    .step .d {
-      font-size: 0.9rem;
-      color: var(--muted);
-      line-height: 1.4;
-    }
-
-    .quote {
-      padding: 18px 20px;
-      border-left: 5px solid var(--teal);
-      border-radius: 18px;
-      background: linear-gradient(180deg, rgba(15,118,110,0.06), rgba(15,118,110,0.03));
-      color: var(--navy);
-      font-size: 1.05rem;
-      line-height: 1.45;
-      font-weight: 700;
-    }
+    .metric { display:flex; flex-direction:column; justify-content:space-between; min-height: 144px; padding: 18px; border-radius: 20px; background: linear-gradient(180deg, #ffffff, #f7fbff); border: 1px solid var(--line); box-shadow: var(--shadow-soft); }
+    .metric .label { color: var(--muted); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
+    .metric .value { font-size: clamp(1.7rem, 3vw, 2.7rem); line-height: 1; font-weight: 900; color: var(--navy); margin-top: 8px; }
+    .metric .desc { color: var(--muted); margin-top: 10px; font-size: 0.92rem; line-height: 1.38; }
+    .flow { display:grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+    .step { padding: 16px; border-radius: 18px; background: linear-gradient(180deg, #ffffff, #f7fbff); border: 1px solid var(--line); box-shadow: var(--shadow-soft); min-width:0; position: relative; }
+    .step:not(:last-child)::after { content: "→"; position:absolute; right: -18px; top: 50%; transform: translateY(-50%); color: #9fb0c5; font-size: 1.2rem; font-weight: 800; }
+    .step .n { display:inline-flex; align-items:center; justify-content:center; width: 30px; height: 30px; border-radius: 999px; background: rgba(37,99,235,0.10); color: var(--blue); font-size: 0.86rem; font-weight: 800; margin-bottom: 10px; }
+    .step .t { font-weight: 850; color: var(--navy); margin-bottom: 6px; }
+    .step .d { font-size: 0.9rem; color: var(--muted); line-height: 1.4; }
+    .quote { padding: 18px 20px; border-left: 5px solid var(--teal); border-radius: 18px; background: linear-gradient(180deg, rgba(15,118,110,0.06), rgba(15,118,110,0.03)); color: var(--navy); font-size: 1.05rem; line-height: 1.45; font-weight: 700; }
     .quote span { color: var(--teal); }
-
-    .table {
-      width:100%;
-      border-collapse:separate;
-      border-spacing:0;
-      overflow:hidden;
-      border-radius: 18px;
-      border: 1px solid var(--line);
-      background:#fff;
-      box-shadow: var(--shadow-soft);
-      font-size: 0.92rem;
-    }
-    .table th, .table td {
-      padding: 14px 14px;
-      border-bottom: 1px solid var(--line);
-      vertical-align: top;
-      text-align:left;
-      line-height:1.38;
-    }
-    .table th {
-      font-size: 0.72rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted);
-      background: #f8fbff;
-    }
+    .table { width:100%; border-collapse:separate; border-spacing:0; overflow:hidden; border-radius: 18px; border: 1px solid var(--line); background:#fff; box-shadow: var(--shadow-soft); font-size: 0.92rem; }
+    .table th, .table td { padding: 14px; border-bottom: 1px solid var(--line); text-align:left; line-height:1.38; }
+    .table th { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); background: #f8fbff; }
     .table tr:last-child td { border-bottom:none; }
-
-    .pricing {
-      display:grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 12px;
-    }
-    .tier {
-      padding: 18px;
-      border-radius: 20px;
-      background: linear-gradient(180deg, #ffffff, #f7fbff);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow-soft);
-      min-width:0;
-    }
-    .tier .name {
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      margin-bottom: 10px;
-      color: var(--navy);
-      font-weight: 900;
-    }
-    .tier .price {
-      font-size: 1.55rem;
-      font-weight: 900;
-      color: var(--blue);
-      margin: 10px 0;
-    }
-    .tier .features {
-      color: var(--muted);
-      font-size: 0.92rem;
-      line-height:1.42;
-    }
-
-    .cta {
-      display:grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 14px;
-      align-items:stretch;
-    }
-
+    .pricing { display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+    .tier { padding: 18px; border-radius: 20px; background: linear-gradient(180deg, #ffffff, #f7fbff); border: 1px solid var(--line); box-shadow: var(--shadow-soft); min-width:0; display:flex; flex-direction:column; }
+    .tier .name { color: var(--navy); font-weight: 900; margin-bottom: 6px; }
+    .tier .price { font-size: 1.55rem; font-weight: 900; color: var(--blue); margin: 8px 0; }
+    .tier .features { color: var(--muted); font-size: 0.9rem; line-height:1.45; flex:1; }
+    .tier .note { margin-top: 10px; font-size: 0.78rem; color: var(--teal); font-weight: 700; }
+    .cta { display:grid; grid-template-columns: 1.05fr 0.95fr; gap: 14px; align-items:stretch; }
     .buttons { display:flex; flex-wrap:wrap; gap: 10px; margin-top: 16px; }
-    .btn {
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-      padding: 11px 14px;
-      border-radius: 999px;
-      text-decoration:none;
-      font-size: 0.88rem;
-      font-weight: 800;
-      border: 1px solid var(--line-strong);
-      color: var(--navy);
-      background:#fff;
-      transition: transform .15s ease, box-shadow .15s ease;
-      box-shadow: 0 8px 20px rgba(15,23,42,0.05);
-    }
-    .btn.primary {
-      background: linear-gradient(135deg, var(--navy), #114b84);
-      border-color: transparent;
-      color:#fff;
-    }
-    .btn:hover { transform: translateY(-1px); }
-
-    .footer {
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap: 16px;
-      margin-top:auto;
-      color: var(--muted);
-      font-size: 0.72rem;
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
-    }
-
-    .soft-note {
-      margin-top: 12px;
-      color: var(--muted);
-      font-size: 0.86rem;
-      line-height: 1.38;
-    }
-
+    .btn { display:inline-flex; align-items:center; gap: 8px; padding: 11px 14px; border-radius: 999px; text-decoration:none; font-size: 0.88rem; font-weight: 800; border: 1px solid var(--line-strong); color: var(--navy); background:#fff; box-shadow: 0 8px 20px rgba(15,23,42,0.05); }
+    .btn.primary { background: linear-gradient(135deg, var(--navy), #114b84); border-color: transparent; color:#fff; }
+    .footer { display:flex; justify-content:space-between; gap: 16px; margin-top:auto; color: var(--muted); font-size: 0.72rem; letter-spacing: 0.10em; text-transform: uppercase; }
+    .soft-note { margin-top: 12px; color: var(--muted); font-size: 0.86rem; line-height: 1.38; }
     .accent { color: var(--blue); }
-    .accent2 { color: var(--teal); }
-
-    .viz {
-      border-radius: var(--radius);
-      border:1px solid var(--line);
-      background:
-        radial-gradient(circle at top left, rgba(37,99,235,0.12), rgba(37,99,235,0) 35%),
-        linear-gradient(180deg, #ffffff, #f7fbff);
-      box-shadow: var(--shadow-soft);
-      padding: 18px;
-      min-width:0;
-    }
-
-    .mini-columns {
-      display:grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .pill-list {
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      margin-top: 12px;
-    }
-
-    .pill2 {
-      padding: 8px 10px;
-      border-radius: 999px;
-      font-size: 0.76rem;
-      font-weight: 800;
-      color: var(--navy);
-      background: #eff6ff;
-      border: 1px solid #dbeafe;
-      white-space: nowrap;
-    }
-
-    .outcome-grid {
-      display:grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 14px;
-      align-items:start;
-    }
-
-    .scorebox {
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 12px;
-      padding: 18px;
-      border-radius: 20px;
-      background: linear-gradient(180deg, #ffffff, #f7fbff);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow-soft);
-    }
-    .scorebox .big {
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 900;
-      color: var(--navy);
-      line-height:1;
-    }
-    .scorebox .small {
-      color: var(--muted);
-      font-size: 0.88rem;
-      line-height:1.4;
-      max-width: 26rem;
-    }
-
-    .formula {
-      font-family: "SFMono-Regular", ui-monospace, Menlo, Consolas, monospace;
-      font-size: 0.95rem;
-      color: #1e3a8a;
-      background: #eff6ff;
-      border: 1px solid #dbeafe;
-      padding: 12px 14px;
-      border-radius: 14px;
-      overflow-wrap:anywhere;
-    }
-
-    .timeline {
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .timeline .card {
-      min-height: 170px;
-    }
-
+    .pill-list { display:flex; flex-wrap:wrap; gap:8px; margin-top: 12px; }
+    .pill2 { padding: 8px 10px; border-radius: 999px; font-size: 0.76rem; font-weight: 800; color: var(--navy); background: #eff6ff; border: 1px solid #dbeafe; white-space: nowrap; }
+    .scorebox { display:flex; align-items:center; justify-content:space-between; gap: 12px; padding: 18px; border-radius: 20px; background: linear-gradient(180deg, #ffffff, #f7fbff); border: 1px solid var(--line); box-shadow: var(--shadow-soft); }
+    .scorebox .big { font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; color: var(--navy); line-height:1; }
+    .scorebox .small { color: var(--muted); font-size: 0.88rem; line-height:1.4; max-width: 26rem; }
+    .formula { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.95rem; color: #1e3a8a; background: #eff6ff; border: 1px solid #dbeafe; padding: 12px 14px; border-radius: 14px; }
+    .outcome-grid { display:grid; grid-template-columns: 1.15fr 0.85fr; gap: 14px; }
     .muted { color: var(--muted); }
     .tight { line-height: 1.35; }
-
-    .spacer-4 { height: 4px; }
-    .spacer-8 { height: 8px; }
-    .spacer-12 { height: 12px; }
+    .spacer-4 { height: 4px; } .spacer-8 { height: 8px; } .spacer-12 { height: 12px; }
 
     @media (max-width: 1100px) {
-      .hero, .grid-2, .grid-3, .cta, .outcome-grid, .mini-columns, .timeline, .pricing, .flow {
-        grid-template-columns: 1fr;
-      }
+      .hero, .grid-2, .grid-3, .cta, .outcome-grid, .pricing, .flow { grid-template-columns: 1fr; }
       .step:not(:last-child)::after { display:none; }
       h1 { max-width: none; }
     }
-
     @media (max-width: 720px) {
       .reveal { font-size: 16px; }
       .reveal section { padding: 10px; }
@@ -600,347 +118,211 @@
 <div class="reveal">
   <div class="slides">
 
+    <!-- 1. TITLE – high-trust positioning, not SaaS utility -->
     <section>
       <div class="slide hero">
         <div class="surface title-card">
-          <div class="eyebrow">
-            <span class="chip">Law firm AI governance</span>
-            <span class="chip">Enterprise sales deck</span>
-          </div>
+          <div class="eyebrow"><span class="chip">Governance Infrastructure</span><span class="chip">Legal AI</span></div>
           <div class="spacer-12"></div>
           <h1>Publius + ARF</h1>
-          <p class="lede">Deterministic AI oversight for legal teams.</p>
-          <p class="subcopy">Approve, deny, or escalate every AI output with a defensible audit trail.</p>
-
+          <p class="lede">Deterministic governance for AI‑assisted legal work.</p>
+          <p class="subcopy">Approve, deny, or escalate every AI output with a defensible audit trail — built for operational trust, not lightweight SaaS.</p>
           <div class="kpi-grid">
-            <div class="kpi">
-              <div class="kpi-label">Risk</div>
-              <div class="kpi-value">Lower</div>
-              <div class="kpi-sub">Reduce silent AI failure.</div>
-            </div>
-            <div class="kpi">
-              <div class="kpi-label">Trust</div>
-              <div class="kpi-value">Visible</div>
-              <div class="kpi-sub">Every decision explained.</div>
-            </div>
-            <div class="kpi">
-              <div class="kpi-label">Control</div>
-              <div class="kpi-value">Auditable</div>
-              <div class="kpi-sub">Policy gates and logs.</div>
-            </div>
-          </div>
-
-          <div class="tag-row">
-            <span class="chip">Bayesian scoring</span>
-            <span class="chip">Policy gating</span>
-            <span class="chip">Memory fusion</span>
-            <span class="chip">Causal learning</span>
+            <div class="kpi"><div class="kpi-label">Risk</div><div class="kpi-value">Lower</div><div class="kpi-sub">Reduce silent AI failure.</div></div>
+            <div class="kpi"><div class="kpi-label">Trust</div><div class="kpi-value">Visible</div><div class="kpi-sub">Every decision explained.</div></div>
+            <div class="kpi"><div class="kpi-label">Control</div><div class="kpi-value">Auditable</div><div class="kpi-sub">Policy gates and logs.</div></div>
           </div>
         </div>
-
         <div class="surface surface-pad">
-          <div class="section-head">
-            <div>
-              <div class="eyebrow"><span class="chip">Executive summary</span></div>
-              <h3>What the buyer gets</h3>
-            </div>
-          </div>
+          <div class="section-head"><div><div class="eyebrow"><span class="chip">Executive summary</span></div><h3>What the buyer gets</h3></div></div>
           <div class="spacer-12"></div>
-          <div class="metric">
-            <div>
-              <div class="label">Primary value</div>
-              <div class="value">Governance, not guesswork</div>
-            </div>
-            <div class="desc">ARF turns AI output into a controlled decision workflow.</div>
-          </div>
+          <div class="metric"><div><div class="label">Primary value</div><div class="value">Governance, not guesswork</div></div><div class="desc">ARF turns AI output into a controlled decision workflow.</div></div>
           <div class="spacer-12"></div>
-          <div class="metric">
-            <div>
-              <div class="label">Commercial outcome</div>
-              <div class="value">Less exposure</div>
-            </div>
-            <div class="desc">Reduce legal, operational, and reputational risk.</div>
-          </div>
+          <div class="metric"><div><div class="label">Commercial outcome</div><div class="value">Less exposure</div></div><div class="desc">Reduce legal, operational, and reputational risk.</div></div>
           <div class="spacer-12"></div>
           <div class="formula">Decision = min(expected loss | risk, policy, cost, uncertainty)</div>
         </div>
       </div>
     </section>
 
+    <!-- 2. PROBLEM -->
     <section>
       <div class="slide">
-        <div class="section-head">
-          <div>
-            <div class="eyebrow"><span class="chip">Problem</span></div>
-            <h2>AI fails quietly.</h2>
-          </div>
-          <div class="eyebrow-note">Legal teams need bounded AI behavior, not more AI output.</div>
-        </div>
+        <div class="section-head"><div><div class="eyebrow"><span class="chip">Problem</span></div><h2>AI fails quietly.</h2></div><div class="eyebrow-note">Legal teams need bounded AI behavior, not more AI output.</div></div>
         <div class="grid-2">
-          <div class="card">
-            <h3>Common failure modes</h3>
-            <div class="spacer-8"></div>
-            <ul>
-              <li>False citations</li>
-              <li>Missed evidence</li>
-              <li>Unclear accountability</li>
-              <li>No consistent review policy</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>Business impact</h3>
-            <div class="spacer-8"></div>
-            <div class="scorebox">
-              <div class="big">$450k</div>
-              <div class="small">Estimated downside from one year of ungoverned AI discovery in a mid-sized firm.</div>
-            </div>
-            <div class="spacer-12"></div>
-            <div class="quote"><span>Risk is not the model.</span> Risk is the absence of control around the model.</div>
-          </div>
+          <div class="card"><h3>Common failure modes</h3><div class="spacer-8"></div><ul><li>False citations</li><li>Missed evidence</li><li>Unclear accountability</li><li>No consistent review policy</li></ul></div>
+          <div class="card"><h3>Business impact</h3><div class="spacer-8"></div><div class="scorebox"><div class="big">$450k</div><div class="small">Estimated downside from one year of ungoverned AI discovery in a mid-sized firm.</div></div><div class="spacer-12"></div><div class="quote"><span>Risk is not the model.</span> Risk is the absence of control around the model.</div></div>
         </div>
       </div>
     </section>
 
+    <!-- 3. COST OF FAILURE -->
     <section>
       <div class="slide">
-        <div class="section-head">
-          <div>
-            <div class="eyebrow"><span class="chip">Solution</span></div>
-            <h2>ARF adds a decision layer.</h2>
-          </div>
-          <div class="eyebrow-note">A small amount of structure eliminates most of the ambiguity.</div>
+        <div class="section-head"><div><div class="eyebrow"><span class="chip">Why governance matters</span></div><h2>The cost of inaction.</h2></div><div class="eyebrow-note">One missed evidence event can cascade into a malpractice claim.</div></div>
+        <div class="grid-2">
+          <div class="card"><h3>Without governance</h3><div class="spacer-8"></div><ul><li>AI output accepted without review</li><li>No auditable record of decisions</li><li>Inconsistent escalation paths</li><li>Firm carries full liability</li></ul></div>
+          <div class="card"><h3>With ARF governance</h3><div class="spacer-8"></div><ul><li>Every AI output scored and gated</li><li>Cryptographic audit trail generated</li><li>Deterministic escalation policy</li><li>Defensible decision record for any court</li></ul></div>
         </div>
+        <div class="quote" style="margin-top:12px;"><span>Governance is malpractice insurance</span> for your AI pipeline.</div>
+      </div>
+    </section>
+
+    <!-- 4. HOW ARF WORKS -->
+    <section>
+      <div class="slide">
+        <div class="section-head"><div><div class="eyebrow"><span class="chip">Solution</span></div><h2>ARF adds a decision layer.</h2></div><div class="eyebrow-note">A small amount of structure eliminates most of the ambiguity.</div></div>
         <div class="flow">
-          <div class="step">
-            <div class="n">1</div>
-            <div class="t">Input</div>
-            <div class="d">AI draft, citation set, or case event enters the system.</div>
-          </div>
-          <div class="step">
-            <div class="n">2</div>
-            <div class="t">Score</div>
-            <div class="d">Bayesian risk, uncertainty, and memory signals are computed.</div>
-          </div>
-          <div class="step">
-            <div class="n">3</div>
-            <div class="t">Gate</div>
-            <div class="d">Policy, cooldown, and thresholds determine the path.</div>
-          </div>
-          <div class="step">
-            <div class="n">4</div>
-            <div class="t">Action</div>
-            <div class="d">Approve, deny, or escalate with an audit record.</div>
-          </div>
+          <div class="step"><div class="n">1</div><div class="t">Input</div><div class="d">AI draft, citation set, or case event enters the system.</div></div>
+          <div class="step"><div class="n">2</div><div class="t">Score</div><div class="d">Bayesian risk, uncertainty, and memory signals are computed.</div></div>
+          <div class="step"><div class="n">3</div><div class="t">Gate</div><div class="d">Policy, cooldown, and thresholds determine the path.</div></div>
+          <div class="step"><div class="n">4</div><div class="t">Action</div><div class="d">Approve, deny, or escalate with an audit record.</div></div>
         </div>
         <div class="grid-2">
-          <div class="card">
-            <h3>What changes</h3>
-            <div class="spacer-8"></div>
-            <ul>
-              <li>Less manual review noise</li>
-              <li>More consistent decisions</li>
-              <li>Stronger defensibility</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>What stays human</h3>
-            <div class="spacer-8"></div>
-            <ul>
-              <li>Judgment</li>
-              <li>Client strategy</li>
-              <li>Final sign-off</li>
-            </ul>
-          </div>
+          <div class="card"><h3>What changes</h3><div class="spacer-8"></div><ul><li>Less manual review noise</li><li>More consistent decisions</li><li>Stronger defensibility</li></ul></div>
+          <div class="card"><h3>What stays human</h3><div class="spacer-8"></div><ul><li>Judgment</li><li>Client strategy</li><li>Final sign-off</li></ul></div>
         </div>
       </div>
     </section>
 
+    <!-- 5. AUDITABILITY / TRUST -->
     <section>
       <div class="slide">
-        <div class="section-head">
-          <div>
-            <div class="eyebrow"><span class="chip">Enterprise trust</span></div>
-            <h2>Make decisions explainable.</h2>
-          </div>
-          <div class="eyebrow-note">Trust comes from traceability, not marketing language.</div>
-        </div>
-
+        <div class="section-head"><div><div class="eyebrow"><span class="chip">Enterprise trust</span></div><h2>Make decisions explainable.</h2></div><div class="eyebrow-note">Trust comes from traceability, not marketing language.</div></div>
         <div class="grid-3">
-          <div class="metric">
-            <div>
-              <div class="label">Risk score</div>
-              <div class="value">Numeric</div>
-            </div>
-            <div class="desc">Shows why the system escalated or approved.</div>
-          </div>
-          <div class="metric">
-            <div>
-              <div class="label">Policy</div>
-              <div class="value">Deterministic</div>
-            </div>
-            <div class="desc">Hard rules override model confidence.</div>
-          </div>
-          <div class="metric">
-            <div>
-              <div class="label">Audit trail</div>
-              <div class="value">Complete</div>
-            </div>
-            <div class="desc">Each outcome becomes training data for the next decision.</div>
-          </div>
+          <div class="metric"><div><div class="label">Risk score</div><div class="value">Numeric</div></div><div class="desc">Shows why the system escalated or approved.</div></div>
+          <div class="metric"><div><div class="label">Policy</div><div class="value">Deterministic</div></div><div class="desc">Hard rules override model confidence.</div></div>
+          <div class="metric"><div><div class="label">Audit trail</div><div class="value">Complete</div></div><div class="desc">Each outcome becomes training data for the next decision.</div></div>
         </div>
+        <div class="grid-2">
+          <div class="card"><h3>Control surface</h3><div class="spacer-8"></div><div class="pill-list"><span class="pill2">Cooldown</span><span class="pill2">Rate limits</span><span class="pill2">Human escalation</span><span class="pill2">Signed decisions</span></div></div>
+          <div class="card"><h3>Learning loop</h3><div class="spacer-8"></div><p class="tight">The system learns from outcomes, updates memory weights, and adjusts risk estimates as evidence accumulates.</p></div>
+        </div>
+      </div>
+    </section>
 
+    <!-- 6. COMPETITIVE DIFFERENTIATION -->
+    <section>
+      <div class="slide">
+        <div class="section-head"><div><div class="eyebrow"><span class="chip">Differentiation</span></div><h2>Why firms choose ARF.</h2></div><div class="eyebrow-note">Operational certainty, not Bayesian equations.</div></div>
+        <div class="grid-3">
+          <div class="metric"><div><div class="label">1</div><div class="value" style="font-size:clamp(1.2rem,2vw,1.5rem);">Reduce malpractice exposure</div></div><div class="desc">Governed AI decisions create a defensible audit trail.</div></div>
+          <div class="metric"><div><div class="label">2</div><div class="value" style="font-size:clamp(1.2rem,2vw,1.5rem);">Improve defensibility</div></div><div class="desc">Every AI-assisted work product carries a verifiable governance record.</div></div>
+          <div class="metric"><div><div class="label">3</div><div class="value" style="font-size:clamp(1.2rem,2vw,1.5rem);">Create auditable trails</div></div><div class="desc">Regulatory and client scrutiny become routine, not crisis.</div></div>
+        </div>
+        <div class="quote" style="margin-top:12px;">Enterprise buyers purchase <span>operational certainty</span>. The math supports the sale — it should not dominate the sale.</div>
+      </div>
+    </section>
+
+    <!-- 7. PILOT STRUCTURE (paid, gated, conversion path) -->
+    <section>
+      <div class="slide">
+        <div class="section-head"><div><div class="eyebrow"><span class="chip">Engagement</span></div><h2>Governance Validation Pilot.</h2></div><div class="eyebrow-note">A structured evaluation — not a free trial.</div></div>
         <div class="grid-2">
           <div class="card">
-            <h3>Control surface</h3>
+            <h3>60‑Day Governance Assessment</h3>
             <div class="spacer-8"></div>
-            <div class="pill-list">
-              <span class="pill2">Cooldown</span>
-              <span class="pill2">Rate limits</span>
-              <span class="pill2">Human escalation</span>
-              <span class="pill2">Signed decisions</span>
-            </div>
-          </div>
-          <div class="card">
-            <h3>Learning loop</h3>
-            <div class="spacer-8"></div>
-            <p class="tight">The system learns from outcomes, updates memory weights, and adjusts risk estimates as evidence accumulates.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="slide">
-        <div class="section-head">
-          <div>
-            <div class="eyebrow"><span class="chip">Proof</span></div>
-            <h2>Shorten the distance between risk and action.</h2>
-          </div>
-          <div class="eyebrow-note">One clear comparison replaces ten feature slides.</div>
-        </div>
-
-        <div class="outcome-grid">
-          <div class="card">
-            <h3>Before / after</h3>
-            <div class="spacer-8"></div>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Without ARF</th>
-                  <th>With ARF</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>AI output is treated as final</td>
-                  <td>AI output is evaluated first</td>
-                </tr>
-                <tr>
-                  <td>Exceptions are informal</td>
-                  <td>Exceptions are logged</td>
-                </tr>
-                <tr>
-                  <td>Review is inconsistent</td>
-                  <td>Review is deterministic</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="card">
-            <h3>Key message</h3>
-            <div class="spacer-8"></div>
-            <div class="quote">You do not need more AI. You need <span>governed AI</span>.</div>
+            <div class="scorebox"><div class="big">$3,500</div><div class="small">100% credited toward annual contract if converted within 30 days.</div></div>
             <div class="spacer-12"></div>
-            <p class="muted">Selling risk reduction is stronger than selling features.</p>
+            <ul>
+              <li>Onboarding & policy configuration</li>
+              <li>2 governance workflows</li>
+              <li>Up to 5 users</li>
+              <li>Weekly founder review</li>
+              <li>Audit export samples</li>
+              <li>Calibration reporting</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Pilot policy (protects both sides)</h3>
+            <div class="spacer-8"></div>
+            <ul>
+              <li>Defined success criteria agreed before start</li>
+              <li>Day‑45 commercial review checkpoint</li>
+              <li>Day‑60 decision: convert, bridge, or sunset</li>
+              <li>Post‑pilot: full access on conversion; export-only access otherwise</li>
+              <li>No silent extensions. No indefinite free usage.</li>
+            </ul>
+            <div class="spacer-12"></div>
+            <div class="quote"><span>Paid pilots create commitment bias.</span> The buyer has invested — and is more likely to convert.</div>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- 8. PRICING & ENGAGEMENT (clean tier cards, deployment + support below) -->
     <section>
       <div class="slide">
-        <div class="section-head">
-          <div>
-            <div class="eyebrow"><span class="chip">Pricing</span></div>
-            <h2>Commercial terms that are easy to scan.</h2>
-          </div>
-          <div class="eyebrow-note">Simple pricing removes ambiguity from the buying process.</div>
-        </div>
+        <div class="section-head"><div><div class="eyebrow"><span class="chip">Engagement model</span></div><h2>Production contracts.</h2></div><div class="eyebrow-note">Predictable annual investment designed for operational trust.</div></div>
 
         <div class="pricing">
           <div class="tier">
-            <div class="name">Pilot</div>
-            <div class="price">Free</div>
-            <div class="features">90 days · limited decisions · onboarding included</div>
+            <div class="name">Starter Firm</div>
+            <div class="price">$12,000 / year</div>
+            <div class="features">Governance engine · audit trails · policy enforcement · uncertainty escalation · 10k governed decisions/month · email support · quarterly governance review</div>
+            <div class="note">Deployment: $4,000</div>
           </div>
           <div class="tier">
-            <div class="name">Starter</div>
-            <div class="price">$2.5k + $750/mo</div>
-            <div class="features">Policies · audit dashboard · up to 5 users</div>
-          </div>
-          <div class="tier">
-            <div class="name">Firm</div>
-            <div class="price">$4k + $1.5k/mo</div>
-            <div class="features">SSO · training · priority support</div>
+            <div class="name">Professional</div>
+            <div class="price">$28,000 / year</div>
+            <div class="features">Everything in Starter · SSO · custom policies · priority support · analytics dashboard · memory optimization · calibration monitoring · monthly governance review</div>
+            <div class="note">Deployment: $8,000</div>
           </div>
           <div class="tier">
             <div class="name">Enterprise</div>
-            <div class="price">Custom</div>
-            <div class="features">On‑prem · SLAs · signing · procurement support</div>
+            <div class="price">Custom engagement</div>
+            <div class="features">On‑prem deployment · private infrastructure · cryptographic signing · SLAs · dedicated support · custom compliance workflows</div>
+            <div class="note">Deployment & retainer scoped per engagement</div>
           </div>
         </div>
 
-        <div class="card">
-          <h3>Risk‑reduction guarantee</h3>
-          <div class="spacer-8"></div>
-          <p class="tight">Outcome‑based pricing is available for firms that want payment tied to measured results.</p>
+        <div class="grid-2" style="margin-top:12px;">
+          <div class="card"><h3>Support & maintenance</h3><div class="spacer-8"></div><p class="tight"><strong>Standard</strong> — included.<br/><strong>Priority Governance Support</strong> — +$500/mo (24‑hr response, governance tuning, escalation reviews).<br/><strong>Enterprise Reliability Retainer</strong> — $2k–$8k/mo (founder advisory, audit preparation, policy redesign).</p></div>
+          <div class="card"><h3>Conversion path</h3><div class="spacer-8"></div><p class="tight">Pilot fee credited 100% toward year‑one annual contract. Bridge agreements available for extended evaluation. All contracts include a defined commercial review cycle.</p></div>
         </div>
+
+        <div class="quote" style="margin-top:12px;"><span>Designed for operational trust,</span> not lightweight SaaS.</div>
       </div>
     </section>
 
+    <!-- 9. ENTERPRISE ROADMAP / CLOSE -->
     <section>
       <div class="slide">
-        <div class="section-head">
-          <div>
-            <div class="eyebrow"><span class="chip">Pilot</span></div>
-            <h2>A clear next step.</h2>
-          </div>
-          <div class="eyebrow-note">A strong enterprise conversation ends with one action.</div>
-        </div>
-
+        <div class="section-head"><div><div class="eyebrow"><span class="chip">Next step</span></div><h2>Start with a structured pilot.</h2></div><div class="eyebrow-note">Selective pilot engagements — not an open waitlist.</div></div>
         <div class="cta">
           <div class="card">
-            <h3>Proposed pilot</h3>
+            <h3>Typical pilot timeline</h3>
             <div class="spacer-8"></div>
             <ul>
               <li>Week 1: setup and policy mapping</li>
               <li>Week 2: live evaluation on real cases</li>
               <li>Week 3: review outcomes and tune thresholds</li>
               <li>Week 4: executive readout</li>
+              <li>Day 45: commercial checkpoint</li>
+              <li>Day 60: conversion, bridge, or sunset</li>
             </ul>
-
             <div class="buttons">
               <a class="btn primary" href="mailto:juan@arf-ai.com">Contact Juan</a>
               <a class="btn" href="https://calendly.com/petter2025us/30min" target="_blank" rel="noreferrer">Book a Call</a>
               <a class="btn" href="https://arf-frontend-sandy.vercel.app" target="_blank" rel="noreferrer">View Demo</a>
             </div>
           </div>
-
           <div class="surface surface-pad">
-            <div class="eyebrow"><span class="chip">Messaging guidance</span></div>
+            <div class="eyebrow"><span class="chip">Commercial philosophy</span></div>
             <div class="spacer-8"></div>
-            <p class="tight"><strong>Lead with the problem.</strong> Risk, liability, defensibility.</p>
+            <p class="tight"><strong>No silent extensions.</strong></p>
             <div class="spacer-8"></div>
-            <p class="tight"><strong>Show the mechanism.</strong> Governed decision flow.</p>
+            <p class="tight"><strong>No indefinite free usage.</strong></p>
             <div class="spacer-8"></div>
-            <p class="tight"><strong>Prove the outcome.</strong> Faster review, fewer surprises, stronger auditability.</p>
+            <p class="tight"><strong>No production dependency without contract.</strong></p>
             <div class="spacer-12"></div>
-            <div class="quote"><span>Replace adjectives with evidence.</span></div>
+            <div class="quote"><span>Governance is infrastructure.</span> Infrastructure requires commitment.</div>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- 10. CONTACT -->
     <section>
       <div class="slide">
         <div class="surface surface-pad" style="text-align:center;">
@@ -953,11 +335,7 @@
             <a class="btn" href="https://calendly.com/petter2025us/30min" target="_blank" rel="noreferrer">Book a Call</a>
           </div>
         </div>
-
-        <div class="footer">
-          <span>Publius + ARF | Enterprise Governance for Law Firms</span>
-          <span>Access-controlled pilot deck</span>
-        </div>
+        <div class="footer"><span>Publius + ARF | Enterprise Governance for Law Firms</span><span>Access-controlled pilot deck</span></div>
       </div>
     </section>
 
@@ -967,20 +345,9 @@
 <script src="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.js"></script>
 <script>
   Reveal.initialize({
-    width: 1440,
-    height: 810,
-    margin: 0.02,
-    minScale: 0.45,
-    maxScale: 0.95,
-    center: true,
-    hash: true,
-    progress: true,
-    controls: true,
-    slideNumber: 'c/t',
-    transition: 'fade',
-    backgroundTransition: 'fade',
-    fragments: true,
-    pdfSeparateFragments: false
+    width: 1440, height: 810, margin: 0.02, minScale: 0.45, maxScale: 0.95,
+    center: true, hash: true, progress: true, controls: true, slideNumber: 'c/t',
+    transition: 'fade', backgroundTransition: 'fade', fragments: true, pdfSeparateFragments: false
   });
 </script>
 </body>
