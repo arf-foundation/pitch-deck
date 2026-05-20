@@ -98,6 +98,7 @@
     .muted { color: var(--muted); }
     .tight { line-height: 1.35; }
     .spacer-4 { height: 4px; } .spacer-8 { height: 8px; } .spacer-12 { height: 12px; }
+    .footnote { font-size: 0.72rem; color: var(--muted); margin-top: 4px; line-height: 1.35; }
 
     @media (max-width: 1100px) {
       .hero, .grid-2, .grid-3, .cta, .outcome-grid, .pricing, .flow { grid-template-columns: 1fr; }
@@ -127,7 +128,7 @@
       <div class="slide hero">
         <div class="surface title-card">
           <div class="logo-row">
-            <img src="./publius-logo.png" alt="Publius" />
+            <img src="./publius_logo.png" alt="Publius" />
             <span style="color:rgba(255,255,255,0.7); font-size:1.5rem; font-weight:300;">+</span>
             <img src="./ARF%20-%20Primary%20Logo.png" alt="ARF" />
           </div>
@@ -135,7 +136,7 @@
           <div class="spacer-12"></div>
           <h1>Publius + ARF</h1>
           <p class="lede">Defensible governance for AI‑assisted legal work.</p>
-          <p class="subcopy">Approve, deny, or escalate every AI output with a defensible audit trail — built for operational trust, not lightweight SaaS.</p>
+          <p class="subcopy">Approve, deny, or escalate every AI output with a defensible audit trail — purpose‑built for firms that treat AI risk as legal risk.</p>
           <div class="kpi-grid">
             <div class="kpi"><div class="kpi-label">Risk</div><div class="kpi-value">Lower</div><div class="kpi-sub">Reduce silent AI failure.</div></div>
             <div class="kpi"><div class="kpi-label">Trust</div><div class="kpi-value">Visible</div><div class="kpi-sub">Every decision explained.</div></div>
@@ -149,18 +150,21 @@
           <div class="spacer-12"></div>
           <div class="metric"><div><div class="label">Commercial outcome</div><div class="value">Less exposure</div></div><div class="desc">Reduce legal, operational, and reputational risk.</div></div>
           <div class="spacer-12"></div>
-          <div class="formula">Decision = min(expected loss | risk, policy, cost, uncertainty)</div>
+          <div class="formula">
+            Decision = argmin( L_approve, L_deny, L_escalate )
+            <div class="footnote" style="margin-top:6px; color: rgba(255,255,255,0.65);">Each loss term balances Bayesian risk, business impact, forecasted risk, and epistemic uncertainty — calibrated to your firm’s risk tolerance.</div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- 2. PROBLEM (added concrete exhibit line) -->
+    <!-- 2. PROBLEM -->
     <section>
       <div class="slide">
         <div class="section-head"><div><div class="eyebrow"><span class="chip">Problem</span></div><h2>AI fails quietly.</h2></div><div class="eyebrow-note">Legal teams need bounded AI behavior, not more AI output.</div></div>
         <div class="grid-2">
           <div class="card"><h3>Common failure modes</h3><div class="spacer-8"></div><ul><li>False citations</li><li>Missed evidence</li><li>Unclear accountability</li><li>No consistent review policy</li></ul></div>
-          <div class="card"><h3>Business impact</h3><div class="spacer-8"></div><div class="scorebox"><div class="big">$450k</div><div class="small">Estimated downside from one year of ungoverned AI discovery in a mid-sized firm.</div></div><div class="spacer-12"></div><div class="quote"><span>Risk is not the model.</span> Risk is the absence of control around the model.</div></div>
+          <div class="card"><h3>Business impact</h3><div class="spacer-8"></div><div class="scorebox"><div class="big">$450k</div><div class="small">Illustrative downside from one year of ungoverned AI discovery in a mid-sized firm.*</div></div><div class="spacer-12"></div><div class="quote"><span>Risk is not the model.</span> Risk is the absence of control around the model.</div><div class="footnote">*Scenario: 15‑attorney firm, 200 cases/year, 3 AI‑driven evidence misses leading to lost judgments and a settlement.</div></div>
         </div>
         <div class="quote" style="margin-top:12px;">Every ungoverned AI output is a <span>potential exhibit</span> in a malpractice case.</div>
       </div>
@@ -211,23 +215,32 @@
       </div>
     </section>
 
-    <!-- 6. WHY FIRMS CHOOSE ARF -->
+    <!-- 6. WHY FIRMS CHOOSE ARF (redesigned) -->
     <section>
       <div class="slide">
-        <div class="section-head"><div><div class="eyebrow"><span class="chip">Differentiation</span></div><h2>Why firms choose ARF.</h2></div><div class="eyebrow-note">Operational certainty, not Bayesian equations.</div></div>
+        <div class="section-head"><div><div class="eyebrow"><span class="chip">Differentiation</span></div><h2>Why firms choose ARF.</h2></div><div class="eyebrow-note">Outcome‑first, not math‑first.</div></div>
         <div class="grid-3">
-          <div class="metric"><div><div class="label">1</div><div class="value" style="font-size:clamp(1.2rem,2vw,1.5rem);">Reduce malpractice exposure</div></div><div class="desc">Governed AI decisions create a defensible audit trail.</div></div>
-          <div class="metric"><div><div class="label">2</div><div class="value" style="font-size:clamp(1.2rem,2vw,1.5rem);">Improve defensibility</div></div><div class="desc">Every AI-assisted work product carries a verifiable governance record.</div></div>
-          <div class="metric"><div><div class="label">3</div><div class="value" style="font-size:clamp(1.2rem,2vw,1.5rem);">Create auditable trails</div></div><div class="desc">Regulatory and client scrutiny become routine, not crisis.</div></div>
+          <div class="metric">
+            <div><div class="label">1</div><div class="value" style="font-size:clamp(1.2rem,2vw,1.5rem);">Limit liability</div></div>
+            <div class="desc">Governed AI creates an audit trail that can be produced in court — turning a black‑box decision into a defensible process.</div>
+          </div>
+          <div class="metric">
+            <div><div class="label">2</div><div class="value" style="font-size:clamp(1.2rem,2vw,1.5rem);">Strengthen client trust</div></div>
+            <div class="desc">Every AI‑assisted work product carries a verifiable governance record, demonstrating diligence to clients and regulators.</div>
+          </div>
+          <div class="metric">
+            <div><div class="label">3</div><div class="value" style="font-size:clamp(1.2rem,2vw,1.5rem);">Operationalize oversight</div></div>
+            <div class="desc">Policy enforcement, escalation rules, and calibration reports become routine — not a fire drill.</div>
+          </div>
         </div>
-        <div class="quote" style="margin-top:12px;">Enterprise buyers purchase <span>operational certainty</span>. The math supports the sale — it should not dominate the sale.</div>
+        <div class="quote" style="margin-top:12px;">Firms invest in governance for one reason: <span>defensibility</span>. The analytics under the hood are powerful, but the conversation stays on outcomes.</div>
       </div>
     </section>
 
-    <!-- 7. PILOT STRUCTURE (paid, gated, conversion path) -->
+    <!-- 7. PILOT STRUCTURE (paid, gated, conversion path) – language updated -->
     <section>
       <div class="slide">
-        <div class="section-head"><div><div class="eyebrow"><span class="chip">Engagement</span></div><h2>Governance Validation Pilot.</h2></div><div class="eyebrow-note">A structured evaluation — not a free trial. Selective engagements, limited by founder capacity.</div></div>
+        <div class="section-head"><div><div class="eyebrow"><span class="chip">Engagement</span></div><h2>Governance Validation Pilot.</h2></div><div class="eyebrow-note">A paid, time‑bound assessment designed to prove value – not to give away the product. Engagements are selective because the founder leads every pilot.</div></div>
         <div class="grid-2">
           <div class="card">
             <h3>60‑Day Governance Assessment</h3>
@@ -244,27 +257,25 @@
             </ul>
           </div>
           <div class="card">
-            <h3>Pilot policy (protects both sides)</h3>
+            <h3>Pilot terms</h3>
             <div class="spacer-8"></div>
             <ul>
-              <li>Defined success criteria agreed before start</li>
-              <li>Day‑45 commercial review checkpoint</li>
-              <li>Day‑60 decision: convert, bridge, or sunset</li>
-              <li>Bridge agreements available for extended evaluation</li>
-              <li>Post‑pilot: full access on conversion; read‑only archival access otherwise</li>
-              <li>No silent extensions. No indefinite free usage.</li>
+              <li>Mutual success criteria defined before kick‑off</li>
+              <li>Day‑45 commercial checkpoint</li>
+              <li>Day‑60 decision: convert to annual agreement, extend via paid bridge, or conclude with read‑only archival access</li>
+              <li>No automatic roll‑overs; no unbounded free usage</li>
             </ul>
             <div class="spacer-12"></div>
-            <div class="quote"><span>Paid pilots create commitment bias.</span> The buyer has invested — and is more likely to convert.</div>
+            <div class="quote">When a firm invests in a pilot, the partnership treats it as a strategic project – not a tire‑kick. That shared investment drives faster, more serious decisions.</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 8. PRICING & ENGAGEMENT (renamed to Annual Governance Agreements) -->
+    <!-- 8. PRICING & ENGAGEMENT -->
     <section>
       <div class="slide">
-        <div class="section-head"><div><div class="eyebrow"><span class="chip">Engagement model</span></div><h2>Annual Governance Agreements.</h2></div><div class="eyebrow-note">Predictable annual investment designed for operational trust.</div></div>
+        <div class="section-head"><div><div class="eyebrow"><span class="chip">Engagement model</span></div><h2>Annual Governance Agreements.</h2></div><div class="eyebrow-note">Priced like governance infrastructure, not a subscription toy.</div></div>
 
         <div class="pricing">
           <div class="tier">
@@ -288,8 +299,16 @@
         </div>
 
         <div class="grid-2" style="margin-top:12px;">
-          <div class="card"><h3>Support & maintenance</h3><div class="spacer-8"></div><p class="tight"><strong>Standard</strong> — included.<br/><strong>Priority Governance Support</strong> — +$500/mo (24‑hr response, governance tuning, escalation reviews).<br/><strong>Enterprise Reliability Retainer</strong> — $2k–$8k/mo (founder advisory, audit preparation, policy redesign).</p></div>
-          <div class="card"><h3>Conversion path</h3><div class="spacer-8"></div><p class="tight">Pilot fee credited 100% toward year‑one annual contract. Bridge agreements available for extended evaluation. All contracts include a defined commercial review cycle.</p></div>
+          <div class="card">
+            <h3>Support & maintenance</h3>
+            <div class="spacer-8"></div>
+            <p class="tight"><strong>Standard</strong> – included: email support, best‑effort response, self‑service documentation.<br/><strong>Priority Governance Support</strong> – +$500/mo: 24‑hour response, quarterly governance tuning session, escalation review.<br/><strong>Enterprise Reliability Retainer</strong> – $2k–$8k/mo: reserved founder advisory time, audit‑preparation assistance, annual policy redesign, dedicated Slack channel.</p>
+          </div>
+          <div class="card">
+            <h3>Payment terms</h3>
+            <div class="spacer-8"></div>
+            <p class="tight">Annual contracts invoiced upfront. Deployment fees due at contract signing. Pilot fee credited in full upon conversion. Bridge agreements billed quarterly.</p>
+          </div>
         </div>
 
         <div class="quote" style="margin-top:12px;"><span>Designed for operational trust,</span> not lightweight SaaS.</div>
@@ -319,15 +338,15 @@
             </div>
           </div>
           <div class="surface surface-pad">
-            <div class="eyebrow"><span class="chip">Commercial philosophy</span></div>
+            <div class="eyebrow"><span class="chip">How we work</span></div>
             <div class="spacer-8"></div>
-            <p class="tight"><strong>No silent extensions.</strong></p>
+            <p class="tight"><strong>Clear milestones, not open‑ended trials.</strong></p>
             <div class="spacer-8"></div>
-            <p class="tight"><strong>No indefinite free usage.</strong></p>
+            <p class="tight"><strong>Every engagement has a defined commercial off‑ramp.</strong></p>
             <div class="spacer-8"></div>
-            <p class="tight"><strong>No production dependency without contract.</strong></p>
+            <p class="tight"><strong>Production use requires a production agreement.</strong></p>
             <div class="spacer-12"></div>
-            <div class="quote"><span>Governance is infrastructure.</span> Infrastructure requires commitment.</div>
+            <div class="quote"><span>Governance is infrastructure.</span> Infrastructure deserves a real commitment.</div>
           </div>
         </div>
       </div>
