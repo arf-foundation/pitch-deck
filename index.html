@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>ARF · Seed Investment · Juan Petter</title>
+    <title>ARF · Seed Pitch · Juan Petter</title>
     <link rel="preload" as="image" href="ARF - Transparent Primary Logo.png">
     <style>
         html { scroll-behavior: smooth; }
@@ -129,8 +129,53 @@
             margin-left: 0.5rem;
             vertical-align: middle;
         }
+        /* Mini dashboard styles */
+        .dashboard {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: space-between;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+        .metric {
+            background: #0f172a;
+            border-radius: 1rem;
+            padding: 1rem;
+            flex: 1;
+            min-width: 140px;
+            text-align: center;
+            border: 1px solid #1e293b;
+        }
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #3b82f6;
+            line-height: 1.2;
+        }
+        .metric-label {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-top: 0.3rem;
+        }
+        .progress-bar {
+            background: #1e293b;
+            border-radius: 1rem;
+            height: 6px;
+            width: 100%;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+        .progress-fill {
+            background: #3b82f6;
+            height: 100%;
+            width: 0%;
+            border-radius: 1rem;
+        }
         @media (max-width: 768px) {
             .slide { padding: 2rem 1rem; min-height: auto; }
+            .dashboard { gap: 1rem; }
+            .metric { min-width: 100px; }
+            .metric-value { font-size: 1.5rem; }
         }
     </style>
 </head>
@@ -153,7 +198,7 @@
         </div>
     </div>
 
-    <!-- SLIDE 2: PROBLEM (loss aversion + social proof) -->
+    <!-- SLIDE 2: PROBLEM -->
     <div class="slide">
         <h2>What keeps platform engineers awake at night</h2>
         <ul class="bullet">
@@ -167,7 +212,7 @@
         <p class="claim" style="font-size: 1rem; margin-top: 1rem;">🔹 <strong>Air Canada</strong> was held liable for a chatbot’s bad advice. Imagine that, but for your cloud bill.</p>
     </div>
 
-    <!-- SLIDE 3: SOLUTION (authority + psychological safety) -->
+    <!-- SLIDE 3: SOLUTION -->
     <div class="slide">
         <h2>ARF: The deterministic gatekeeper</h2>
         <div style="background: #0f172a; border-radius: 1rem; padding: 1rem; text-align: center; font-family: monospace; font-size: 0.9rem; margin: 1rem 0;">
@@ -183,7 +228,7 @@
         <div class="quote">“Trust is not a feeling. It’s a calculation.” – ARF design principle</div>
     </div>
 
-    <!-- SLIDE 4: BUYER & URGENCY (scarcity + FOMO) -->
+    <!-- SLIDE 4: BUYER + URGENCY -->
     <div class="slide">
         <h2>The window is now</h2>
         <div class="grid">
@@ -200,7 +245,7 @@
         </div>
     </div>
 
-    <!-- SLIDE 5: TRACTION & FOUNDER (social proof + liking) -->
+    <!-- SLIDE 5: TRACTION + FOUNDER (redesigned, no "no co-founder needed", with mini dashboard) -->
     <div class="slide">
         <h2>Why this founder – and why now</h2>
         <ul class="bullet">
@@ -208,16 +253,37 @@
             <li><strong>White paper (weeks away)</strong> – open specification v4.0, already reviewed by two independent AI engineers.</li>
             <li><strong>Active pilot conversations</strong> – one in aviation, one in cloud infrastructure (names under NDA, but diligence ready).</li>
             <li><strong>My background:</strong> NetApp enterprise support (debugged production outages for Fortune 500), full‑stack dev, door‑to‑door solar sales (resilience). I’ve sold, supported, and built.</li>
+            <li><strong>Post‑seed goal:</strong> Hire a <strong>technical co‑founder</strong> (distributed systems expert) and a second engineer. I cannot build a category alone – I need a partner who shares the vision.</li>
         </ul>
-        <div class="card" style="margin-top: 1rem;">
-            <p>✅ <strong>No co‑founder needed</strong> – I ship, sell, and govern. One engineer ready to join post‑seed.</p>
+        
+        <!-- Mini dashboard: 3 key metrics with progress bars -->
+        <div class="dashboard">
+            <div class="metric">
+                <div class="metric-value">2</div>
+                <div class="metric-label">Active pilot conversations</div>
+                <div class="progress-bar"><div class="progress-fill" style="width: 40%;"></div></div>
+                <div style="font-size: 0.7rem; color:#64748b;">Target: 3 by Q3</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">44+</div>
+                <div class="metric-label">Pressure tests (determinism)</div>
+                <div class="progress-bar"><div class="progress-fill" style="width: 88%;"></div></div>
+                <div style="font-size: 0.7rem; color:#64748b;">Passing rate: 100%</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">85%</div>
+                <div class="metric-label">White paper drafted</div>
+                <div class="progress-bar"><div class="progress-fill" style="width: 85%;"></div></div>
+                <div style="font-size: 0.7rem; color:#64748b;">v4.0 spec complete</div>
+            </div>
         </div>
-        <div class="quote">
+
+        <div class="quote" style="margin-top: 0.5rem;">
             “I’ve been the one getting paged at 2am. ARF is the system I wish existed back then.”
         </div>
     </div>
 
-    <!-- SLIDE 6: LIVE PROOF (reciprocity + low-risk trial) -->
+    <!-- SLIDE 6: LIVE PROOF -->
     <div class="slide">
         <h2>See it work – in 60 seconds</h2>
         <div class="proof">
@@ -228,7 +294,7 @@
         <p style="margin-top: 0.5rem;">The protected core engine is pilot‑only, but <strong>I’ll give you a personal walkthrough</strong> during the deep dive – no obligation.</p>
     </div>
 
-    <!-- SLIDE 7: TIERED ASK (lower barrier, commitment ladder) -->
+    <!-- SLIDE 7: TIERED ASK -->
     <div class="slide">
         <h2>Join the round – three ways to invest</h2>
         <div class="grid">
@@ -263,7 +329,7 @@
                 <div class="badge">Defines the category</div>
             </div>
         </div>
-        <p style="margin-top: 1rem; font-size: 0.9rem; text-align: center;">🎯 <strong>Total target: $500k</strong> – but we will close the round with a <strong>minimum $250k first close by June 15</strong> to unlock the first engineering hire.</p>
+        <p style="margin-top: 1rem; font-size: 0.9rem; text-align: center;">🎯 <strong>Total target: $500k</strong> – but we will close the round with a <strong>minimum $250k first close by June 15</strong> to unlock the first engineering hire and begin technical co‑founder search.</p>
         <div style="margin-top: 1rem; background: #0f172a; border-radius: 1rem; padding: 0.8rem; text-align: center;">
             <p><strong>➡️ Next step:</strong> A 30‑min technical deep dive. <strong>I’ll show you the code, run the tests, and simulate a real failure.</strong></p>
             <p style="color: #3b82f6; margin-top: 0.5rem;">Deep dive available Monday‑Thursday this week. <strong>Only 4 slots left before the pilot deadline.</strong></p>
