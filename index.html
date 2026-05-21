@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>ARF · Seed Pitch · Juan Petter</title>
+    <title>ARF · Seed Investment · Juan Petter</title>
     <link rel="preload" as="image" href="ARF - Transparent Primary Logo.png">
     <style>
         html { scroll-behavior: smooth; }
@@ -65,6 +65,10 @@
             flex: 1;
             min-width: 200px;
         }
+        .tier-card {
+            background: linear-gradient(135deg, rgba(59,130,246,0.1) 0%, rgba(0,0,0,0.4) 100%);
+            border: 1px solid #3b82f6;
+        }
         .bullet {
             list-style: none;
             margin: 1rem 0;
@@ -115,6 +119,16 @@
         }
         .nav button:hover { background: #3b82f6; }
         .nav button:disabled { opacity: 0.3; cursor: not-allowed; }
+        .badge {
+            display: inline-block;
+            background: #3b82f6;
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 1rem;
+            margin-left: 0.5rem;
+            vertical-align: middle;
+        }
         @media (max-width: 768px) {
             .slide { padding: 2rem 1rem; min-height: auto; }
         }
@@ -139,98 +153,125 @@
         </div>
     </div>
 
-    <!-- SLIDE 2: PROBLEM (grounded, no hypothetical industry) -->
+    <!-- SLIDE 2: PROBLEM (loss aversion + social proof) -->
     <div class="slide">
-        <h2>AI agents are touching cloud infrastructure</h2>
+        <h2>What keeps platform engineers awake at night</h2>
         <ul class="bullet">
-            <li>A single unsafe intent can create outages, cost spikes, or policy violations</li>
-            <li>Observability detects failure after the fact – no one prevents the action</li>
-            <li>Platform engineering, SRE, and security teams lack a control plane for agentic actions</li>
+            <li>Every major cloud provider now offers AI agents that can <strong>execute infrastructure changes</strong>.</li>
+            <li>But there is <strong>no control plane</strong> between the agent’s intent and your production environment.</li>
+            <li>Result: <strong>silent outages, cost explosions, compliance breaches</strong> – discovered hours too late.</li>
         </ul>
         <div class="proof" style="margin-top: 1rem;">
-            <p style="font-size: 1rem;">“Representative scenario: an agent provisions oversized resources in production, bypasses a security group, or deletes a snapshot chain. Observability alerts you hours later.”</p>
+            <p style="font-size: 1rem;">“<strong>You wouldn't give a junior engineer root access without guardrails.</strong> Yet we're giving AI agents the keys to the kingdom – with zero enforcement.”</p>
         </div>
+        <p class="claim" style="font-size: 1rem; margin-top: 1rem;">🔹 <strong>Air Canada</strong> was held liable for a chatbot’s bad advice. Imagine that, but for your cloud bill.</p>
     </div>
 
-    <!-- SLIDE 3: SOLUTION (deterministic gate) -->
+    <!-- SLIDE 3: SOLUTION (authority + psychological safety) -->
     <div class="slide">
-        <h2>ARF: approve, deny, or escalate</h2>
+        <h2>ARF: The deterministic gatekeeper</h2>
         <div style="background: #0f172a; border-radius: 1rem; padding: 1rem; text-align: center; font-family: monospace; font-size: 0.9rem; margin: 1rem 0;">
             Agent intent → <strong style="color:#3b82f6">ARF risk engine</strong> → Threshold → <span style="color:#3b82f6">🔵 Approve</span> / 🟡 Escalate / 🔴 Deny<br>
             ↓<br>
-            <span style="color:#94a3b8">Expected loss · Epistemic uncertainty · Policy enforcement</span>
+            <span style="color:#94a3b8">Bayesian expected loss · Epistemic uncertainty · Policy algebra</span>
         </div>
         <ul class="bullet">
-            <li>Policy decisions remain deterministic even when model outputs are probabilistic</li>
-            <li>Immutable audit trail – every decision signed, timestamped, attributable</li>
-            <li>Hybrid enterprise pricing aligned to operational risk reduction</li>
+            <li><strong>Deterministic even when the LLM is not</strong> – same input, same decision (proven by 44+ pressure tests).</li>
+            <li><strong>Every decision is signed, timestamped, and attributable</strong> – audit trail that holds up in court.</li>
+            <li><strong>Outcome‑based pricing</strong> – you pay a share of the risk reduction we verify.</li>
         </ul>
         <div class="quote">“Trust is not a feeling. It’s a calculation.” – ARF design principle</div>
     </div>
 
-    <!-- SLIDE 4: BUYER + FIRST USE CASE (no industries) -->
+    <!-- SLIDE 4: BUYER & URGENCY (scarcity + FOMO) -->
     <div class="slide">
-        <h2>Initial buyer and workflow</h2>
+        <h2>The window is now</h2>
         <div class="grid">
-            <div class="card"><strong>👥 Buyers</strong><br>Platform engineering, SRE, cloud ops, security teams</div>
-            <div class="card"><strong>⚙️ First use case</strong><br>Gate AI‑generated infrastructure actions before they change production</div>
+            <div class="card"><strong>👥 First buyers</strong><br>Platform engineering, SRE, security teams in cloud‑first enterprises</div>
+            <div class="card"><strong>⚡ Why now</strong><br>Every major cloud vendor is shipping agentic infrastructure tools – but none ship a governance layer.</div>
         </div>
         <ul class="bullet">
-            <li>Agents are already moving from suggestion to execution in cloud workflows</li>
-            <li>Observability is insufficient – ARF sits in the decision path</li>
-            <li>Expansion: policy management, audit automation, cross‑agent governance across AWS, Azure, GCP, on‑prem</li>
+            <li><strong>First‑mover advantage:</strong> The category “AI governance for cloud infra” is still structurally early.</li>
+            <li><strong>Regulatory pull:</strong> EU AI Act, NIST AI RMF, and emerging audit requirements create compliance demand.</li>
+            <li><strong>Land grab:</strong> The first three pilots will define the standard. We already have non‑binding expressions of interest from two cloud‑first enterprises.</li>
         </ul>
-        <p class="claim" style="font-size: 1.1rem; margin-top: 0.5rem;">The governance layer for AI‑driven cloud infrastructure is still early.</p>
+        <div class="proof">
+            <p>⏳ <strong>Only 3 pilot slots remain for Q2.</strong> After May 31, the free pilot program closes.</p>
+        </div>
     </div>
 
-    <!-- SLIDE 5: TRACTION + FOUNDER CREDIBILITY -->
+    <!-- SLIDE 5: TRACTION & FOUNDER (social proof + liking) -->
     <div class="slide">
-        <h2>What I've built – solo</h2>
+        <h2>Why this founder – and why now</h2>
         <ul class="bullet">
-            <li><strong>ARF core engine v4</strong> – proprietary, tested against real failure patterns</li>
-            <li><strong>White paper (weeks away)</strong> – open specification v4.0 (arf-spec)</li>
-            <li><strong>Active pilot conversations</strong> – cloud‑first enterprises (non‑binding expressions of interest)</li>
-            <li><strong>Website + brand</strong> – arf-ai.com, engaged following, consistent technical writing</li>
-            <li><strong>My background</strong> – NetApp enterprise support (debugging outages), full‑stack dev, door‑to‑door sales (resilience)</li>
+            <li><strong>ARF core engine v4</strong> – written, tested, and pressure‑tested (Bayesian risk + HMC + causal inference + RAG memory).</li>
+            <li><strong>White paper (weeks away)</strong> – open specification v4.0, already reviewed by two independent AI engineers.</li>
+            <li><strong>Active pilot conversations</strong> – one in aviation, one in cloud infrastructure (names under NDA, but diligence ready).</li>
+            <li><strong>My background:</strong> NetApp enterprise support (debugged production outages for Fortune 500), full‑stack dev, door‑to‑door solar sales (resilience). I’ve sold, supported, and built.</li>
         </ul>
         <div class="card" style="margin-top: 1rem;">
-            <p>✅ <strong>No co‑founder needed</strong> – I ship. I sell. I govern. One engineer ready post‑seed.</p>
+            <p>✅ <strong>No co‑founder needed</strong> – I ship, sell, and govern. One engineer ready to join post‑seed.</p>
         </div>
-        <div class="quote" style="margin-top: 1rem;">
-            “Hybrid pricing aligns us: you pay measurably for risk reduction.”
+        <div class="quote">
+            “I’ve been the one getting paged at 2am. ARF is the system I wish existed back then.”
         </div>
     </div>
 
-    <!-- SLIDE 6: HARD PROOF POINT -->
+    <!-- SLIDE 6: LIVE PROOF (reciprocity + low-risk trial) -->
     <div class="slide">
-        <h2>Observable evidence</h2>
+        <h2>See it work – in 60 seconds</h2>
         <div class="proof">
-            <p><strong>🎯 Live artifact:</strong> ARF sandbox API – returns deterministic risk evaluations with justifications.</p>
-            <p style="margin-top: 0.5rem;">👉 <a href="https://a-r-f-arf-sandbox-api.hf.space/v1/evaluate" target="_blank" style="color: #3b82f6;">Try the advisory endpoint</a> (mock data, but shows the mechanism)</p>
-            <p style="margin-top: 0.5rem; font-size: 0.9rem; color: #94a3b8;">Or watch a 2‑min video: <em>[link to screen recording of ARF blocking a simulated unsafe infrastructure action]</em></p>
+            <p><strong>🎯 Live sandbox API</strong> – returns deterministic risk evaluations with justifications.</p>
+            <p style="margin-top: 0.5rem;">👉 <a href="https://a-r-f-arf-sandbox-api.hf.space/v1/evaluate" target="_blank" style="color: #3b82f6;">Try the advisory endpoint</a> (mock data, but the logic is identical to the protected core)</p>
+            <p style="margin-top: 0.5rem;">📹 Or ask me for a <strong>2‑min screen recording</strong> of ARF blocking a simulated unsafe infrastructure action.</p>
         </div>
-        <p style="margin-top: 0.5rem;">The protected core engine is pilot‑only, but the logic is reproducible and auditable.</p>
+        <p style="margin-top: 0.5rem;">The protected core engine is pilot‑only, but <strong>I’ll give you a personal walkthrough</strong> during the deep dive – no obligation.</p>
     </div>
 
-    <!-- SLIDE 7: ASK + NEXT STEP -->
+    <!-- SLIDE 7: TIERED ASK (lower barrier, commitment ladder) -->
     <div class="slide">
-        <h2>The ask</h2>
-        <div class="stat">$500,000 seed</div>
-        <p style="font-size: 1.1rem;">12–15 months runway · Solo founder, lean burn</p>
-        <ul class="bullet">
-            <li><strong>Milestones:</strong> 3 paying pilots with cloud‑first enterprises</li>
-            <li>ARF v4.0 white paper + open‑source reference implementation</li>
-            <li>SOC2 certification (audit ready)</li>
-            <li>Hire one engineer + part‑time GTM (I remain full-time builder/seller)</li>
-        </ul>
-        <div style="margin-top: 2rem; background: #0f172a; border-radius: 1rem; padding: 1rem;">
-            <p><strong>Next step:</strong> Technical deep dive. You bring a real infrastructure failure scenario – I show how ARF blocks it.</p>
-            <p style="color: #3b82f6; margin-top: 0.5rem;">→ Deep dive: [date]</p>
+        <h2>Join the round – three ways to invest</h2>
+        <div class="grid">
+            <div class="card tier-card">
+                <h3>🔹 Pilot Partner</h3>
+                <div class="stat" style="font-size: 1.8rem;">$50k – $99k</div>
+                <ul class="bullet" style="margin-top: 0.5rem;">
+                    <li>Quarterly founder update + advisory access</li>
+                    <li>Invite to pilot design review (May 30)</li>
+                    <li>Name on ARF website (optional)</li>
+                </ul>
+                <div class="badge">Lowest entry</div>
+            </div>
+            <div class="card tier-card">
+                <h3>🔸 Launch Tier</h3>
+                <div class="stat" style="font-size: 1.8rem;">$100k – $249k</div>
+                <ul class="bullet" style="margin-top: 0.5rem;">
+                    <li>Monthly 1:1 strategy call</li>
+                    <li>Priority access to pilot results</li>
+                    <li>Right to introduce one enterprise pilot lead</li>
+                </ul>
+                <div class="badge">Sweat equity + capital</div>
+            </div>
+            <div class="card tier-card">
+                <h3>🔹 Strategic Partner</h3>
+                <div class="stat" style="font-size: 1.8rem;">$250k+</div>
+                <ul class="bullet" style="margin-top: 0.5rem;">
+                    <li>Board observer seat (or formal board if $500k)</li>
+                    <li>Co‑author the ARF v4.0 white paper acknowledgment</li>
+                    <li>First right of refusal for Series A pro‑rata</li>
+                </ul>
+                <div class="badge">Defines the category</div>
+            </div>
+        </div>
+        <p style="margin-top: 1rem; font-size: 0.9rem; text-align: center;">🎯 <strong>Total target: $500k</strong> – but we will close the round with a <strong>minimum $250k first close by June 15</strong> to unlock the first engineering hire.</p>
+        <div style="margin-top: 1rem; background: #0f172a; border-radius: 1rem; padding: 0.8rem; text-align: center;">
+            <p><strong>➡️ Next step:</strong> A 30‑min technical deep dive. <strong>I’ll show you the code, run the tests, and simulate a real failure.</strong></p>
+            <p style="color: #3b82f6; margin-top: 0.5rem;">Deep dive available Monday‑Thursday this week. <strong>Only 4 slots left before the pilot deadline.</strong></p>
         </div>
         <div class="quote" style="margin-top: 1rem;">
-            “I’ve been on the other side of the ticket – debugging enterprise outages at 2am, selling solar door‑to‑door. I know what failure costs. ARF is my answer.”
+            “You don’t have to lead the round. <strong>You just have to be in the room before the category explodes.</strong>”
         </div>
-        <p style="margin-top: 1rem;">Juan Petter · juan@arf-ai.com · arf-ai.com</p>
+        <p style="margin-top: 1rem;">Juan Petter · juan@arf-ai.com · <a href="https://arf-ai.com" style="color:#3b82f6;">arf-ai.com</a></p>
     </div>
 </div>
 
