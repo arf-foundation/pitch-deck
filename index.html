@@ -1,402 +1,255 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Publius + ARF | Enterprise Governance for Law Firms</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/white.css" />
-
-  <style>
-    :root {
-      --bg: #f4f7fb; --bg-2: #eef3f8; --surface: #ffffff; --surface-2: #f8fbff;
-      --ink: #0f172a; --muted: #5b667a; --line: #d7e0ea; --line-strong: #b9c8d9;
-      --navy: #0b1f3a; --blue: #2563eb; --teal: #0f766e;
-      --shadow: 0 18px 60px rgba(15,23,42,0.10); --shadow-soft: 0 10px 26px rgba(15,23,42,0.08);
-      --radius: 22px; --radius-sm: 16px;
-    }
-    * { box-sizing: border-box; }
-    html, body { margin:0; width:100%; height:100%; background: radial-gradient(circle at top, #ffffff 0%, var(--bg) 48%, #e9eff6 100%); overflow:hidden; }
-    body { font-family: Inter, system-ui, -apple-system, sans-serif; color: var(--ink); }
-    .reveal { width:100%; height:100%; font-size: clamp(18px, 1.25vw, 24px); color: var(--ink); }
-    .reveal .slides { text-align:left; }
-    .reveal section { width:100%; height:100%; padding: 22px; display:flex !important; align-items:center; justify-content:center; overflow:hidden; }
-    .slide { width:min(1240px, 100%); height:100%; display:flex; flex-direction:column; justify-content:center; gap: 18px; min-height:0; }
-    .hero { display:grid; grid-template-columns: 1.35fr 0.9fr; gap: 18px; align-items: stretch; }
-    .eyebrow { display:inline-flex; align-items:center; gap:10px; color: var(--muted); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; }
-    .chip { display:inline-flex; padding: 7px 11px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,0.9); color: var(--muted); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; }
-    h1, h2, h3, p { margin:0; }
-    h1, h2, h3 { letter-spacing:-0.04em; text-transform:none; }
-    h1 { font-size: clamp(2.7rem, 5vw, 4.4rem); line-height: 0.95; font-weight: 900; color: var(--navy); max-width: 11ch; }
-    h2 { font-size: clamp(2rem, 3.2vw, 2.9rem); line-height: 1.02; font-weight: 900; color: var(--navy); max-width: 22ch; }
-    h3 { font-size: clamp(1.05rem, 1.55vw, 1.28rem); line-height: 1.1; font-weight: 800; color: var(--navy); }
-    .lede { margin-top: 12px; font-size: clamp(1.05rem, 1.3vw, 1.22rem); line-height: 1.5; color: var(--muted); max-width: 48rem; }
-    .subcopy { font-size: clamp(0.95rem, 1.02vw, 1.05rem); line-height: 1.45; color: var(--muted); max-width: 45rem; }
-    .surface { background: rgba(255,255,255,0.86); border: 1px solid rgba(183,196,213,0.7); border-radius: var(--radius); box-shadow: var(--shadow); backdrop-filter: blur(14px); min-width: 0; }
-    .surface-pad { padding: 20px; }
-    .title-card { padding: 24px; background: linear-gradient(135deg, rgba(11,31,58,0.98), rgba(20,63,107,0.92)), linear-gradient(180deg, #0b1f3a, #123); color: #fff; border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 24px 72px rgba(11,31,58,0.24); position: relative; overflow:hidden; }
-    .title-card::after { content:""; position:absolute; inset:auto -10% -30% auto; width:320px; height:320px; border-radius:50%; background: radial-gradient(circle, rgba(37,99,235,0.36) 0%, rgba(37,99,235,0) 70%); pointer-events:none; }
-    .title-card h1 { color:#fff; }
-    .title-card .lede, .title-card .subcopy { color: rgba(255,255,255,0.82); }
-    .logo-row { display:flex; align-items:center; gap: 16px; margin-bottom: 12px; }
-    .logo-row img { height: 42px; }
-    .kpi-grid { display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
-    .kpi { padding: 15px 16px; border-radius: 18px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.11); min-width:0; }
-    .kpi-label { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.72); font-weight: 800; margin-bottom: 9px; }
-    .kpi-value { font-size: clamp(1.45rem, 2.5vw, 2.05rem); line-height:1; font-weight: 900; color:#fff; }
-    .kpi-sub { margin-top: 6px; font-size: 0.88rem; line-height:1.35; color: rgba(255,255,255,0.72); }
-    .tag-row { display:flex; flex-wrap:wrap; gap: 8px; margin-top: 16px; }
-    .section-head { display:flex; align-items:flex-end; justify-content:space-between; gap: 14px; }
-    .eyebrow-note { font-size: 0.86rem; color: var(--muted); max-width: 34rem; line-height:1.4; }
-    .grid-2, .grid-3 { display:grid; gap: 14px; min-width:0; align-items:start; }
-    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .card { padding: 18px; border-radius: var(--radius); background: rgba(255,255,255,0.92); border: 1px solid rgba(183,196,213,0.72); box-shadow: var(--shadow-soft); min-width:0; }
-    .card p, li { color: var(--muted); line-height: 1.44; font-size: 0.98rem; }
-    ul, ol { margin: 0; padding-left: 1.15em; }
-    li { margin-bottom: 10px; }
-    .metric { display:flex; flex-direction:column; justify-content:space-between; min-height: 144px; padding: 18px; border-radius: 20px; background: linear-gradient(180deg, #ffffff, #f7fbff); border: 1px solid var(--line); box-shadow: var(--shadow-soft); }
-    .metric .label { color: var(--muted); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
-    .metric .value { font-size: clamp(1.7rem, 3vw, 2.7rem); line-height: 1; font-weight: 900; color: var(--navy); margin-top: 8px; }
-    .metric .desc { color: var(--muted); margin-top: 10px; font-size: 0.92rem; line-height: 1.38; }
-    .flow { display:grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
-    .flow-5 { display:grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
-    .step { padding: 16px; border-radius: 18px; background: linear-gradient(180deg, #ffffff, #f7fbff); border: 1px solid var(--line); box-shadow: var(--shadow-soft); min-width:0; position: relative; }
-    .step:not(:last-child)::after { content: "→"; position:absolute; right: -18px; top: 50%; transform: translateY(-50%); color: #9fb0c5; font-size: 1.2rem; font-weight: 800; }
-    .step .n { display:inline-flex; align-items:center; justify-content:center; width: 30px; height: 30px; border-radius: 999px; background: rgba(37,99,235,0.10); color: var(--blue); font-size: 0.86rem; font-weight: 800; margin-bottom: 10px; }
-    .step .t { font-weight: 850; color: var(--navy); margin-bottom: 6px; }
-    .step .d { font-size: 0.9rem; color: var(--muted); line-height: 1.4; }
-    .quote { padding: 18px 20px; border-left: 5px solid var(--teal); border-radius: 18px; background: linear-gradient(180deg, rgba(15,118,110,0.06), rgba(15,118,110,0.03)); color: var(--navy); font-size: 1.05rem; line-height: 1.45; font-weight: 700; }
-    .quote span { color: var(--teal); }
-    .table { width:100%; border-collapse:separate; border-spacing:0; overflow:hidden; border-radius: 18px; border: 1px solid var(--line); background:#fff; box-shadow: var(--shadow-soft); font-size: 0.92rem; }
-    .table th, .table td { padding: 14px; border-bottom: 1px solid var(--line); text-align:left; line-height:1.38; }
-    .table th { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); background: #f8fbff; }
-    .table tr:last-child td { border-bottom:none; }
-    .pricing { display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-    .tier { padding: 18px; border-radius: 20px; background: linear-gradient(180deg, #ffffff, #f7fbff); border: 1px solid var(--line); box-shadow: var(--shadow-soft); min-width:0; display:flex; flex-direction:column; }
-    .tier .name { color: var(--navy); font-weight: 900; margin-bottom: 6px; }
-    .tier .price { font-size: 1.55rem; font-weight: 900; color: var(--blue); margin: 8px 0; }
-    .tier .features { color: var(--muted); font-size: 0.9rem; line-height:1.45; flex:1; }
-    .tier .note { margin-top: 10px; font-size: 0.78rem; color: var(--teal); font-weight: 700; }
-    .cta { display:grid; grid-template-columns: 1.05fr 0.95fr; gap: 14px; align-items:stretch; }
-    .buttons { display:flex; flex-wrap:wrap; gap: 10px; margin-top: 16px; }
-    .btn { display:inline-flex; align-items:center; gap: 8px; padding: 11px 14px; border-radius: 999px; text-decoration:none; font-size: 0.88rem; font-weight: 800; border: 1px solid var(--line-strong); color: var(--navy); background:#fff; box-shadow: 0 8px 20px rgba(15,23,42,0.05); }
-    .btn.primary { background: linear-gradient(135deg, var(--navy), #114b84); border-color: transparent; color:#fff; }
-    .footer { display:flex; justify-content:space-between; gap: 16px; margin-top:auto; color: var(--muted); font-size: 0.72rem; letter-spacing: 0.10em; text-transform: uppercase; }
-    .soft-note { margin-top: 12px; color: var(--muted); font-size: 0.86rem; line-height: 1.38; }
-    .accent { color: var(--blue); }
-    .pill-list { display:flex; flex-wrap:wrap; gap:8px; margin-top: 12px; }
-    .pill2 { padding: 8px 10px; border-radius: 999px; font-size: 0.76rem; font-weight: 800; color: var(--navy); background: #eff6ff; border: 1px solid #dbeafe; white-space: nowrap; }
-    .scorebox { display:flex; align-items:center; justify-content:space-between; gap: 12px; padding: 18px; border-radius: 20px; background: linear-gradient(180deg, #ffffff, #f7fbff); border: 1px solid var(--line); box-shadow: var(--shadow-soft); }
-    .scorebox .big { font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; color: var(--navy); line-height:1; }
-    .scorebox .small { color: var(--muted); font-size: 0.88rem; line-height:1.4; max-width: 26rem; }
-    .formula { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.95rem; color: #1e3a8a; background: #eff6ff; border: 1px solid #dbeafe; padding: 12px 14px; border-radius: 14px; }
-    .outcome-grid { display:grid; grid-template-columns: 1.15fr 0.85fr; gap: 14px; }
-    .muted { color: var(--muted); }
-    .tight { line-height: 1.35; }
-    .spacer-4 { height: 4px; } .spacer-8 { height: 8px; } .spacer-12 { height: 12px; }
-    .footnote { font-size: 0.72rem; color: var(--muted); margin-top: 4px; line-height: 1.35; }
-    .integrate-grid { display:grid; grid-template-columns: 0.5fr auto 1fr; gap: 14px; align-items: center; margin-top: 12px; }
-    .publius-output { background: rgba(255,255,255,0.8); border:1px solid var(--line); border-radius:16px; padding:14px; }
-    .publius-output ul { margin:0; padding-left: 1.2em; }
-    .big-arrow { font-size: 2rem; color: var(--teal); font-weight: 900; }
-
-    @media (max-width: 1100px) {
-      .hero, .grid-2, .grid-3, .cta, .outcome-grid, .pricing, .flow, .flow-5, .integrate-grid { grid-template-columns: 1fr; }
-      .step:not(:last-child)::after { display:none; }
-      .big-arrow { display:none; }
-      h1 { max-width: none; }
-      .logo-row { justify-content: center; }
-    }
-    @media (max-width: 720px) {
-      .reveal { font-size: 16px; }
-      .reveal section { padding: 10px; }
-      .slide { gap: 12px; }
-      .title-card, .card, .surface, .metric, .tier, .step { border-radius: 16px; }
-      h1 { font-size: clamp(2.2rem, 11vw, 3.3rem); }
-      h2 { font-size: clamp(1.6rem, 7.4vw, 2.3rem); }
-      .kpi-grid { grid-template-columns: 1fr; }
-      .logo-row img { height: 32px; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ARF – Juan Petter · Seed Pitch</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0a0a0f;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #eef2ff;
+            line-height: 1.4;
+        }
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 3rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            border-bottom: 1px solid rgba(59,130,246,0.15);
+            scroll-margin-top: 1rem;
+        }
+        h1 {
+            font-size: clamp(2.5rem, 7vw, 4.5rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+        h2 {
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            font-weight: 600;
+            border-left: 4px solid #3b82f6;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .claim {
+            font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+            font-weight: 500;
+            color: #cbd5e1;
+            margin: 1rem 0;
+        }
+        .stat {
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            font-weight: 800;
+            color: #3b82f6;
+            margin: 1rem 0;
+        }
+        .grid {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
+        }
+        .card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(59,130,246,0.3);
+            border-radius: 1rem;
+            padding: 1.2rem;
+            flex: 1;
+            min-width: 200px;
+        }
+        .bullet {
+            list-style: none;
+            margin: 1rem 0;
+        }
+        .bullet li {
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+            position: relative;
+            font-size: 1.1rem;
+        }
+        .bullet li::before {
+            content: "→";
+            color: #3b82f6;
+            position: absolute;
+            left: 0;
+        }
+        .quote {
+            font-style: italic;
+            border-left: 2px solid #3b82f6;
+            padding-left: 1.2rem;
+            margin: 1.5rem 0;
+            color: #94a3b8;
+        }
+        .nav {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            display: flex;
+            gap: 0.5rem;
+            z-index: 100;
+        }
+        .nav button {
+            background: #1e293b;
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        .nav button:hover { background: #3b82f6; }
+        @media (max-width: 768px) {
+            .slide { padding: 2rem 1rem; min-height: auto; }
+        }
+    </style>
 </head>
-
 <body>
-<div class="reveal">
-  <div class="slides">
+<div id="slides">
+    <!-- SLIDE 1: TITLE -->
+    <div class="slide">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+            <img src="ARF - Transparent Primary Logo.png" alt="ARF" style="height: 45px;">
+            <span style="color: #3b82f6; font-size: 0.8rem;">CONFIDENTIAL</span>
+        </div>
+        <h1>Agentic Reliability Framework</h1>
+        <p class="claim">The policy layer that blocks unsafe agent actions before they happen</p>
+        <div style="margin-top: 2rem;">
+            <p style="font-size: 1.2rem; font-weight: 500;">Juan Petter · Solo Founder</p>
+            <p style="color: #64748b; margin-top: 0.5rem;">May 22, 2026 · Seed Round</p>
+        </div>
+        <div class="quote" style="margin-top: 2rem;">
+            "In everything there is a line beyond which it is dangerous to cross."<br>— Dostoevsky, <em>Crime and Punishment</em>
+        </div>
+    </div>
 
-    <!-- 1. TITLE – both logos + defensible governance positioning -->
-    <section>
-      <div class="slide hero">
-        <div class="surface title-card">
-          <div class="logo-row">
-            <img src="./publius_logo.png" alt="Publius" />
-            <span style="color:rgba(255,255,255,0.7); font-size:1.5rem; font-weight:300;">+</span>
-            <img src="./ARF%20-%20Transparent%20Primary%20Logo.png" alt="ARF" />
-          </div>
-          <div class="eyebrow"><span class="chip">Governance Infrastructure</span><span class="chip">Legal AI</span></div>
-          <div class="spacer-12"></div>
-          <h1>Publius + ARF</h1>
-          <p class="lede">Defensible governance for AI‑assisted legal work.</p>
-          <p class="subcopy">Approve, deny, or escalate every AI output with a defensible audit trail — purpose‑built for firms that treat AI risk as legal risk.</p>
-          <div class="kpi-grid">
-            <div class="kpi"><div class="kpi-label">Risk</div><div class="kpi-value">Lower</div><div class="kpi-sub">Reduce silent AI failure.</div></div>
-            <div class="kpi"><div class="kpi-label">Trust</div><div class="kpi-value">Visible</div><div class="kpi-sub">Every decision explained.</div></div>
-            <div class="kpi"><div class="kpi-label">Control</div><div class="kpi-value">Auditable</div><div class="kpi-sub">Policy gates and logs.</div></div>
-          </div>
+    <!-- SLIDE 2: WHY NOW (timing) -->
+    <div class="slide">
+        <h2>Why now</h2>
+        <div class="grid">
+            <div class="card">📈 <strong>Agent explosion</strong><br>Enterprises piloting autonomous agents for pricing, ops, support</div>
+            <div class="card">⚠️ <strong>No control plane</strong><br>Most pilots fail to reach production – governance gap</div>
+            <div class="card">⚖️ <strong>Regulatory heat</strong><br>EU AI Act, NYC LLM law – auditability required</div>
         </div>
-        <div class="surface surface-pad">
-          <div class="section-head"><div><div class="eyebrow"><span class="chip">Executive summary</span></div><h3>What the buyer gets</h3></div></div>
-          <div class="spacer-12"></div>
-          <div class="metric"><div><div class="label">Primary value</div><div class="value">Governance, not guesswork</div></div><div class="desc">ARF turns AI output into a controlled decision workflow.</div></div>
-          <div class="spacer-12"></div>
-          <div class="metric"><div><div class="label">Commercial outcome</div><div class="value">Less exposure</div></div><div class="desc">Reduce legal, operational, and reputational risk.</div></div>
-          <div class="spacer-12"></div>
-          <div class="card">
-            <p class="tight">The system chooses the action with the <strong>lowest expected cost</strong>, weighing risk, business impact, forecasted risk, and epistemic uncertainty — calibrated to your firm’s risk tolerance.</p>
-            <div class="footnote" style="margin-top:8px; font-size:0.7rem;">Under the hood: Decision = argmin(L_approve, L_deny, L_escalate) — each loss term reflects a configurable cost model.</div>
-          </div>
-        </div>
-      </div>
-    </section>
+        <p class="claim" style="font-size: 1.2rem;">First-mover window: 12–18 months before incumbents react.</p>
+    </div>
 
-    <!-- 2. PROBLEM -->
-    <section>
-      <div class="slide">
-        <div class="section-head"><div><div class="eyebrow"><span class="chip">Problem</span></div><h2>AI fails quietly.</h2></div><div class="eyebrow-note">Legal teams need bounded AI behavior, not more AI output.</div></div>
-        <div class="grid-2">
-          <div class="card"><h3>Common failure modes</h3><div class="spacer-8"></div><ul><li>False citations</li><li>Missed evidence</li><li>Unclear accountability</li><li>No consistent review policy</li></ul></div>
-          <div class="card"><h3>Business impact</h3><div class="spacer-8"></div><div class="scorebox"><div class="big">$450k</div><div class="small">Illustrative downside from one year of ungoverned AI discovery in a mid-sized firm.*</div></div><div class="spacer-12"></div><div class="quote"><span>Risk is not the model.</span> Risk is the absence of control around the model.</div><div class="footnote">*Scenario: 15‑attorney firm, 200 cases/year, 3 AI‑driven evidence misses leading to lost judgments and a settlement.</div></div>
+    <!-- SLIDE 3: THE PAIN (real failure) -->
+    <div class="slide">
+        <h2>The pain · silent failure</h2>
+        <div style="background: #0f172a; padding: 1.2rem; border-radius: 1rem; margin: 1rem 0;">
+            <p style="font-size: 1.1rem;">“A Fortune 500 team deployed a pricing agent. In 47 minutes, it dropped prices below margin on 3,000 SKUs. Discovered next day.”</p>
+            <p style="color: #64748b; margin-top: 0.5rem;">Similar: Air Canada chatbot liability, Chevy EV misdirection.</p>
         </div>
-        <div class="quote" style="margin-top:12px;">Every ungoverned AI output is a <span>potential exhibit</span> in a malpractice case.</div>
-      </div>
-    </section>
+        <ul class="bullet">
+            <li>No execution boundary → hidden operational loss</li>
+            <li>Compliance violations from untraceable AI decisions</li>
+            <li>Market gap: observability tools monitor after failure, they don't prevent</li>
+        </ul>
+    </div>
 
-    <!-- 3. COST OF FAILURE -->
-    <section>
-      <div class="slide">
-        <div class="section-head"><div><div class="eyebrow"><span class="chip">Why governance matters</span></div><h2>The cost of inaction.</h2></div><div class="eyebrow-note">One missed evidence event can cascade into a malpractice claim.</div></div>
-        <div class="grid-2">
-          <div class="card"><h3>Without governance</h3><div class="spacer-8"></div><ul><li>AI output accepted without review</li><li>No auditable record of decisions</li><li>Inconsistent escalation paths</li><li>Firm carries full liability</li></ul></div>
-          <div class="card"><h3>With ARF governance</h3><div class="spacer-8"></div><ul><li>Every AI output scored and gated</li><li>Cryptographic audit trail generated</li><li>Deterministic escalation policy</li><li>Defensible decision record for any court</li></ul></div>
+    <!-- SLIDE 4: THE WEDGE (ARF solution - simple diagram) -->
+    <div class="slide">
+        <h2>The wedge · ARF</h2>
+        <div style="background: #0f172a; border-radius: 1rem; padding: 1rem; text-align: center; font-family: monospace; font-size: 0.9rem; margin: 1rem 0;">
+            Agent action → <strong style="color:#3b82f6">ARF risk engine</strong> → Threshold → 🔵 Execute / 🟡 Escalate / 🔴 Block<br>
+            ↓<br>
+            <span style="color:#94a3b8">Bayesian expected loss · Epistemic uncertainty · Policy enforcement</span>
         </div>
-        <div class="quote" style="margin-top:12px;"><span>Governance is malpractice insurance</span> for your AI pipeline.</div>
-      </div>
-    </section>
+        <ul class="bullet">
+            <li>Deterministic outcome – same input, same decision</li>
+            <li>Immutable audit trail – every decision cryptographically signed</li>
+            <li>Outcome‑based pricing – I win when you prevent loss</li>
+        </ul>
+        <div class="quote">“Trust is not a feeling. It’s a calculation.” – ARF design principle</div>
+    </div>
 
-    <!-- 4. HOW ARF WORKS -->
-    <section>
-      <div class="slide">
-        <div class="section-head"><div><div class="eyebrow"><span class="chip">Solution</span></div><h2>ARF adds a decision layer.</h2></div><div class="eyebrow-note">A small amount of structure eliminates most of the ambiguity.</div></div>
-        <div class="flow">
-          <div class="step"><div class="n">1</div><div class="t">Input</div><div class="d">AI draft, citation set, or case event enters the system.</div></div>
-          <div class="step"><div class="n">2</div><div class="t">Score</div><div class="d">Bayesian risk, uncertainty, and memory signals are computed.</div></div>
-          <div class="step"><div class="n">3</div><div class="t">Gate</div><div class="d">Policy, cooldown, and thresholds determine the path.</div></div>
-          <div class="step"><div class="n">4</div><div class="t">Action</div><div class="d">Approve, deny, or escalate with an audit record.</div></div>
+    <!-- SLIDE 5: PLATFORM VISION (venture scale) -->
+    <div class="slide">
+        <h2>From wedge to platform</h2>
+        <div class="grid">
+            <div class="card"><strong>Phase 1</strong><br>Agent governance (aviation, defense, energy, finance)</div>
+            <div class="card"><strong>Phase 2</strong><br>Policy management + compliance automation</div>
+            <div class="card"><strong>Phase 3</strong><br>Cross‑agent orchestration & observability</div>
         </div>
-        <div class="grid-2">
-          <div class="card"><h3>What changes</h3><div class="spacer-8"></div><ul><li>Less manual review noise</li><li>More consistent decisions</li><li>Stronger defensibility</li></ul></div>
-          <div class="card"><h3>What stays human</h3><div class="spacer-8"></div><ul><li>Judgment</li><li>Client strategy</li><li>Final sign-off</li></ul></div>
-        </div>
-      </div>
-    </section>
+        <p class="claim" style="font-size: 1.2rem; margin-top: 1rem;">Recurring infrastructure layer for every autonomous system.</p>
+    </div>
 
-    <!-- 5. PUBLIUS + ARF INTEGRATION (NEW) -->
-    <section>
-      <div class="slide">
-        <div class="section-head"><div><div class="eyebrow"><span class="chip">Integration</span></div><h2>How Publius and ARF work together.</h2></div><div class="eyebrow-note">Seamless data flow — no workflow changes.</div></div>
-        <div class="integrate-grid">
-          <div class="publius-output">
-            <h3 style="margin-bottom:6px;">Publius Outputs</h3>
-            <ul>
-              <li>Case law summaries</li>
-              <li>Discovery recommendations</li>
-              <li>Document clusters</li>
-              <li>Timeline extraction</li>
-            </ul>
-          </div>
-          <div class="big-arrow" style="text-align:center;">→</div>
-          <div class="flow-5" style="grid-template-columns: repeat(5, minmax(0,1fr)); gap:8px;">
-            <div class="step" style="padding:12px;"><div class="t" style="font-size:0.9rem;">Risk Score</div><div class="d" style="font-size:0.8rem;">Bayesian fusion</div></div>
-            <div class="step" style="padding:12px;"><div class="t" style="font-size:0.9rem;">Policy Check</div><div class="d" style="font-size:0.8rem;">Firm rules</div></div>
-            <div class="step" style="padding:12px;"><div class="t" style="font-size:0.9rem;">Decision</div><div class="d" style="font-size:0.8rem;">Approve / Deny / Escalate</div></div>
-            <div class="step" style="padding:12px;"><div class="t" style="font-size:0.9rem;">Audit Trail</div><div class="d" style="font-size:0.8rem;">Cryptographic log</div></div>
-            <div class="step" style="padding:12px;"><div class="t" style="font-size:0.9rem;">Attorney</div><div class="d" style="font-size:0.8rem;">Review & act</div></div>
-          </div>
+    <!-- SLIDE 6: TRACTION & SOLO FOUNDER REALITY -->
+    <div class="slide">
+        <h2>What I've built – solo</h2>
+        <ul class="bullet">
+            <li><strong>ARF core engine v4</strong> – proprietary, production-tested in controlled environments</li>
+            <li><strong>White paper (weeks away)</strong> – open specification v4.0 (arf-spec)</li>
+            <li><strong>Active pilot conversations</strong> – aviation, defense (letters of interest)</li>
+            <li><strong>Website + brand</strong> – arf-ai.com, 1.5k LinkedIn followers, consistent thought leadership</li>
+            <li><strong>Technical background</strong> – NetApp support (enterprise debugging), full-stack dev, AI governance certs</li>
+        </ul>
+        <div class="card" style="margin-top: 1rem;">
+            <p>✅ <strong>No co-founder needed</strong> – I ship. I sell. I govern. One engineer ready post-seed.</p>
         </div>
-        <div class="card" style="margin-top:12px;">
-          <p class="tight">ARF wraps around the Publius pipeline — no additional login, no export/import. Governance becomes invisible infrastructure.</p>
+    </div>
+
+    <!-- SLIDE 7: THE ASK + MILESTONES -->
+    <div class="slide">
+        <h2>The ask</h2>
+        <div class="stat">$500,000 seed</div>
+        <p style="font-size: 1.1rem;">12–15 months runway · Solo founder, lean burn</p>
+        <ul class="bullet">
+            <li><strong>Milestones:</strong> 3 paying pilots in regulated industries</li>
+            <li>ARF v4.0 white paper + open‑source reference implementation</li>
+            <li>SOC2 certification (audit ready)</li>
+            <li>Hire one engineer + part‑time GTM (me as full-time builder/seller)</li>
+        </ul>
+        <div style="margin-top: 2rem; background: #0f172a; border-radius: 1rem; padding: 1rem;">
+            <p><strong>Next step:</strong> Technical deep dive. You bring a real failure scenario – I show how ARF blocks it.</p>
+            <p style="color: #3b82f6; margin-top: 0.5rem;">→ Deep dive scheduled for [next week]</p>
         </div>
-      </div>
-    </section>
+    </div>
 
-    <!-- 6. AUDITABILITY / TRUST -->
-    <section>
-      <div class="slide">
-        <div class="section-head"><div><div class="eyebrow"><span class="chip">Enterprise trust</span></div><h2>Make decisions explainable.</h2></div><div class="eyebrow-note">Trust comes from traceability, not marketing language.</div></div>
-        <div class="grid-3">
-          <div class="metric"><div><div class="label">Risk score</div><div class="value">Numeric</div></div><div class="desc">Shows why the system escalated or approved.</div></div>
-          <div class="metric"><div><div class="label">Policy</div><div class="value">Deterministic</div></div><div class="desc">Hard rules override model confidence.</div></div>
-          <div class="metric"><div><div class="label">Audit trail</div><div class="value">Complete</div></div><div class="desc">Each outcome becomes training data for the next decision.</div></div>
+    <!-- SLIDE 8: CLOSING (personal) -->
+    <div class="slide">
+        <h2>Why me</h2>
+        <div class="quote" style="font-size: 1.2rem;">
+            “I’ve been on the other side of the ticket – debugging enterprise outages at NetApp, selling solar door-to-door, writing code at 2am. I know what failure costs. ARF is my answer.”
         </div>
-        <div class="grid-2">
-          <div class="card"><h3>Control surface</h3><div class="spacer-8"></div><div class="pill-list"><span class="pill2">Cooldown</span><span class="pill2">Rate limits</span><span class="pill2">Human escalation</span><span class="pill2">Signed decisions</span></div></div>
-          <div class="card"><h3>Learning loop</h3><div class="spacer-8"></div><p class="tight">The system learns from outcomes, updates memory weights, and adjusts risk estimates as evidence accumulates.</p></div>
+        <p style="margin-top: 1.5rem;">Juan Petter · juan@arf-ai.com · arf-ai.com</p>
+        <div style="margin-top: 2rem;">
+            <img src="ARF - Primary Logo.png" alt="ARF" style="height: 40px; opacity: 0.6;">
         </div>
-      </div>
-    </section>
-
-    <!-- 7. WHY FIRMS CHOOSE ARF -->
-    <section>
-      <div class="slide">
-        <div class="section-head"><div><div class="eyebrow"><span class="chip">Differentiation</span></div><h2>Why firms choose ARF.</h2></div><div class="eyebrow-note">Outcome‑first, not math‑first.</div></div>
-        <div class="grid-3">
-          <div class="metric"><div><div class="label">1</div><div class="value" style="font-size:clamp(1.2rem,2vw,1.5rem);">Limit liability</div></div><div class="desc">Governed AI creates an audit trail that can be produced in court.</div></div>
-          <div class="metric"><div><div class="label">2</div><div class="value" style="font-size:clamp(1.2rem,2vw,1.5rem);">Strengthen client trust</div></div><div class="desc">Every AI‑assisted work product carries a verifiable governance record.</div></div>
-          <div class="metric"><div><div class="label">3</div><div class="value" style="font-size:clamp(1.2rem,2vw,1.5rem);">Operationalize oversight</div></div><div class="desc">Policy enforcement, escalation rules, and calibration become routine.</div></div>
-        </div>
-        <div class="quote" style="margin-top:12px;">Firms invest in governance for one reason: <span>defensibility</span>. The analytics under the hood are powerful, but the conversation stays on outcomes.</div>
-      </div>
-    </section>
-
-    <!-- 8. PILOT STRUCTURE (non‑refundable language added) -->
-    <section>
-      <div class="slide">
-        <div class="section-head"><div><div class="eyebrow"><span class="chip">Engagement</span></div><h2>Governance Validation Pilot.</h2></div><div class="eyebrow-note">A paid, time‑bound assessment designed to prove value — not to give away the product. Engagements are selective because the founder leads every pilot.</div></div>
-        <div class="grid-2">
-          <div class="card">
-            <h3>60‑Day Governance Assessment</h3>
-            <div class="spacer-8"></div>
-            <div class="scorebox"><div class="big">$3,500</div><div class="small">Non‑refundable; 100% credited toward year‑one annual contract if converted within 30 days.</div></div>
-            <div class="spacer-12"></div>
-            <ul>
-              <li>Onboarding & policy configuration</li>
-              <li>2 governance workflows</li>
-              <li>Up to 5 users</li>
-              <li>Weekly founder review</li>
-              <li>Audit export samples</li>
-              <li>Calibration reporting</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>Pilot terms</h3>
-            <div class="spacer-8"></div>
-            <ul>
-              <li>Mutual success criteria defined before kick‑off</li>
-              <li>Day‑45 commercial checkpoint</li>
-              <li>Day‑60 decision: convert to annual agreement, extend via paid bridge, or conclude with read‑only archival access</li>
-              <li>No automatic roll‑overs; no unbounded free usage</li>
-            </ul>
-            <div class="spacer-12"></div>
-            <div class="quote">When a firm invests in a pilot, the partnership treats it as a strategic project — not a tire‑kick. That shared investment drives faster, more serious decisions.</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 9. PRICING & ENGAGEMENT -->
-    <section>
-      <div class="slide">
-        <div class="section-head"><div><div class="eyebrow"><span class="chip">Engagement model</span></div><h2>Annual Governance Agreements.</h2></div><div class="eyebrow-note">Priced like governance infrastructure, not a subscription toy.</div></div>
-
-        <div class="pricing">
-          <div class="tier">
-            <div class="name">Starter Firm</div>
-            <div class="price">$12,000 / year</div>
-            <div class="features">Governance engine · audit trails · policy enforcement · uncertainty escalation · 10k governed decisions/month · email support · quarterly governance review</div>
-            <div class="note">Deployment: $4,000</div>
-          </div>
-          <div class="tier">
-            <div class="name">Professional</div>
-            <div class="price">$28,000 / year</div>
-            <div class="features">Everything in Starter · SSO · custom policies · priority support · analytics dashboard · memory optimization · calibration monitoring · monthly governance review</div>
-            <div class="note">Deployment: $8,000</div>
-          </div>
-          <div class="tier">
-            <div class="name">Enterprise</div>
-            <div class="price">Custom engagement</div>
-            <div class="features">On‑prem deployment · private infrastructure · cryptographic signing · SLAs · dedicated support · custom compliance workflows</div>
-            <div class="note">Deployment & retainer scoped per engagement</div>
-          </div>
-        </div>
-
-        <div class="grid-2" style="margin-top:12px;">
-          <div class="card"><h3>Support & maintenance</h3><div class="spacer-8"></div><p class="tight"><strong>Standard</strong> – included: email support, best‑effort response, self‑service documentation.<br/><strong>Priority Governance Support</strong> – +$500/mo: 24‑hour response, quarterly governance tuning session, escalation review.<br/><strong>Enterprise Reliability Retainer</strong> – $2k–$8k/mo: reserved founder advisory time, audit‑preparation assistance, annual policy redesign, dedicated Slack channel.</p></div>
-          <div class="card"><h3>Payment terms</h3><div class="spacer-8"></div><p class="tight">Annual contracts invoiced upfront. Deployment fees due at contract signing. Pilot fee credited in full upon conversion. Bridge agreements billed quarterly.</p></div>
-        </div>
-
-        <div class="quote" style="margin-top:12px;"><span>Designed for operational trust,</span> not lightweight SaaS.</div>
-      </div>
-    </section>
-
-    <!-- 10. ENTERPRISE ROADMAP / CLOSE -->
-    <section>
-      <div class="slide">
-        <div class="section-head"><div><div class="eyebrow"><span class="chip">Next step</span></div><h2>Start with a structured pilot.</h2></div><div class="eyebrow-note">Selective pilot engagements — limited by founder capacity, not an open waitlist.</div></div>
-        <div class="cta">
-          <div class="card">
-            <h3>Typical pilot timeline</h3>
-            <div class="spacer-8"></div>
-            <ul>
-              <li>Week 1: setup and policy mapping</li>
-              <li>Week 2: live evaluation on real cases</li>
-              <li>Week 3: review outcomes and tune thresholds</li>
-              <li>Week 4: executive readout</li>
-              <li>Day 45: commercial checkpoint</li>
-              <li>Day 60: conversion, bridge, or sunset</li>
-            </ul>
-            <div class="buttons">
-              <a class="btn primary" href="mailto:juan@arf-ai.com">Contact Juan</a>
-              <a class="btn" href="https://calendly.com/petter2025us/30min" target="_blank" rel="noreferrer">Book a Call</a>
-              <a class="btn" href="https://www.arf-ai.com/" target="_blank" rel="noreferrer">View Demo</a>
-            </div>
-          </div>
-          <div class="surface surface-pad">
-            <div class="eyebrow"><span class="chip">How we work</span></div>
-            <div class="spacer-8"></div>
-            <p class="tight"><strong>Clear milestones, not open‑ended trials.</strong></p>
-            <div class="spacer-8"></div>
-            <p class="tight"><strong>Every engagement has a defined commercial off‑ramp.</strong></p>
-            <div class="spacer-8"></div>
-            <p class="tight"><strong>Production use requires a production agreement.</strong></p>
-            <div class="spacer-12"></div>
-            <div class="quote"><span>Governance is infrastructure.</span> Infrastructure deserves a real commitment.</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 11. CONTACT -->
-    <section>
-      <div class="slide">
-        <div class="surface surface-pad" style="text-align:center;">
-          <div class="eyebrow" style="justify-content:center;"><span class="chip">Contact</span></div>
-          <h2 style="margin: 8px auto 0; max-width: 14ch;">Let’s make AI defensible.</h2>
-          <p class="lede" style="margin-left:auto; margin-right:auto;">Juan Petter · juan@arf-ai.com · LinkedIn · Calendly</p>
-          <div class="buttons" style="justify-content:center;">
-            <a class="btn primary" href="mailto:juan@arf-ai.com">juan@arf-ai.com</a>
-            <a class="btn" href="https://www.linkedin.com/in/petterjuan/" target="_blank" rel="noreferrer">LinkedIn</a>
-            <a class="btn" href="https://calendly.com/petter2025us/30min" target="_blank" rel="noreferrer">Book a Call</a>
-          </div>
-        </div>
-        <div class="footer"><span>Publius + ARF | Enterprise Governance for Law Firms</span><span>Access-controlled pilot deck</span></div>
-      </div>
-    </section>
-
-  </div>
+    </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.js"></script>
+<div class="nav">
+    <button id="prevBtn" disabled>← Prev</button>
+    <button id="nextBtn">Next →</button>
+</div>
+
 <script>
-  Reveal.initialize({
-    width: 1440, height: 810, margin: 0.02, minScale: 0.45, maxScale: 0.95,
-    center: true, hash: true, progress: true, controls: true, slideNumber: 'c/t',
-    transition: 'fade', backgroundTransition: 'fade', fragments: true, pdfSeparateFragments: false
-  });
+    const slides = document.querySelectorAll('.slide');
+    let idx = 0;
+    const prev = document.getElementById('prevBtn');
+    const next = document.getElementById('nextBtn');
+    function update() {
+        prev.disabled = idx === 0;
+        next.disabled = idx === slides.length - 1;
+        slides[idx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    prev.onclick = () => { if (idx > 0) { idx--; update(); } };
+    next.onclick = () => { if (idx < slides.length-1) { idx++; update(); } };
+    window.addEventListener('scroll', () => {
+        let newIdx = 0;
+        for (let i = 0; i < slides.length; i++) {
+            const rect = slides[i].getBoundingClientRect();
+            if (rect.top <= 150) newIdx = i;
+        }
+        if (newIdx !== idx) { idx = newIdx; update(); }
+    });
+    update();
 </script>
 </body>
 </html>
