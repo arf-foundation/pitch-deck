@@ -129,7 +129,7 @@
             <span style="color: #3b82f6; font-size: 0.8rem;">CONFIDENTIAL</span>
         </div>
         <h1>Agentic Reliability Framework</h1>
-        <p class="claim">The policy layer that blocks unsafe agent actions before they happen</p>
+        <p class="claim">The governance layer for AI‑driven cloud infrastructure</p>
         <div style="margin-top: 2rem;">
             <p style="font-size: 1.2rem; font-weight: 500;">Juan Petter · Solo Founder</p>
             <p style="color: #64748b; margin-top: 0.5rem;">May 22, 2026 · Seed Round</p>
@@ -139,28 +139,26 @@
         </div>
     </div>
 
-    <!-- SLIDE 2: PROBLEM + WHY NOW (framed defensibly) -->
+    <!-- SLIDE 2: PROBLEM (grounded, no hypothetical industry) -->
     <div class="slide">
-        <h2>Silent failure is expensive</h2>
-        <div style="background: #0f172a; padding: 1.2rem; border-radius: 1rem; margin: 1rem 0;">
-            <p style="font-size: 1.1rem;">“Representative enterprise failure scenario: a pricing agent drops prices below margin on 3,000 SKUs in 47 minutes. No one notices until the next day.”</p>
-            <p style="color: #64748b; margin-top: 0.5rem;">Public case: Air Canada held liable for a chatbot’s bad advice. This is the new normal.</p>
-        </div>
+        <h2>AI agents are touching cloud infrastructure</h2>
         <ul class="bullet">
-            <li>Enterprises deploy agents faster than they can govern them</li>
-            <li>Observability tells you after failure – no one prevents it</li>
-            <li>Emerging AI auditability requirements (EU AI Act, etc.)</li>
+            <li>A single unsafe intent can create outages, cost spikes, or policy violations</li>
+            <li>Observability detects failure after the fact – no one prevents the action</li>
+            <li>Platform engineering, SRE, and security teams lack a control plane for agentic actions</li>
         </ul>
-        <p class="claim" style="font-size: 1.2rem; margin-top: 0.5rem;">The category is still structurally early.</p>
+        <div class="proof" style="margin-top: 1rem;">
+            <p style="font-size: 1rem;">“Representative scenario: an agent provisions oversized resources in production, bypasses a security group, or deletes a snapshot chain. Observability alerts you hours later.”</p>
+        </div>
     </div>
 
-    <!-- SLIDE 3: SOLUTION + WEDGE (technically safe) -->
+    <!-- SLIDE 3: SOLUTION (deterministic gate) -->
     <div class="slide">
-        <h2>ARF: prevent, don't just monitor</h2>
+        <h2>ARF: approve, deny, or escalate</h2>
         <div style="background: #0f172a; border-radius: 1rem; padding: 1rem; text-align: center; font-family: monospace; font-size: 0.9rem; margin: 1rem 0;">
-            Agent action → <strong style="color:#3b82f6">ARF risk engine</strong> → Threshold → <span style="color:#3b82f6">🔵 Execute</span> / 🟡 Escalate / 🔴 Block<br>
+            Agent intent → <strong style="color:#3b82f6">ARF risk engine</strong> → Threshold → <span style="color:#3b82f6">🔵 Approve</span> / 🟡 Escalate / 🔴 Deny<br>
             ↓<br>
-            <span style="color:#94a3b8">Bayesian expected loss · Epistemic uncertainty · Policy enforcement</span>
+            <span style="color:#94a3b8">Expected loss · Epistemic uncertainty · Policy enforcement</span>
         </div>
         <ul class="bullet">
             <li>Policy decisions remain deterministic even when model outputs are probabilistic</li>
@@ -170,27 +168,28 @@
         <div class="quote">“Trust is not a feeling. It’s a calculation.” – ARF design principle</div>
     </div>
 
-    <!-- SLIDE 4: MARKET + BUYER (narrow wedge) -->
+    <!-- SLIDE 4: BUYER + FIRST USE CASE (no industries) -->
     <div class="slide">
-        <h2>Who needs this now</h2>
+        <h2>Initial buyer and workflow</h2>
         <div class="grid">
-            <div class="card"><strong>✈️ Aviation</strong><br>Agent-assisted maintenance, flight planning</div>
-            <div class="card"><strong>🛡️ Defense</strong><br>Autonomous logistics, threat detection</div>
+            <div class="card"><strong>👥 Buyers</strong><br>Platform engineering, SRE, cloud ops, security teams</div>
+            <div class="card"><strong>⚙️ First use case</strong><br>Gate AI‑generated infrastructure actions before they change production</div>
         </div>
-        <p style="margin-top: 0.5rem; color: #94a3b8;">Initial focus: aviation and defense. Expansion to energy, finance post‑pilots.</p>
         <ul class="bullet">
-            <li>Regulated industries have compliance budgets and zero tolerance for silent failure</li>
-            <li>ARF becomes the governance layer for every autonomous system they deploy</li>
+            <li>Agents are already moving from suggestion to execution in cloud workflows</li>
+            <li>Observability is insufficient – ARF sits in the decision path</li>
+            <li>Expansion: policy management, audit automation, cross‑agent governance across AWS, Azure, GCP, on‑prem</li>
         </ul>
+        <p class="claim" style="font-size: 1.1rem; margin-top: 0.5rem;">The governance layer for AI‑driven cloud infrastructure is still early.</p>
     </div>
 
-    <!-- SLIDE 5: BUSINESS MODEL + TRACTION + CREDIBILITY -->
+    <!-- SLIDE 5: TRACTION + FOUNDER CREDIBILITY -->
     <div class="slide">
         <h2>What I've built – solo</h2>
         <ul class="bullet">
             <li><strong>ARF core engine v4</strong> – proprietary, tested against real failure patterns</li>
             <li><strong>White paper (weeks away)</strong> – open specification v4.0 (arf-spec)</li>
-            <li><strong>Active pilot conversations</strong> – aviation, defense (non‑binding expressions of interest)</li>
+            <li><strong>Active pilot conversations</strong> – cloud‑first enterprises (non‑binding expressions of interest)</li>
             <li><strong>Website + brand</strong> – arf-ai.com, engaged following, consistent technical writing</li>
             <li><strong>My background</strong> – NetApp enterprise support (debugging outages), full‑stack dev, door‑to‑door sales (resilience)</li>
         </ul>
@@ -202,30 +201,30 @@
         </div>
     </div>
 
-    <!-- SLIDE 6: HARD PROOF POINT (concrete artifact) -->
+    <!-- SLIDE 6: HARD PROOF POINT -->
     <div class="slide">
         <h2>Observable evidence</h2>
         <div class="proof">
             <p><strong>🎯 Live artifact:</strong> ARF sandbox API – returns deterministic risk evaluations with justifications.</p>
             <p style="margin-top: 0.5rem;">👉 <a href="https://a-r-f-arf-sandbox-api.hf.space/v1/evaluate" target="_blank" style="color: #3b82f6;">Try the advisory endpoint</a> (mock data, but shows the mechanism)</p>
-            <p style="margin-top: 0.5rem; font-size: 0.9rem; color: #94a3b8;">Or watch a 2‑min video: <em>[link to screen recording of ARF blocking a simulated over‑pricing incident]</em></p>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem; color: #94a3b8;">Or watch a 2‑min video: <em>[link to screen recording of ARF blocking a simulated unsafe infrastructure action]</em></p>
         </div>
         <p style="margin-top: 0.5rem;">The protected core engine is pilot‑only, but the logic is reproducible and auditable.</p>
     </div>
 
-    <!-- SLIDE 7: ASK + NEXT STEP (formerly slide 6) -->
+    <!-- SLIDE 7: ASK + NEXT STEP -->
     <div class="slide">
         <h2>The ask</h2>
         <div class="stat">$500,000 seed</div>
         <p style="font-size: 1.1rem;">12–15 months runway · Solo founder, lean burn</p>
         <ul class="bullet">
-            <li><strong>Milestones:</strong> 3 paying pilots in aviation/defense</li>
+            <li><strong>Milestones:</strong> 3 paying pilots with cloud‑first enterprises</li>
             <li>ARF v4.0 white paper + open‑source reference implementation</li>
             <li>SOC2 certification (audit ready)</li>
             <li>Hire one engineer + part‑time GTM (I remain full-time builder/seller)</li>
         </ul>
         <div style="margin-top: 2rem; background: #0f172a; border-radius: 1rem; padding: 1rem;">
-            <p><strong>Next step:</strong> Technical deep dive. You bring a real failure scenario – I show how ARF blocks it.</p>
+            <p><strong>Next step:</strong> Technical deep dive. You bring a real infrastructure failure scenario – I show how ARF blocks it.</p>
             <p style="color: #3b82f6; margin-top: 0.5rem;">→ Deep dive: [date]</p>
         </div>
         <div class="quote" style="margin-top: 1rem;">
@@ -255,7 +254,6 @@
     prevBtn.onclick = () => { if (currentIdx > 0) { currentIdx--; updateNav(); } };
     nextBtn.onclick = () => { if (currentIdx < slides.length - 1) { currentIdx++; updateNav(); } };
 
-    // Keyboard navigation with preventDefault to avoid page scroll
     window.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowLeft') {
             e.preventDefault();
