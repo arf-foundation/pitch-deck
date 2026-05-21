@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>ARF – Juan Petter · Seed Pitch</title>
+    <title>ARF · Seed Pitch · Juan Petter</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -21,7 +21,6 @@
             max-width: 1200px;
             margin: 0 auto;
             border-bottom: 1px solid rgba(59,130,246,0.15);
-            scroll-margin-top: 1rem;
         }
         h1 {
             font-size: clamp(2.5rem, 7vw, 4.5rem);
@@ -101,8 +100,10 @@
             border-radius: 2rem;
             cursor: pointer;
             font-size: 0.8rem;
+            transition: background 0.2s;
         }
         .nav button:hover { background: #3b82f6; }
+        .nav button:disabled { opacity: 0.3; cursor: not-allowed; }
         @media (max-width: 768px) {
             .slide { padding: 2rem 1rem; min-height: auto; }
         }
@@ -123,78 +124,76 @@
             <p style="color: #64748b; margin-top: 0.5rem;">May 22, 2026 · Seed Round</p>
         </div>
         <div class="quote" style="margin-top: 2rem;">
-            "In everything there is a line beyond which it is dangerous to cross."<br>— Dostoevsky, <em>Crime and Punishment</em>
+            “In everything there is a line beyond which it is dangerous to cross.”<br>— Dostoevsky, <em>Crime and Punishment</em>
         </div>
     </div>
 
-    <!-- SLIDE 2: WHY NOW (timing) -->
+    <!-- SLIDE 2: PROBLEM + WHY NOW (merged) -->
     <div class="slide">
-        <h2>Why now</h2>
-        <div class="grid">
-            <div class="card">📈 <strong>Agent explosion</strong><br>Enterprises piloting autonomous agents for pricing, ops, support</div>
-            <div class="card">⚠️ <strong>No control plane</strong><br>Most pilots fail to reach production – governance gap</div>
-            <div class="card">⚖️ <strong>Regulatory heat</strong><br>EU AI Act, NYC LLM law – auditability required</div>
-        </div>
-        <p class="claim" style="font-size: 1.2rem;">First-mover window: 12–18 months before incumbents react.</p>
-    </div>
-
-    <!-- SLIDE 3: THE PAIN (real failure) -->
-    <div class="slide">
-        <h2>The pain · silent failure</h2>
+        <h2>Silent failure is expensive</h2>
         <div style="background: #0f172a; padding: 1.2rem; border-radius: 1rem; margin: 1rem 0;">
-            <p style="font-size: 1.1rem;">“A Fortune 500 team deployed a pricing agent. In 47 minutes, it dropped prices below margin on 3,000 SKUs. Discovered next day.”</p>
-            <p style="color: #64748b; margin-top: 0.5rem;">Similar: Air Canada chatbot liability, Chevy EV misdirection.</p>
+            <p style="font-size: 1.1rem;">“A Fortune 500 pricing agent dropped prices below margin on 3,000 SKUs in 47 minutes. No one noticed until the next day.”</p>
+            <p style="color: #64748b; margin-top: 0.5rem;">Air Canada held liable for a chatbot’s bad advice. This is the new normal.</p>
         </div>
         <ul class="bullet">
-            <li>No execution boundary → hidden operational loss</li>
-            <li>Compliance violations from untraceable AI decisions</li>
-            <li>Market gap: observability tools monitor after failure, they don't prevent</li>
+            <li>Enterprises deploy agents faster than they can govern them</li>
+            <li>Observability tells you after failure – no one prevents it</li>
+            <li>Regulators now demand auditability (EU AI Act, NYC LLM law)</li>
         </ul>
+        <p class="claim" style="font-size: 1.2rem; margin-top: 0.5rem;">First-mover advantage: the control plane category is unclaimed.</p>
     </div>
 
-    <!-- SLIDE 4: THE WEDGE (ARF solution - simple diagram) -->
+    <!-- SLIDE 3: SOLUTION + WEDGE (mechanism) -->
     <div class="slide">
-        <h2>The wedge · ARF</h2>
+        <h2>ARF: prevent, don't just monitor</h2>
         <div style="background: #0f172a; border-radius: 1rem; padding: 1rem; text-align: center; font-family: monospace; font-size: 0.9rem; margin: 1rem 0;">
-            Agent action → <strong style="color:#3b82f6">ARF risk engine</strong> → Threshold → 🔵 Execute / 🟡 Escalate / 🔴 Block<br>
+            Agent action → <strong style="color:#3b82f6">ARF risk engine</strong> → Threshold → <span style="color:#3b82f6">🔵 Execute</span> / 🟡 Escalate / 🔴 Block<br>
             ↓<br>
             <span style="color:#94a3b8">Bayesian expected loss · Epistemic uncertainty · Policy enforcement</span>
         </div>
         <ul class="bullet">
-            <li>Deterministic outcome – same input, same decision</li>
-            <li>Immutable audit trail – every decision cryptographically signed</li>
-            <li>Outcome‑based pricing – I win when you prevent loss</li>
+            <li>Deterministic outcome – same input, same decision (no hidden randomness)</li>
+            <li>Immutable audit trail – every decision signed, timestamped, attributable</li>
+            <li>Outcome‑based pricing – you pay a percentage of prevented loss</li>
         </ul>
         <div class="quote">“Trust is not a feeling. It’s a calculation.” – ARF design principle</div>
     </div>
 
-    <!-- SLIDE 5: PLATFORM VISION (venture scale) -->
+    <!-- SLIDE 4: MARKET + BUYER -->
     <div class="slide">
-        <h2>From wedge to platform</h2>
+        <h2>Who needs this now</h2>
         <div class="grid">
-            <div class="card"><strong>Phase 1</strong><br>Agent governance (aviation, defense, energy, finance)</div>
-            <div class="card"><strong>Phase 2</strong><br>Policy management + compliance automation</div>
-            <div class="card"><strong>Phase 3</strong><br>Cross‑agent orchestration & observability</div>
+            <div class="card"><strong>✈️ Aviation</strong><br>Agent-assisted maintenance, flight planning</div>
+            <div class="card"><strong>🛡️ Defense</strong><br>Autonomous logistics, threat detection</div>
+            <div class="card"><strong>⚡ Energy</strong><br>Grid optimization, predictive maintenance</div>
+            <div class="card"><strong>💰 Finance</strong><br>Trading agents, fraud detection</div>
         </div>
-        <p class="claim" style="font-size: 1.2rem; margin-top: 1rem;">Recurring infrastructure layer for every autonomous system.</p>
+        <ul class="bullet">
+            <li>Regulated industries have compliance budgets and zero tolerance for silent failure</li>
+            <li>ARF becomes the governance layer for every autonomous system they deploy</li>
+            <li>Land and expand: from agent governance → policy management → cross-agent orchestration</li>
+        </ul>
     </div>
 
-    <!-- SLIDE 6: TRACTION & SOLO FOUNDER REALITY -->
+    <!-- SLIDE 5: BUSINESS MODEL + TRACTION + CREDIBILITY (merged) -->
     <div class="slide">
         <h2>What I've built – solo</h2>
         <ul class="bullet">
-            <li><strong>ARF core engine v4</strong> – proprietary, production-tested in controlled environments</li>
+            <li><strong>ARF core engine v4</strong> – proprietary, tested against real failure patterns</li>
             <li><strong>White paper (weeks away)</strong> – open specification v4.0 (arf-spec)</li>
             <li><strong>Active pilot conversations</strong> – aviation, defense (letters of interest)</li>
-            <li><strong>Website + brand</strong> – arf-ai.com, 1.5k LinkedIn followers, consistent thought leadership</li>
-            <li><strong>Technical background</strong> – NetApp support (enterprise debugging), full-stack dev, AI governance certs</li>
+            <li><strong>Website + brand</strong> – arf-ai.com, engaged LinkedIn following, consistent technical writing</li>
+            <li><strong>My background</strong> – NetApp enterprise support (debugging outages), full-stack dev, AI governance certs, door-to-door sales (resilience)</li>
         </ul>
         <div class="card" style="margin-top: 1rem;">
             <p>✅ <strong>No co-founder needed</strong> – I ship. I sell. I govern. One engineer ready post-seed.</p>
         </div>
+        <div class="quote" style="margin-top: 1rem;">
+            “Outcome‑based pricing aligns us: you pay only when we prevent loss.”
+        </div>
     </div>
 
-    <!-- SLIDE 7: THE ASK + MILESTONES -->
+    <!-- SLIDE 6: ASK + NEXT STEP -->
     <div class="slide">
         <h2>The ask</h2>
         <div class="stat">$500,000 seed</div>
@@ -203,24 +202,16 @@
             <li><strong>Milestones:</strong> 3 paying pilots in regulated industries</li>
             <li>ARF v4.0 white paper + open‑source reference implementation</li>
             <li>SOC2 certification (audit ready)</li>
-            <li>Hire one engineer + part‑time GTM (me as full-time builder/seller)</li>
+            <li>Hire one engineer + part‑time GTM (I remain full-time builder/seller)</li>
         </ul>
         <div style="margin-top: 2rem; background: #0f172a; border-radius: 1rem; padding: 1rem;">
             <p><strong>Next step:</strong> Technical deep dive. You bring a real failure scenario – I show how ARF blocks it.</p>
-            <p style="color: #3b82f6; margin-top: 0.5rem;">→ Deep dive scheduled for [next week]</p>
+            <p style="color: #3b82f6; margin-top: 0.5rem;">→ Deep dive: [date]</p>
         </div>
-    </div>
-
-    <!-- SLIDE 8: CLOSING (personal) -->
-    <div class="slide">
-        <h2>Why me</h2>
-        <div class="quote" style="font-size: 1.2rem;">
-            “I’ve been on the other side of the ticket – debugging enterprise outages at NetApp, selling solar door-to-door, writing code at 2am. I know what failure costs. ARF is my answer.”
+        <div class="quote" style="margin-top: 1rem;">
+            “I’ve been on the other side of the ticket – debugging enterprise outages at 2am, selling solar door-to-door. I know what failure costs. ARF is my answer.”
         </div>
-        <p style="margin-top: 1.5rem;">Juan Petter · juan@arf-ai.com · arf-ai.com</p>
-        <div style="margin-top: 2rem;">
-            <img src="ARF - Primary Logo.png" alt="ARF" style="height: 40px; opacity: 0.6;">
-        </div>
+        <p style="margin-top: 1rem;">Juan Petter · juan@arf-ai.com · arf-ai.com</p>
     </div>
 </div>
 
@@ -230,26 +221,27 @@
 </div>
 
 <script>
-    const slides = document.querySelectorAll('.slide');
-    let idx = 0;
-    const prev = document.getElementById('prevBtn');
-    const next = document.getElementById('nextBtn');
-    function update() {
-        prev.disabled = idx === 0;
-        next.disabled = idx === slides.length - 1;
-        slides[idx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    let currentIdx = 0;
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    function updateNav() {
+        prevBtn.disabled = currentIdx === 0;
+        nextBtn.disabled = currentIdx === slides.length - 1;
+        slides[currentIdx].scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-    prev.onclick = () => { if (idx > 0) { idx--; update(); } };
-    next.onclick = () => { if (idx < slides.length-1) { idx++; update(); } };
-    window.addEventListener('scroll', () => {
-        let newIdx = 0;
-        for (let i = 0; i < slides.length; i++) {
-            const rect = slides[i].getBoundingClientRect();
-            if (rect.top <= 150) newIdx = i;
-        }
-        if (newIdx !== idx) { idx = newIdx; update(); }
+
+    prevBtn.onclick = () => { if (currentIdx > 0) { currentIdx--; updateNav(); } };
+    nextBtn.onclick = () => { if (currentIdx < slides.length - 1) { currentIdx++; updateNav(); } };
+
+    // Keyboard navigation (left/right arrows)
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') { prevBtn.click(); e.preventDefault(); }
+        if (e.key === 'ArrowRight') { nextBtn.click(); e.preventDefault(); }
     });
-    update();
+
+    updateNav();
 </script>
 </body>
 </html>
