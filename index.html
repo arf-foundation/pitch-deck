@@ -385,6 +385,39 @@
       border-style: dashed;
     }
 
+    .abstract-quote {
+      font-size: 1.5rem;
+      font-weight: 400;
+      line-height: 1.4;
+      margin: 1rem 0;
+      padding: 0.5rem;
+      border-left: 4px solid #38bdf8;
+      background: rgba(56, 189, 248, 0.05);
+      border-radius: 0.5rem;
+    }
+
+    .abstract-highlight {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #38bdf8;
+      margin: 0.5rem 0;
+    }
+
+    .pillars {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin: 1rem 0;
+    }
+
+    .pillar {
+      background: rgba(15, 23, 42, 0.8);
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.9rem;
+    }
+
     .code-block {
       background: #0a0c14;
       padding: 0.6rem;
@@ -418,6 +451,12 @@
       }
       .nav-arrows {
         bottom: 1rem;
+      }
+      .abstract-quote {
+        font-size: 1.1rem;
+      }
+      .abstract-highlight {
+        font-size: 1.3rem;
       }
     }
 
@@ -514,7 +553,27 @@
       </div>
     </div>
 
-    <!-- SLIDE 3: SOLUTION – How ARF prevents these failures -->
+    <!-- SLIDE 3: ABSTRACT / FRAMING – THE CORE INSIGHT -->
+    <div class="slide">
+      <div class="slide-content">
+        <div class="abstract-highlight">“The real problem is not capability — it is <span style="color:#38bdf8;">control</span>.”</div>
+        <div class="abstract-quote">
+          Most teams are moving fast on agents, but very few are governing them well. In production, the real problem is not capability — it is control: how to evaluate risk, bound autonomy, preserve auditability, and keep systems stable under uncertainty.
+        </div>
+        <div class="pillars">
+          <span class="pillar">📊 Evaluate risk</span>
+          <span class="pillar">🔗 Bound autonomy</span>
+          <span class="pillar">📜 Preserve auditability</span>
+          <span class="pillar">⚖️ Keep systems stable</span>
+        </div>
+        <div class="abstract-quote" style="margin-top:0.5rem;">
+          ARF converts probabilistic AI outputs into <strong>deterministic, auditable decisions</strong> – making autonomous AI survivable inside real enterprise environments.
+        </div>
+        <div class="badge" style="background:#38bdf820;">🎯 Bayesian risk scoring · Expected‑loss decisioning · Bounded memory · Calibrated escalation</div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: SOLUTION – How ARF prevents these failures -->
     <div class="slide">
       <div class="slide-content">
         <h2>🔧 The Solution: ARF Governance Layer</h2>
@@ -542,7 +601,7 @@
       </div>
     </div>
 
-    <!-- SLIDE 4: TECHNICAL NARRATIVE (NO FORMULAS) -->
+    <!-- SLIDE 5: TECHNICAL NARRATIVE (NO FORMULAS) -->
     <div class="slide">
       <div class="slide-content">
         <h2>🧠 Bayesian risk engine – how it works (high level)</h2>
@@ -557,7 +616,7 @@
       </div>
     </div>
 
-    <!-- SLIDE 5: DETERMINISTIC & OFFLINE -->
+    <!-- SLIDE 6: DETERMINISTIC & OFFLINE -->
     <div class="slide">
       <div class="slide-content">
         <h2>🔒 Deterministic. Offline. Auditable.</h2>
@@ -582,7 +641,7 @@
       </div>
     </div>
 
-    <!-- SLIDE 6: OUTCOME + VERTICALS + PRICING -->
+    <!-- SLIDE 7: OUTCOME + VERTICALS + PRICING -->
     <div class="slide">
       <div class="slide-content">
         <h2>📈 The Outcome & Where We Fit</h2>
@@ -613,7 +672,7 @@
       </div>
     </div>
 
-    <!-- SLIDE 7: LIVE DEMO (PocketOS scenario) -->
+    <!-- SLIDE 8: LIVE DEMO (PocketOS scenario) -->
     <div class="slide">
       <div class="slide-content">
         <h2>🎮 Live demo: PocketOS scenario in ARF</h2>
@@ -630,7 +689,7 @@
       </div>
     </div>
 
-    <!-- SLIDE 8: TRACTION -->
+    <!-- SLIDE 9: TRACTION -->
     <div class="slide">
       <div class="slide-content">
         <h2>🚀 Where we are – real, not vapourware</h2>
@@ -644,7 +703,7 @@
       </div>
     </div>
 
-    <!-- SLIDE 9: FAQ (control + complexity) -->
+    <!-- SLIDE 10: FAQ (control + complexity) -->
     <div class="slide">
       <div class="slide-content">
         <h2>❓ “But what if…?” – common questions</h2>
@@ -657,7 +716,7 @@
       </div>
     </div>
 
-    <!-- SLIDE 10: CALL TO ACTION FOR DECISION MAKERS + PILOT ACCESS -->
+    <!-- SLIDE 11: CALL TO ACTION FOR DECISION MAKERS + PILOT ACCESS -->
     <div class="slide">
       <div class="slide-content">
         <h2>🎯 For decision makers (CTO, VP Eng, Head of AI)</h2>
@@ -679,7 +738,7 @@
       </div>
     </div>
 
-    <!-- SLIDE 11: NEXT STEPS -->
+    <!-- SLIDE 12: NEXT STEPS -->
     <div class="slide">
       <div class="slide-content">
         <h2>📋 After you request access</h2>
@@ -693,7 +752,7 @@
       </div>
     </div>
 
-    <!-- SLIDE 12: THANK YOU + Q&A -->
+    <!-- SLIDE 13: THANK YOU + Q&A -->
     <div class="slide">
       <div class="slide-content">
         <h2>🙏 Thank you</h2>
