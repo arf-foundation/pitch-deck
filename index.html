@@ -451,6 +451,47 @@
       font-size: 0.8rem;
     }
 
+    /* Bayesian engine card styles */
+    .engine-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.2rem;
+      margin: 1.5rem 0;
+    }
+    .engine-card {
+      background: rgba(15, 23, 42, 0.7);
+      border-radius: 1rem;
+      padding: 1rem;
+      width: 200px;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+    .engine-icon {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .engine-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #38bdf8;
+      margin-bottom: 0.3rem;
+    }
+    .engine-desc {
+      font-size: 0.8rem;
+      color: #cbd5e1;
+    }
+    .test-badge-large {
+      display: inline-block;
+      background: rgba(56, 189, 248, 0.2);
+      border: 1px solid #38bdf8;
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.9rem;
+      margin-top: 1rem;
+    }
+
     .code-block {
       background: #0a0c14;
       padding: 0.6rem;
@@ -497,6 +538,13 @@
       }
       .arf-statement {
         font-size: 1rem;
+      }
+      .engine-card {
+        width: 160px;
+        padding: 0.8rem;
+      }
+      .engine-icon {
+        font-size: 1.5rem;
       }
     }
 
@@ -593,7 +641,7 @@
       </div>
     </div>
 
-    <!-- SLIDE 3: ABSTRACT / FRAMING – VISUAL AND MINIMAL TEXT -->
+    <!-- SLIDE 3: ABSTRACT / FRAMING – VISUAL -->
     <div class="slide">
       <div class="slide-content">
         <div class="abstract-title">
@@ -661,18 +709,40 @@
       </div>
     </div>
 
-    <!-- SLIDE 5: TECHNICAL NARRATIVE (NO FORMULAS) -->
+    <!-- SLIDE 5: BAYESIAN RISK ENGINE – VISUAL CARDS -->
     <div class="slide">
       <div class="slide-content">
-        <h2>🧠 Bayesian risk engine – how it works (high level)</h2>
-        <ul class="bullet-list">
-          <li><strong>Online learning:</strong> Every outcome (success/failure) updates the risk estimate for that action category – fast, lightweight.</li>
-          <li><strong>Hierarchical memory:</strong> Sparse categories borrow strength from the global average (no cold‑start problem).</li>
-          <li><strong>Offline deep model:</strong> Trained on historical patterns (time of day, user role, environment) to catch subtle risks.</li>
-          <li><strong>Weighted fusion:</strong> The final risk intelligently blends all three sources based on how much data is available – more data = more weight on the deep model.</li>
-          <li><strong>Calibrated confidence:</strong> The engine is continuously tested against real outcomes (54/54 pressure tests) to ensure a 1% predicted risk really means 1% failure rate.</li>
-        </ul>
-        <div class="badge">📊 54/54 pressure tests passed – including edge cases, concurrency, and large‑scale data</div>
+        <h2>🧠 Bayesian risk engine – how it works</h2>
+        <div class="engine-grid">
+          <div class="engine-card">
+            <span class="engine-icon">🔄</span>
+            <div class="engine-title">Online learning</div>
+            <div class="engine-desc">Every outcome updates the risk estimate – fast & lightweight</div>
+          </div>
+          <div class="engine-card">
+            <span class="engine-icon">🗂️</span>
+            <div class="engine-title">Hierarchical memory</div>
+            <div class="engine-desc">Sparse categories borrow strength – no cold start</div>
+          </div>
+          <div class="engine-card">
+            <span class="engine-icon">📈</span>
+            <div class="engine-title">Offline deep model</div>
+            <div class="engine-desc">Trains on time, role, environment – catches subtle risks</div>
+          </div>
+          <div class="engine-card">
+            <span class="engine-icon">⚖️</span>
+            <div class="engine-title">Weighted fusion</div>
+            <div class="engine-desc">Blends all sources – more data = more weight on deep model</div>
+          </div>
+          <div class="engine-card">
+            <span class="engine-icon">🎯</span>
+            <div class="engine-title">Calibrated confidence</div>
+            <div class="engine-desc">1% predicted risk = 1% actual failure (54/54 tests)</div>
+          </div>
+        </div>
+        <div style="text-align: center;">
+          <span class="test-badge-large">📊 54/54 pressure tests passed – edge cases, concurrency, large‑scale data</span>
+        </div>
       </div>
     </div>
 
