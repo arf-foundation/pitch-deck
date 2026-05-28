@@ -269,10 +269,10 @@
     }
 
     .qr img {
-      width: 110px;
-      height: 110px;
+      width: 140px;
+      height: 140px;
       background: white;
-      padding: 0.4rem;
+      padding: 0.5rem;
       border-radius: 1rem;
     }
 
@@ -451,6 +451,50 @@
       font-size: 0.8rem;
     }
 
+    /* Solution flow cards (new visual) */
+    .solution-flow {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .flow-card {
+      background: rgba(15, 23, 42, 0.8);
+      border-radius: 1rem;
+      padding: 1rem;
+      width: 180px;
+      text-align: center;
+    }
+    .flow-icon {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .flow-title {
+      font-weight: 700;
+      color: #38bdf8;
+      margin-bottom: 0.3rem;
+    }
+    .flow-desc {
+      font-size: 0.8rem;
+      color: #cbd5e1;
+    }
+    .capabilities-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .cap-card {
+      background: rgba(15, 23, 42, 0.6);
+      border-radius: 0.8rem;
+      padding: 0.6rem 1rem;
+      width: auto;
+      text-align: center;
+    }
+
     /* Bayesian engine card styles */
     .engine-grid {
       display: flex;
@@ -503,6 +547,29 @@
       white-space: pre-wrap;
     }
 
+    /* Extended FAQ styles */
+    .faq-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      margin: 1rem 0;
+    }
+    .faq-item {
+      background: rgba(15, 23, 42, 0.6);
+      border-radius: 0.8rem;
+      padding: 0.6rem 1rem;
+    }
+    .faq-q {
+      font-weight: 700;
+      color: #38bdf8;
+      font-size: 0.95rem;
+    }
+    .faq-a {
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      margin-top: 0.2rem;
+    }
+
     @media (max-width: 680px) {
       .slide-content {
         padding: 1rem;
@@ -538,6 +605,10 @@
       }
       .arf-statement {
         font-size: 1rem;
+      }
+      .flow-card {
+        width: 140px;
+        padding: 0.6rem;
       }
       .engine-card {
         width: 160px;
@@ -681,29 +752,37 @@
       </div>
     </div>
 
-    <!-- SLIDE 4: SOLUTION – How ARF prevents these failures -->
+    <!-- SLIDE 4: SOLUTION – VISUAL FLOW CARDS (NEW) -->
     <div class="slide">
       <div class="slide-content">
         <h2>🔧 The Solution: ARF Governance Layer</h2>
-        <div class="two-columns">
-          <div class="col">
-            <h3>What ARF would have done (PocketOS case)</h3>
-            <ul class="bullet-list">
-              <li>Checked memory: similar destructive actions flagged</li>
-              <li>Bayesian risk score: extremely high probability of failure</li>
-              <li>Expected loss: catastrophic → <strong>ESCALATE</strong> (not auto‑execute)</li>
-              <li>Audit trail: signed, timestamped decision</li>
-            </ul>
+        <div class="solution-flow">
+          <div class="flow-card">
+            <span class="flow-icon">🗂️</span>
+            <div class="flow-title">1. Check Memory</div>
+            <div class="flow-desc">Similar destructive actions flagged</div>
           </div>
-          <div class="col">
-            <h3>Key capabilities</h3>
-            <ul class="bullet-list">
-              <li>Deterministic risk scoring</li>
-              <li>Bounded autonomy (escalation)</li>
-              <li>Cryptographic audit trail</li>
-              <li>Operational memory (learns from past incidents)</li>
-            </ul>
+          <div class="flow-card">
+            <span class="flow-icon">📈</span>
+            <div class="flow-title">2. Risk Score</div>
+            <div class="flow-desc">Bayesian → high failure probability</div>
           </div>
+          <div class="flow-card">
+            <span class="flow-icon">⚠️</span>
+            <div class="flow-title">3. Expected Loss</div>
+            <div class="flow-desc">Catastrophic → ESCALATE</div>
+          </div>
+          <div class="flow-card">
+            <span class="flow-icon">📜</span>
+            <div class="flow-title">4. Audit Trail</div>
+            <div class="flow-desc">Signed, timestamped decision</div>
+          </div>
+        </div>
+        <div class="capabilities-grid">
+          <span class="cap-card">🔒 Deterministic risk scoring</span>
+          <span class="cap-card">🔗 Bounded autonomy (escalation)</span>
+          <span class="cap-card">📜 Cryptographic audit trail</span>
+          <span class="cap-card">🧠 Operational memory</span>
         </div>
         <div class="cta">“You wouldn’t give a junior engineer root access without guardrails. Why give it to an agent?”</div>
       </div>
@@ -802,7 +881,7 @@
       </div>
     </div>
 
-    <!-- SLIDE 8: LIVE DEMO (PocketOS scenario) -->
+    <!-- SLIDE 8: LIVE DEMO (PocketOS scenario) with larger QR -->
     <div class="slide">
       <div class="slide-content">
         <h2>🎮 Live demo: PocketOS scenario in ARF</h2>
@@ -814,39 +893,43 @@
           ⚠️ Iframe couldn't load. <a href="https://arf-foundation.github.io/arf-risk-demo/" target="_blank" rel="noopener" style="color:#7dd3fc;">Open manually</a> or scan QR.
         </div>
         <div class="qr">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://arf-foundation.github.io/arf-risk-demo/" alt="QR to risk demo">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://arf-foundation.github.io/arf-risk-demo/" alt="QR to risk demo">
         </div>
       </div>
     </div>
 
-    <!-- SLIDE 9: TRACTION -->
+    <!-- SLIDE 9: TRACTION (updated text) -->
     <div class="slide">
       <div class="slide-content">
         <h2>🚀 Where we are – real, not vapourware</h2>
         <ul class="bullet-list">
           <li>✅ Core engine v4 – live pilots</li>
           <li>✅ Active pilots in law‑tech, fintech, health tech</li>
-          <li>✅ Open spec (weeks away)</li>
+          <li>✅ Whitepaper ARF v4.0 (weeks away)</li>
           <li>👥 Founder‑led – I work directly with pilots</li>
         </ul>
         <div class="cta" style="background:#1e293b;">📌 We co‑develop with early adopters.</div>
       </div>
     </div>
 
-    <!-- SLIDE 10: FAQ (control + complexity) -->
+    <!-- SLIDE 10: EXTENDED FAQ (with real questions from website) -->
     <div class="slide">
       <div class="slide-content">
-        <h2>❓ “But what if…?” – common questions</h2>
-        <ul class="bullet-list">
-          <li><strong>Latency?</strong> &lt;50ms – faster than human review.</li>
-          <li><strong>Data privacy?</strong> Runs on‑prem – no data leaves your VPC.</li>
-          <li><strong>Can agents game it?</strong> No – we track historical accuracy.</li>
-          <li><strong>Replace humans?</strong> No – escalates when uncertain. <strong>You stay in control.</strong></li>
-        </ul>
+        <h2>❓ Frequently Asked Questions</h2>
+        <div class="faq-grid">
+          <div class="faq-item"><div class="faq-q">⚡ Latency?</div><div class="faq-a">&lt;50ms core – faster than human review.</div></div>
+          <div class="faq-item"><div class="faq-q">🔒 Data privacy?</div><div class="faq-a">Runs on‑prem or VPC – no data leaves your environment.</div></div>
+          <div class="faq-item"><div class="faq-q">🎮 Can agents game the system?</div><div class="faq-a">No – we track historical accuracy, so lying about confidence backfires.</div></div>
+          <div class="faq-item"><div class="faq-q">👥 Does ARF replace humans?</div><div class="faq-a">No – it escalates when uncertain. <strong>You stay in control.</strong></div></div>
+          <div class="faq-item"><div class="faq-q">🔐 How do I get access to the real engine?</div><div class="faq-a">Submit a pilot request at arf-ai.com/signup or email juan@arf-ai.com. Access is reviewed case by case for qualified use cases.</div></div>
+          <div class="faq-item"><div class="faq-q">🧪 What’s the difference between demo and real engine?</div><div class="faq-a">The demo uses mock/advisory data to explain the workflow. The real engine is private, access‑controlled, and offers mechanical enforcement and full audit trails.</div></div>
+          <div class="faq-item"><div class="faq-q">📊 How many requests per second can the real engine handle?</div><div class="faq-a">The core engine is designed for high throughput – contact us for specific benchmarks based on your deployment profile.</div></div>
+          <div class="faq-item"><div class="faq-q">💬 Is there a community Slack?</div><div class="faq-a">Yes – qualified pilots and enterprise customers get access to a private Slack channel for direct support.</div></div>
+        </div>
       </div>
     </div>
 
-    <!-- SLIDE 11: CALL TO ACTION FOR DECISION MAKERS + PILOT ACCESS -->
+    <!-- SLIDE 11: CALL TO ACTION FOR DECISION MAKERS + PILOT ACCESS (larger QR) -->
     <div class="slide">
       <div class="slide-content">
         <h2>🎯 For decision makers (CTO, VP Eng, Head of AI)</h2>
@@ -863,7 +946,7 @@
           ✉️ Or email me directly: <span onclick="navigator.clipboard.writeText('juan@arf-ai.com'); alert('Email copied!')" style="cursor:pointer; background:#1e293b; padding:0.2rem 0.6rem; border-radius:1rem;">📋 juan@arf-ai.com</span>
         </div>
         <div class="qr">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://www.arf-ai.com/signup" alt="QR to pilot signup">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://www.arf-ai.com/signup" alt="QR to pilot signup">
         </div>
       </div>
     </div>
@@ -882,7 +965,7 @@
       </div>
     </div>
 
-    <!-- SLIDE 13: THANK YOU + Q&A -->
+    <!-- SLIDE 13: THANK YOU + Q&A (larger QR) -->
     <div class="slide">
       <div class="slide-content">
         <h2>🙏 Thank you</h2>
@@ -891,7 +974,7 @@
         <div class="two-columns" style="margin-top:1rem;">
           <div class="col">📬 Q&A – I'll be by the sponsors area. Let's discuss your use case.</div>
           <div class="col qr">
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://www.arf-ai.com/signup" alt="QR to pilot signup">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://www.arf-ai.com/signup" alt="QR to pilot signup">
             <p style="font-size:0.8rem;">Scan → pilot request</p>
           </div>
         </div>
