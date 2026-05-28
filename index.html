@@ -1,387 +1,306 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>ARF · Seed Round · Juan Petter</title>
-    <link rel="preload" as="image" href="ARF - Transparent Primary Logo.png">
-    <style>
-        html { scroll-behavior: smooth; }
-        body {
-            background: #0a0a0f;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            color: #eef2ff;
-            line-height: 1.4;
-            overflow-y: scroll;
-            margin: 0;
-            padding: 0;
-        }
-        .slide {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 3rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            border-bottom: 1px solid rgba(59,130,246,0.15);
-        }
-        h1 {
-            font-size: clamp(2.5rem, 7vw, 4.5rem);
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: 1rem;
-        }
-        h2 {
-            font-size: clamp(1.8rem, 5vw, 2.8rem);
-            font-weight: 600;
-            border-left: 4px solid #3b82f6;
-            padding-left: 1rem;
-            margin-bottom: 1.5rem;
-        }
-        .claim {
-            font-size: clamp(1.3rem, 3.5vw, 1.8rem);
-            font-weight: 500;
-            color: #cbd5e1;
-            margin: 1rem 0;
-        }
-        .stat {
-            font-size: clamp(2rem, 5vw, 2.8rem);
-            font-weight: 800;
-            color: #3b82f6;
-            margin: 1rem 0;
-        }
-        .grid {
-            display: flex;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-            margin: 1.5rem 0;
-        }
-        .card {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(59,130,246,0.3);
-            border-radius: 1rem;
-            padding: 1.2rem;
-            flex: 1;
-            min-width: 200px;
-        }
-        .tier-card {
-            background: rgba(59,130,246,0.05);
-            border: 1px solid rgba(59,130,246,0.5);
-        }
-        .bullet {
-            list-style: none;
-            margin: 1rem 0;
-        }
-        .bullet li {
-            margin-bottom: 0.75rem;
-            padding-left: 1.5rem;
-            position: relative;
-            font-size: 1.1rem;
-        }
-        .bullet li::before {
-            content: "→";
-            color: #3b82f6;
-            position: absolute;
-            left: 0;
-        }
-        .quote {
-            font-style: italic;
-            border-left: 2px solid #3b82f6;
-            padding-left: 1.2rem;
-            margin: 1.5rem 0;
-            color: #94a3b8;
-        }
-        .proof {
-            background: #0f172a;
-            border-radius: 1rem;
-            padding: 1rem;
-            margin: 1rem 0;
-            border-left: 3px solid #3b82f6;
-        }
-        .nav {
-            position: fixed;
-            bottom: 1rem;
-            right: 1rem;
-            display: flex;
-            gap: 0.5rem;
-            z-index: 100;
-        }
-        .nav button {
-            background: #1e293b;
-            border: none;
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 2rem;
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: background 0.2s;
-        }
-        .nav button:hover { background: #3b82f6; }
-        .nav button:disabled { opacity: 0.3; cursor: not-allowed; }
-        .dashboard {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: space-between;
-            margin: 1.5rem 0;
-            flex-wrap: wrap;
-        }
-        .metric {
-            background: #0f172a;
-            border-radius: 1rem;
-            padding: 1rem;
-            flex: 1;
-            min-width: 140px;
-            text-align: center;
-            border: 1px solid #1e293b;
-        }
-        .metric-value {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #3b82f6;
-            line-height: 1.2;
-        }
-        .metric-label {
-            font-size: 0.8rem;
-            color: #94a3b8;
-            margin-top: 0.3rem;
-        }
-        .progress-bar {
-            background: #1e293b;
-            border-radius: 1rem;
-            height: 6px;
-            width: 100%;
-            margin-top: 0.5rem;
-            overflow: hidden;
-        }
-        .progress-fill {
-            background: #3b82f6;
-            height: 100%;
-            width: 0%;
-            border-radius: 1rem;
-        }
-        @media (max-width: 768px) {
-            .slide { padding: 2rem 1rem; min-height: auto; }
-            .dashboard { gap: 1rem; }
-            .metric { min-width: 100px; }
-            .metric-value { font-size: 1.5rem; }
-        }
-    </style>
-</head>
-<body>
-<div id="slides">
-    <!-- SLIDE 1: TITLE -->
-    <div class="slide">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-            <img src="ARF - Transparent Primary Logo.png" alt="ARF" style="height: 45px;">
-            <span style="color: #3b82f6; font-size: 0.8rem;">CONFIDENTIAL</span>
-        </div>
-        <h1>Agentic Reliability Framework</h1>
-        <p class="claim">A deterministic governance layer for AI‑driven infrastructure actions</p>
-        <div style="margin-top: 2rem;">
-            <p style="font-size: 1.2rem; font-weight: 500;">Juan Petter · Solo Founder</p>
-            <p style="color: #64748b; margin-top: 0.5rem;">May 22, 2026 · Seed Round</p>
-        </div>
-        <div class="quote" style="margin-top: 2rem;">
-            “In everything there is a line beyond which it is dangerous to cross.”<br>— Dostoevsky, <em>Crime and Punishment</em>
-        </div>
-    </div>
-
-    <!-- SLIDE 2: PROBLEM -->
-    <div class="slide">
-        <h2>AI agents are being asked to act on cloud infrastructure</h2>
-        <ul class="bullet">
-            <li>Major cloud providers now enable agents to <strong>execute infrastructure changes</strong>.</li>
-            <li>There is <strong>no deterministic control plane</strong> between agent intent and production execution.</li>
-            <li>Observability detects failures <strong>after</strong> they happen – ARF is designed to evaluate and constrain actions <strong>before</strong> they reach production.</li>
-        </ul>
-        <div class="proof" style="margin-top: 1rem;">
-            <p style="font-size: 1rem;">“You wouldn’t give a junior engineer root access without guardrails. Yet we are giving AI agents the keys to the kingdom – with no enforcement layer.”</p>
-        </div>
-        <p class="claim" style="font-size: 1rem; margin-top: 1rem;">🔹 Public precedent: Air Canada held liable for a chatbot’s incorrect advice. The equivalent in infrastructure would be far more damaging.</p>
-    </div>
-
-    <!-- SLIDE 3: SOLUTION -->
-    <div class="slide">
-        <h2>ARF: approve, deny, or escalate – before execution</h2>
-        <div style="background: #0f172a; border-radius: 1rem; padding: 1rem; text-align: center; font-family: monospace; font-size: 0.9rem; margin: 1rem 0;">
-            Agent intent → <strong style="color:#3b82f6">ARF risk engine</strong> → Threshold → <span style="color:#3b82f6">🔵 Approve</span> / 🟡 Escalate / 🔴 Deny<br>
-            ↓<br>
-            <span style="color:#94a3b8">Bayesian expected loss · Epistemic uncertainty · Policy algebra · Audit trail</span>
-        </div>
-        <ul class="bullet">
-            <li><strong>Deterministic even with probabilistic model outputs</strong> – identical input yields identical decision (verified by 44+ pressure tests).</li>
-            <li><strong>Cryptographically signed decisions</strong> – immutable audit trail for compliance and forensic analysis.</li>
-            <li><strong>Outcome‑based pricing</strong> – fees tied to verified risk reduction, not API calls.</li>
-        </ul>
-        <div class="quote">“Trust is not a feeling. It’s a calculation.” – ARF design principle</div>
-    </div>
-
-    <!-- SLIDE 4: MARKET TIMING (inevitability, not hype) -->
-    <div class="slide">
-        <h2>Infrastructure governance is becoming mandatory</h2>
-        <div class="grid">
-            <div class="card"><strong>👥 First buyers</strong><br>Platform engineering, SRE, cloud operations, security teams in cloud‑first enterprises</div>
-            <div class="card"><strong>⚙️ Why now</strong><br>Agentic infrastructure tooling is shipping without a governance layer. The window to define that layer is open.</div>
-        </div>
-        <ul class="bullet">
-            <li><strong>Regulatory pull:</strong> EU AI Act, NIST AI RMF, and emerging audit requirements create demand for auditable AI decision trails.</li>
-            <li><strong>Enterprise pull:</strong> Pilot conversations with two cloud‑first enterprises (under NDA, diligence ready) confirm the pain is real and urgent.</li>
-        </ul>
-        <div class="proof">
-            <p>🔹 <strong>Limited pilot capacity for Q3</strong> – we are intentionally onboarding a small number of pilot partners to refine enforcement before general availability.</p>
-        </div>
-    </div>
-
-    <!-- SLIDE 5: TRACTION + FOUNDER CREDIBILITY (updated pilot description) -->
-    <div class="slide">
-        <h2>What has been built – and what comes next</h2>
-        <ul class="bullet">
-            <li><strong>ARF core engine v4</strong> – Bayesian risk fusion (conjugate + HMC + hyperpriors), expected loss minimisation, causal effect estimator, RAG memory.</li>
-            <li><strong>White paper (weeks away)</strong> – open specification v4.0, already reviewed by two independent AI engineers.</li>
-            <li><strong>Active pilot conversations</strong> – one in data software development and one in law‑tech (names under NDA, but diligence ready).</li>
-            <li><strong>Founder background</strong> – NetApp enterprise support (debugged Fortune 500 outages), full‑stack development, door‑to‑door sales (resilience).</li>
-            <li><strong>Post‑seed priority</strong> – Hire a technical co‑founder (distributed systems) and a second engineer. I am not building a category alone; I need a partner who shares the vision.</li>
-        </ul>
-        
-        <!-- Mini dashboard -->
-        <div class="dashboard">
-            <div class="metric">
-                <div class="metric-value">2</div>
-                <div class="metric-label">Active pilot conversations</div>
-                <div class="progress-bar"><div class="progress-fill" style="width: 40%;"></div></div>
-                <div style="font-size: 0.7rem; color:#64748b;">Target: 3 by Q3</div>
-            </div>
-            <div class="metric">
-                <div class="metric-value">44+</div>
-                <div class="metric-label">Pressure tests (determinism)</div>
-                <div class="progress-bar"><div class="progress-fill" style="width: 88%;"></div></div>
-                <div style="font-size: 0.7rem; color:#64748b;">Passing rate: 100%</div>
-            </div>
-            <div class="metric">
-                <div class="metric-value">85%</div>
-                <div class="metric-label">White paper drafted</div>
-                <div class="progress-bar"><div class="progress-fill" style="width: 85%;"></div></div>
-                <div style="font-size: 0.7rem; color:#64748b;">v4.0 spec complete</div>
-            </div>
-        </div>
-
-        <div class="quote" style="margin-top: 0.5rem;">
-            “I’ve been the one getting paged at 2am. ARF is the governance layer I wish existed back then.”
-        </div>
-    </div>
-
-    <!-- SLIDE 6: LIVE PROOF -->
-    <div class="slide">
-        <h2>See the mechanism – 60‑second live demo</h2>
-        <div class="proof">
-            <p><strong>🎯 Live sandbox API</strong> – deterministic risk evaluation with plain‑English justification.</p>
-            <p style="margin-top: 0.5rem;">👉 <a href="https://a-r-f-arf-sandbox-api.hf.space/v1/evaluate" target="_blank" style="color: #3b82f6;">Try the advisory endpoint</a> (mock data, but the logic mirrors the protected core)</p>
-            <p style="margin-top: 0.5rem;">📹 Or request a <strong>2‑min screen recording</strong> of ARF blocking a simulated unsafe infrastructure action.</p>
-        </div>
-        <p style="margin-top: 0.5rem;">The protected core engine is pilot‑only. I will walk you through it during the technical deep dive – no commitment required.</p>
-    </div>
-
-    <!-- SLIDE 7: TIERED INVESTMENT STRUCTURE -->
-    <div class="slide">
-        <h2>Join the ARF seed round</h2>
-        <p class="claim" style="font-size: 1.2rem;">We are raising a focused seed round to support pilot deployments, SOC2 readiness, core engine development, the first engineering hire, and expansion of the governance & policy layer.</p>
-        <p style="margin-bottom: 1rem;"><strong>Initial close target:</strong> $250k by June 15 · <strong>Full target:</strong> $500k</p>
-        
-        <div class="grid">
-            <div class="card tier-card">
-                <h3>Pilot Partner</h3>
-                <div class="stat" style="font-size: 1.8rem;">$50k – $99k</div>
-                <p>Designed for early supporters aligned with technical validation and pilot development.</p>
-                <ul class="bullet" style="margin-top: 0.5rem;">
-                    <li>Quarterly founder updates</li>
-                    <li>Access to pilot architecture reviews</li>
-                    <li>Early visibility into governance and testing progress</li>
-                    <li>Optional acknowledgement on the ARF website</li>
-                </ul>
-                <p style="font-size: 0.8rem; color:#94a3b8; margin-top: 0.5rem;">Best suited for operators, founders, and technical investors who want early exposure to the emerging governance layer for AI infrastructure operations.</p>
-            </div>
-            <div class="card tier-card">
-                <h3>Strategic Partner</h3>
-                <div class="stat" style="font-size: 1.8rem;">$100k – $249k</div>
-                <p>Designed for investors and operators with relevant enterprise, infrastructure, or AI governance experience.</p>
-                <ul class="bullet" style="margin-top: 0.5rem;">
-                    <li>Monthly strategy and technical review sessions</li>
-                    <li>Priority visibility into pilot outcomes and deployment learnings</li>
-                    <li>Ability to introduce a qualified enterprise pilot opportunity</li>
-                    <li>Early access to roadmap discussions and governance direction</li>
-                </ul>
-                <p style="font-size: 0.8rem; color:#94a3b8; margin-top: 0.5rem;">Best suited for infrastructure operators, enterprise technologists, and strategic angels who understand the operational risks of autonomous systems.</p>
-            </div>
-            <div class="card tier-card">
-                <h3>Anchor Partner</h3>
-                <div class="stat" style="font-size: 1.8rem;">$250k+</div>
-                <p>Designed for investors seeking deeper involvement in the long‑term governance and commercialisation strategy of ARF.</p>
-                <ul class="bullet" style="margin-top: 0.5rem;">
-                    <li>Board observer participation (or formal board seat for $500k)</li>
-                    <li>Priority pro‑rata consideration in future financing rounds</li>
-                    <li>Strategic input into enterprise rollout and governance positioning</li>
-                    <li>Recognition in foundational ARF technical publications (optional)</li>
-                </ul>
-                <p style="font-size: 0.8rem; color:#94a3b8; margin-top: 0.5rem;">Anchor participation is limited and discussed directly with aligned investors.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- SLIDE 8: NEXT STEP (operational scarcity) -->
-    <div class="slide">
-        <h2>Next step: technical deep dive</h2>
-        <p><strong>30‑minute session – I will walk through:</strong></p>
-        <ul class="bullet">
-            <li>The governance loop architecture</li>
-            <li>Bayesian risk evaluation (conjugate, HMC, hyperpriors)</li>
-            <li>Expected loss minimisation and CVaR</li>
-            <li>Deterministic replayability (seeded RNG, policy algebra)</li>
-            <li>Pressure test results (determinism and calibration)</li>
-            <li>A simulated infrastructure failure scenario</li>
-        </ul>
-        <div style="margin-top: 2rem; background: #0f172a; border-radius: 1rem; padding: 1rem;">
-            <p><strong>Availability:</strong> Monday–Thursday this week</p>
-            <p style="color: #3b82f6; margin-top: 0.5rem;">Limited pilot onboarding capacity for Q3 – early engagement ensures priority evaluation.</p>
-        </div>
-        <div class="quote" style="margin-top: 1.5rem;">
-            “Observability explains failures after they happen. ARF is being built to govern decisions before they reach production.”
-        </div>
-        <p style="margin-top: 1rem;">Juan Petter · <a href="mailto:juan@arf-ai.com" style="color:#3b82f6;">juan@arf-ai.com</a> · <a href="https://arf-ai.com" style="color:#3b82f6;">arf-ai.com</a></p>
-    </div>
-</div>
-
-<div class="nav">
-    <button id="prevBtn" disabled>← Prev</button>
-    <button id="nextBtn">Next →</button>
-</div>
-
-<script>
-    const slides = Array.from(document.querySelectorAll('.slide'));
-    let currentIdx = 0;
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-
-    function updateNav() {
-        prevBtn.disabled = currentIdx === 0;
-        nextBtn.disabled = currentIdx === slides.length - 1;
-        slides[currentIdx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARF – Agentic Reliability Framework | LLMday 2026</title>
+  <meta name="description" content="A deterministic governance layer for AI-driven infrastructure actions – Bayesian risk scoring, expected loss minimisation, audit trails.">
+  <meta name="author" content="Juan Petter – ARF">
+  <meta name="theme-color" content="#0a0c10">
+  
+  <!-- Fonts & Base Styles -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    prevBtn.onclick = () => { if (currentIdx > 0) { currentIdx--; updateNav(); } };
-    nextBtn.onclick = () => { if (currentIdx < slides.length - 1) { currentIdx++; updateNav(); } };
+    body {
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
+      background: radial-gradient(circle at 10% 20%, #0a0c10, #010101);
+      color: #eef2ff;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
 
-    window.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft') {
-            e.preventDefault();
-            prevBtn.click();
-        } else if (e.key === 'ArrowRight') {
-            e.preventDefault();
-            nextBtn.click();
-        }
-    });
+    /* Slides container */
+    .presentation {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
 
-    updateNav();
-</script>
+    /* each slide card */
+    .slide {
+      background: rgba(18, 22, 28, 0.85);
+      backdrop-filter: blur(4px);
+      border-radius: 2rem;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      box-shadow: 0 25px 40px -15px rgba(0, 0, 0, 0.6);
+      transition: transform 0.2s ease, border-color 0.2s;
+    }
+
+    .slide:hover {
+      border-color: rgba(56, 189, 248, 0.6);
+      transform: translateY(-2px);
+    }
+
+    /* typography */
+    h1 {
+      font-size: 3.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ffffff, #38bdf8);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-size: 2rem;
+      font-weight: 600;
+      border-left: 5px solid #38bdf8;
+      padding-left: 1rem;
+      margin: 1.5rem 0 1rem 0;
+      color: #f0f9ff;
+    }
+
+    h3 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin: 1.25rem 0 0.75rem 0;
+      color: #bae6fd;
+    }
+
+    .tagline {
+      font-size: 1.3rem;
+      color: #94a3b8;
+      margin-bottom: 1.5rem;
+      font-weight: 400;
+    }
+
+    .stat-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .stat-card {
+      background: #0f172a;
+      border-radius: 1.5rem;
+      padding: 1.2rem 1.8rem;
+      flex: 1;
+      min-width: 140px;
+      text-align: center;
+      border: 1px solid #1e293b;
+    }
+
+    .stat-number {
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: #38bdf8;
+    }
+
+    .formula {
+      font-family: monospace;
+      background: #0a0c14;
+      padding: 0.75rem 1.25rem;
+      border-radius: 1rem;
+      font-size: 1.2rem;
+      border-left: 4px solid #38bdf8;
+      margin: 1rem 0;
+    }
+
+    .bullet-list {
+      list-style: none;
+      padding-left: 0;
+    }
+    .bullet-list li {
+      margin-bottom: 0.65rem;
+      padding-left: 1.4rem;
+      position: relative;
+    }
+    .bullet-list li::before {
+      content: "▹";
+      color: #38bdf8;
+      position: absolute;
+      left: 0;
+    }
+
+    .two-columns {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin: 1.2rem 0;
+    }
+    .col {
+      flex: 1;
+      background: #0f172a;
+      padding: 1.2rem;
+      border-radius: 1.2rem;
+    }
+
+    hr {
+      margin: 1.2rem 0;
+      border-color: #1e293b;
+    }
+
+    .cta {
+      background: linear-gradient(95deg, #0f172a, #020617);
+      padding: 1rem 1.5rem;
+      border-radius: 2rem;
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .badge {
+      background: #38bdf820;
+      color: #7dd3fc;
+      padding: 0.25rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.8rem;
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      padding: 1.5rem;
+      font-size: 0.85rem;
+      color: #5b6e8c;
+      border-top: 1px solid #1e293b;
+    }
+
+    @media (max-width: 680px) {
+      .slide { padding: 1.5rem; }
+      h1 { font-size: 2.4rem; }
+      h2 { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="presentation">
+  
+  <!-- SLIDE 1: TITLE & CONTEXT -->
+  <div class="slide">
+    <div class="badge">LLMday NYC · June 4, 2026</div>
+    <h1>Agentic Reliability Framework</h1>
+    <div class="tagline">A deterministic governance layer for AI‑driven infrastructure actions</div>
+    <p><strong>Juan Petter</strong> – Founder, ARF · ex‑NetApp (Fortune 500 incident recovery)</p>
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-number">$50k–$250k</div><div>loss per silent AI incident</div></div>
+      <div class="stat-card"><div class="stat-number">73%</div><div>agentic AI projects fail in production</div></div>
+      <div class="stat-card"><div class="stat-number">44+</div><div>determinism pressure tests · 100% passing</div></div>
+    </div>
+    <p style="margin-top:1rem; font-style:italic">“Trust is not a feeling. It’s a calculation.” — ARF design principle</p>
+  </div>
+
+  <!-- SLIDE 2: THE REALITY GAP (Counterfactual analysis) -->
+  <div class="slide">
+    <h2>🔍 The reality gap: what agents don’t see</h2>
+    <p><strong>Factual path (agent’s view):</strong> latency spike → spin up 10 new nodes → latency drops → “success” ✅</p>
+    <div class="formula">💰 Counterfactual path (what would have happened without agent action):</div>
+    <p>A human operator would detect the real root cause: a rogue batch job. <strong>The agent’s action wasted $2,000</strong> in unnecessary cloud spend, while solving nothing.</p>
+    <div class="two-columns">
+      <div class="col">📉 <strong>Without governance layer</strong><br>Untraceable cost, no audit trail, repeat failures.</div>
+      <div class="col">🛡️ <strong>With ARF governance layer</strong><br>Expected‑loss calculation flags the action before execution.</div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: BAYESIAN RISK CORE -->
+  <div class="slide">
+    <h2>🧠 Bayesian risk scoring: expected‑loss minimisation</h2>
+    <div class="formula">E[L] = P(Failure | Action) × Impact(cost)</div>
+    <ul class="bullet-list">
+      <li><strong>P(Failure | Action)</strong> : posterior probability from ARF operational memory + causal effect estimator</li>
+      <li><strong>Impact</strong> : dollar exposure, regulatory risk, availability SLOs</li>
+      <li>Outcome: <strong style="color:#38bdf8">Approve · Deny · Escalate</strong> — deterministic decision before the agent touches production</li>
+    </ul>
+    <p style="margin-top:1rem">📌 <strong>Epistemic uncertainty captured</strong> — conjugate priors + HMC + hyperpriors (ARF core engine v4). Every decision is signed and immutable.</p>
+  </div>
+
+  <!-- SLIDE 4: GOVERNANCE MANDATE -->
+  <div class="slide">
+    <h2>🏛️ Infrastructure governance is becoming mandatory</h2>
+    <div class="two-columns">
+      <div class="col">
+        <strong>⚙️ Why now</strong><br>
+        • Agentic infrastructure tooling ships without controls<br>
+        • EU AI Act / NIST AI RMF require auditable AI decision trails<br>
+        • Two active pilot conversations (data software dev + law‑tech) – NDA, diligence ready
+      </div>
+      <div class="col">
+        <strong>🎯 First buyers</strong><br>
+        Platform engineering · SRE · Cloud operations · Security teams
+      </div>
+    </div>
+    <div class="cta">📌 “You wouldn’t give a junior engineer root access without guardrails. Yet we give AI agents the keys to the kingdom – with no enforcement layer.”</div>
+  </div>
+
+  <!-- SLIDE 5: DETERMINISM & CRYPTOGRAPHIC AUDIT -->
+  <div class="slide">
+    <h2>🔒 Deterministic enforcement – identical input ➔ identical outcome</h2>
+    <p><strong>44+ pressure tests</strong> with 100% passing rate. ARF’s risk engine eliminates LLM non‑determinism at the governance level.</p>
+    <ul class="bullet-list">
+      <li>Cryptographically signed decisions → immutable audit trail</li>
+      <li>Policy algebra for fine‑grained, delegated agent permissions</li>
+      <li>Bayesian expected loss + RAG memory (FAISS persistent vector memory)</li>
+    </ul>
+    <p>🧪 Live sandbox API → <a href="https://a-r-f-arf-sandbox-api.hf.space/v1/evaluate" target="_blank" style="color:#7dd3fc;">Try the advisory endpoint</a> (mock data, real logic).</p>
+  </div>
+
+  <!-- SLIDE 6: COMPARISON TABLE / WHY ARF? -->
+  <div class="slide">
+    <h2>🏆 Why ARF instead of just observability or IAM?</h2>
+    <div class="two-columns">
+      <div class="col">❌ <strong>Observability</strong> detects failures after the fact – post‑incident forensic only.</div>
+      <div class="col">❌ <strong>Traditional IAM</strong> cannot evaluate “delegated decision‑making” or expected loss.</div>
+    </div>
+    <div class="col" style="margin-top:0.5rem;">✅ <strong>ARF</strong> evaluates risk <em>before execution</em> and provides an auditable, signed, policy‑driven decision that works across autonomous agents and multi‑agent protocols (MCP, A2A).</div>
+  </div>
+
+  <!-- SLIDE 7: TRACTION & ROADMAP -->
+  <div class="slide">
+    <h2>🚀 Traction · Built · Next</h2>
+    <ul class="bullet-list">
+      <li>✅ ARF core engine v4 – Bayesian risk fusion, causal effect estimator, RAG memory</li>
+      <li>✅ White paper v4.0 (weeks away) – open specification, reviewed by two independent AI engineers</li>
+      <li>✅ Active pilot conversations (2 confirmed, target: 3 by Q3)</li>
+      <li>✅ Founder background: NetApp enterprise support (Fortune 500), full‑stack + door‑to‑door sales resilience</li>
+      <li>🚀 Post‑seed priority: hire technical co‑founder (distributed systems) + second engineer</li>
+    </ul>
+  </div>
+
+  <!-- SLIDE 8: DEMO + CLOSING -->
+  <div class="slide">
+    <h2>🎬 See the mechanism – 60‑second live demo</h2>
+    <p>Sanbox API → deterministic risk evaluation with plain‑English justification. <a href="https://a-r-f-arf-sandbox-api.hf.space/v1/evaluate" target="_blank" style="color:#7dd3fc;">Open sandbox endpoint</a>. The protected core engine is pilot‑only, but I will walk you through a screen recording of ARF blocking an unsafe infrastructure action.</p>
+    <hr>
+    <p><strong>Join the ARF seed round</strong> – focused round to support pilot deployments, SOC2 readiness, core engine dev, first engineering hire.</p>
+    <div class="cta">
+      📩 Pilot access → <a href="https://arf-frontend-sandy.vercel.app/signup" target="_blank" style="color:#ffffff;">arf-frontend-sandy.vercel.app/signup</a><br>
+      📄 Public specification → <a href="https://github.com/arf-foundation/arf-spec" target="_blank" style="color:#ffffff;">github.com/arf-foundation/arf-spec</a>
+    </div>
+  </div>
+
+  <!-- SLIDE 9: Q&A  +  CONTACT -->
+  <div class="slide">
+    <h2>🤝 Let’s build accountability for autonomous AI</h2>
+    <p>Contact: <strong>petter2025us@outlook.com</strong><br>
+    GitHub organisation → <a href="https://github.com/arf-foundation" target="_blank">@arf-foundation</a><br>
+    “I’ve been the one getting paged at 2am. ARF is the governance layer I wish existed back then.”</p>
+  </div>
+
+  <footer>
+    © 2026 ARF · outcome‑based pricing · pilot‑first · core engine access‑controlled and proprietary.
+  </footer>
+</div>
 </body>
 </html>
