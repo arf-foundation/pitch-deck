@@ -261,7 +261,6 @@
       border-radius: 1rem;
     }
 
-    /* Navigation – fixed positions with enough bottom margin */
     .nav-dots {
       position: fixed;
       right: 1.5rem;
@@ -332,7 +331,6 @@
       padding: 0.3rem;
     }
 
-    /* Verticals grid styling */
     .verticals-grid {
       display: flex;
       flex-wrap: wrap;
@@ -404,44 +402,54 @@
       </div>
     </div>
 
-    <!-- SLIDE 2: PROBLEM (Air Canada real story) -->
+    <!-- SLIDE 2: PROBLEM – THREE REAL CASES (Air Canada, PocketOS, Amazon) -->
     <div class="slide">
       <div class="slide-content">
-        <h2>⚠️ The Problem</h2>
-        <p><strong>Air Canada, 2022</strong> – A chatbot promised a bereavement fare discount that didn't exist. Passenger Jake Moffatt relied on it. Air Canada argued: <em>"The chatbot is a separate legal entity responsible for its own actions."</em></p>
-        <div class="two-columns">
+        <h2>⚠️ The Problem – Real AI failures in production</h2>
+        <div class="three-columns">
           <div class="col">
-            <h3>💸 Outcome</h3>
+            <h3>✈️ Air Canada (2022)</h3>
             <ul class="bullet-list">
+              <li>Chatbot promised fake discount</li>
+              <li>Airline: "Chatbot is separate legal entity"</li>
               <li>Passenger sued & won – $812 damages</li>
-              <li>PR disaster & legal precedent</li>
-              <li>Airline liable for AI hallucinations</li>
+              <li>PR disaster, liable for hallucinations</li>
             </ul>
           </div>
           <div class="col">
-            <h3>🤖 The real issue</h3>
+            <h3>💀 PocketOS (April 2026)</h3>
             <ul class="bullet-list">
-              <li>No risk evaluation before acting</li>
-              <li>No memory of past mistakes</li>
-              <li>No audit trail for decisions</li>
+              <li>AI coding agent had root API token</li>
+              <li>In <strong>9 seconds</strong> deleted production DB + all backups</li>
+              <li>3 months of customer data lost</li>
+              <li>Agent later admitted: "acted without explicit instruction"</li>
+            </ul>
+          </div>
+          <div class="col">
+            <h3>📦 Amazon (March 2026)</h3>
+            <ul class="bullet-list">
+              <li>Agent acted on outdated internal wiki</li>
+              <li>Caused 6‑hour outage – blocked checkout for millions</li>
+              <li>Introduced senior engineer reviews for AI changes</li>
+              <li>Human back in the loop after disaster</li>
             </ul>
           </div>
         </div>
-        <div class="cta" style="background:transparent;">📌 Most teams move fast on agents but few govern them well. Capability ≠ Control.</div>
+        <div class="cta" style="background:transparent; margin-top:0.5rem;">📌 Common thread: No risk evaluation before action, no memory of past mistakes, no audit trail. Capability ≠ Control.</div>
       </div>
     </div>
 
-    <!-- SLIDE 3: SOLUTION (How ARF prevents it) -->
+    <!-- SLIDE 3: SOLUTION – How ARF would have prevented PocketOS -->
     <div class="slide">
       <div class="slide-content">
         <h2>🔧 The Solution: ARF Governance Layer</h2>
         <div class="two-columns">
           <div class="col">
-            <h3>What ARF would have done</h3>
+            <h3>What ARF would have done (PocketOS case)</h3>
             <ul class="bullet-list">
-              <li>Checked memory: similar past hallucinations</li>
-              <li>Bayesian risk score: P(error)=0.87</li>
-              <li>Expected loss: high → ESCALATE to human</li>
+              <li>Checked memory: similar destructive actions flagged</li>
+              <li>Bayesian risk score: P(failure) > 0.95</li>
+              <li>Expected loss: catastrophic → <strong>ESCALATE</strong> (not auto‑execute)</li>
               <li>Audit trail: signed, timestamped decision</li>
             </ul>
           </div>
@@ -451,7 +459,7 @@
               <li>Deterministic risk scoring</li>
               <li>Bounded autonomy (escalation)</li>
               <li>Cryptographic audit trail</li>
-              <li>Operational memory</li>
+              <li>Operational memory (learns from past incidents)</li>
             </ul>
           </div>
         </div>
@@ -496,7 +504,7 @@
         <h2>🧠 How ARF thinks – simple & transparent</h2>
         <p>Same way a senior engineer learns: <strong>past failures × cost = risk</strong></p>
         <div class="three-columns">
-          <div class="col3">📊 <strong>Memory</strong><br>Remembers every past incident (like the Air Canada case)</div>
+          <div class="col3">📊 <strong>Memory</strong><br>Remembers every past incident (like PocketOS & Air Canada)</div>
           <div class="col3">🎯 <strong>Accuracy</strong><br>Adjusts for over‑confidence</div>
           <div class="col3">📝 <strong>Output</strong><br>Approve · Escalate · Deny</div>
         </div>
@@ -510,17 +518,17 @@
         <ul class="bullet-list">
           <li>Same input → same decision (SHA‑3 signed)</li>
           <li>Runs locally – air‑gapped possible</li>
-          <li>Policy algebra: "never give discounts without human review"</li>
+          <li>Policy algebra: "never execute destructive commands without human approval"</li>
           <li><a href="https://a-r-f-arf-sandbox-api.hf.space/v1/evaluate" target="_blank" rel="noopener" style="color:#7dd3fc;">Test API (mock data, real logic)</a></li>
         </ul>
       </div>
     </div>
 
-    <!-- SLIDE 7: LIVE DEMO (Air Canada scenario) -->
+    <!-- SLIDE 7: LIVE DEMO (PocketOS scenario) -->
     <div class="slide">
       <div class="slide-content">
-        <h2>🎮 Live demo: Air Canada scenario in ARF</h2>
-        <p>See how ARF would have flagged the risky chatbot response before it went live.</p>
+        <h2>🎮 Live demo: PocketOS scenario in ARF</h2>
+        <p>See how ARF would have flagged the destructive action before execution.</p>
         <div class="demo-frame">
           <iframe src="https://arf-foundation.github.io/arf-risk-demo/" title="ARF Risk Demo" loading="lazy" onerror="this.style.display='none'; document.getElementById('demoFallback').style.display='block';"></iframe>
         </div>
