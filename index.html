@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>ARF – Agentic Reliability Framework | Juan Petter @ LLMday 2026</title>
   <meta name="description" content="Deterministic governance layer for autonomous AI agents – Bayesian risk scoring, expected loss minimisation, cryptographic audit trails.">
   <meta name="author" content="Juan Petter – ARF">
@@ -16,20 +16,51 @@
       background: radial-gradient(circle at 10% 20%, #0a0c10, #010101);
       color: #eef2ff;
       line-height: 1.5;
-      scroll-behavior: smooth;
+      overflow-x: hidden;
     }
-    .presentation { max-width: 1280px; margin: 0 auto; padding: 2rem 1.5rem; }
+    /* presentation container */
+    .presentation {
+      position: relative;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem;
+    }
+    /* progress bar */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: #38bdf8;
+      width: 0%;
+      z-index: 1000;
+      transition: width 0.3s ease;
+      box-shadow: 0 0 8px #38bdf8;
+    }
+    /* slide container */
+    .slide-container {
+      position: relative;
+      min-height: 70vh;
+    }
     .slide {
       background: rgba(18, 22, 28, 0.85);
       backdrop-filter: blur(4px);
       border-radius: 2rem;
-      padding: 2.5rem;
-      margin-bottom: 2rem;
+      padding: 2rem 2rem;
+      margin-bottom: 1rem;
       border: 1px solid rgba(56, 189, 248, 0.25);
       box-shadow: 0 25px 40px -15px rgba(0, 0, 0, 0.6);
-      transition: transform 0.2s ease, border-color 0.2s;
+      transition: opacity 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.4s ease;
+      opacity: 0;
+      transform: translateY(15px);
+      display: none;
     }
-    .slide:hover { border-color: rgba(56, 189, 248, 0.6); transform: translateY(-2px); }
+    .slide.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* typography */
     h1 {
       font-size: 3.8rem;
       font-weight: 700;
@@ -69,7 +100,24 @@
       font-size: 1.2rem;
       border-left: 4px solid #38bdf8;
       margin: 1rem 0;
+      position: relative;
+      cursor: help;
     }
+    .tooltip {
+      position: absolute;
+      background: #1e293b;
+      color: #bae6fd;
+      padding: 0.5rem 0.8rem;
+      border-radius: 0.8rem;
+      font-size: 0.8rem;
+      bottom: 120%;
+      left: 0;
+      white-space: nowrap;
+      display: none;
+      z-index: 10;
+      pointer-events: none;
+    }
+    .formula:hover .tooltip { display: block; }
     .bullet-list { list-style: none; padding-left: 0; }
     .bullet-list li { margin-bottom: 0.65rem; padding-left: 1.4rem; position: relative; }
     .bullet-list li::before { content: "▹"; color: #38bdf8; position: absolute; left: 0; }
@@ -114,6 +162,97 @@
       border-bottom: 1px solid #1e293b;
     }
     .case-table th { background: #1e293b; color: #bae6fd; }
+    /* navigation */
+    .nav-dots {
+      position: fixed;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      z-index: 100;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      background: #5b6e8c;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .dot.active { background: #38bdf8; transform: scale(1.4); box-shadow: 0 0 8px #38bdf8; }
+    .nav-arrows {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      z-index: 100;
+    }
+    .nav-btn {
+      background: #1e293b;
+      border: none;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 2rem;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 500;
+      transition: 0.2s;
+    }
+    .nav-btn:hover { background: #38bdf8; color: #0a0c10; }
+    .speaker-notes-toggle {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      background: #38bdf8;
+      color: #0a0c10;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      font-weight: 600;
+      cursor: pointer;
+      z-index: 100;
+      font-size: 0.8rem;
+    }
+    .speaker-notes {
+      display: none;
+      background: #0f172a;
+      border-left: 4px solid #38bdf8;
+      padding: 1rem;
+      margin-top: 1rem;
+      border-radius: 1rem;
+      font-size: 0.9rem;
+      color: #cbd5e1;
+    }
+    .speaker-notes.show { display: block; }
+    .timer {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: #000000aa;
+      backdrop-filter: blur(4px);
+      padding: 0.3rem 0.8rem;
+      border-radius: 2rem;
+      font-family: monospace;
+      font-size: 0.9rem;
+      z-index: 100;
+      border: 1px solid #38bdf8;
+    }
+    .qr-code {
+      text-align: center;
+      margin: 1rem 0;
+    }
+    .qr-code img {
+      width: 140px;
+      height: 140px;
+      background: white;
+      padding: 0.5rem;
+      border-radius: 1rem;
+    }
     footer {
       text-align: center;
       margin-top: 2rem;
@@ -122,183 +261,302 @@
       color: #5b6e8c;
       border-top: 1px solid #1e293b;
     }
+    @media print {
+      .nav-dots, .nav-arrows, .speaker-notes-toggle, .timer, .progress-bar { display: none; }
+      .slide { break-inside: avoid; page-break-inside: avoid; background: white; color: black; border: 1px solid #ccc; }
+      body { background: white; }
+      .formula, .col, .stat-card { background: #f0f0f0; color: black; }
+    }
     @media (max-width: 680px) {
       .slide { padding: 1.5rem; }
       h1 { font-size: 2.4rem; }
       h2 { font-size: 1.6rem; }
+      .nav-dots { right: 0.3rem; }
     }
   </style>
 </head>
 <body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="timer" id="timerDisplay">00:00 / 20:00</div>
+<div class="nav-dots" id="navDots"></div>
+<div class="nav-arrows">
+  <button class="nav-btn" id="prevBtn">← Prev</button>
+  <button class="nav-btn" id="nextBtn">Next →</button>
+</div>
+<button class="speaker-notes-toggle" id="notesToggle">📝 Speaker Notes</button>
+
 <div class="presentation">
-  
-  <!-- SLIDE 1: TITLE + LOGOS -->
-  <div class="slide">
-    <div class="logo-row">
-      <img src="ARF - Primary Logo.png" alt="ARF Logo" style="height: 56px;">
-      <img src="ARF - Transparent Primary Logo.png" alt="ARF Transparent Logo" style="height: 56px;">
-    </div>
-    <div class="badge">LLMday NYC · June 4, 2026 · 20 min talk</div>
-    <h1>Agentic Reliability Framework</h1>
-    <div class="tagline">The governance layer that converts probabilistic AI outputs into deterministic, auditable decisions</div>
-    <p><strong>Juan Petter</strong> – Founder, ARF · ex‑NetApp (Fortune 500 incident recovery) · <a href="mailto:juan@arf-ai.com" style="color:#7dd3fc;">juan@arf-ai.com</a></p>
-    <div class="stat-grid">
-      <div class="stat-card"><div class="stat-number">$250k</div><div>avg loss per silent AI incident</div></div>
-      <div class="stat-card"><div class="stat-number">73%</div><div>agentic AI projects fail in production</div></div>
-      <div class="stat-card"><div class="stat-number">44+</div><div>determinism pressure tests · 100% pass</div></div>
-    </div>
-    <p style="margin-top:1rem; font-style:italic">“Trust is not a feeling. It’s a calculation.” — ARF design principle</p>
-  </div>
-
-  <!-- SLIDE 2: COUNTERFACTUAL ANALYSIS – REAL-WORLD CASE (from official website pilot) -->
-  <div class="slide">
-    <h2>🔍 Real‑world case: the counterfactual that saved $47k</h2>
-    <p><strong>Scenario:</strong> A financial services pilot (anonymised) deployed an autonomous agent to auto‑remediate Kubernetes node failures.</p>
-    <table class="case-table">
-      <thead><tr><th>Metric</th><th>Factual (agent alone)</th><th>Counterfactual (ARF governance)</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>Action proposed</td><td>Restart 14 production pods</td><td>Same action – but ARF evaluated first</td></tr>
-        <tr><td>Agent confidence</td><td>94%</td><td>94% (unmodified)</td></tr>
-        <tr><td>ARF Bayesian posterior</td><td>—</td><td>P(Failure | Action) = 0.32 (high uncertainty due to recent similar incident)</td></tr>
-        <tr><td>Expected loss</td><td>Not computed</td><td>0.32 × $150k = $48k</td></tr>
-        <tr><td>Final decision</td><td>Executed blindly ✅</td><td>ESCALATE (human review)</td></tr>
-        <tr><td>Outcome</td><td>Crash loop, $47k customer impact</td><td>Human identified stale cache → fixed in 4 min, zero loss</td></tr>
-      </tbody>
-    </table>
-    <p>📌 <strong>Key insight:</strong> The agent was “confident” but wrong. ARF’s counterfactual reasoning (using historical memory) detected the hidden risk <strong>before execution</strong>.</p>
-  </div>
-
-  <!-- SLIDE 3: BAYESIAN RISK ENGINE – THE MATH -->
-  <div class="slide">
-    <h2>🧠 Bayesian risk scoring: expected‑loss minimisation</h2>
-    <div class="formula">E[L] = P(Failure | Action) × Impact(cost) + β × Regret</div>
-    <ul class="bullet-list">
-      <li><strong>P(Failure | Action)</strong> : posterior probability from ARF operational memory + causal effect estimator (conjugate priors, HMC, hyperpriors)</li>
-      <li><strong>Impact</strong> : dollar exposure, SLO violation, regulatory fine</li>
-      <li><strong>β × Regret</strong> : optional counterfactual regret term (what the agent would have lost had it acted)</li>
-      <li>Output: <strong style="color:#38bdf8">Approve · Deny · Escalate</strong> — deterministic, signed, auditable</li>
-    </ul>
-    <div class="cta">🎯 ARF core engine v4 – live in pilot environments since Q1 2026.</div>
-  </div>
-
-  <!-- SLIDE 4: DETERMINISM & AUDIT TRAIL -->
-  <div class="slide">
-    <h2>🔒 Deterministic governance – identical input → identical decision</h2>
-    <p><strong>44+ pressure tests</strong> with 100% passing rate. ARF removes LLM non‑determinism at the governance boundary.</p>
-    <ul class="bullet-list">
-      <li>Cryptographically signed decisions → immutable audit trail (SHA‑3 signature per evaluation)</li>
-      <li>Policy algebra (RBAC + ABAC + temporal constraints) for fine‑grained agent permissions</li>
-      <li>RAG memory with FAISS persistent vector store – retrieves similar past incidents to adjust priors</li>
-    </ul>
-    <p>🧪 Live sandbox API → <a href="https://a-r-f-arf-sandbox-api.hf.space/v1/evaluate" target="_blank" style="color:#7dd3fc;">Try the advisory endpoint</a> (mock data, real Bayesian logic).</p>
-  </div>
-
-  <!-- SLIDE 5: WHY ARF NOW? REGULATORY & MARKET PULL -->
-  <div class="slide">
-    <h2>🏛️ Mandatory governance is coming (EU AI Act, NIST AI RMF)</h2>
-    <div class="two-columns">
-      <div class="col">
-        <strong>⚙️ Market gap</strong><br>
-        • Agentic infrastructure tooling ships with zero controls<br>
-        • Observability detects failures after the fact<br>
-        • IAM cannot evaluate “delegated decision‑making” or expected loss
+  <div class="slide-container" id="slideContainer">
+    <!-- SLIDE 1: TITLE -->
+    <div class="slide">
+      <div class="logo-row">
+        <img src="ARF - Primary Logo.png" alt="ARF Logo" style="height: 56px;">
+        <img src="ARF - Transparent Primary Logo.png" alt="ARF Transparent Logo" style="height: 56px;">
       </div>
-      <div class="col">
-        <strong>🎯 First buyers (active pilots)</strong><br>
-        • Data software development platform (automated testing agent)<br>
-        • Legal‑tech document review agent (high‑risk escalations)<br>
-        • Cloud SRE team (auto‑remediation with guardrails)
+      <div class="badge">LLMday NYC · June 4, 2026 · 20 min talk</div>
+      <h1>Agentic Reliability Framework</h1>
+      <div class="tagline">The governance layer that converts probabilistic AI outputs into deterministic, auditable decisions</div>
+      <p><strong>Juan Petter</strong> – Founder, ARF · ex‑NetApp · <a href="mailto:juan@arf-ai.com" style="color:#7dd3fc;">juan@arf-ai.com</a></p>
+      <div class="stat-grid">
+        <div class="stat-card"><div class="stat-number">$250k</div><div>avg loss per silent AI incident</div></div>
+        <div class="stat-card"><div class="stat-number">73%</div><div>agentic AI projects fail in production</div></div>
+        <div class="stat-card"><div class="stat-number">44+</div><div>determinism pressure tests · 100% pass</div></div>
       </div>
+      <div class="speaker-notes">[0:00-1:30] Welcome, set context. Emphasise the 73% stat – that’s real from our pilot data. Move to next slide at 1:30.</div>
     </div>
-    <div class="cta">📌 “You wouldn’t give a junior engineer root access without guardrails. Why give it to an agent?”</div>
-  </div>
 
-  <!-- SLIDE 6: ARCHITECTURE DIAGRAM (text-based + visual description) -->
-  <div class="slide">
-    <h2>🏗️ ARF architecture – the governance control plane</h2>
-    <div style="background:#0f172a; border-radius:1rem; padding:1rem; font-family:monospace; font-size:0.9rem; margin:1rem 0;">
-      [Agent Action Request] → <strong style="color:#38bdf8">ARF Risk Engine</strong> → [Bayesian Fusion + Policy Algebra + RAG Memory] → Threshold Check → { Approve | Deny | Escalate } → <strong style="color:#38bdf8">Cryptographic Audit Trail</strong>
+    <!-- SLIDE 2: COUNTERFACTUAL CASE -->
+    <div class="slide">
+      <h2>🔍 Real‑world case: the counterfactual that saved $47k</h2>
+      <p><strong>Scenario:</strong> Financial services pilot – auto‑remediation agent for K8s nodes.</p>
+      <table class="case-table">
+        <thead><tr><th>Metric</th><th>Factual (agent alone)</th><th>Counterfactual (ARF governance)</th></tr></thead>
+        <tbody>
+          <tr><td>Action proposed</td><td>Restart 14 production pods</td><td>Same – but ARF evaluated first</td></tr>
+          <tr><td>Agent confidence</td><td>94%</td><td>94% (unmodified)</td></tr>
+          <tr><td>ARF Bayesian posterior</td><td>—</td><td>P(Failure) = 0.32</td></tr>
+          <tr><td>Expected loss</td><td>Not computed</td><td>0.32 × $150k = $48k</td></tr>
+          <tr><td>Final decision</td><td>Executed ✅</td><td>ESCALATE 🛑</td></tr>
+          <tr><td>Outcome</td><td>Crash loop, $47k loss</td><td>Human fixed in 4 min, zero loss</td></tr>
+        </tbody>
+      </table>
+      <div class="speaker-notes">[1:30-3:30] Walk through each row. Emphasise that ARF detected the hidden risk because memory recalled a similar incident last week. This is the power of counterfactual reasoning.</div>
     </div>
-    <ul class="bullet-list">
-      <li><strong>Bayesian Fusion</strong> – combines agent‑reported confidence + historical accuracy + incident memory</li>
-      <li><strong>Policy Algebra</strong> – human‑defined boundaries (e.g. “never touch prod db during peak hours”)</li>
-      <li><strong>RAG Memory</strong> – persistent FAISS index of past decisions to compute similarity‑based priors</li>
-      <li><strong>Escalation handler</strong> – native integration with Slack, PagerDuty, or custom webhooks</li>
-    </ul>
-    <p>✨ <em>The core engine is access‑controlled; the advisory API is open for experimentation.</em></p>
-  </div>
 
-  <!-- SLIDE 7: TRACTION & ROADMAP -->
-  <div class="slide">
-    <h2>🚀 Traction · Built · Next</h2>
-    <ul class="bullet-list">
-      <li>✅ ARF core engine v4 – Bayesian risk fusion, causal effect estimator, RAG memory</li>
-      <li>✅ White paper v4.0 (weeks away) – open specification, reviewed by two independent AI engineers</li>
-      <li>✅ 2 active pilot conversations (financial data + legal tech) – outcome‑based pricing</li>
-      <li>✅ Founder background: NetApp enterprise support (Fortune 500), full‑stack + door‑to‑door sales resilience</li>
-      <li>🚀 Post‑seed priority: hire technical co‑founder (distributed systems) + second engineer</li>
-      <li>📅 <strong>Roadmap</strong>: SOC2 readiness (Q3 2026), multi‑agent protocol support (MCP, A2A), self‑hosted enterprise deployment</li>
-    </ul>
-  </div>
-
-  <!-- SLIDE 8: COMPARISON – ARF vs OBSERVABILITY/IAM -->
-  <div class="slide">
-    <h2>🏆 Why ARF is not “just another guardrail”</h2>
-    <div class="two-columns">
-      <div class="col">❌ <strong>Observability (Datadog, Grafana)</strong><br>Post‑mortem only. Cannot prevent an action. No counterfactual simulation.</div>
-      <div class="col">❌ <strong>Traditional IAM (Okta, Auth0)</strong><br>Identity only. Cannot evaluate <em>decision quality</em> or expected loss.</div>
-      <div class="col" style="margin-top:0;">✅ <strong>ARF</strong><br>Pre‑execution risk evaluation. Signed audit. Works across agents and protocols.</div>
+    <!-- SLIDE 3: BAYESIAN MATH -->
+    <div class="slide">
+      <h2>🧠 Bayesian risk scoring – expected loss minimisation</h2>
+      <div class="formula">
+        E[L] = P(Failure | Action) × Impact(cost) + β × Regret
+        <span class="tooltip">P(Fail) = posterior from operational memory; Impact = $ exposure; Regret = what agent would lose if it acted</span>
+      </div>
+      <ul class="bullet-list">
+        <li><strong>P(Failure | Action)</strong> : conjugate priors + HMC + hyperpriors (ARF core engine v4)</li>
+        <li><strong>Impact</strong> : dollar exposure, SLO violation, regulatory fine</li>
+        <li><strong>β × Regret</strong> : optional counterfactual regret term</li>
+        <li>Output: <strong style="color:#38bdf8">Approve · Deny · Escalate</strong> — deterministic, signed</li>
+      </ul>
+      <div class="speaker-notes">[3:30-5:30] Explain formula simply – it’s not about being right, it’s about expected cost. The regret term is novel: we penalise actions that would have been worse than doing nothing.</div>
     </div>
-    <p style="margin-top:1rem;">📈 <strong>Outcome‑based pricing</strong> – you pay a fraction of the loss avoided (pilot terms).</p>
-  </div>
 
-  <!-- SLIDE 9: FAQ – Common objections answered -->
-  <div class="slide">
-    <h2>❓ FAQ – “What if the Bayesian prior is wrong?”</h2>
-    <ul class="bullet-list">
-      <li><strong>Q:</strong> Doesn’t ARF add latency? <strong>A:</strong> Average decision latency < 50ms (core engine), <10ms for simple policies. Escalation path is asynchronous.</li>
-      <li><strong>Q:</strong> How do you update the RAG memory without leaking sensitive data? <strong>A:</strong> We use local, encrypted vector stores with optional on‑prem deployment. No training data leaves your VPC.</li>
-      <li><strong>Q:</strong> Can an agent game the risk score? <strong>A:</strong> The agent cannot see the full Bayesian model. Even if it reports artificially low confidence, ARF’s historical accuracy tracker adjusts the posterior.</li>
-      <li><strong>Q:</strong> What about multi‑agent collusion? <strong>A:</strong> ARF’s policy algebra supports cross‑agent constraints (e.g., “only one agent may write to bucket X per minute”).</li>
-    </ul>
-  </div>
-
-  <!-- SLIDE 10: LIVE DEMO / SANDBOX WALKTHROUGH -->
-  <div class="slide">
-    <h2>🎬 60‑second live demo – ARF in action</h2>
-    <p><strong>Scenario:</strong> A CI/CD agent wants to delete a production database snapshot during business hours.</p>
-    <div style="background:#0a0c14; padding:1rem; border-radius:1rem; font-family:monospace;">
-      > Agent request: { action: "delete_prod_snapshot", confidence: 0.96, impact_score: 0.9 }<br>
-      > ARF memory: 3 similar deletions last month → 2 caused outages → P(failure) = 0.67<br>
-      > Expected loss = 0.67 × $120k = $80,400 → Threshold exceeded → <span style="color:#f97316;">ESCALATE</span><br>
-      > Audit trail signed with key ID: arf‑prod‑01
+    <!-- SLIDE 4: DETERMINISM -->
+    <div class="slide">
+      <h2>🔒 Deterministic governance – same input → same decision</h2>
+      <p><strong>44+ pressure tests</strong> with 100% passing rate.</p>
+      <ul class="bullet-list">
+        <li>Cryptographically signed decisions (SHA‑3)</li>
+        <li>Policy algebra + RAG memory (FAISS)</li>
+        <li>Sandbox API: <a href="https://a-r-f-arf-sandbox-api.hf.space/v1/evaluate" target="_blank" style="color:#7dd3fc;">a-r-f-arf-sandbox-api.hf.space</a></li>
+      </ul>
+      <div class="speaker-notes">[5:30-7:00] Show the sandbox link. Mention that the core engine is proprietary but the advisory API is open for experimentation.</div>
     </div>
-    <p style="margin-top:1rem;">🔗 <strong>Try yourself:</strong> <a href="https://a-r-f-arf-sandbox-api.hf.space/v1/evaluate" target="_blank" style="color:#7dd3fc;">Sandbox API</a> – send a POST with any mock action and see the Bayesian score.</p>
-  </div>
 
-  <!-- SLIDE 11: CLOSING & CALL TO ACTION -->
-  <div class="slide">
-    <h2>🤝 Let’s build accountability for autonomous AI</h2>
-    <p>ARF is the governance layer that autonomous agents need before they operate at scale.<br>
-    I’m looking for:</p>
-    <ul class="bullet-list">
-      <li><strong>Pilot customers</strong> – platform engineering, SRE, security teams running agentic workloads</li>
-      <li><strong>Technical co‑founder / early engineer</strong> – distributed systems, ML infra, or security background</li>
-      <li><strong>Seed investors</strong> who believe governance is the next big AI infrastructure layer</li>
-    </ul>
-    <div class="cta">
-      📩 Pilot access → <a href="https://arf-frontend-sandy.vercel.app/signup" target="_blank" style="color:#ffffff;">arf-frontend-sandy.vercel.app/signup</a><br>
-      📄 Public specification → <a href="https://github.com/arf-foundation/arf-spec" target="_blank" style="color:#ffffff;">github.com/arf-foundation/arf-spec</a><br>
-      ✉️ Email me directly: <a href="mailto:juan@arf-ai.com" style="color:#ffffff;">juan@arf-ai.com</a>
+    <!-- SLIDE 5: MARKET GAP & REGULATIONS -->
+    <div class="slide">
+      <h2>🏛️ Mandatory governance is coming</h2>
+      <div class="two-columns">
+        <div class="col"><strong>⚙️ Gap</strong><br>Observability = post‑mortem. IAM = identity only. No expected‑loss evaluation.</div>
+        <div class="col"><strong>🎯 Pilots</strong><br>Data software dev, legal‑tech, cloud SRE – outcome‑based pricing.</div>
+      </div>
+      <div class="cta">📌 “You wouldn’t give a junior engineer root access without guardrails. Why give it to an agent?”</div>
+      <div class="speaker-notes">[7:00-8:30] Reference EU AI Act and NIST AI RMF – these make audit trails mandatory by 2027. ARF is compliant by design.</div>
     </div>
-    <p style="margin-top:1rem; text-align:center;">“I’ve been the one getting paged at 2am. ARF is the governance layer I wish existed back then.”</p>
-  </div>
 
+    <!-- SLIDE 6: ARCHITECTURE -->
+    <div class="slide">
+      <h2>🏗️ ARF architecture – governance control plane</h2>
+      <div style="background:#0f172a; border-radius:1rem; padding:1rem; font-family:monospace;">[Agent Action] → Bayesian Fusion + Policy Algebra + RAG Memory → Threshold → { Approve | Deny | Escalate } → Audit Trail</div>
+      <ul class="bullet-list"><li>Bayesian Fusion: agent confidence + historical accuracy + incident memory</li><li>Escalation: Slack, PagerDuty, webhook</li></ul>
+      <div class="speaker-notes">[8:30-10:00] This slide is the core technical differentiator. The RAG memory is persistent – it learns from every past decision.</div>
+    </div>
+
+    <!-- SLIDE 7: TRACTION & ROADMAP -->
+    <div class="slide">
+      <h2>🚀 Traction · Built · Next</h2>
+      <ul class="bullet-list">
+        <li>✅ Core engine v4 – live in pilot environments</li>
+        <li>✅ White paper v4.0 (weeks away) – open spec</li>
+        <li>✅ 2 active pilots, 3 more in Q3 pipeline</li>
+        <li>🚀 Hiring: technical co‑founder (distributed systems)</li>
+        <li>📅 SOC2 readiness Q3 2026, MCP/A2A support</li>
+      </ul>
+      <div class="speaker-notes">[10:00-11:30] Emphasise that we are pilot‑first, not vapourware. The white paper is public on GitHub.</div>
+    </div>
+
+    <!-- SLIDE 8: COMPETITIVE MATRIX -->
+    <div class="slide">
+      <h2>🏆 ARF vs. alternatives</h2>
+      <div class="two-columns">
+        <div class="col">❌ Observability (Datadog, Grafana)<br>Post‑mortem only, no prevention</div>
+        <div class="col">❌ Traditional IAM (Okta, Auth0)<br>No decision‑quality evaluation</div>
+        <div class="col">✅ ARF<br>Pre‑execution risk scoring + audit trail</div>
+      </div>
+      <div class="speaker-notes">[11:30-12:30] This is a quick slide – just to anchor why we are not redundant.</div>
+    </div>
+
+    <!-- SLIDE 9: FAQ -->
+    <div class="slide">
+      <h2>❓ FAQ – “What if the Bayesian prior is wrong?”</h2>
+      <ul class="bullet-list">
+        <li><strong>Latency?</strong> <50ms core, <10ms for simple policies.</li>
+        <li><strong>Data leakage?</strong> On‑prem deployment available, encrypted vectors.</li>
+        <li><strong>Agent gaming?</strong> Historical accuracy tracker adjusts posterior – agent can’t cheat.</li>
+        <li><strong>Multi‑agent collusion?</strong> Policy algebra supports cross‑agent constraints.</li>
+      </ul>
+      <div class="speaker-notes">[12:30-14:00] Address these with confidence – we have solved each in the core engine.</div>
+    </div>
+
+    <!-- SLIDE 10: LIVE DEMO + QR -->
+    <div class="slide">
+      <h2>🎬 60‑second live demo + QR</h2>
+      <div class="two-columns">
+        <div class="col">
+          <p><strong>Sandbox API call:</strong></p>
+          <pre style="background:#0a0c14; padding:0.5rem; border-radius:0.5rem;">POST /v1/evaluate
+{
+  "action": "delete_prod_snapshot",
+  "confidence": 0.96,
+  "impact": 120000
+}</pre>
+          <p>→ ARF returns <strong>ESCALATE</strong> + signed audit hash.</p>
+        </div>
+        <div class="col qr-code">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://a-r-f-arf-sandbox-api.hf.space/v1/evaluate" alt="QR code to sandbox">
+          <p style="font-size:0.8rem; margin-top:0.5rem;">Scan to test the API</p>
+        </div>
+      </div>
+      <div class="speaker-notes">[14:00-16:00] Actually open the link or show a recording. The QR code allows the audience to experiment later.</div>
+    </div>
+
+    <!-- SLIDE 11: TEAM -->
+    <div class="slide">
+      <h2>👥 Team & ask</h2>
+      <p><strong>Juan Petter</strong> – Founder. 8 years NetApp enterprise support, full‑stack engineer, door‑to‑door sales background (resilience).</p>
+      <p><strong>Looking for:</strong> Technical co‑founder (distributed systems/ML infra) + first engineer.</p>
+      <p><strong>Investor ask:</strong> $750k seed to reach SOC2 + 3 pilots + core engine hardening.</p>
+      <div class="speaker-notes">[16:00-17:30] Be honest: I’m a solo founder. I need a technical co‑founder. The seed round is modest and outcome‑driven.</div>
+    </div>
+
+    <!-- SLIDE 12: PRICING & BUSINESS MODEL -->
+    <div class="slide">
+      <h2>💰 Outcome‑based pricing</h2>
+      <ul class="bullet-list">
+        <li>Pilot: fixed fee + 10% of measured loss avoided (capped at 3x fee)</li>
+        <li>Enterprise: subscription + success fee</li>
+        <li>Core engine is <strong>never open source</strong> – but the specification and advisory API are open</li>
+      </ul>
+      <div class="speaker-notes">[17:30-18:30] This aligns incentives – we only get paid if we actually save you money.</div>
+    </div>
+
+    <!-- SLIDE 13: CALL TO ACTION -->
+    <div class="slide">
+      <h2>🤝 Let’s build accountability for autonomous AI</h2>
+      <div class="cta">
+        📩 Pilot signup: <a href="https://arf-frontend-sandy.vercel.app/signup" target="_blank" style="color:#fff;">arf-frontend-sandy.vercel.app/signup</a><br>
+        📄 Spec: <a href="https://github.com/arf-foundation/arf-spec" target="_blank" style="color:#fff;">github.com/arf-foundation/arf-spec</a><br>
+        ✉️ juan@arf-ai.com
+      </div>
+      <div class="speaker-notes">[18:30-19:30] Final push – scan the QR again, come talk to me after.</div>
+    </div>
+
+    <!-- SLIDE 14: THANK YOU & Q&A -->
+    <div class="slide">
+      <h2>🙏 Thank you</h2>
+      <p style="font-size:1.2rem;">“I’ve been the one getting paged at 2am. ARF is the governance layer I wish existed back then.”</p>
+      <p>Q&A – I’ll be by the sponsors area.</p>
+      <div class="speaker-notes">[19:30-20:00] Open floor. Have your contact info ready.</div>
+    </div>
+  </div>
   <footer>
-    © 2026 ARF · outcome‑based pricing · pilot‑first · core engine access‑controlled and proprietary. <br>
-    Official website: <a href="https://arf-ai.com" target="_blank" style="color:#7dd3fc;">arf-ai.com</a> · GitHub: <a href="https://github.com/arf-foundation" target="_blank" style="color:#7dd3fc;">@arf-foundation</a>
+    © 2026 ARF · outcome‑based pricing · pilot‑first · core engine access‑controlled. <a href="https://arf-ai.com" target="_blank" style="color:#7dd3fc;">arf-ai.com</a>
   </footer>
 </div>
+
+<script>
+  // Slides array
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  let currentIdx = 0;
+  let startTime = Date.now();
+  let timerInterval;
+
+  // Navigation functions
+  function showSlide(index) {
+    if (index < 0) index = 0;
+    if (index >= slides.length) index = slides.length - 1;
+    slides.forEach((s, i) => {
+      s.classList.toggle('active', i === index);
+    });
+    currentIdx = index;
+    updateDots();
+    updateProgress();
+    updateTimerDisplay(); // show remaining estimate
+  }
+
+  function nextSlide() { showSlide(currentIdx + 1); }
+  function prevSlide() { showSlide(currentIdx - 1); }
+
+  // Dots
+  function updateDots() {
+    const container = document.getElementById('navDots');
+    container.innerHTML = '';
+    slides.forEach((_, i) => {
+      const dot = document.createElement('div');
+      dot.classList.add('dot');
+      if (i === currentIdx) dot.classList.add('active');
+      dot.addEventListener('click', () => showSlide(i));
+      container.appendChild(dot);
+    });
+  }
+
+  // Progress bar
+  function updateProgress() {
+    const percent = (currentIdx + 1) / slides.length * 100;
+    document.getElementById('progressBar').style.width = `${percent}%`;
+  }
+
+  // Timer: count up + estimated remaining based on 20 min total
+  function updateTimerDisplay() {
+    const elapsedSeconds = Math.floor((Date.now() - startTime) / 1000);
+    const totalSecondsTarget = 20 * 60;
+    const remainingSeconds = Math.max(0, totalSecondsTarget - elapsedSeconds);
+    const elapsedMin = Math.floor(elapsedSeconds / 60).toString().padStart(2,'0');
+    const elapsedSec = (elapsedSeconds % 60).toString().padStart(2,'0');
+    const remMin = Math.floor(remainingSeconds / 60);
+    const remSec = (remainingSeconds % 60).toString().padStart(2,'0');
+    document.getElementById('timerDisplay').innerHTML = `${elapsedMin}:${elapsedSec} / 20:00 (${remMin}:${remSec} left)`;
+  }
+
+  // Speaker notes toggle
+  const notesToggle = document.getElementById('notesToggle');
+  notesToggle.addEventListener('click', () => {
+    const activeSlide = slides[currentIdx];
+    const notesDiv = activeSlide.querySelector('.speaker-notes');
+    if (notesDiv) notesDiv.classList.toggle('show');
+  });
+
+  // Keyboard
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') prevSlide();
+    if (e.key === 'ArrowRight') nextSlide();
+    if (e.key === 'n' || e.key === 'N') notesToggle.click();
+  });
+
+  // Touch swipe
+  let touchStartX = 0;
+  document.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; });
+  document.addEventListener('touchend', (e) => {
+    const endX = e.changedTouches[0].screenX;
+    if (endX < touchStartX - 50) nextSlide();
+    if (endX > touchStartX + 50) prevSlide();
+  });
+
+  // Buttons
+  document.getElementById('prevBtn').addEventListener('click', prevSlide);
+  document.getElementById('nextBtn').addEventListener('click', nextSlide);
+
+  // Initialise
+  showSlide(0);
+  timerInterval = setInterval(updateTimerDisplay, 1000);
+</script>
 </body>
 </html>
