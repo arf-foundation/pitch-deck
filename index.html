@@ -2,85 +2,374 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
   <title>ARF – Agentic Reliability Framework | Juan Petter @ LLMday 2026</title>
   <meta name="description" content="Deterministic governance layer for autonomous AI agents – Bayesian risk scoring, expected loss minimisation, cryptographic audit trails.">
   <meta name="author" content="Juan Petter – ARF">
   <meta name="theme-color" content="#0a0c10">
   <style>
-    /* ========== RESET & BASE ========== */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background: radial-gradient(circle at 10% 20%, #0a0c10, #010101);
+      background: #0a0c10;
       color: #eef2ff;
-      line-height: 1.5;
-      overflow-x: hidden;
+      line-height: 1.4;
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      position: relative;
     }
-    .presentation { max-width: 1280px; margin: 0 auto; padding: 1rem; }
-    .progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: #38bdf8; width: 0%; z-index: 1000; transition: width 0.2s; }
-    .slide-container { position: relative; min-height: 70vh; }
+
+    /* Animated tech grid background (subtle) */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(56, 189, 248, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(56, 189, 248, 0.08) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 20% 30%, rgba(56, 189, 248, 0.05), transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+      animation: pulseGlow 8s ease infinite;
+    }
+
+    @keyframes pulseGlow {
+      0% { opacity: 0.3; }
+      50% { opacity: 0.7; }
+      100% { opacity: 0.3; }
+    }
+
+    /* Presentation container – full screen */
+    .presentation {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .slide-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Each slide – full viewport, centered content */
     .slide {
-      background: rgba(18, 22, 28, 0.85);
-      backdrop-filter: blur(4px);
-      border-radius: 1.5rem;
-      padding: 1.5rem;
-      margin-bottom: 1rem;
-      border: 1px solid rgba(56, 189, 248, 0.25);
-      box-shadow: 0 20px 30px -12px rgba(0,0,0,0.5);
-      transition: opacity 0.3s ease, transform 0.3s ease;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       opacity: 0;
-      transform: translateY(10px);
-      display: none;
+      transition: opacity 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      pointer-events: none;
+      background: rgba(10, 12, 16, 0.7);
+      backdrop-filter: blur(2px);
     }
-    .slide.active { display: block; opacity: 1; transform: translateY(0); }
-    h1 { font-size: 3rem; font-weight: 700; background: linear-gradient(135deg, #fff, #38bdf8); background-clip: text; -webkit-background-clip: text; color: transparent; margin-bottom: 0.5rem; }
-    h2 { font-size: 1.6rem; font-weight: 600; border-left: 4px solid #38bdf8; padding-left: 0.8rem; margin: 1rem 0 0.8rem; color: #f0f9ff; }
-    h3 { font-size: 1.2rem; font-weight: 600; margin: 0.8rem 0 0.4rem; color: #bae6fd; }
-    .tagline { font-size: 1.1rem; color: #94a3b8; margin-bottom: 0.8rem; }
-    .stat-grid { display: flex; flex-wrap: wrap; gap: 0.8rem; margin: 1rem 0; }
-    .stat-card { background: #0f172a; border-radius: 1rem; padding: 0.8rem 1rem; flex: 1; text-align: center; }
-    .stat-number { font-size: 1.8rem; font-weight: 800; color: #38bdf8; }
-    .formula { background: #0a0c14; padding: 0.5rem 0.8rem; border-radius: 0.8rem; font-family: monospace; font-size: 0.9rem; border-left: 3px solid #38bdf8; margin: 0.8rem 0; cursor: help; }
-    .tooltip { display: none; background: #1e293b; color: #bae6fd; padding: 0.2rem 0.5rem; border-radius: 0.5rem; font-size: 0.7rem; margin-top: 0.3rem; }
-    .formula:hover .tooltip { display: inline-block; }
-    .bullet-list { list-style: none; padding-left: 0; }
-    .bullet-list li { margin-bottom: 0.5rem; padding-left: 1.2rem; position: relative; font-size: 0.95rem; }
-    .bullet-list li::before { content: "▹"; color: #38bdf8; position: absolute; left: 0; }
-    .two-columns { display: flex; gap: 1rem; flex-wrap: wrap; margin: 0.8rem 0; }
-    .col { flex: 1; background: #0f172a; padding: 0.8rem; border-radius: 0.8rem; }
-    .three-columns { display: flex; gap: 1rem; flex-wrap: wrap; margin: 0.8rem 0; }
-    .col3 { flex: 1; background: #0f172a; padding: 0.6rem; border-radius: 0.8rem; text-align: center; }
-    .cta { background: linear-gradient(95deg, #0f172a, #020617); padding: 0.8rem; border-radius: 1.5rem; text-align: center; margin-top: 0.8rem; }
-    .badge { background: #38bdf820; color: #7dd3fc; padding: 0.2rem 0.6rem; border-radius: 1rem; font-size: 0.7rem; display: inline-block; margin-bottom: 0.5rem; }
-    .logo-row { display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
-    .logo-row img { height: 40px; width: auto; }
-    .demo-frame { background: #0f172a; border-radius: 1rem; overflow: hidden; margin: 0.8rem 0; border: 1px solid #1e293b; }
-    .demo-frame iframe { width: 100%; height: 350px; border: none; }
-    .demo-fallback { display: none; text-align: center; padding: 1rem; background: #1e293b; border-radius: 1rem; margin: 0.8rem 0; }
-    .nav-dots { position: fixed; right: 0.5rem; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 0.4rem; z-index: 100; }
-    .dot { width: 8px; height: 8px; background: #5b6e8c; border-radius: 50%; cursor: pointer; transition: 0.2s; }
-    .dot.active { background: #38bdf8; transform: scale(1.4); }
-    .nav-arrows { position: fixed; bottom: 0.8rem; left: 0; right: 0; display: flex; justify-content: center; gap: 0.8rem; z-index: 100; }
-    .nav-btn { background: #1e293b; border: none; color: white; padding: 0.4rem 0.8rem; border-radius: 2rem; cursor: pointer; font-size: 0.8rem; font-weight: 500; }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Content card – centered, max width, responsive */
+    .slide-content {
+      max-width: 1100px;
+      width: 85%;
+      margin: 0 auto;
+      padding: 2rem;
+      background: rgba(18, 22, 28, 0.7);
+      backdrop-filter: blur(12px);
+      border-radius: 2rem;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      box-shadow: 0 25px 45px -12px rgba(0,0,0,0.5);
+      transition: transform 0.3s ease;
+    }
+
+    /* Typography – larger, cleaner */
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ffffff, #38bdf8);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.02em;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      border-left: 5px solid #38bdf8;
+      padding-left: 1rem;
+      margin: 0 0 1rem 0;
+      color: #f0f9ff;
+      line-height: 1.2;
+    }
+
+    h3 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin: 0.5rem 0;
+      color: #bae6fd;
+    }
+
+    .tagline {
+      font-size: 1.2rem;
+      color: #94a3b8;
+      margin-bottom: 1rem;
+    }
+
+    /* Stats – larger numbers */
+    .stat-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      margin: 1.5rem 0;
+    }
+    .stat-card {
+      background: rgba(15, 23, 42, 0.8);
+      border-radius: 1.5rem;
+      padding: 1rem 1.2rem;
+      flex: 1;
+      text-align: center;
+      border: 1px solid #1e293b;
+    }
+    .stat-number {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #38bdf8;
+    }
+
+    /* Bullet list – max 4 items, large icons */
+    .bullet-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 1rem 0;
+    }
+    .bullet-list li {
+      margin-bottom: 0.8rem;
+      padding-left: 1.8rem;
+      position: relative;
+      font-size: 1.2rem;
+    }
+    .bullet-list li::before {
+      content: "▹";
+      color: #38bdf8;
+      position: absolute;
+      left: 0;
+      font-size: 1.2rem;
+    }
+
+    /* Two/three column layouts */
+    .two-columns, .three-columns {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin: 1rem 0;
+    }
+    .col, .col3 {
+      background: rgba(15, 23, 42, 0.6);
+      padding: 1rem;
+      border-radius: 1rem;
+      flex: 1;
+    }
+    .col3 { text-align: center; }
+
+    .cta {
+      background: linear-gradient(95deg, #0f172a, #020617);
+      padding: 1rem;
+      border-radius: 2rem;
+      text-align: center;
+      margin-top: 1.2rem;
+      font-size: 1.2rem;
+    }
+
+    .badge {
+      background: rgba(56, 189, 248, 0.15);
+      color: #7dd3fc;
+      padding: 0.3rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.9rem;
+      display: inline-block;
+      margin-bottom: 0.8rem;
+    }
+
+    .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .logo-row img { height: 48px; width: auto; }
+
+    /* Demo iframe – responsive */
+    .demo-frame {
+      background: #0f172a;
+      border-radius: 1rem;
+      overflow: hidden;
+      margin: 1rem 0;
+      border: 1px solid #1e293b;
+    }
+    .demo-frame iframe {
+      width: 100%;
+      height: 320px;
+      border: none;
+    }
+
+    .qr {
+      text-align: center;
+      margin: 1rem 0;
+    }
+    .qr img {
+      width: 110px;
+      height: 110px;
+      background: white;
+      padding: 0.4rem;
+      border-radius: 1rem;
+    }
+
+    /* Navigation – larger buttons */
+    .nav-dots {
+      position: fixed;
+      right: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      z-index: 200;
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      background: #5b6e8c;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .dot.active { background: #38bdf8; transform: scale(1.5); box-shadow: 0 0 8px #38bdf8; }
+
+    .nav-arrows {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      z-index: 200;
+    }
+    .nav-btn {
+      background: #1e293b;
+      border: none;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 3rem;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: 0.2s;
+    }
     .nav-btn:hover { background: #38bdf8; color: #0a0c10; }
-    .speaker-notes-toggle { position: fixed; bottom: 0.8rem; right: 0.8rem; background: #38bdf8; color: #0a0c10; border: none; padding: 0.3rem 0.6rem; border-radius: 1.5rem; font-weight: 600; cursor: pointer; z-index: 100; font-size: 0.7rem; }
-    .speaker-notes { display: none; background: #0f172a; border-left: 3px solid #38bdf8; padding: 0.6rem; margin-top: 0.8rem; border-radius: 0.6rem; font-size: 0.8rem; }
+
+    .speaker-notes-toggle {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      background: #38bdf8;
+      color: #0a0c10;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      font-weight: 600;
+      cursor: pointer;
+      z-index: 200;
+      font-size: 0.8rem;
+    }
+    .speaker-notes {
+      display: none;
+      background: #0f172a;
+      border-left: 4px solid #38bdf8;
+      padding: 0.8rem;
+      margin-top: 1rem;
+      border-radius: 1rem;
+      font-size: 0.9rem;
+      color: #cbd5e1;
+    }
     .speaker-notes.show { display: block; }
-    .timer { position: fixed; top: 0.5rem; right: 0.5rem; background: #000000aa; backdrop-filter: blur(4px); padding: 0.2rem 0.5rem; border-radius: 1rem; font-family: monospace; font-size: 0.7rem; z-index: 100; border: 1px solid #38bdf8; }
-    .qr { text-align: center; margin: 0.8rem 0; }
-    .qr img { width: 100px; height: 100px; background: white; padding: 0.4rem; border-radius: 0.8rem; }
-    .copy-email { cursor: pointer; background: #1e293b; padding: 0.2rem 0.5rem; border-radius: 1rem; display: inline-block; font-size: 0.7rem; }
-    .icon-list { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; margin: 0.5rem 0; }
-    .icon-item { background: #0f172a; border-radius: 2rem; padding: 0.3rem 0.8rem; font-size: 0.8rem; }
-    .code-block { background: #0a0c14; padding: 0.6rem; border-radius: 0.6rem; font-family: monospace; font-size: 0.8rem; overflow-x: auto; margin: 0.8rem 0; }
-    footer { text-align: center; margin-top: 1rem; padding: 0.8rem; font-size: 0.65rem; color: #5b6e8c; border-top: 1px solid #1e293b; }
-    @media (max-width: 680px) { .slide { padding: 1rem; } h1 { font-size: 2rem; } h2 { font-size: 1.3rem; } .demo-frame iframe { height: 250px; } .nav-dots { display: none; } }
-    @media print { .nav-dots, .nav-arrows, .speaker-notes-toggle, .timer, .progress-bar { display: none; } .slide { break-inside: avoid; background: white; color: black; } }
+
+    .timer {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(4px);
+      padding: 0.3rem 0.8rem;
+      border-radius: 2rem;
+      font-family: monospace;
+      font-size: 0.9rem;
+      z-index: 200;
+      border: 1px solid #38bdf8;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0.5rem;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 0.7rem;
+      color: #5b6e8c;
+      z-index: 200;
+      background: rgba(0,0,0,0.3);
+      padding: 0.3rem;
+    }
+
+    @media (max-width: 680px) {
+      .slide-content { padding: 1rem; width: 90%; }
+      h1, h2 { font-size: 1.8rem; }
+      .bullet-list li { font-size: 1rem; }
+      .stat-number { font-size: 1.5rem; }
+      .nav-dots { display: none; }
+    }
+
+    @media print {
+      .nav-dots, .nav-arrows, .speaker-notes-toggle, .timer { display: none; }
+      .slide { position: relative; display: block; opacity: 1; break-after: page; }
+      body { overflow: auto; height: auto; }
+      .presentation { height: auto; overflow: auto; }
+    }
   </style>
 </head>
 <body>
-<div class="progress-bar" id="progressBar"></div>
+<div class="progress-bar" id="progressBar" style="position:fixed; top:0; left:0; height:3px; background:#38bdf8; width:0%; z-index:300;"></div>
 <div class="timer" id="timerDisplay">00:00 / 20:00</div>
 <div class="nav-dots" id="navDots"></div>
 <div class="nav-arrows">
@@ -91,311 +380,232 @@
 
 <div class="presentation">
   <div class="slide-container" id="slideContainer">
-    <!-- ==================== SLIDE 1: TITLE ==================== -->
+    <!-- SLIDE 1: TITLE -->
     <div class="slide">
-      <div class="logo-row">
-        <img src="ARF - Primary Logo.png" alt="ARF Logo">
-        <img src="ARF - Transparent Primary Logo.png" alt="ARF Logo">
-      </div>
-      <div class="badge">LLMday NYC · June 4, 2026 · 2:30 PM</div>
-      <h1>Agentic Reliability Framework</h1>
-      <div class="tagline">Governance that keeps you in control. Every decision. Auditable. Deterministic.</div>
-      <div class="badge" style="background:#2dd4bf20; color:#2dd4bf;">🔐 You stay in control – we escalate, not replace</div>
-      <p><strong>Juan Petter</strong> – Founder, ARF · ex‑NetApp · <span class="copy-email" onclick="navigator.clipboard.writeText('juan@arf-ai.com'); alert('Email copied!')">📋 juan@arf-ai.com</span></p>
-      <div class="stat-grid">
-        <div class="stat-card"><div class="stat-number">$250k</div><div>avg loss per silent AI incident</div></div>
-        <div class="stat-card"><div class="stat-number">73%</div><div>agentic AI projects fail in production</div></div>
-        <div class="stat-card"><div class="stat-number">44+</div><div>determinism tests · 100% pass</div></div>
-      </div>
-      <div class="icon-list">
-        <span class="icon-item">🔒 Deterministic</span>
-        <span class="icon-item">📜 Audit trail</span>
-        <span class="icon-item">⚡ <50ms latency</span>
-        <span class="icon-item">🌐 Air‑gap ready</span>
-      </div>
-      <div class="speaker-notes">[0:00-1:30] Open with: "How many have seen an AI agent confidently make a catastrophic mistake?" Pause. "That's why I built ARF." Emphasise control badge.</div>
-    </div>
-
-    <!-- ==================== SLIDE 2: COUNTERFACTUAL STORY (DETAILED) ==================== -->
-    <div class="slide">
-      <h2>🔍 Real story: the $47k counterfactual</h2>
-      <p><strong>Financial services pilot</strong> – an auto‑remediation agent detected high latency and proposed restarting 14 production pods. Its confidence: 94%.</p>
-      <div class="two-columns">
-        <div class="col">
-          <h3>❌ Without ARF</h3>
-          <ul class="bullet-list">
-            <li>Agent executes immediately</li>
-            <li>Crash loop begins</li>
-            <li>Customer impact: <strong>$47k</strong></li>
-            <li>Incident post‑mortem reveals stale cache</li>
-            <li>Repeat incidents occur every 3 weeks</li>
-          </ul>
+      <div class="slide-content">
+        <div class="logo-row">
+          <img src="ARF - Primary Logo.png" alt="ARF Logo">
         </div>
-        <div class="col">
-          <h3>✅ With ARF</h3>
-          <ul class="bullet-list">
-            <li>ARF recalls a similar failure last week</li>
-            <li>Bayesian posterior P(failure)=0.32</li>
-            <li>Expected loss = 0.32 × $150k = $48k</li>
-            <li>Decision: <strong>ESCALATE to human</strong></li>
-            <li>Human fixes stale cache in 4 min → zero loss</li>
-          </ul>
+        <div class="badge">LLMday NYC · June 4, 2026 · 2:30 PM</div>
+        <h1>Agentic Reliability Framework</h1>
+        <div class="tagline">Governance that keeps you in control. Deterministic. Auditable.</div>
+        <div class="badge" style="background:#2dd4bf20; color:#2dd4bf;">🔐 You stay in control – we escalate, not replace</div>
+        <p><strong>Juan Petter</strong> – Founder, ARF · ex‑NetApp · <span onclick="navigator.clipboard.writeText('juan@arf-ai.com'); alert('Email copied!')" style="cursor:pointer; background:#1e293b; padding:0.2rem 0.6rem; border-radius:1rem;">📋 juan@arf-ai.com</span></p>
+        <div class="stat-grid">
+          <div class="stat-card"><div class="stat-number">$250k</div><div>avg loss per silent AI incident</div></div>
+          <div class="stat-card"><div class="stat-number">73%</div><div>agentic AI projects fail in production</div></div>
+          <div class="stat-card"><div class="stat-number">44+</div><div>determinism tests · 100% pass</div></div>
         </div>
-      </div>
-      <div class="cta" style="background:transparent;">📌 ARF doesn’t stop agents – it gives them memory and a risk budget. You stay in control.</div>
-      <div class="speaker-notes">[1:30-3:30] Walk through both columns. Emphasise that the agent was confident but wrong. ARF remembered history and prevented the loss.</div>
-    </div>
-
-    <!-- ==================== SLIDE 3: BAYESIAN INTUITION (NO HEAVY MATH) ==================== -->
-    <div class="slide">
-      <h2>🧠 How ARF thinks – learning from experience</h2>
-      <p>Same way a senior engineer updates beliefs after each incident.</p>
-      <div class="formula">
-        Risk = (past failure rate for similar actions) × (cost if it fails)
-        <span class="tooltip">Example: similar action failed 3 times out of 10, each failure cost $100k → expected loss = $30k → escalate if above threshold.</span>
-      </div>
-      <div class="three-columns">
-        <div class="col3">📊 <strong>Operational memory</strong><br>Remembers every past decision</div>
-        <div class="col3">🎯 <strong>Historical accuracy</strong><br>Adjusts for agent over‑confidence</div>
-        <div class="col3">📝 <strong>Deterministic output</strong><br>Approve · Escalate · Deny</div>
-      </div>
-      <div class="code-block">
-        // Simplified Bayesian update (Beta-Binomial)<br>
-        prior_alpha = 1, prior_beta = 1  // uninformative prior<br>
-        for each incident: if failure -> alpha++, else beta++<br>
-        posterior_failure_rate = alpha / (alpha + beta)<br>
-        expected_loss = posterior_failure_rate * impact
-      </div>
-      <div class="speaker-notes">[3:30-5:30] "No black‑box – just counting past incidents and costs. You can see the logic. This is not magic."</div>
-    </div>
-
-    <!-- ==================== SLIDE 4: DETERMINISTIC & OFFLINE CAPABLE ==================== -->
-    <div class="slide">
-      <h2>🔒 Deterministic. Offline‑capable. Auditable.</h2>
-      <ul class="bullet-list">
-        <li><strong>Same input → same decision</strong> – SHA‑3 signed, replayable</li>
-        <li><strong>Runs locally</strong> – can be air‑gapped, no cloud dependency</li>
-        <li><strong>Policy algebra</strong> – express rules like “never touch prod DB at 2AM”</li>
-        <li><strong>RAG memory (FAISS)</strong> – persistent vector store of past incidents</li>
-        <li><strong>Test API</strong> – <a href="https://a-r-f-arf-sandbox-api.hf.space/v1/evaluate" target="_blank" rel="noopener" style="color:#7dd3fc;">public sandbox</a> (mock data, real logic)</li>
-      </ul>
-      <div class="code-block">
-        # Example API call (curl)<br>
-        curl -X POST https://a-r-f-arf-sandbox-api.hf.space/v1/evaluate \<br>
-          -H "Content-Type: application/json" \<br>
-          -d '{"service_name":"api","event_type":"latency","severity":"high","metrics":{"latency_ms":450}}'
-      </div>
-      <div class="speaker-notes">[5:30-7:00] Important for regulated industries (finance, healthcare, government). No internet required for core engine.</div>
-    </div>
-
-    <!-- ==================== SLIDE 5: MARKET GAP + REGULATIONS ==================== -->
-    <div class="slide">
-      <h2>🏛️ Why now: control is becoming mandatory</h2>
-      <div class="two-columns">
-        <div class="col">
-          <h3>⚙️ The gap</h3>
-          <ul class="bullet-list">
-            <li>Observability = post‑mortem only</li>
-            <li>IAM = identity only, no decision quality</li>
-            <li>No pre‑execution risk evaluation</li>
-          </ul>
+        <div style="display:flex; gap:0.8rem; justify-content:center; flex-wrap:wrap;">
+          <span style="background:#0f172a; padding:0.3rem 0.8rem; border-radius:2rem;">🔒 Deterministic</span>
+          <span style="background:#0f172a; padding:0.3rem 0.8rem; border-radius:2rem;">📜 Audit trail</span>
+          <span style="background:#0f172a; padding:0.3rem 0.8rem; border-radius:2rem;">⚡ &lt;50ms latency</span>
+          <span style="background:#0f172a; padding:0.3rem 0.8rem; border-radius:2rem;">🌐 Air‑gap ready</span>
         </div>
-        <div class="col">
-          <h3>📜 Regulatory push</h3>
-          <ul class="bullet-list">
-            <li>EU AI Act – mandatory audit trails by 2027</li>
-            <li>NIST AI RMF – risk assessment required</li>
-            <li>ARF is built for compliance by design</li>
-          </ul>
+        <div class="speaker-notes">[0:00-1:30] Open with: "How many have seen an AI agent confidently make a catastrophic mistake?" Pause. "That's why I built ARF." Emphasise control.</div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2: THE $47K COUNTERFACTUAL -->
+    <div class="slide">
+      <div class="slide-content">
+        <h2>🔍 Real story: $47k saved</h2>
+        <p><strong>Financial pilot</strong> – an agent wanted to restart 14 production pods. Confidence: 94%.</p>
+        <div class="two-columns">
+          <div class="col">
+            <h3>❌ Without ARF</h3>
+            <ul class="bullet-list">
+              <li>Executes immediately → crash loop</li>
+              <li><strong>$47k customer impact</strong></li>
+              <li>Repeat failures every 3 weeks</li>
+            </ul>
+          </div>
+          <div class="col">
+            <h3>✅ With ARF</h3>
+            <ul class="bullet-list">
+              <li>Memory recalled similar past failure</li>
+              <li>P(failure)=0.32 → expected loss $48k</li>
+              <li><strong>ESCALATED → human fixed in 4 min</strong></li>
+            </ul>
+          </div>
         </div>
+        <div class="cta" style="background:transparent;">📌 ARF gives agents memory and a risk budget. You stay in control.</div>
+        <div class="speaker-notes">[1:30-3:30] Walk through both sides. Emphasise that agent was confident but wrong. ARF remembered history.</div>
       </div>
-      <div class="cta">“You wouldn’t give a junior engineer root access without guardrails. Why give it to an agent?”</div>
-      <div class="speaker-notes">[7:00-8:30] This slide directly addresses loss of control. Frame ARF as the guardrail, not the replacement.</div>
     </div>
 
-    <!-- ==================== SLIDE 6: ARCHITECTURE – DETAILED FLOW ==================== -->
+    <!-- SLIDE 3: BAYESIAN INTUITION -->
     <div class="slide">
-      <h2>🏗️ How ARF works – under the hood</h2>
-      <div style="background:#0f172a; border-radius:0.8rem; padding:0.6rem; font-family:monospace; text-align:center; font-size:0.8rem;">
-        Agent Action → <strong style="color:#38bdf8">Bayesian Fusion</strong> → <strong style="color:#38bdf8">Policy Algebra</strong> → <strong style="color:#38bdf8">RAG Memory</strong> → Threshold → { Approve | Escalate | Deny } → Signed Audit Trail
-      </div>
-      <div class="three-columns">
-        <div class="col3">🧠 <strong>Bayesian Fusion</strong><br>Agent confidence + historical accuracy + incident memory</div>
-        <div class="col3">📜 <strong>Policy Algebra</strong><br>Human‑defined boundaries (time, resource, role)</div>
-        <div class="col3">🚨 <strong>Escalation</strong><br>Slack, PagerDuty, webhook, or human review</div>
-      </div>
-      <div class="speaker-notes">[8:30-10:00] This is the core technical differentiator. Emphasise that every override is logged – no silent bypass.</div>
-    </div>
-
-    <!-- ==================== SLIDE 7: LIVE INTERACTIVE DEMO (EMBEDDED) ==================== -->
-    <div class="slide">
-      <h2>🎮 See it live – adjust risk, see ARF decide</h2>
-      <p>This is the <strong>public risk demo</strong> (mock data, real Bayesian logic). Play with the sliders.</p>
-      <div class="demo-frame" id="demoFrame">
-        <iframe src="https://arf-foundation.github.io/arf-risk-demo/" title="ARF Risk Demo" loading="lazy" onerror="document.getElementById('demoFallback').style.display='block'; this.style.display='none';"></iframe>
-      </div>
-      <div id="demoFallback" class="demo-fallback" style="display:none;">
-        ⚠️ Iframe couldn't load. Open manually:<br>
-        <a href="https://arf-foundation.github.io/arf-risk-demo/" target="_blank" rel="noopener" style="color:#7dd3fc;">arf-risk-demo</a><br>
-        Or scan QR →
-      </div>
-      <div class="qr">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://arf-foundation.github.io/arf-risk-demo/" alt="QR to risk demo">
-      </div>
-      <div class="speaker-notes">[10:00-12:30] Spend 2-3 minutes here. Ask: “What happens if you lower historical accuracy? Exactly – ARF escalates.” This is the most engaging slide.</div>
-    </div>
-
-    <!-- ==================== SLIDE 8: TRACTION + TEAM (AUTHENTIC) ==================== -->
-    <div class="slide">
-      <h2>🚀 Where we are – real, not vapourware</h2>
-      <ul class="bullet-list">
-        <li>✅ Core engine v4 – live in pilot environments (Python + Rust backends)</li>
-        <li>✅ 2 active pilots (financial data automation, legal‑tech document review)</li>
-        <li>✅ White paper v4.0 – open specification, weeks away</li>
-        <li>✅ 44+ determinism pressure tests – 100% pass rate</li>
-        <li>👥 Founder‑led – I work directly with every pilot</li>
-      </ul>
-      <div class="cta" style="background:#1e293b;">📌 We don’t sell software – we co‑develop solutions with early adopters.</div>
-      <div class="speaker-notes">[12:30-13:30] Authenticity builds trust. Admit we’re small, but that means you get direct access to the founder.</div>
-    </div>
-
-    <!-- ==================== SLIDE 9: FAQ – FEAR OF COMPLEXITY + LOSS OF CONTROL ==================== -->
-    <div class="slide">
-      <h2>❓ “But what if…?” – common questions</h2>
-      <div class="two-columns">
-        <div class="col">
-          <ul class="bullet-list">
-            <li><strong>Latency?</strong> &lt;50ms core – faster than human review.</li>
-            <li><strong>Data privacy?</strong> Runs on‑prem or VPC – no data leaves your environment.</li>
-            <li><strong>Can agents game the system?</strong> No – ARF tracks historical accuracy, so lying about confidence backfires.</li>
-          </ul>
+      <div class="slide-content">
+        <h2>🧠 How ARF thinks</h2>
+        <p>Same way a senior engineer learns: <strong>past failures × cost = risk</strong></p>
+        <div class="three-columns">
+          <div class="col3">📊 <strong>Memory</strong><br>Remembers every past incident</div>
+          <div class="col3">🎯 <strong>Accuracy</strong><br>Adjusts for over‑confidence</div>
+          <div class="col3">📝 <strong>Output</strong><br>Approve · Escalate · Deny</div>
         </div>
-        <div class="col">
-          <ul class="bullet-list">
-            <li><strong>Does ARF replace humans?</strong> No – it escalates to humans when uncertainty is high. <strong>You stay in control.</strong></li>
-            <li><strong>What about multi‑agent collusion?</strong> Policy algebra supports cross‑agent constraints (e.g., only one agent may write per minute).</li>
-            <li><strong>What if the Bayesian prior is wrong?</strong> We use conjugate priors + HMC + hyperpriors – robust to mis‑specification.</li>
-          </ul>
+        <div class="speaker-notes">[3:30-5:30] "No black‑box – just counting. This is not magic."</div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: DETERMINISTIC & OFFLINE -->
+    <div class="slide">
+      <div class="slide-content">
+        <h2>🔒 Deterministic. Offline. Auditable.</h2>
+        <ul class="bullet-list">
+          <li>Same input → same decision (SHA‑3 signed)</li>
+          <li>Runs locally – air‑gapped possible</li>
+          <li>Policy algebra: "never touch prod DB at 2AM"</li>
+          <li><a href="https://a-r-f-arf-sandbox-api.hf.space/v1/evaluate" target="_blank" rel="noopener" style="color:#7dd3fc;">Test API (mock data, real logic)</a></li>
+        </ul>
+        <div class="speaker-notes">[5:30-7:00] Important for regulated industries. No internet required for core engine.</div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: WHY NOW – MARKET GAP -->
+    <div class="slide">
+      <div class="slide-content">
+        <h2>🏛️ Why now: control is mandatory</h2>
+        <div class="two-columns">
+          <div class="col">
+            <h3>⚙️ The gap</h3>
+            <ul class="bullet-list">
+              <li>Observability = post‑mortem only</li>
+              <li>IAM = identity only, no decision quality</li>
+              <li>No pre‑execution risk evaluation</li>
+            </ul>
+          </div>
+          <div class="col">
+            <h3>📜 Regulations</h3>
+            <ul class="bullet-list">
+              <li>EU AI Act – mandatory audit trails by 2027</li>
+              <li>NIST AI RMF – risk assessment required</li>
+              <li>ARF is built for compliance</li>
+            </ul>
+          </div>
         </div>
+        <div class="cta">“You wouldn’t give a junior engineer root access without guardrails. Why give it to an agent?”</div>
+        <div class="speaker-notes">[7:00-8:30] Directly addresses loss of control. ARF is the guardrail.</div>
       </div>
-      <div class="speaker-notes">[13:30-14:30] Quick, confident answers. The fifth bullet is crucial for loss of control.</div>
     </div>
 
-    <!-- ==================== SLIDE 10: COMPETITIVE LANDSCAPE ==================== -->
+    <!-- SLIDE 6: ARCHITECTURE -->
     <div class="slide">
-      <h2>🏆 ARF vs. alternatives</h2>
-      <div class="three-columns">
-        <div class="col3">❌ <strong>Observability</strong><br>Datadog, Grafana, Prometheus<br>Post‑mortem only, no prevention</div>
-        <div class="col3">❌ <strong>Traditional IAM</strong><br>Okta, Auth0, AWS IAM<br>Identity only – no decision‑quality evaluation</div>
-        <div class="col3">✅ <strong>ARF</strong><br>Pre‑execution risk scoring + audit trail + deterministic enforcement</div>
-      </div>
-      <div class="cta" style="background:#1e293b;">📌 ARF is not a replacement – it’s an additional governance layer that works alongside your existing tools.</div>
-      <div class="speaker-notes">[14:30-15:30] Quick comparison. Emphasise that ARF complements, not replaces.</div>
-    </div>
-
-    <!-- ==================== SLIDE 11: PILOT ACCESS – SOFT CTA ==================== -->
-    <div class="slide">
-      <h2>🤝 Pilot access – no commitment, just conversation</h2>
-      <ul class="bullet-list">
-        <li>Time‑limited pilot – free for qualified teams</li>
-        <li>Founder‑led onboarding – I’ll work directly with you</li>
-        <li>Outcome‑based pricing – pay only if we save you money</li>
-        <li>Access to protected core engine (not just advisory API)</li>
-        <li>Tamper‑evident audit trails, mechanical enforcement</li>
-      </ul>
-      <div class="cta">
-        📩 <strong>Request pilot access</strong><br>
-        <a href="https://www.arf-ai.com/signup" target="_blank" rel="noopener" style="color:#fff;">arf-ai.com/signup</a><br>
-        ✉️ <span class="copy-email" onclick="navigator.clipboard.writeText('juan@arf-ai.com'); alert('Email copied!')">Click to copy juan@arf-ai.com</span>
-      </div>
-      <div class="qr">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://www.arf-ai.com/signup" alt="QR to pilot signup">
-        <p style="font-size:0.7rem;">Scan to request access</p>
-      </div>
-      <div class="speaker-notes">[15:30-17:00] Main ask. Say: “If you’re running agents in production and you’re not 100% sure about their decisions, let’s talk.”</div>
-    </div>
-
-    <!-- ==================== SLIDE 12: NEXT STEPS (REASSURANCE) ==================== -->
-    <div class="slide">
-      <h2>📋 After you request access</h2>
-      <ul class="bullet-list">
-        <li>I personally review every application (within 48h)</li>
-        <li>30‑min call to understand your use case, scale, and constraints</li>
-        <li>If it’s a fit, we spin up a pilot sandbox for you – no cost, no obligation</li>
-        <li>You test ARF on a non‑critical workflow first (e.g., staging environment)</li>
-        <li>We iterate together – you only pay if we demonstrate measurable loss avoidance</li>
-      </ul>
-      <div class="speaker-notes">[17:00-18:00] Low friction, high touch. Reduces anxiety about “what happens next”.</div>
-    </div>
-
-    <!-- ==================== SLIDE 13: ROADMAP & INVESTMENT (SOFT ASK) ==================== -->
-    <div class="slide">
-      <h2>🗺️ Where we’re going – and how you can help</h2>
-      <ul class="bullet-list">
-        <li>📅 <strong>Q3 2026:</strong> SOC2 readiness, multi‑tenant enterprise deployment</li>
-        <li>📅 <strong>Q4 2026:</strong> MCP (Model Context Protocol) and A2A agent protocol support</li>
-        <li>📅 <strong>2027:</strong> Self‑hosted, air‑gapped appliance for regulated industries</li>
-        <li>👥 <strong>We’re hiring:</strong> Technical co‑founder (distributed systems/ML infra) + first engineer</li>
-        <li>💰 <strong>Seed round:</strong> $750k to accelerate pilots, SOC2, and core engine hardening</li>
-      </ul>
-      <div class="speaker-notes">[18:00-18:45] Transparency builds trust. If someone wants to invest or join, this is the moment.</div>
-    </div>
-
-    <!-- ==================== SLIDE 14: GLOSSARY OF TERMS ==================== -->
-    <div class="slide">
-      <h2>📖 Glossary – demystifying the jargon</h2>
-      <ul class="bullet-list">
-        <li><strong>Bayesian inference:</strong> A method of updating the probability of a hypothesis as more evidence becomes available.</li>
-        <li><strong>Conjugate prior:</strong> A prior distribution that, when combined with the likelihood, yields a posterior of the same family – simplifies computation.</li>
-        <li><strong>HMC (Hamiltonian Monte Carlo):</strong> A Markov chain Monte Carlo method for sampling from complex probability distributions.</li>
-        <li><strong>RAG (Retrieval-Augmented Generation):</strong> Using a vector database to retrieve relevant past incidents to inform the current decision.</li>
-        <li><strong>FAISS:</strong> Facebook AI Similarity Search – library for efficient similarity search and clustering of dense vectors.</li>
-        <li><strong>Deterministic policy:</strong> Given the same input, the same output is guaranteed – no randomness.</li>
-      </ul>
-      <div class="speaker-notes">[18:45-19:00] Optional slide – only if asked. Shows we’re transparent.</div>
-    </div>
-
-    <!-- ==================== SLIDE 15: SAMPLE AUDIT LOG (TRANSPARENCY) ==================== -->
-    <div class="slide">
-      <h2>📜 Sample audit trail – what you get</h2>
-      <div class="code-block">
-        {
-          "decision_id": "arf-20260604-143022-9a3f",
-          "timestamp": "2026-06-04T14:30:22Z",
-          "agent_action": "delete_prod_snapshot",
-          "bayesian_posterior": 0.32,
-          "impact_estimate": 150000,
-          "expected_loss": 48000,
-          "policy_evaluation": "escalate",
-          "human_reviewer": null,
-          "audit_hash": "sha3-256:7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1f..."
-        }
-      </div>
-      <p>Every decision is signed, timestamped, and immutable. Suitable for regulatory audits and internal post‑mortems.</p>
-      <div class="speaker-notes">[19:00-19:15] Show concrete example. Builds trust.</div>
-    </div>
-
-    <!-- ==================== SLIDE 16: THANK YOU + Q&A ==================== -->
-    <div class="slide">
-      <h2>🙏 Thank you</h2>
-      <p style="font-size:1.2rem; margin:1rem 0;">“I’ve been the one getting paged at 2am. ARF is the governance layer I wish I had.”</p>
-      <p>— Juan Petter</p>
-      <div class="two-columns">
-        <div class="col">
-          <p>📬 <strong>Let’s continue the conversation</strong></p>
-          <p>Q&A now – I’ll be by the sponsors area. Come say hi, grab a coffee, or scan the QR to request pilot access.</p>
+      <div class="slide-content">
+        <h2>🏗️ Simple flow</h2>
+        <div style="background:#0f172a; border-radius:1rem; padding:0.8rem; font-family:monospace; text-align:center; margin:1rem 0;">
+          Agent Action → <strong style="color:#38bdf8">Bayesian Fusion</strong> → Policy → { Approve | Escalate | Deny } → Audit Trail
         </div>
-        <div class="col qr">
+        <ul class="bullet-list">
+          <li>Bayesian fusion: agent confidence + historical accuracy + incident memory</li>
+          <li>Escalation: Slack, PagerDuty, human review</li>
+          <li>Every override logged – no silent bypass</li>
+        </ul>
+        <div class="speaker-notes">[8:30-10:00] Core differentiator. Audit trail is key.</div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: LIVE DEMO -->
+    <div class="slide">
+      <div class="slide-content">
+        <h2>🎮 See it live – adjust risk, see ARF decide</h2>
+        <p>Public risk demo (mock data, real Bayesian logic).</p>
+        <div class="demo-frame">
+          <iframe src="https://arf-foundation.github.io/arf-risk-demo/" title="ARF Risk Demo" loading="lazy" onerror="this.style.display='none'; document.getElementById('demoFallback').style.display='block';"></iframe>
+        </div>
+        <div id="demoFallback" style="display:none; text-align:center; padding:1rem; background:#1e293b; border-radius:1rem;">
+          ⚠️ Iframe couldn't load. <a href="https://arf-foundation.github.io/arf-risk-demo/" target="_blank" rel="noopener" style="color:#7dd3fc;">Open manually</a> or scan QR.
+        </div>
+        <div class="qr">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://arf-foundation.github.io/arf-risk-demo/" alt="QR to risk demo">
+        </div>
+        <div class="speaker-notes">[10:00-12:30] Spend 2-3 minutes. Ask: “What happens if you lower historical accuracy?” Escalate.</div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: TRACTION -->
+    <div class="slide">
+      <div class="slide-content">
+        <h2>🚀 Where we are – real</h2>
+        <ul class="bullet-list">
+          <li>✅ Core engine v4 – live pilots</li>
+          <li>✅ 2 active pilots (finance, legal tech)</li>
+          <li>✅ Open spec (weeks away)</li>
+          <li>👥 Founder‑led – I work directly with pilots</li>
+        </ul>
+        <div class="cta" style="background:#1e293b;">📌 We co‑develop with early adopters.</div>
+        <div class="speaker-notes">[12:30-13:30] Authenticity. Small team means direct access to founder.</div>
+      </div>
+    </div>
+
+    <!-- SLIDE 9: FAQ (control + complexity) -->
+    <div class="slide">
+      <div class="slide-content">
+        <h2>❓ “But what if…?”</h2>
+        <ul class="bullet-list">
+          <li><strong>Latency?</strong> &lt;50ms – faster than human review.</li>
+          <li><strong>Data privacy?</strong> Runs on‑prem – no data leaves your VPC.</li>
+          <li><strong>Can agents game it?</strong> No – we track historical accuracy.</li>
+          <li><strong>Replace humans?</strong> No – escalates when uncertain. <strong>You stay in control.</strong></li>
+        </ul>
+        <div class="speaker-notes">[13:30-14:30] Quick, confident answers. Last point is crucial for loss of control.</div>
+      </div>
+    </div>
+
+    <!-- SLIDE 10: PILOT ACCESS (SOFT CTA) -->
+    <div class="slide">
+      <div class="slide-content">
+        <h2>🤝 Pilot access – no commitment</h2>
+        <ul class="bullet-list">
+          <li>Time‑limited pilot – free for qualified teams</li>
+          <li>Founder‑led onboarding</li>
+          <li>Outcome‑based pricing – pay only if we save you money</li>
+          <li>Access to protected core engine + audit trails</li>
+        </ul>
+        <div class="cta">
+          📩 <strong>Request pilot access</strong><br>
+          <a href="https://www.arf-ai.com/signup" target="_blank" rel="noopener" style="color:#fff;">arf-ai.com/signup</a><br>
+          ✉️ <span onclick="navigator.clipboard.writeText('juan@arf-ai.com'); alert('Email copied!')" style="cursor:pointer; background:#1e293b; padding:0.2rem 0.6rem; border-radius:1rem;">Click to copy juan@arf-ai.com</span>
+        </div>
+        <div class="qr">
           <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://www.arf-ai.com/signup" alt="QR to pilot signup">
-          <p style="font-size:0.7rem;">Scan → pilot request</p>
         </div>
+        <div class="speaker-notes">[14:30-16:00] Main ask. “If you’re running agents in production and not 100% sure, let’s talk.”</div>
       </div>
-      <div class="speaker-notes">[19:15-20:00] Warm close. Open floor. Have your contact info ready and be approachable.</div>
+    </div>
+
+    <!-- SLIDE 11: NEXT STEPS -->
+    <div class="slide">
+      <div class="slide-content">
+        <h2>📋 After you request access</h2>
+        <ul class="bullet-list">
+          <li>I review every application within 48h</li>
+          <li>30‑min call to understand your use case</li>
+          <li>If fit → pilot sandbox, no cost</li>
+          <li>Test on non‑critical workflow first</li>
+        </ul>
+        <div class="speaker-notes">[16:00-17:00] Low friction, high touch. Reduces anxiety.</div>
+      </div>
+    </div>
+
+    <!-- SLIDE 12: THANK YOU + Q&A -->
+    <div class="slide">
+      <div class="slide-content">
+        <h2>🙏 Thank you</h2>
+        <p style="font-size:1.4rem; margin:1rem 0;">“I’ve been paged at 2am. ARF is the governance layer I wish I had.”</p>
+        <p>— Juan Petter</p>
+        <div class="two-columns" style="margin-top:1rem;">
+          <div class="col">📬 Q&A – I’ll be by the sponsors area. Let's chat.</div>
+          <div class="col qr">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://www.arf-ai.com/signup" alt="QR to pilot signup">
+            <p style="font-size:0.8rem;">Scan → pilot request</p>
+          </div>
+        </div>
+        <div class="speaker-notes">[17:00-18:00] Warm close. Open floor.</div>
+      </div>
     </div>
   </div>
-  <footer>
-    © 2026 ARF · outcome‑based pricing · pilot‑first · core engine access‑controlled. <a href="https://arf-ai.com" target="_blank" rel="noopener" style="color:#7dd3fc;">arf-ai.com</a>
-  </footer>
+  <footer>© 2026 ARF · outcome‑based pricing · pilot‑first · <a href="https://arf-ai.com" target="_blank" rel="noopener" style="color:#7dd3fc;">arf-ai.com</a></footer>
 </div>
 
 <script>
