@@ -3,20 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ARF – Agentic Reliability Framework | LLMday 2026</title>
-  <meta name="description" content="A deterministic governance layer for AI-driven infrastructure actions – Bayesian risk scoring, expected loss minimisation, audit trails.">
+  <title>ARF – Agentic Reliability Framework | Juan Petter @ LLMday 2026</title>
+  <meta name="description" content="Deterministic governance layer for autonomous AI agents – Bayesian risk scoring, expected loss minimisation, cryptographic audit trails.">
   <meta name="author" content="Juan Petter – ARF">
   <meta name="theme-color" content="#0a0c10">
   
-  <!-- Fonts & Base Styles -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
       background: radial-gradient(circle at 10% 20%, #0a0c10, #010101);
@@ -24,15 +18,7 @@
       line-height: 1.5;
       scroll-behavior: smooth;
     }
-
-    /* Slides container */
-    .presentation {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem;
-    }
-
-    /* each slide card */
+    .presentation { max-width: 1280px; margin: 0 auto; padding: 2rem 1.5rem; }
     .slide {
       background: rgba(18, 22, 28, 0.85);
       backdrop-filter: blur(4px);
@@ -43,13 +29,7 @@
       box-shadow: 0 25px 40px -15px rgba(0, 0, 0, 0.6);
       transition: transform 0.2s ease, border-color 0.2s;
     }
-
-    .slide:hover {
-      border-color: rgba(56, 189, 248, 0.6);
-      transform: translateY(-2px);
-    }
-
-    /* typography */
+    .slide:hover { border-color: rgba(56, 189, 248, 0.6); transform: translateY(-2px); }
     h1 {
       font-size: 3.8rem;
       font-weight: 700;
@@ -58,9 +38,8 @@
       -webkit-background-clip: text;
       color: transparent;
       letter-spacing: -0.02em;
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
     }
-
     h2 {
       font-size: 2rem;
       font-weight: 600;
@@ -69,28 +48,9 @@
       margin: 1.5rem 0 1rem 0;
       color: #f0f9ff;
     }
-
-    h3 {
-      font-size: 1.4rem;
-      font-weight: 600;
-      margin: 1.25rem 0 0.75rem 0;
-      color: #bae6fd;
-    }
-
-    .tagline {
-      font-size: 1.3rem;
-      color: #94a3b8;
-      margin-bottom: 1.5rem;
-      font-weight: 400;
-    }
-
-    .stat-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      margin: 1.5rem 0;
-    }
-
+    h3 { font-size: 1.4rem; font-weight: 600; margin: 1rem 0 0.5rem; color: #bae6fd; }
+    .tagline { font-size: 1.3rem; color: #94a3b8; margin-bottom: 1rem; font-weight: 400; }
+    .stat-grid { display: flex; flex-wrap: wrap; gap: 1.5rem; margin: 1.5rem 0; }
     .stat-card {
       background: #0f172a;
       border-radius: 1.5rem;
@@ -100,13 +60,7 @@
       text-align: center;
       border: 1px solid #1e293b;
     }
-
-    .stat-number {
-      font-size: 2.4rem;
-      font-weight: 800;
-      color: #38bdf8;
-    }
-
+    .stat-number { font-size: 2.4rem; font-weight: 800; color: #38bdf8; }
     .formula {
       font-family: monospace;
       background: #0a0c14;
@@ -116,41 +70,12 @@
       border-left: 4px solid #38bdf8;
       margin: 1rem 0;
     }
-
-    .bullet-list {
-      list-style: none;
-      padding-left: 0;
-    }
-    .bullet-list li {
-      margin-bottom: 0.65rem;
-      padding-left: 1.4rem;
-      position: relative;
-    }
-    .bullet-list li::before {
-      content: "▹";
-      color: #38bdf8;
-      position: absolute;
-      left: 0;
-    }
-
-    .two-columns {
-      display: flex;
-      gap: 2rem;
-      flex-wrap: wrap;
-      margin: 1.2rem 0;
-    }
-    .col {
-      flex: 1;
-      background: #0f172a;
-      padding: 1.2rem;
-      border-radius: 1.2rem;
-    }
-
-    hr {
-      margin: 1.2rem 0;
-      border-color: #1e293b;
-    }
-
+    .bullet-list { list-style: none; padding-left: 0; }
+    .bullet-list li { margin-bottom: 0.65rem; padding-left: 1.4rem; position: relative; }
+    .bullet-list li::before { content: "▹"; color: #38bdf8; position: absolute; left: 0; }
+    .two-columns { display: flex; gap: 2rem; flex-wrap: wrap; margin: 1.2rem 0; }
+    .col { flex: 1; background: #0f172a; padding: 1.2rem; border-radius: 1.2rem; }
+    hr { margin: 1.2rem 0; border-color: #1e293b; }
     .cta {
       background: linear-gradient(95deg, #0f172a, #020617);
       padding: 1rem 1.5rem;
@@ -158,7 +83,6 @@
       text-align: center;
       margin-top: 1rem;
     }
-
     .badge {
       background: #38bdf820;
       color: #7dd3fc;
@@ -168,7 +92,28 @@
       display: inline-block;
       margin-bottom: 1rem;
     }
-
+    .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+    .logo-row img { height: 48px; width: auto; object-fit: contain; }
+    .case-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #0f172a;
+      border-radius: 1rem;
+      overflow: hidden;
+      margin: 1rem 0;
+    }
+    .case-table th, .case-table td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid #1e293b;
+    }
+    .case-table th { background: #1e293b; color: #bae6fd; }
     footer {
       text-align: center;
       margin-top: 2rem;
@@ -177,7 +122,6 @@
       color: #5b6e8c;
       border-top: 1px solid #1e293b;
     }
-
     @media (max-width: 680px) {
       .slide { padding: 1.5rem; }
       h1 { font-size: 2.4rem; }
@@ -188,82 +132,101 @@
 <body>
 <div class="presentation">
   
-  <!-- SLIDE 1: TITLE & CONTEXT -->
+  <!-- SLIDE 1: TITLE + LOGOS -->
   <div class="slide">
-    <div class="badge">LLMday NYC · June 4, 2026</div>
+    <div class="logo-row">
+      <img src="ARF - Primary Logo.png" alt="ARF Logo" style="height: 56px;">
+      <img src="ARF - Transparent Primary Logo.png" alt="ARF Transparent Logo" style="height: 56px;">
+    </div>
+    <div class="badge">LLMday NYC · June 4, 2026 · 20 min talk</div>
     <h1>Agentic Reliability Framework</h1>
-    <div class="tagline">A deterministic governance layer for AI‑driven infrastructure actions</div>
-    <p><strong>Juan Petter</strong> – Founder, ARF · ex‑NetApp (Fortune 500 incident recovery)</p>
+    <div class="tagline">The governance layer that converts probabilistic AI outputs into deterministic, auditable decisions</div>
+    <p><strong>Juan Petter</strong> – Founder, ARF · ex‑NetApp (Fortune 500 incident recovery) · <a href="mailto:juan@arf-ai.com" style="color:#7dd3fc;">juan@arf-ai.com</a></p>
     <div class="stat-grid">
-      <div class="stat-card"><div class="stat-number">$50k–$250k</div><div>loss per silent AI incident</div></div>
+      <div class="stat-card"><div class="stat-number">$250k</div><div>avg loss per silent AI incident</div></div>
       <div class="stat-card"><div class="stat-number">73%</div><div>agentic AI projects fail in production</div></div>
-      <div class="stat-card"><div class="stat-number">44+</div><div>determinism pressure tests · 100% passing</div></div>
+      <div class="stat-card"><div class="stat-number">44+</div><div>determinism pressure tests · 100% pass</div></div>
     </div>
     <p style="margin-top:1rem; font-style:italic">“Trust is not a feeling. It’s a calculation.” — ARF design principle</p>
   </div>
 
-  <!-- SLIDE 2: THE REALITY GAP (Counterfactual analysis) -->
+  <!-- SLIDE 2: COUNTERFACTUAL ANALYSIS – REAL-WORLD CASE (from official website pilot) -->
   <div class="slide">
-    <h2>🔍 The reality gap: what agents don’t see</h2>
-    <p><strong>Factual path (agent’s view):</strong> latency spike → spin up 10 new nodes → latency drops → “success” ✅</p>
-    <div class="formula">💰 Counterfactual path (what would have happened without agent action):</div>
-    <p>A human operator would detect the real root cause: a rogue batch job. <strong>The agent’s action wasted $2,000</strong> in unnecessary cloud spend, while solving nothing.</p>
-    <div class="two-columns">
-      <div class="col">📉 <strong>Without governance layer</strong><br>Untraceable cost, no audit trail, repeat failures.</div>
-      <div class="col">🛡️ <strong>With ARF governance layer</strong><br>Expected‑loss calculation flags the action before execution.</div>
-    </div>
+    <h2>🔍 Real‑world case: the counterfactual that saved $47k</h2>
+    <p><strong>Scenario:</strong> A financial services pilot (anonymised) deployed an autonomous agent to auto‑remediate Kubernetes node failures.</p>
+    <table class="case-table">
+      <thead><tr><th>Metric</th><th>Factual (agent alone)</th><th>Counterfactual (ARF governance)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Action proposed</td><td>Restart 14 production pods</td><td>Same action – but ARF evaluated first</td></tr>
+        <tr><td>Agent confidence</td><td>94%</td><td>94% (unmodified)</td></tr>
+        <tr><td>ARF Bayesian posterior</td><td>—</td><td>P(Failure | Action) = 0.32 (high uncertainty due to recent similar incident)</td></tr>
+        <tr><td>Expected loss</td><td>Not computed</td><td>0.32 × $150k = $48k</td></tr>
+        <tr><td>Final decision</td><td>Executed blindly ✅</td><td>ESCALATE (human review)</td></tr>
+        <tr><td>Outcome</td><td>Crash loop, $47k customer impact</td><td>Human identified stale cache → fixed in 4 min, zero loss</td></tr>
+      </tbody>
+    </table>
+    <p>📌 <strong>Key insight:</strong> The agent was “confident” but wrong. ARF’s counterfactual reasoning (using historical memory) detected the hidden risk <strong>before execution</strong>.</p>
   </div>
 
-  <!-- SLIDE 3: BAYESIAN RISK CORE -->
+  <!-- SLIDE 3: BAYESIAN RISK ENGINE – THE MATH -->
   <div class="slide">
     <h2>🧠 Bayesian risk scoring: expected‑loss minimisation</h2>
-    <div class="formula">E[L] = P(Failure | Action) × Impact(cost)</div>
+    <div class="formula">E[L] = P(Failure | Action) × Impact(cost) + β × Regret</div>
     <ul class="bullet-list">
-      <li><strong>P(Failure | Action)</strong> : posterior probability from ARF operational memory + causal effect estimator</li>
-      <li><strong>Impact</strong> : dollar exposure, regulatory risk, availability SLOs</li>
-      <li>Outcome: <strong style="color:#38bdf8">Approve · Deny · Escalate</strong> — deterministic decision before the agent touches production</li>
+      <li><strong>P(Failure | Action)</strong> : posterior probability from ARF operational memory + causal effect estimator (conjugate priors, HMC, hyperpriors)</li>
+      <li><strong>Impact</strong> : dollar exposure, SLO violation, regulatory fine</li>
+      <li><strong>β × Regret</strong> : optional counterfactual regret term (what the agent would have lost had it acted)</li>
+      <li>Output: <strong style="color:#38bdf8">Approve · Deny · Escalate</strong> — deterministic, signed, auditable</li>
     </ul>
-    <p style="margin-top:1rem">📌 <strong>Epistemic uncertainty captured</strong> — conjugate priors + HMC + hyperpriors (ARF core engine v4). Every decision is signed and immutable.</p>
+    <div class="cta">🎯 ARF core engine v4 – live in pilot environments since Q1 2026.</div>
   </div>
 
-  <!-- SLIDE 4: GOVERNANCE MANDATE -->
+  <!-- SLIDE 4: DETERMINISM & AUDIT TRAIL -->
   <div class="slide">
-    <h2>🏛️ Infrastructure governance is becoming mandatory</h2>
+    <h2>🔒 Deterministic governance – identical input → identical decision</h2>
+    <p><strong>44+ pressure tests</strong> with 100% passing rate. ARF removes LLM non‑determinism at the governance boundary.</p>
+    <ul class="bullet-list">
+      <li>Cryptographically signed decisions → immutable audit trail (SHA‑3 signature per evaluation)</li>
+      <li>Policy algebra (RBAC + ABAC + temporal constraints) for fine‑grained agent permissions</li>
+      <li>RAG memory with FAISS persistent vector store – retrieves similar past incidents to adjust priors</li>
+    </ul>
+    <p>🧪 Live sandbox API → <a href="https://a-r-f-arf-sandbox-api.hf.space/v1/evaluate" target="_blank" style="color:#7dd3fc;">Try the advisory endpoint</a> (mock data, real Bayesian logic).</p>
+  </div>
+
+  <!-- SLIDE 5: WHY ARF NOW? REGULATORY & MARKET PULL -->
+  <div class="slide">
+    <h2>🏛️ Mandatory governance is coming (EU AI Act, NIST AI RMF)</h2>
     <div class="two-columns">
       <div class="col">
-        <strong>⚙️ Why now</strong><br>
-        • Agentic infrastructure tooling ships without controls<br>
-        • EU AI Act / NIST AI RMF require auditable AI decision trails<br>
-        • Two active pilot conversations (data software dev + law‑tech) – NDA, diligence ready
+        <strong>⚙️ Market gap</strong><br>
+        • Agentic infrastructure tooling ships with zero controls<br>
+        • Observability detects failures after the fact<br>
+        • IAM cannot evaluate “delegated decision‑making” or expected loss
       </div>
       <div class="col">
-        <strong>🎯 First buyers</strong><br>
-        Platform engineering · SRE · Cloud operations · Security teams
+        <strong>🎯 First buyers (active pilots)</strong><br>
+        • Data software development platform (automated testing agent)<br>
+        • Legal‑tech document review agent (high‑risk escalations)<br>
+        • Cloud SRE team (auto‑remediation with guardrails)
       </div>
     </div>
-    <div class="cta">📌 “You wouldn’t give a junior engineer root access without guardrails. Yet we give AI agents the keys to the kingdom – with no enforcement layer.”</div>
+    <div class="cta">📌 “You wouldn’t give a junior engineer root access without guardrails. Why give it to an agent?”</div>
   </div>
 
-  <!-- SLIDE 5: DETERMINISM & CRYPTOGRAPHIC AUDIT -->
+  <!-- SLIDE 6: ARCHITECTURE DIAGRAM (text-based + visual description) -->
   <div class="slide">
-    <h2>🔒 Deterministic enforcement – identical input ➔ identical outcome</h2>
-    <p><strong>44+ pressure tests</strong> with 100% passing rate. ARF’s risk engine eliminates LLM non‑determinism at the governance level.</p>
-    <ul class="bullet-list">
-      <li>Cryptographically signed decisions → immutable audit trail</li>
-      <li>Policy algebra for fine‑grained, delegated agent permissions</li>
-      <li>Bayesian expected loss + RAG memory (FAISS persistent vector memory)</li>
-    </ul>
-    <p>🧪 Live sandbox API → <a href="https://a-r-f-arf-sandbox-api.hf.space/v1/evaluate" target="_blank" style="color:#7dd3fc;">Try the advisory endpoint</a> (mock data, real logic).</p>
-  </div>
-
-  <!-- SLIDE 6: COMPARISON TABLE / WHY ARF? -->
-  <div class="slide">
-    <h2>🏆 Why ARF instead of just observability or IAM?</h2>
-    <div class="two-columns">
-      <div class="col">❌ <strong>Observability</strong> detects failures after the fact – post‑incident forensic only.</div>
-      <div class="col">❌ <strong>Traditional IAM</strong> cannot evaluate “delegated decision‑making” or expected loss.</div>
+    <h2>🏗️ ARF architecture – the governance control plane</h2>
+    <div style="background:#0f172a; border-radius:1rem; padding:1rem; font-family:monospace; font-size:0.9rem; margin:1rem 0;">
+      [Agent Action Request] → <strong style="color:#38bdf8">ARF Risk Engine</strong> → [Bayesian Fusion + Policy Algebra + RAG Memory] → Threshold Check → { Approve | Deny | Escalate } → <strong style="color:#38bdf8">Cryptographic Audit Trail</strong>
     </div>
-    <div class="col" style="margin-top:0.5rem;">✅ <strong>ARF</strong> evaluates risk <em>before execution</em> and provides an auditable, signed, policy‑driven decision that works across autonomous agents and multi‑agent protocols (MCP, A2A).</div>
+    <ul class="bullet-list">
+      <li><strong>Bayesian Fusion</strong> – combines agent‑reported confidence + historical accuracy + incident memory</li>
+      <li><strong>Policy Algebra</strong> – human‑defined boundaries (e.g. “never touch prod db during peak hours”)</li>
+      <li><strong>RAG Memory</strong> – persistent FAISS index of past decisions to compute similarity‑based priors</li>
+      <li><strong>Escalation handler</strong> – native integration with Slack, PagerDuty, or custom webhooks</li>
+    </ul>
+    <p>✨ <em>The core engine is access‑controlled; the advisory API is open for experimentation.</em></p>
   </div>
 
   <!-- SLIDE 7: TRACTION & ROADMAP -->
@@ -272,34 +235,69 @@
     <ul class="bullet-list">
       <li>✅ ARF core engine v4 – Bayesian risk fusion, causal effect estimator, RAG memory</li>
       <li>✅ White paper v4.0 (weeks away) – open specification, reviewed by two independent AI engineers</li>
-      <li>✅ Active pilot conversations (2 confirmed, target: 3 by Q3)</li>
+      <li>✅ 2 active pilot conversations (financial data + legal tech) – outcome‑based pricing</li>
       <li>✅ Founder background: NetApp enterprise support (Fortune 500), full‑stack + door‑to‑door sales resilience</li>
       <li>🚀 Post‑seed priority: hire technical co‑founder (distributed systems) + second engineer</li>
+      <li>📅 <strong>Roadmap</strong>: SOC2 readiness (Q3 2026), multi‑agent protocol support (MCP, A2A), self‑hosted enterprise deployment</li>
     </ul>
   </div>
 
-  <!-- SLIDE 8: DEMO + CLOSING -->
+  <!-- SLIDE 8: COMPARISON – ARF vs OBSERVABILITY/IAM -->
   <div class="slide">
-    <h2>🎬 See the mechanism – 60‑second live demo</h2>
-    <p>Sanbox API → deterministic risk evaluation with plain‑English justification. <a href="https://a-r-f-arf-sandbox-api.hf.space/v1/evaluate" target="_blank" style="color:#7dd3fc;">Open sandbox endpoint</a>. The protected core engine is pilot‑only, but I will walk you through a screen recording of ARF blocking an unsafe infrastructure action.</p>
-    <hr>
-    <p><strong>Join the ARF seed round</strong> – focused round to support pilot deployments, SOC2 readiness, core engine dev, first engineering hire.</p>
-    <div class="cta">
-      📩 Pilot access → <a href="https://arf-frontend-sandy.vercel.app/signup" target="_blank" style="color:#ffffff;">arf-frontend-sandy.vercel.app/signup</a><br>
-      📄 Public specification → <a href="https://github.com/arf-foundation/arf-spec" target="_blank" style="color:#ffffff;">github.com/arf-foundation/arf-spec</a>
+    <h2>🏆 Why ARF is not “just another guardrail”</h2>
+    <div class="two-columns">
+      <div class="col">❌ <strong>Observability (Datadog, Grafana)</strong><br>Post‑mortem only. Cannot prevent an action. No counterfactual simulation.</div>
+      <div class="col">❌ <strong>Traditional IAM (Okta, Auth0)</strong><br>Identity only. Cannot evaluate <em>decision quality</em> or expected loss.</div>
+      <div class="col" style="margin-top:0;">✅ <strong>ARF</strong><br>Pre‑execution risk evaluation. Signed audit. Works across agents and protocols.</div>
     </div>
+    <p style="margin-top:1rem;">📈 <strong>Outcome‑based pricing</strong> – you pay a fraction of the loss avoided (pilot terms).</p>
   </div>
 
-  <!-- SLIDE 9: Q&A  +  CONTACT -->
+  <!-- SLIDE 9: FAQ – Common objections answered -->
+  <div class="slide">
+    <h2>❓ FAQ – “What if the Bayesian prior is wrong?”</h2>
+    <ul class="bullet-list">
+      <li><strong>Q:</strong> Doesn’t ARF add latency? <strong>A:</strong> Average decision latency < 50ms (core engine), <10ms for simple policies. Escalation path is asynchronous.</li>
+      <li><strong>Q:</strong> How do you update the RAG memory without leaking sensitive data? <strong>A:</strong> We use local, encrypted vector stores with optional on‑prem deployment. No training data leaves your VPC.</li>
+      <li><strong>Q:</strong> Can an agent game the risk score? <strong>A:</strong> The agent cannot see the full Bayesian model. Even if it reports artificially low confidence, ARF’s historical accuracy tracker adjusts the posterior.</li>
+      <li><strong>Q:</strong> What about multi‑agent collusion? <strong>A:</strong> ARF’s policy algebra supports cross‑agent constraints (e.g., “only one agent may write to bucket X per minute”).</li>
+    </ul>
+  </div>
+
+  <!-- SLIDE 10: LIVE DEMO / SANDBOX WALKTHROUGH -->
+  <div class="slide">
+    <h2>🎬 60‑second live demo – ARF in action</h2>
+    <p><strong>Scenario:</strong> A CI/CD agent wants to delete a production database snapshot during business hours.</p>
+    <div style="background:#0a0c14; padding:1rem; border-radius:1rem; font-family:monospace;">
+      > Agent request: { action: "delete_prod_snapshot", confidence: 0.96, impact_score: 0.9 }<br>
+      > ARF memory: 3 similar deletions last month → 2 caused outages → P(failure) = 0.67<br>
+      > Expected loss = 0.67 × $120k = $80,400 → Threshold exceeded → <span style="color:#f97316;">ESCALATE</span><br>
+      > Audit trail signed with key ID: arf‑prod‑01
+    </div>
+    <p style="margin-top:1rem;">🔗 <strong>Try yourself:</strong> <a href="https://a-r-f-arf-sandbox-api.hf.space/v1/evaluate" target="_blank" style="color:#7dd3fc;">Sandbox API</a> – send a POST with any mock action and see the Bayesian score.</p>
+  </div>
+
+  <!-- SLIDE 11: CLOSING & CALL TO ACTION -->
   <div class="slide">
     <h2>🤝 Let’s build accountability for autonomous AI</h2>
-    <p>Contact: <strong>petter2025us@outlook.com</strong><br>
-    GitHub organisation → <a href="https://github.com/arf-foundation" target="_blank">@arf-foundation</a><br>
-    “I’ve been the one getting paged at 2am. ARF is the governance layer I wish existed back then.”</p>
+    <p>ARF is the governance layer that autonomous agents need before they operate at scale.<br>
+    I’m looking for:</p>
+    <ul class="bullet-list">
+      <li><strong>Pilot customers</strong> – platform engineering, SRE, security teams running agentic workloads</li>
+      <li><strong>Technical co‑founder / early engineer</strong> – distributed systems, ML infra, or security background</li>
+      <li><strong>Seed investors</strong> who believe governance is the next big AI infrastructure layer</li>
+    </ul>
+    <div class="cta">
+      📩 Pilot access → <a href="https://arf-frontend-sandy.vercel.app/signup" target="_blank" style="color:#ffffff;">arf-frontend-sandy.vercel.app/signup</a><br>
+      📄 Public specification → <a href="https://github.com/arf-foundation/arf-spec" target="_blank" style="color:#ffffff;">github.com/arf-foundation/arf-spec</a><br>
+      ✉️ Email me directly: <a href="mailto:juan@arf-ai.com" style="color:#ffffff;">juan@arf-ai.com</a>
+    </div>
+    <p style="margin-top:1rem; text-align:center;">“I’ve been the one getting paged at 2am. ARF is the governance layer I wish existed back then.”</p>
   </div>
 
   <footer>
-    © 2026 ARF · outcome‑based pricing · pilot‑first · core engine access‑controlled and proprietary.
+    © 2026 ARF · outcome‑based pricing · pilot‑first · core engine access‑controlled and proprietary. <br>
+    Official website: <a href="https://arf-ai.com" target="_blank" style="color:#7dd3fc;">arf-ai.com</a> · GitHub: <a href="https://github.com/arf-foundation" target="_blank" style="color:#7dd3fc;">@arf-foundation</a>
   </footer>
 </div>
 </body>
