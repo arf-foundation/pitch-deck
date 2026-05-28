@@ -385,37 +385,70 @@
       border-style: dashed;
     }
 
-    .abstract-quote {
-      font-size: 1.5rem;
-      font-weight: 400;
-      line-height: 1.4;
-      margin: 1rem 0;
-      padding: 0.5rem;
-      border-left: 4px solid #38bdf8;
-      background: rgba(56, 189, 248, 0.05);
-      border-radius: 0.5rem;
-    }
-
-    .abstract-highlight {
-      font-size: 1.8rem;
+    /* Visual abstract slide styles */
+    .abstract-title {
+      font-size: 2.2rem;
       font-weight: 700;
-      color: #38bdf8;
-      margin: 0.5rem 0;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      line-height: 1.3;
     }
-
-    .pillars {
+    .abstract-highlight {
+      color: #38bdf8;
+      border-bottom: 2px solid #38bdf8;
+      display: inline-block;
+    }
+    .pillar-grid {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin: 2rem 0;
+    }
+    .pillar-item {
+      text-align: center;
+      background: rgba(15, 23, 42, 0.7);
+      padding: 1rem;
+      border-radius: 1.5rem;
+      width: 180px;
+      transition: transform 0.2s;
+    }
+    .pillar-icon {
+      font-size: 2.5rem;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .pillar-label {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #bae6fd;
+    }
+    .pillar-desc {
+      font-size: 0.8rem;
+      color: #94a3b8;
+      margin-top: 0.3rem;
+    }
+    .arf-statement {
+      text-align: center;
+      font-size: 1.2rem;
+      margin: 1.5rem 0;
+      padding: 0.5rem;
+      background: rgba(56, 189, 248, 0.1);
+      border-radius: 1rem;
+    }
+    .tech-badges {
       display: flex;
       flex-wrap: wrap;
-      gap: 1rem;
       justify-content: center;
-      margin: 1rem 0;
+      gap: 0.8rem;
+      margin-top: 1rem;
     }
-
-    .pillar {
-      background: rgba(15, 23, 42, 0.8);
-      padding: 0.5rem 1rem;
+    .tech-badge {
+      background: rgba(56, 189, 248, 0.2);
+      border: 1px solid rgba(56, 189, 248, 0.5);
+      padding: 0.3rem 0.8rem;
       border-radius: 2rem;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
     }
 
     .code-block {
@@ -452,11 +485,18 @@
       .nav-arrows {
         bottom: 1rem;
       }
-      .abstract-quote {
-        font-size: 1.1rem;
+      .abstract-title {
+        font-size: 1.5rem;
       }
-      .abstract-highlight {
-        font-size: 1.3rem;
+      .pillar-item {
+        width: 140px;
+        padding: 0.8rem;
+      }
+      .pillar-icon {
+        font-size: 1.8rem;
+      }
+      .arf-statement {
+        font-size: 1rem;
       }
     }
 
@@ -553,23 +593,43 @@
       </div>
     </div>
 
-    <!-- SLIDE 3: ABSTRACT / FRAMING – THE CORE INSIGHT -->
+    <!-- SLIDE 3: ABSTRACT / FRAMING – VISUAL AND MINIMAL TEXT -->
     <div class="slide">
       <div class="slide-content">
-        <div class="abstract-highlight">“The real problem is not capability — it is <span style="color:#38bdf8;">control</span>.”</div>
-        <div class="abstract-quote">
-          Most teams are moving fast on agents, but very few are governing them well. In production, the real problem is not capability — it is control: how to evaluate risk, bound autonomy, preserve auditability, and keep systems stable under uncertainty.
+        <div class="abstract-title">
+          “The real problem is not <span style="color:#94a3b8;">capability</span> — it is <span class="abstract-highlight">control</span>.”
         </div>
-        <div class="pillars">
-          <span class="pillar">📊 Evaluate risk</span>
-          <span class="pillar">🔗 Bound autonomy</span>
-          <span class="pillar">📜 Preserve auditability</span>
-          <span class="pillar">⚖️ Keep systems stable</span>
+        <div class="pillar-grid">
+          <div class="pillar-item">
+            <span class="pillar-icon">📊</span>
+            <div class="pillar-label">Evaluate risk</div>
+            <div class="pillar-desc">Bayesian risk scoring</div>
+          </div>
+          <div class="pillar-item">
+            <span class="pillar-icon">🔗</span>
+            <div class="pillar-label">Bound autonomy</div>
+            <div class="pillar-desc">Escalate, not auto‑execute</div>
+          </div>
+          <div class="pillar-item">
+            <span class="pillar-icon">📜</span>
+            <div class="pillar-label">Auditability</div>
+            <div class="pillar-desc">Cryptographic trail</div>
+          </div>
+          <div class="pillar-item">
+            <span class="pillar-icon">⚖️</span>
+            <div class="pillar-label">Stability</div>
+            <div class="pillar-desc">Uncertainty‑aware</div>
+          </div>
         </div>
-        <div class="abstract-quote" style="margin-top:0.5rem;">
-          ARF converts probabilistic AI outputs into <strong>deterministic, auditable decisions</strong> – making autonomous AI survivable inside real enterprise environments.
+        <div class="arf-statement">
+          ⚡ ARF converts probabilistic AI outputs into <strong>deterministic, auditable decisions</strong>
         </div>
-        <div class="badge" style="background:#38bdf820;">🎯 Bayesian risk scoring · Expected‑loss decisioning · Bounded memory · Calibrated escalation</div>
+        <div class="tech-badges">
+          <span class="tech-badge">🎯 Bayesian risk scoring</span>
+          <span class="tech-badge">⚡ Expected‑loss decisioning</span>
+          <span class="tech-badge">🧠 Bounded memory</span>
+          <span class="tech-badge">🔁 Calibrated escalation</span>
+        </div>
       </div>
     </div>
 
