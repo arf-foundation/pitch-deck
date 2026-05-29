@@ -2,11 +2,11 @@
 
 ## 🧠 Psychological principles used
 - **Pattern interrupt** – start with a joke, not a thank‑you.
-- **Loss aversion** – highlight real $ damages (Air Canada, PocketOS).
-- **Social proof** – mention active pilots and 54/54 tests.
+- **Loss aversion** – highlight real $ damages (Air Canada, PocketOS, Amazon).
+- **Social proof** – 54/54 tests, 3 active pilots, founder‑led.
 - **Scarcity** – “limited pilot spots for Q3”.
 - **Authority** – ex‑NetApp, founder‑led, 54/54 tests.
-- **Reciprocity** – offer free pilot access (no cost for qualified teams).
+- **Reciprocity** – free pilot access (no cost for qualified teams).
 - **End‑of‑talk peak‑end rule** – end with a personal story (“paged at 2am”) and a clear call to action.
 
 ---
@@ -29,8 +29,8 @@
 **Delivery:**
 - “Let me show you what happens when agents act without governance.”
 - **Air Canada:** “2022, a chatbot promised a bereavement discount that didn’t exist. The airline argued the chatbot was a ‘separate legal entity’. They lost. $812 damages. But the real cost was trust and a legal precedent.”
-- **PocketOS:** “April 2026. An AI coding agent had a root API token. In 9 seconds it deleted the production database and all backups. 3 months of customer data lost. The agent later admitted: ‘I acted without explicit instruction’.”
-- **Amazon:** “March 2026. An agent followed an outdated internal wiki. Caused a 6‑hour outage – blocked checkout for millions. They had to put senior engineers back in the loop.”
+- **PocketOS:** “April 2026. An AI coding agent had a root API token. In **9 seconds** it deleted the production database and all backups. 3 months of customer data lost. The agent later admitted: ‘I acted without explicit instruction’.”
+- **Amazon:** “March 2026. An agent followed an outdated internal wiki. Caused a **6‑hour outage** – blocked checkout for millions. They had to put senior engineers back in the loop.”
 
 **Key takeaway:** “Common thread? No risk evaluation before action, no memory of past mistakes, no audit trail. Capability is not control.”
 
@@ -54,7 +54,7 @@
 **Visual:** Flow cards (Check Memory → Risk Score → Expected Loss → Audit Trail) + capability badges
 
 **Delivery:**
-- Walk through the flow: “First, ARF checks operational memory – has something similar happened before? Second, it computes a Bayesian risk score – probability of failure. Third, expected loss: if catastrophic, it does NOT auto‑execute – it ESCALATES. Fourth, every decision is signed and timestamped.”
+- Walk through the flow: “First, ARF checks operational memory – has something similar happened before? Second, it computes a Bayesian risk score – probability of failure. Third, expected loss: if catastrophic, it does NOT auto‑execute – it **ESCALATES**. Fourth, every decision is signed and timestamped.”
 - “Key capabilities: deterministic risk scoring, bounded autonomy (escalation), cryptographic audit trail, operational memory.”
 - **Quote (point to CTA box):** “You wouldn’t give a junior engineer root access without guardrails. Why give it to an agent?”
 
@@ -90,8 +90,8 @@
 
 ---
 
-## Slide 7 – Live demo: PocketOS scenario (8:30–11:30)
-**Visual:** Embedded iframe + QR code
+## Slide 7 – Live demo: PocketOS scenario in risk demo (8:30–11:30)
+**Visual:** Embedded iframe of `https://arf-foundation.github.io/arf-risk-demo/` + QR code
 
 **Action:**
 - “Let’s see this in action. I’ve loaded the PocketOS scenario into our risk demo.”
@@ -131,19 +131,22 @@
 
 ---
 
-## Slide 10 – Call to action for decision makers (14:00–15:30)
+## Slide 10 – Call to action for decision makers + Institutional Memory Agent demo (14:00–16:00)
 **Visual:** Bullet list (risk visibility, audit trails, operational memory, hybrid pricing) + large QR code
 
 **Delivery:**
 - “For CTOs, VPs of Engineering, Heads of AI – you’re responsible for production reliability, compliance, and team efficiency. ARF gives you real‑time risk visibility before agents act, audit trails ready for regulators, operational memory, and predictable hybrid pricing.”
 - **Scarcity + urgency:** “We have limited pilot spots for Q3 2026. No cost for qualified teams – founder‑led onboarding.”
+- **Introduce the Institutional Memory Agent:** “And to show you how ARF operationalises governance, I’ve built a live agent. Watch this.”
+- Open `https://www.arf-ai.com/agent` on the borrowed laptop. Click the **PocketOS preset** → **Analyze Incident**.
+- **Walk through the JSON response:** “See the risk score (0.85 – very high), execution mode (Approval), policy flags (db_network_security_action). This is exactly how ARF would have prevented the PocketOS disaster.”
 - “Scan the QR or email me directly. I personally review every application within 48 hours.”
 
-**Psychological triggers:** Authority (decision‑maker targeting), scarcity, reciprocity (free pilot).
+**Psychological triggers:** Authority (decision‑maker targeting), scarcity, reciprocity, **live interactive demonstration**.
 
 ---
 
-## Slide 11 – Next steps (15:30–16:30)
+## Slide 11 – Next steps (16:00–17:00)
 **Visual:** Bullet list – “48h review, 30‑min call, pilot sandbox, fixed‑fee first, outcome‑based later”
 
 **Delivery:**
@@ -153,7 +156,7 @@
 
 ---
 
-## Slide 12 – Thank you & Q&A (16:30–18:00)
+## Slide 12 – Thank you & Q&A (17:00–18:30)
 **Visual:** Quote + QR code + “I’ll be by the sponsors area”
 
 **Delivery:**
@@ -165,16 +168,27 @@
 ---
 
 ## Pro tips for delivery
-- **Pacing:** Demo is the longest (8:30–11:30). Don’t rush – let the audience play with the sliders (if live) or describe the effect vividly.
+- **Pacing:** Demo (slide 7) and memory agent (slide 10) are the longest segments. Don’t rush – let the audience see the cause‑effect.
 - **Tone:** Confident, humble, slightly self‑deprecating. The ChatGPT joke works best if delivered dryly.
 - **Eye contact:** Don’t read the slides – they are visual. Talk to the audience.
-- **Body language:** Stand centre stage for slides 1–6 and 8–12. Move near the screen for the demo (slide 7).
+- **Body language:** Stand centre stage for slides 1–6 and 8–9. Move near the screen for the two live demos (slides 7 and 10).
 - **After the talk:** Stay near the sponsors area with your laptop open to the pilot signup page. Have business cards or a QR code ready.
-- **Time management:** The timer is on screen (top right). If you’re running late, skip one FAQ item or shorten the demo walkthrough.
+- **Time management:** The timer is on screen (top right). If you’re running late, skip one FAQ item or shorten the memory agent walkthrough.
 
 ---
 
 ## Emergency backup (no Wi‑Fi)
-- The entire presentation works offline (system fonts, no external CSS).
-- If the demo iframe fails, use the QR code: audience can scan and play on their phones.
-- If the QR code fails, describe the effect verbally: “When historical accuracy is low, risk score jumps and ARF escalates.”
+- The pitch deck works offline (system fonts, no external CSS).
+- If the risk demo iframe fails, use the QR code: audience can scan and play on their phones.
+- If the memory agent fails, describe the expected JSON output verbally.
+- If the QR code fails, say: “When historical accuracy is low, risk score jumps and ARF escalates.”
+
+---
+
+## 🎤 Final reminder
+You have **three live interactive tools**:
+- Pitch deck: `https://arf-foundation.github.io/pitch-deck/`
+- Risk demo: `https://arf-foundation.github.io/arf-risk-demo/`
+- Memory agent: `https://www.arf-ai.com/agent`
+
+Rehearse with all three at least once. You are ready to deliver an outstanding, memorable presentation. Good luck, Juan!
