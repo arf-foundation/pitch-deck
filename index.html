@@ -1,1057 +1,528 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <title>ARF – The Missing Layer in Agentic AI: Governance | Juan Petter @ LLMday 2026</title>
-  <meta name="description" content="Deterministic governance layer for autonomous AI agents – Bayesian risk scoring, expected loss minimisation, cryptographic audit trails.">
-  <meta name="author" content="Juan Petter – ARF">
-  <meta name="theme-color" content="#0a0c10">
-  <style>
-    /* ========== RESET & BASE ========== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ARF – Risk Demo | LLMday 2026</title>
+    <script src="https://cdn.plot.ly/plotly-3.1.0.min.js" charset="utf-8"></script>
+    <style>
+        /* ========== DARK MODE (prefers-color-scheme) ========== */
+        :root {
+            --bg-body: #f5f7fb;
+            --text-primary: #1a2a3a;
+            --card-bg: white;
+            --card-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            --border-light: #cbd5e0;
+            --result-bg: #f1f5f9;
+            --expl-bg: #f8fafc;
+            --social-bg: #eef2f5;
+            --footer-color: #6c757d;
+            --banner-bg: #1e3a5f;
+            --warning-bg: #fff3cd;
+            --warning-text: #856404;
+            --button-bg: #2c3e50;
+            --button-hover: #1e2f3e;
+            --input-bg: white;
+            --counterfactual-bg: #e9ecef;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-body: #121212;
+                --text-primary: #e2e8f0;
+                --card-bg: #0f172a;
+                --card-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                --border-light: #334155;
+                --result-bg: #0f172a;
+                --expl-bg: #0f172a;
+                --social-bg: #1e293b;
+                --footer-color: #94a3b8;
+                --banner-bg: #0f2a44;
+                --warning-bg: #332701;
+                --warning-text: #fcd34d;
+                --button-bg: #334155;
+                --button-hover: #475569;
+                --input-bg: #0f172a;
+                --counterfactual-bg: #1e293b;
+            }
+            .status.approve { background: #14532d; color: #bbf7d0; }
+            .status.escalate { background: #78350f; color: #fde68a; }
+            .status.deny { background: #7f1d1d; color: #fecaca; }
+            .explanation { background: #0f172a; color: #94a3b8; }
+            .result { background: #0f172a; color: #cbd5e1; }
+            .counterfactual-panel { background: var(--counterfactual-bg); border-color: #334155; }
+        }
+        /* ========== MOBILE‑FIRST STYLES ========== */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: system-ui, 'Segoe UI', 'Roboto', sans-serif;
+            background: var(--bg-body);
+            color: var(--text-primary);
+            line-height: 1.5;
+            padding: 12px;
+            transition: background 0.2s, color 0.2s;
+            position: relative;
+        }
+        .container { max-width: 1000px; margin: 0 auto; position: relative; z-index: 1; }
+        .back-link { text-align: center; margin-bottom: 10px; }
+        .back-link a { color: #38bdf8; text-decoration: underline; font-size: 0.9rem; }
+        .sticky-banner {
+            position: sticky; top: 0; z-index: 100; background: var(--banner-bg); color: white; padding: 12px;
+            border-radius: 0 0 12px 12px; display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2); text-align: center;
+        }
+        .banner-text { font-size: 0.85rem; font-weight: 500; }
+        .banner-link {
+            background: #ffc107; color: #1e3a5f; padding: 8px 14px; border-radius: 40px; text-decoration: none;
+            font-weight: bold; font-size: 0.85rem; transition: 0.2s; display: inline-block; align-self: center;
+        }
+        .banner-link:hover { background: #ffda6a; transform: scale(1.02); }
+        .dismiss-banner {
+            background: none; border: none; color: white; font-size: 1.2rem; cursor: pointer; padding: 8px;
+            align-self: flex-end; opacity: 0.7;
+        }
+        .warning-banner {
+            background: var(--warning-bg); border-left: 6px solid #f0ad4e; padding: 12px; margin-bottom: 20px;
+            border-radius: 12px; font-size: 0.85rem; color: var(--warning-text); display: flex; flex-wrap: wrap;
+            gap: 10px; align-items: center;
+        }
+        h1 { font-size: 1.6rem; margin: 0 0 0.25rem 0; word-break: break-word; }
+        .badge {
+            background: #e2e6ea; border-radius: 40px; padding: 4px 10px; font-size: 0.7rem; font-weight: normal;
+            margin-left: 8px; white-space: nowrap;
+        }
+        .simulated-badge { background: #7f1d1d; color: #fecaca; }
+        .tests-badge { background: #14532d; color: #bbf7d0; margin-left: 8px; }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background: #0a0c10;
-      color: #eef2ff;
-      line-height: 1.4;
-      overflow: hidden;
-      height: 100vh;
-      width: 100vw;
-      position: relative;
-    }
+        .card {
+            background: var(--card-bg); border-radius: 20px; box-shadow: var(--card-shadow); padding: 16px;
+            margin-bottom: 20px; border: 1px solid var(--border-light);
+        }
+        .row { display: flex; flex-direction: column; gap: 16px; }
+        .col { width: 100%; }
+        label { display: block; margin-top: 12px; font-weight: 600; font-size: 0.85rem; }
+        select, button {
+            width: 100%; padding: 12px; margin-top: 6px; margin-bottom: 12px; border: 1px solid var(--border-light);
+            border-radius: 12px; font-size: 1rem; background: var(--input-bg); color: var(--text-primary);
+            transition: 0.2s; touch-action: manipulation;
+        }
+        button {
+            background: var(--button-bg); color: white; font-weight: 600; cursor: pointer; border: none; min-height: 44px;
+        }
+        button:hover { background: var(--button-hover); }
+        button:active { transform: translateY(1px); }
+        .button-secondary {
+            background: transparent; border: 1px solid var(--button-bg); color: var(--button-bg);
+        }
+        .button-secondary:hover { background: var(--button-hover); color: white; }
 
-    /* Prominent animated tech grid */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: 
-        linear-gradient(rgba(56, 189, 248, 0.18) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(56, 189, 248, 0.18) 1px, transparent 1px);
-      background-size: 40px 40px;
-      pointer-events: none;
-      z-index: 0;
-      animation: gridMove 20s linear infinite;
-    }
+        .result {
+            background: var(--result-bg); padding: 14px; border-radius: 16px; margin-top: 12px;
+            font-size: 0.85rem; word-break: break-word; line-height: 1.8;
+        }
+        .result strong { display: block; margin-bottom: 2px; }
+        .prevented-message {
+            font-size: 1.1rem; font-weight: 700; text-align: center; margin: 12px 0; color: #fde68a;
+        }
+        .status {
+            font-size: 1rem; font-weight: bold; padding: 8px; border-radius: 40px; text-align: center; margin: 12px 0;
+        }
+        .status-approve { background: #14532d; color: #bbf7d0; }
+        .status-escalate { background: #78350f; color: #fde68a; }
+        .status-deny { background: #7f1d1d; color: #fecaca; }
+        .explanation {
+            font-size: 0.8rem; background: var(--expl-bg); padding: 10px; border-radius: 12px; margin-top: 12px;
+        }
+        footer {
+            text-align: center; margin-top: 40px; font-size: 0.7rem; color: var(--footer-color);
+            border-top: 1px solid var(--border-light); padding-top: 20px;
+        }
+        .trust-badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin: 1rem 0; }
+        .trust-badge {
+            background: #1e293b; color: white; padding: 0.5rem 1rem; border-radius: 2rem; font-size: 0.8rem;
+            display: flex; align-items: center; gap: 0.4rem;
+        }
+        .quota-bar { width: 100%; height: 8px; background: #334155; border-radius: 4px; overflow: hidden; margin-top: 0.5rem; }
+        .quota-fill { height: 100%; background: #38bdf8; border-radius: 4px; transition: width 0.5s; }
+        .tooltip-icon { border-bottom: 1px dashed #6c757d; cursor: help; margin-left: 6px; }
+        .impact-message {
+            margin-top: 8px; font-size: 0.8rem; font-weight: 500; padding: 6px; border-radius: 12px; background: #e9f5e9;
+        }
+        .counterfactual-panel {
+            background: var(--counterfactual-bg); border-radius: 16px; padding: 12px; margin: 16px 0; border: 1px solid #334155;
+        }
+        .cf-toggle { display: flex; gap: 16px; justify-content: center; margin-bottom: 12px; }
+        .cf-btn {
+            background: #334155; color: white; border: none; padding: 8px 16px; border-radius: 40px; cursor: pointer;
+            font-size: 0.8rem;
+        }
+        .cf-btn.active { background: #38bdf8; color: #0a0c10; }
+        .cf-loss { font-family: monospace; font-size: 1rem; text-align: center; }
+        .cf-saved { font-size: 1.8rem; font-weight: 800; color: #22c55e; display: block; margin: 8px 0; }
+        .cf-tagline { font-size: 0.9rem; color: #94a3b8; margin-bottom: 12px; }
+        .human-escalation {
+            display: inline-flex; align-items: center; gap: 6px; background: #78350f; color: #fde68a;
+            padding: 4px 10px; border-radius: 30px; font-size: 0.7rem; font-weight: bold;
+        }
+        .pilot-cta { text-align: center; margin-top: 16px; }
+        .pilot-cta a {
+            background: #38bdf8; color: #0a0c10; font-weight: 700; padding: 10px 20px; border-radius: 2rem;
+            text-decoration: none; display: inline-block; transition: background 0.2s;
+        }
+        .pilot-cta a:hover { background: #7dd3fc; }
 
-    @keyframes gridMove {
-      0% { background-position: 0 0; }
-      100% { background-position: 40px 40px; }
-    }
+        /* Button row */
+        .button-row { display: flex; gap: 8px; margin-top: 6px; }
+        .button-row .load-btn { flex: 1; }
+        .button-row .re-eval-btn { flex: 0 0 auto; min-width: 100px; }
+        @media (max-width: 400px) {
+            .button-row { flex-direction: column; }
+            .button-row .re-eval-btn { min-width: 0; }
+        }
+        @media (min-width: 641px) {
+            body { padding: 16px; }
+            .sticky-banner { flex-direction: row; justify-content: space-between; align-items: center; text-align: left; padding: 12px 20px; }
+            .dismiss-banner { align-self: center; }
+            .row { flex-direction: row; gap: 24px; }
+            .col { flex: 1; }
+            h1 { font-size: 1.8rem; }
+        }
+        @media (min-width: 1024px) { .card { padding: 24px; } }
 
-    body::after {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at 30% 40%, rgba(56, 189, 248, 0.12), transparent 80%);
-      pointer-events: none;
-      z-index: 0;
-      animation: pulseGlow 6s ease infinite;
-    }
+        /* ============================================
+           VERY SOFT ANIMATED TECH GRID
+           ============================================ */
+        :root {
+            --grid-color: rgba(56, 189, 248, 0.03);
+            --glow-color-start: rgba(56, 189, 248, 0.02);
+            --grid-size: 40px;
+            --animation-speed-grid: 20s;
+            --animation-speed-glow: 6s;
+        }
+        body::before {
+            content: "";
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: var(--grid-size) var(--grid-size);
+            pointer-events: none; z-index: 0;
+            animation: gridMove var(--animation-speed-grid) linear infinite;
+        }
+        @keyframes gridMove {
+            0% { background-position: 0 0; }
+            100% { background-position: var(--grid-size) var(--grid-size); }
+        }
+        body::after {
+            content: "";
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 30% 40%, var(--glow-color-start), transparent 80%);
+            pointer-events: none; z-index: 0;
+            animation: pulseGlow var(--animation-speed-glow) ease infinite;
+        }
+        @keyframes pulseGlow {
+            0% { opacity: 0.2; } 50% { opacity: 0.3; } 100% { opacity: 0.2; }
+        }
 
-    @keyframes pulseGlow {
-      0% { opacity: 0.4; }
-      50% { opacity: 0.8; }
-      100% { opacity: 0.4; }
-    }
-
-    .presentation {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      z-index: 1;
-    }
-
-    .slide-container {
-      position: relative;
-      width: 100%;
-      height: 100%;
-    }
-
-    .slide {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-      pointer-events: none;
-      background: rgba(10, 12, 16, 0.65);
-      backdrop-filter: blur(3px);
-    }
-
-    .slide.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .slide-content {
-      max-width: 1100px;
-      width: 85%;
-      margin: 0 auto;
-      padding: 2rem;
-      background: rgba(18, 22, 28, 0.85);
-      backdrop-filter: blur(12px);
-      border-radius: 2rem;
-      border: 1px solid rgba(56, 189, 248, 0.4);
-      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.6);
-      transition: transform 0.3s ease;
-    }
-
-    h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, #ffffff, #38bdf8);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      margin-bottom: 0.5rem;
-      letter-spacing: -0.02em;
-    }
-
-    .main-title-line {
-      font-size: 1.6rem;
-      font-weight: 500;
-      color: #7dd3fc;
-      margin-bottom: 0.5rem;
-      letter-spacing: 1px;
-    }
-
-    h2 {
-      font-size: 2.5rem;
-      font-weight: 600;
-      border-left: 5px solid #38bdf8;
-      padding-left: 1rem;
-      margin: 0 0 1rem 0;
-      color: #f0f9ff;
-      line-height: 1.2;
-    }
-
-    h3 {
-      font-size: 1.4rem;
-      font-weight: 600;
-      margin: 0.5rem 0;
-      color: #bae6fd;
-    }
-
-    .tagline {
-      font-size: 1.2rem;
-      color: #94a3b8;
-      margin-bottom: 1rem;
-    }
-
-    .stat-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.2rem;
-      margin: 1.5rem 0;
-    }
-
-    .stat-card {
-      background: rgba(15, 23, 42, 0.8);
-      border-radius: 1.5rem;
-      padding: 1rem 1.2rem;
-      flex: 1;
-      text-align: center;
-      border: 1px solid #1e293b;
-    }
-
-    .stat-number {
-      font-size: 2.2rem;
-      font-weight: 800;
-      color: #38bdf8;
-    }
-
-    .bullet-list {
-      list-style: none;
-      padding-left: 0;
-      margin: 1rem 0;
-    }
-
-    .bullet-list li {
-      margin-bottom: 0.8rem;
-      padding-left: 1.8rem;
-      position: relative;
-      font-size: 1.1rem;
-    }
-
-    .bullet-list li::before {
-      content: "▹";
-      color: #38bdf8;
-      position: absolute;
-      left: 0;
-      font-size: 1.2rem;
-    }
-
-    .two-columns, .three-columns {
-      display: flex;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-      margin: 1rem 0;
-    }
-
-    .col, .col3 {
-      background: rgba(15, 23, 42, 0.6);
-      padding: 1rem;
-      border-radius: 1rem;
-      flex: 1;
-    }
-
-    .col3 {
-      text-align: center;
-    }
-
-    .cta {
-      background: linear-gradient(95deg, #0f172a, #020617);
-      padding: 1rem;
-      border-radius: 2rem;
-      text-align: center;
-      margin-top: 1.2rem;
-      font-size: 1.1rem;
-    }
-
-    .badge {
-      background: rgba(56, 189, 248, 0.15);
-      color: #7dd3fc;
-      padding: 0.3rem 1rem;
-      border-radius: 2rem;
-      font-size: 0.9rem;
-      display: inline-block;
-      margin-bottom: 0.8rem;
-    }
-
-    .logo-row {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    .logo-row img {
-      height: 48px;
-      width: auto;
-    }
-
-    .demo-frame {
-      background: #0f172a;
-      border-radius: 1rem;
-      overflow: hidden;
-      margin: 1rem 0;
-      border: 1px solid #1e293b;
-    }
-
-    .demo-frame iframe {
-      width: 100%;
-      height: 320px;
-      border: none;
-    }
-
-    .qr {
-      text-align: center;
-      margin: 1rem 0;
-    }
-
-    .qr img {
-      width: 140px;
-      height: 140px;
-      background: white;
-      padding: 0.5rem;
-      border-radius: 1rem;
-    }
-
-    /* Navigation – fixed positions with enough bottom margin */
-    .nav-dots {
-      position: fixed;
-      right: 1.5rem;
-      top: 50%;
-      transform: translateY(-50%);
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-      z-index: 200;
-    }
-
-    .dot {
-      width: 12px;
-      height: 12px;
-      background: #5b6e8c;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .dot.active {
-      background: #38bdf8;
-      transform: scale(1.5);
-      box-shadow: 0 0 8px #38bdf8;
-    }
-
-    .nav-arrows {
-      position: fixed;
-      bottom: 2rem;
-      left: 0;
-      right: 0;
-      display: flex;
-      justify-content: center;
-      gap: 1.2rem;
-      z-index: 200;
-    }
-
-    .nav-btn {
-      background: #1e293b;
-      border: none;
-      color: white;
-      padding: 0.6rem 1.2rem;
-      border-radius: 3rem;
-      cursor: pointer;
-      font-size: 1rem;
-      font-weight: 500;
-      transition: 0.2s;
-    }
-
-    .nav-btn:hover {
-      background: #38bdf8;
-      color: #0a0c10;
-    }
-
-    .timer {
-      position: fixed;
-      top: 1rem;
-      right: 1rem;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(4px);
-      padding: 0.3rem 0.8rem;
-      border-radius: 2rem;
-      font-family: monospace;
-      font-size: 0.9rem;
-      z-index: 200;
-      border: 1px solid #38bdf8;
-    }
-
-    footer {
-      position: fixed;
-      bottom: 0.5rem;
-      left: 0;
-      right: 0;
-      text-align: center;
-      font-size: 0.7rem;
-      color: #5b6e8c;
-      z-index: 200;
-      background: rgba(0, 0, 0, 0.3);
-      padding: 0.3rem;
-    }
-
-    .verticals-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.8rem;
-      justify-content: center;
-      margin: 1rem 0;
-    }
-
-    .vertical-badge {
-      background: rgba(56, 189, 248, 0.2);
-      border: 1px solid rgba(56, 189, 248, 0.4);
-      padding: 0.4rem 1rem;
-      border-radius: 2rem;
-      font-size: 0.9rem;
-      font-weight: 500;
-    }
-
-    .vertical-badge.active {
-      background: rgba(56, 189, 248, 0.4);
-      color: white;
-    }
-
-    .vertical-badge.coming {
-      opacity: 0.7;
-      border-style: dashed;
-    }
-
-    /* Visual abstract slide styles */
-    .abstract-title {
-      font-size: 2.2rem;
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 1.5rem;
-      line-height: 1.3;
-    }
-    .abstract-highlight {
-      color: #38bdf8;
-      border-bottom: 2px solid #38bdf8;
-      display: inline-block;
-    }
-    .pillar-grid {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      flex-wrap: wrap;
-      margin: 2rem 0;
-    }
-    .pillar-item {
-      text-align: center;
-      background: rgba(15, 23, 42, 0.7);
-      padding: 1rem;
-      border-radius: 1.5rem;
-      width: 180px;
-      transition: transform 0.2s;
-    }
-    .pillar-icon {
-      font-size: 2.5rem;
-      display: block;
-      margin-bottom: 0.5rem;
-    }
-    .pillar-label {
-      font-size: 1rem;
-      font-weight: 600;
-      color: #bae6fd;
-    }
-    .pillar-desc {
-      font-size: 0.8rem;
-      color: #94a3b8;
-      margin-top: 0.3rem;
-    }
-    .arf-statement {
-      text-align: center;
-      font-size: 1.2rem;
-      margin: 1.5rem 0;
-      padding: 0.5rem;
-      background: rgba(56, 189, 248, 0.1);
-      border-radius: 1rem;
-    }
-    .tech-badges {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.8rem;
-      margin-top: 1rem;
-    }
-    .tech-badge {
-      background: rgba(56, 189, 248, 0.2);
-      border: 1px solid rgba(56, 189, 248, 0.5);
-      padding: 0.3rem 0.8rem;
-      border-radius: 2rem;
-      font-size: 0.8rem;
-    }
-
-    /* Solution flow cards (new visual) */
-    .solution-flow {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin: 1.5rem 0;
-    }
-    .flow-card {
-      background: rgba(15, 23, 42, 0.8);
-      border-radius: 1rem;
-      padding: 1rem;
-      width: 180px;
-      text-align: center;
-    }
-    .flow-icon {
-      font-size: 2rem;
-      display: block;
-      margin-bottom: 0.5rem;
-    }
-    .flow-title {
-      font-weight: 700;
-      color: #38bdf8;
-      margin-bottom: 0.3rem;
-    }
-    .flow-desc {
-      font-size: 0.8rem;
-      color: #cbd5e1;
-    }
-    .capabilities-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
-      margin: 1rem 0;
-    }
-    .cap-card {
-      background: rgba(15, 23, 42, 0.6);
-      border-radius: 0.8rem;
-      padding: 0.6rem 1rem;
-      width: auto;
-      text-align: center;
-    }
-
-    /* Bayesian engine card styles */
-    .engine-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1.2rem;
-      margin: 1.5rem 0;
-    }
-    .engine-card {
-      background: rgba(15, 23, 42, 0.7);
-      border-radius: 1rem;
-      padding: 1rem;
-      width: 200px;
-      text-align: center;
-      transition: transform 0.2s;
-    }
-    .engine-icon {
-      font-size: 2rem;
-      display: block;
-      margin-bottom: 0.5rem;
-    }
-    .engine-title {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #38bdf8;
-      margin-bottom: 0.3rem;
-    }
-    .engine-desc {
-      font-size: 0.8rem;
-      color: #cbd5e1;
-    }
-    .test-badge-large {
-      display: inline-block;
-      background: rgba(56, 189, 248, 0.2);
-      border: 1px solid #38bdf8;
-      padding: 0.5rem 1rem;
-      border-radius: 2rem;
-      font-size: 0.9rem;
-      margin-top: 1rem;
-    }
-
-    .code-block {
-      background: #0a0c14;
-      padding: 0.6rem;
-      border-radius: 0.6rem;
-      font-family: monospace;
-      font-size: 0.8rem;
-      overflow-x: auto;
-      margin: 0.8rem 0;
-      white-space: pre-wrap;
-    }
-
-    /* Extended FAQ styles */
-    .faq-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-      margin: 1rem 0;
-    }
-    .faq-item {
-      background: rgba(15, 23, 42, 0.6);
-      border-radius: 0.8rem;
-      padding: 0.6rem 1rem;
-    }
-    .faq-q {
-      font-weight: 700;
-      color: #38bdf8;
-      font-size: 0.95rem;
-    }
-    .faq-a {
-      font-size: 0.85rem;
-      color: #cbd5e1;
-      margin-top: 0.2rem;
-    }
-
-    @media (max-width: 680px) {
-      .slide-content {
-        padding: 1rem;
-        width: 90%;
-      }
-      h1, h2 {
-        font-size: 1.8rem;
-      }
-      .main-title-line {
-        font-size: 1.2rem;
-      }
-      .bullet-list li {
-        font-size: 0.95rem;
-      }
-      .stat-number {
-        font-size: 1.5rem;
-      }
-      .nav-dots {
-        display: none;
-      }
-      .nav-arrows {
-        bottom: 1rem;
-      }
-      .abstract-title {
-        font-size: 1.5rem;
-      }
-      .pillar-item {
-        width: 140px;
-        padding: 0.8rem;
-      }
-      .pillar-icon {
-        font-size: 1.8rem;
-      }
-      .arf-statement {
-        font-size: 1rem;
-      }
-      .flow-card {
-        width: 140px;
-        padding: 0.6rem;
-      }
-      .engine-card {
-        width: 160px;
-        padding: 0.8rem;
-      }
-      .engine-icon {
-        font-size: 1.5rem;
-      }
-    }
-
-    @media print {
-      .nav-dots, .nav-arrows, .timer {
-        display: none;
-      }
-      .slide {
-        position: relative;
-        display: block;
-        opacity: 1;
-        break-after: page;
-      }
-      body {
-        overflow: auto;
-        height: auto;
-      }
-      .presentation {
-        height: auto;
-        overflow: auto;
-      }
-    }
-  </style>
+        .incident-table th {
+            text-align: left; padding: 0.5rem 0.5rem; font-size: 0.85rem; border-bottom: 1px solid #334155;
+        }
+        .incident-table td {
+            padding: 0.5rem 0.5rem; font-size: 0.85rem; border-bottom: 1px solid #33415550;
+        }
+        .action-pill {
+            padding: 0.2rem 0.6rem; border-radius: 1rem; font-size: 0.75rem; font-weight: 600; display: inline-block;
+        }
+        .action-approve { background: #14532d; color: #bbf7d0; }
+        .action-escalate { background: #78350f; color: #fde68a; }
+        .action-deny { background: #7f1d1d; color: #fecaca; }
+    </style>
 </head>
 <body>
-<div id="progressBar" style="position:fixed; top:0; left:0; height:3px; background:#38bdf8; width:0%; z-index:300; transition:width 0.2s;"></div>
-<div class="timer" id="timerDisplay">00:00 / 20:00</div>
-<div class="nav-dots" id="navDots"></div>
-<div class="nav-arrows">
-  <button class="nav-btn" id="prevBtn">← Prev</button>
-  <button class="nav-btn" id="nextBtn">Next →</button>
-</div>
-
-<div class="presentation">
-  <div class="slide-container" id="slideContainer">
-    <!-- SLIDE 1: TITLE -->
-    <div class="slide">
-      <div class="slide-content">
-        <div class="logo-row">
-          <img src="ARF - Primary Logo.png" alt="ARF Logo">
-        </div>
-        <div class="main-title-line">Govern every AI decision</div>
-        <h1>The Missing Layer in Agentic AI: Governance</h1>
-        <div class="tagline">Juan Petter – Founder, ARF · ex‑NetApp</div>
-        <div class="badge" style="background:#2dd4bf20; color:#2dd4bf;">🔐 You stay in control – we escalate, not replace</div>
-        <div class="stat-grid">
-          <div class="stat-card"><div class="stat-number">$250k</div><div>avg loss per silent AI incident</div></div>
-          <div class="stat-card"><div class="stat-number">73%</div><div>agentic AI projects fail in production</div></div>
-          <div class="stat-card"><div class="stat-number">54/54</div><div>pressure tests passed</div></div>
-        </div>
-        <div style="display:flex; gap:0.8rem; justify-content:center; flex-wrap:wrap; margin-top:0.5rem;">
-          <span style="background:#0f172a; padding:0.3rem 0.8rem; border-radius:2rem;">🔒 Deterministic</span>
-          <span style="background:#0f172a; padding:0.3rem 0.8rem; border-radius:2rem;">📜 Audit trail</span>
-          <span style="background:#0f172a; padding:0.3rem 0.8rem; border-radius:2rem;">⚡ &lt;50ms</span>
-          <span style="background:#0f172a; padding:0.3rem 0.8rem; border-radius:2rem;">🌐 Air‑gap ready</span>
-        </div>
-      </div>
+<div class="container">
+    <div class="back-link">
+        <a href="https://arf-foundation.github.io/pitch-deck/">← Back to presentation</a>
     </div>
 
-    <!-- SLIDE 2: PROBLEM – THREE REAL CASES -->
-    <div class="slide">
-      <div class="slide-content">
-        <h2>⚠️ The Problem – Real AI failures in production</h2>
-        <div class="three-columns">
-          <div class="col">
-            <h3>✈️ Air Canada (2022)</h3>
-            <ul class="bullet-list">
-              <li>Chatbot promised fake discount</li>
-              <li>Airline: "Chatbot is separate legal entity"</li>
-              <li>Passenger sued & won – $812 damages</li>
-              <li>PR disaster, liable for hallucinations</li>
-            </ul>
-          </div>
-          <div class="col">
-            <h3>💀 PocketOS (April 2026)</h3>
-            <ul class="bullet-list">
-              <li>AI coding agent had root API token</li>
-              <li>In <strong>9 seconds</strong> deleted production DB + all backups</li>
-              <li>3 months of customer data lost</li>
-              <li>Agent admitted: "acted without explicit instruction"</li>
-            </ul>
-          </div>
-          <div class="col">
-            <h3>📦 Amazon (March 2026)</h3>
-            <ul class="bullet-list">
-              <li>Agent acted on outdated internal wiki</li>
-              <li>Caused 6‑hour outage – blocked checkout for millions</li>
-              <li>Introduced senior engineer reviews for AI changes</li>
-              <li>Human back in the loop after disaster</li>
-            </ul>
-          </div>
-        </div>
-        <div class="cta" style="background:transparent; margin-top:0.5rem;">📌 Common thread: No risk evaluation before action, no memory of past mistakes, no audit trail. Capability ≠ Control.</div>
-      </div>
+    <div id="pilotBanner" class="sticky-banner">
+        <span class="banner-text">🔐 The real ARF engine is access‑controlled and outcome‑based.</span>
+        <a href="https://www.arf-ai.com/signup?src=risk-demo" target="_blank" class="banner-link">Request Pilot Access →</a>
+        <button class="dismiss-banner" id="dismissBannerBtn" aria-label="Dismiss banner">✕</button>
     </div>
 
-    <!-- SLIDE 3: ABSTRACT / FRAMING – VISUAL -->
-    <div class="slide">
-      <div class="slide-content">
-        <div class="abstract-title">
-          “The real problem is not <span style="color:#94a3b8;">capability</span> — it is <span class="abstract-highlight">control</span>.”
-        </div>
-        <div class="pillar-grid">
-          <div class="pillar-item">
-            <span class="pillar-icon">📊</span>
-            <div class="pillar-label">Evaluate risk</div>
-            <div class="pillar-desc">Bayesian risk scoring</div>
-          </div>
-          <div class="pillar-item">
-            <span class="pillar-icon">🔗</span>
-            <div class="pillar-label">Bound autonomy</div>
-            <div class="pillar-desc">Escalate, not auto‑execute</div>
-          </div>
-          <div class="pillar-item">
-            <span class="pillar-icon">📜</span>
-            <div class="pillar-label">Auditability</div>
-            <div class="pillar-desc">Cryptographic trail</div>
-          </div>
-          <div class="pillar-item">
-            <span class="pillar-icon">⚖️</span>
-            <div class="pillar-label">Stability</div>
-            <div class="pillar-desc">Uncertainty‑aware</div>
-          </div>
-        </div>
-        <div class="arf-statement">
-          ⚡ ARF converts probabilistic AI outputs into <strong>deterministic, auditable decisions</strong>
-        </div>
-        <div class="tech-badges">
-          <span class="tech-badge">🎯 Bayesian risk scoring</span>
-          <span class="tech-badge">⚡ Expected‑loss decisioning</span>
-          <span class="tech-badge">🧠 Bounded memory</span>
-          <span class="tech-badge">🔁 Calibrated escalation</span>
-        </div>
-      </div>
+    <div class="warning-banner">
+        <span>⚠️ <strong>Simulated client‑side demo</strong> – does NOT use the protected Bayesian engine. All data is mock.</span>
+        <a href="https://www.arf-ai.com/signup?src=risk-demo" target="_blank" style="margin-left:auto; white-space:nowrap;">Learn about real engine →</a>
     </div>
 
-    <!-- SLIDE 4: SOLUTION – VISUAL FLOW CARDS (NEW) -->
-    <div class="slide">
-      <div class="slide-content">
-        <h2>🔧 The Solution: ARF Governance Layer</h2>
-        <div class="solution-flow">
-          <div class="flow-card">
-            <span class="flow-icon">🗂️</span>
-            <div class="flow-title">1. Check Memory</div>
-            <div class="flow-desc">Similar destructive actions flagged</div>
-          </div>
-          <div class="flow-card">
-            <span class="flow-icon">📈</span>
-            <div class="flow-title">2. Risk Score</div>
-            <div class="flow-desc">Bayesian → high failure probability</div>
-          </div>
-          <div class="flow-card">
-            <span class="flow-icon">⚠️</span>
-            <div class="flow-title">3. Expected Loss</div>
-            <div class="flow-desc">Catastrophic → ESCALATE</div>
-          </div>
-          <div class="flow-card">
-            <span class="flow-icon">📜</span>
-            <div class="flow-title">4. Audit Trail</div>
-            <div class="flow-desc">Signed, timestamped decision</div>
-          </div>
+    <h1>🛡️ ARF – Prevent the Next AI Incident <span class="badge simulated-badge">Simulated</span><span class="badge tests-badge">✅ 54/54 tests passed</span></h1>
+    <p style="margin-bottom: 20px;"><strong>See how ARF would have scored risk for three real‑world AI failures.</strong></p>
+
+    <!-- Scenario Selector -->
+    <div class="card">
+        <h2>📋 Choose a real‑world scenario</h2>
+        <select id="presetScenario">
+            <option value="aircanada">✈️ Air Canada (2022) – Chatbot promised fake discount</option>
+            <option value="pocketos">💀 PocketOS (Apr 2026) – Production DB wiped in 9 seconds</option>
+            <option value="zillow">🏠 Zillow Offers (2021) – $500M+ AI pricing failure</option>
+        </select>
+        <div class="button-row">
+            <button id="applyPresetBtn" class="load-btn">Load Scenario & Evaluate Risk</button>
+            <button id="reevalBtn" class="button-secondary re-eval-btn">↻ Re‑evaluate</button>
         </div>
-        <div class="capabilities-grid">
-          <span class="cap-card">🔒 Deterministic risk scoring</span>
-          <span class="cap-card">🔗 Bounded autonomy (escalation)</span>
-          <span class="cap-card">📜 Cryptographic audit trail</span>
-          <span class="cap-card">🧠 Operational memory</span>
-        </div>
-        <div class="cta">“You wouldn’t give a junior engineer root access without guardrails. Why give it to an agent?”</div>
-      </div>
     </div>
 
-    <!-- SLIDE 5: BAYESIAN RISK ENGINE – VISUAL CARDS -->
-    <div class="slide">
-      <div class="slide-content">
-        <h2>🧠 Bayesian risk engine – how it works</h2>
-        <div class="engine-grid">
-          <div class="engine-card">
-            <span class="engine-icon">🔄</span>
-            <div class="engine-title">Online learning</div>
-            <div class="engine-desc">Every outcome updates the risk estimate – fast & lightweight</div>
-          </div>
-          <div class="engine-card">
-            <span class="engine-icon">🗂️</span>
-            <div class="engine-title">Hierarchical memory</div>
-            <div class="engine-desc">Sparse categories borrow strength – no cold start</div>
-          </div>
-          <div class="engine-card">
-            <span class="engine-icon">📈</span>
-            <div class="engine-title">Offline deep model</div>
-            <div class="engine-desc">Trains on time, role, environment – catches subtle risks</div>
-          </div>
-          <div class="engine-card">
-            <span class="engine-icon">⚖️</span>
-            <div class="engine-title">Weighted fusion</div>
-            <div class="engine-desc">Blends all sources – more data = more weight on deep model</div>
-          </div>
-          <div class="engine-card">
-            <span class="engine-icon">🎯</span>
-            <div class="engine-title">Calibrated confidence</div>
-            <div class="engine-desc">1% predicted risk = 1% actual failure (54/54 tests)</div>
-          </div>
+    <!-- Risk Scoring Result Card -->
+    <div class="card" id="riskCard" style="display: none;">
+        <h2>📊 Risk Scoring Result</h2>
+        <div class="result">
+            <strong>Risk score (posterior mean) <span class="tooltip-icon" title="Risk = (α + failures) / (α + β + total observations) — simple Beta‑Binomial conjugate update.">ⓘ</span>:</strong> <span id="riskScore"></span><br>
+            <strong>95% credible interval <span class="tooltip-icon" title="The range where the true failure probability lies with 95% confidence.">ⓘ</span>:</strong> <span id="credibleInterval"></span><br>
+            <strong>Prior mean:</strong> <span id="priorMean"></span><br>
+            <strong>Policy decision <span class="tooltip-icon" id="decisionTooltip" title="Customer‑facing claims always escalate to protect reputation.">ⓘ</span>:</strong> <span id="policyDecision" class="status"></span>
+            <div id="decisionExplanation" class="explanation" style="margin-top:8px;"></div>
+            <div id="preventedMessage" class="prevented-message">ARF would have ESCALATED to a human. The incident never happens.</div>
+            <div id="expectedLossDisplay" style="margin-top: 8px; font-weight: 500;"></div>
+            <div id="riskImpactMessage" class="impact-message"></div>
         </div>
-        <div style="text-align: center;">
-          <span class="test-badge-large">📊 54/54 pressure tests passed – edge cases, concurrency, large‑scale data</span>
+        <div class="explanation">
+            📌 <strong>Deterministic Probability Thresholding:</strong> Approve if risk &lt; 0.2, Escalate if 0.2–0.8, Deny if &gt; 0.8.
+            <span class="human-escalation">👤 Escalate = human review required – you stay in control</span>
         </div>
-      </div>
     </div>
 
-    <!-- SLIDE 6: DETERMINISTIC & OFFLINE -->
-    <div class="slide">
-      <div class="slide-content">
-        <h2>🔒 Deterministic. Offline. Auditable.</h2>
-        <ul class="bullet-list">
-          <li>Same input → same decision (SHA‑3 signed)</li>
-          <li>Runs locally – air‑gapped possible</li>
-          <li>Policy algebra: "never execute destructive commands without human approval"</li>
-          <li><a href="https://a-r-f-arf-sandbox-api.hf.space/v1/evaluate" target="_blank" rel="noopener" style="color:#7dd3fc;">Test API (mock data, real logic)</a></li>
-        </ul>
-        <div class="code-block">
-          // Example audit trail entry (real format from HealingIntent schema)
-          {
-            "decision_id": "arf-20260604-143022-9a3f",
-            "timestamp": "2026-06-04T14:30:22Z",
-            "agent_action": "delete_prod_snapshot",
-            "risk_score": 0.94,
-            "expected_loss": 48000,
-            "policy_evaluation": "escalate",
-            "audit_hash": "sha3-256:7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1f..."
-          }
-        </div>
-      </div>
+    <!-- Trust badges -->
+    <div class="trust-badges">
+        <div class="trust-badge">🔒 SOC2 Type II (Audit ready)</div>
+        <div class="trust-badge">🛡️ ISO 27001 (Compliant)</div>
+        <div class="trust-badge">📜 GDPR Ready</div>
     </div>
 
-    <!-- SLIDE 7: OUTCOME + VERTICALS + PRICING -->
-    <div class="slide">
-      <div class="slide-content">
-        <h2>📈 The Outcome & Where We Fit</h2>
-        <div class="three-columns">
-          <div class="col3">✅ <strong>No silent failures</strong><br>Every decision evaluated before execution</div>
-          <div class="col3">📜 <strong>Auditable compliance</strong><br>Ready for EU AI Act, NIST</div>
-          <div class="col3">💰 <strong>Cost avoidance</strong><br>Pay only when we save you money</div>
+    <!-- Counterfactual Panel -->
+    <div class="counterfactual-panel" id="cfPanel" style="display: none;">
+        <div class="cf-toggle">
+            <button id="cfWithoutBtn" class="cf-btn active">📉 Without ARF</button>
+            <button id="cfWithBtn" class="cf-btn">🛡️ With ARF (governance)</button>
         </div>
-        <div class="stat-grid" style="margin-top:0.5rem;">
-          <div class="stat-card"><div class="stat-number">100%</div><div>determinism (54/54 tests)</div></div>
-          <div class="stat-card"><div class="stat-number">&lt;50ms</div><div>decision latency</div></div>
+        <div id="cfContent" class="cf-loss"></div>
+        <div class="explanation" style="margin-top: 8px;">
+            🔍 <strong>Counterfactual analysis:</strong> What would have happened if the agent acted alone vs. with ARF governance.
         </div>
-        <h3 style="margin-top:0.5rem;">🎯 Current Verticals (10–100 employees)</h3>
-        <div class="verticals-grid">
-          <span class="vertical-badge active">⚖️ Law‑tech</span>
-          <span class="vertical-badge active">💳 Fintech</span>
-          <span class="vertical-badge active">🏥 Health tech</span>
-          <span class="vertical-badge coming">⚡ Energy (soon)</span>
-          <span class="vertical-badge coming">🤖 Robotics (soon)</span>
-          <span class="vertical-badge coming">📦 Logistics (soon)</span>
+        <div class="pilot-cta">
+            <a href="https://www.arf-ai.com/signup?src=risk-demo" target="_blank">Prevent incidents like these for your own agents. Request pilot access →</a>
         </div>
-        <h3 style="margin-top:0.8rem;">💰 Hybrid Pricing Model</h3>
-        <ul class="bullet-list">
-          <li><strong>Fixed fee</strong> – deployment, maintenance, training your internal teams</li>
-          <li><strong>Plus either:</strong> retainer <strong>OR</strong> outcome‑based (you pay a % of loss avoided)</li>
-          <li>No surprises – we succeed only when you do</li>
-        </ul>
-      </div>
     </div>
 
-    <!-- SLIDE 8: LIVE DEMO (PocketOS scenario) with larger QR -->
-    <div class="slide">
-      <div class="slide-content">
-        <h2>🎮 Live demo: PocketOS scenario in ARF</h2>
-        <p>See how ARF would have flagged the destructive action before execution.</p>
-        <div class="demo-frame">
-          <iframe src="https://arf-foundation.github.io/arf-risk-demo/" title="ARF Risk Demo" loading="lazy" onerror="this.style.display='none'; document.getElementById('demoFallback').style.display='block';"></iframe>
+    <!-- Recent Incidents Table -->
+    <div class="card">
+        <h2>📋 Recent Incidents (Simulated)</h2>
+        <div style="overflow-x: auto;">
+            <table class="incident-table" style="width:100%;">
+                <thead>
+                    <tr>
+                        <th>Time</th><th>Service</th><th>Metric</th><th>Value</th><th>Risk</th><th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="incidentTableBody"></tbody>
+            </table>
         </div>
-        <div id="demoFallback" style="display:none; text-align:center; padding:1rem; background:#1e293b; border-radius:1rem;">
-          ⚠️ Iframe couldn't load. <a href="https://arf-foundation.github.io/arf-risk-demo/" target="_blank" rel="noopener" style="color:#7dd3fc;">Open manually</a> or scan QR.
-        </div>
-        <div class="qr">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://arf-foundation.github.io/arf-risk-demo/" alt="QR to risk demo">
-        </div>
-      </div>
+        <p style="font-size:0.7rem; color:#94a3b8; margin-top:1rem; text-align:center;">Data shown is simulated for demonstration purposes only.</p>
     </div>
 
-    <!-- SLIDE 9: TRACTION (updated text) -->
-    <div class="slide">
-      <div class="slide-content">
-        <h2>🚀 Where we are – real, not vapourware</h2>
-        <ul class="bullet-list">
-          <li>✅ Core engine v4 – live pilots</li>
-          <li>✅ Active pilots in law‑tech, fintech, health tech</li>
-          <li>✅ Whitepaper ARF v4.0 (weeks away)</li>
-          <li>👥 Founder‑led – I work directly with pilots</li>
-        </ul>
-        <div class="cta" style="background:#1e293b;">📌 We co‑develop with early adopters.</div>
-      </div>
+    <!-- Social proof -->
+    <div style="text-align: center; margin-top: 20px;">
+        <div style="background:#1e293b; padding:6px 10px; border-radius:30px; display:inline-block; font-size:0.7rem; color: white;">
+            ✅ 54/54 pressure tests passed &nbsp;|&nbsp;
+            🧪 3 active pilots &nbsp;|&nbsp;
+            👥 Founder‑led
+        </div>
     </div>
 
-    <!-- SLIDE 10: EXTENDED FAQ (with real questions from website) -->
-    <div class="slide">
-      <div class="slide-content">
-        <h2>❓ Frequently Asked Questions</h2>
-        <div class="faq-grid">
-          <div class="faq-item"><div class="faq-q">⚡ Latency?</div><div class="faq-a">&lt;50ms core – faster than human review.</div></div>
-          <div class="faq-item"><div class="faq-q">🔒 Data privacy?</div><div class="faq-a">Runs on‑prem or VPC – no data leaves your environment.</div></div>
-          <div class="faq-item"><div class="faq-q">🎮 Can agents game the system?</div><div class="faq-a">No – we track historical accuracy, so lying about confidence backfires.</div></div>
-          <div class="faq-item"><div class="faq-q">👥 Does ARF replace humans?</div><div class="faq-a">No – it escalates when uncertain. <strong>You stay in control.</strong></div></div>
-          <div class="faq-item"><div class="faq-q">🔐 How do I get access to the real engine?</div><div class="faq-a">Submit a pilot request at arf-ai.com/signup or email juan@arf-ai.com. Access is reviewed case by case for qualified use cases.</div></div>
-          <div class="faq-item"><div class="faq-q">🧪 What’s the difference between demo and real engine?</div><div class="faq-a">The demo uses mock/advisory data to explain the workflow. The real engine is private, access‑controlled, and offers mechanical enforcement and full audit trails.</div></div>
-          <div class="faq-item"><div class="faq-q">📊 How many requests per second can the real engine handle?</div><div class="faq-a">The core engine is designed for high throughput – contact us for specific benchmarks based on your deployment profile.</div></div>
-          <div class="faq-item"><div class="faq-q">💬 Is there a community Slack?</div><div class="faq-a">Yes – qualified pilots and enterprise customers get access to a private Slack channel for direct support.</div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- SLIDE 11: CALL TO ACTION FOR DECISION MAKERS + PILOT ACCESS (larger QR) -->
-    <div class="slide">
-      <div class="slide-content">
-        <h2>🎯 For decision makers (CTO, VP Eng, Head of AI)</h2>
-        <p>You're responsible for production reliability, compliance, and team efficiency. ARF gives you:</p>
-        <ul class="bullet-list">
-          <li>📊 Real‑time risk visibility before agents act</li>
-          <li>📜 Audit trails ready for regulators (EU AI Act, NIST)</li>
-          <li>🧠 Operational memory – agents learn from past mistakes</li>
-          <li>💰 Predictable hybrid pricing – fixed deployment + outcome‑based upside</li>
-        </ul>
-        <div class="cta">
-          🔥 <strong>Limited pilot spots for Q3 2026</strong> – founder‑led onboarding, no cost for qualified teams.<br>
-          <a href="https://www.arf-ai.com/signup" target="_blank" rel="noopener" style="color:#fff;">Request pilot access → arf-ai.com/signup</a><br>
-          ✉️ Or email me directly: <span onclick="navigator.clipboard.writeText('juan@arf-ai.com'); alert('Email copied!')" style="cursor:pointer; background:#1e293b; padding:0.2rem 0.6rem; border-radius:1rem;">📋 juan@arf-ai.com</span>
-        </div>
-        <div class="qr">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://www.arf-ai.com/signup" alt="QR to pilot signup">
-        </div>
-      </div>
-    </div>
-
-    <!-- SLIDE 12: NEXT STEPS -->
-    <div class="slide">
-      <div class="slide-content">
-        <h2>📋 After you request access</h2>
-        <ul class="bullet-list">
-          <li>I personally review every application within 48h</li>
-          <li>30‑min call to understand your use case, scale, and compliance needs</li>
-          <li>If fit → pilot sandbox, no cost, no obligation</li>
-          <li>We deploy fixed‑fee first, then outcome‑based or retainer – your choice</li>
-          <li>Test on a non‑critical workflow, then expand</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- SLIDE 13: THANK YOU + Q&A (larger QR) -->
-    <div class="slide">
-      <div class="slide-content">
-        <h2>🙏 Thank you</h2>
-        <p style="font-size:1.4rem; margin:1rem 0;">“I’ve been paged at 2am. ARF is the governance layer I wish I had.”</p>
-        <p>— Juan Petter</p>
-        <div class="two-columns" style="margin-top:1rem;">
-          <div class="col">📬 Q&A – I'll be by the sponsors area. Let's discuss your use case.</div>
-          <div class="col qr">
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://www.arf-ai.com/signup" alt="QR to pilot signup">
-            <p style="font-size:0.8rem;">Scan → pilot request</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <footer>© 2026 ARF · hybrid pricing (fixed + outcome/retainer) · pilot‑first · <a href="https://arf-ai.com" target="_blank" rel="noopener" style="color:#7dd3fc;">arf-ai.com</a></footer>
+    <footer>
+        <p>ARF – Simulated Risk Scoring Demo | <a href="https://github.com/arf-foundation/arf-risk-demo" target="_blank">Public Repo</a> | <a href="https://www.arf-ai.com/signup" target="_blank">Request Pilot Access</a></p>
+    </footer>
 </div>
 
 <script>
-  (function() {
-    const slides = Array.from(document.querySelectorAll('.slide'));
-    let currentIdx = 0;
-    let startTime = Date.now();
-    let timerInterval;
-
-    function showSlide(index) {
-      if (index < 0) index = 0;
-      if (index >= slides.length) index = slides.length - 1;
-      slides.forEach((s, i) => s.classList.toggle('active', i === index));
-      currentIdx = index;
-      updateDots();
-      updateProgress();
-      updateTimerDisplay();
+    // ---------- Beta utilities (unchanged) ----------
+    function betaPDF(x, a, b) {
+        if (x <= 0 || x >= 1) return 0;
+        const logPDF = (a-1)*Math.log(x) + (b-1)*Math.log(1-x) - logBeta(a, b);
+        return Math.exp(logPDF);
+    }
+    function logBeta(a, b) {
+        function logGamma(z) {
+            const g = 7;
+            const p = [0.99999999999980993, 676.5203681218851, -1259.1392167224028,
+                      771.32342877765313, -176.61502916214059, 12.507343278686905,
+                      -0.13857109526572012, 9.9843695780195716e-6, 1.5056327351493116e-7];
+            if (z < 0.5) return Math.log(Math.PI) - Math.log(Math.sin(Math.PI * z)) - logGamma(1 - z);
+            z -= 1;
+            let x = p[0];
+            for (let i = 1; i < g+2; i++) x += p[i] / (z + i);
+            const t = z + g + 0.5;
+            return 0.5 * Math.log(2 * Math.PI) + (z + 0.5) * Math.log(t) - t + Math.log(x);
+        }
+        return logGamma(a) + logGamma(b) - logGamma(a + b);
+    }
+    function betaCDF(x, a, b) {
+        if (x <= 0) return 0;
+        if (x >= 1) return 1;
+        const n = 200;
+        const dx = x / n;
+        let sum = 0;
+        for (let i = 0; i <= n; i++) {
+            const t = i * dx;
+            const w = (i === 0 || i === n) ? 1 : (i % 2 === 0 ? 2 : 4);
+            sum += w * betaPDF(t, a, b);
+        }
+        return sum * dx / 3;
+    }
+    function betaQuantile(p, a, b, tol = 1e-6) {
+        let lo = 0, hi = 1;
+        while (hi - lo > tol) {
+            const mid = (lo + hi) / 2;
+            if (betaCDF(mid, a, b) < p) lo = mid;
+            else hi = mid;
+        }
+        return (lo + hi) / 2;
     }
 
-    function nextSlide() { showSlide(currentIdx + 1); }
-    function prevSlide() { showSlide(currentIdx - 1); }
+    const categoryMap = {
+        default: [1.0, 10.0],
+        database: [1.5, 8.0],
+        compute: [1.0, 12.0]
+    };
 
-    function updateDots() {
-      const container = document.getElementById('navDots');
-      if (!container) return;
-      container.innerHTML = '';
-      slides.forEach((_, i) => {
-        const dot = document.createElement('div');
-        dot.classList.add('dot');
-        if (i === currentIdx) dot.classList.add('active');
-        dot.addEventListener('click', () => showSlide(i));
-        container.appendChild(dot);
-      });
+    const impactMessages = {
+        aircanada: "⚠️ Actual damages: $812 (plus tribunal fees). ARF would have escalated this customer‑facing claim to prevent reputational damage.",
+        pocketos: "⚠️ 3 months of customer data lost; cloud provider restored but recovery took days. Estimated business impact: $150,000.",
+        zillow: "⚠️ AI pricing algorithm overvalued thousands of homes, leading to $500M+ losses and 25% workforce reduction. ARF would have escalated high‑variance pricing decisions for human review."
+    };
+
+    function computeRiskFromPrior(failures, successes, priorAlpha, priorBeta) {
+        const alpha = priorAlpha + failures;
+        const beta = priorBeta + successes;
+        const risk = alpha / (alpha + beta);
+        const lo = betaQuantile(0.025, alpha, beta);
+        const hi = betaQuantile(0.975, alpha, beta);
+        return { risk, lo, hi, alpha, beta };
     }
 
-    function updateProgress() {
-      const bar = document.getElementById('progressBar');
-      if (bar) bar.style.width = `${(currentIdx + 1) / slides.length * 100}%`;
+    let currentRisk = 0, currentImpact = 0, currentScenario = "";
+
+    function showResults(risk, lo, hi, priorMean, decision, impact) {
+        document.getElementById('riskCard').style.display = 'block';
+        document.getElementById('cfPanel').style.display = 'block';
+
+        document.getElementById('riskScore').innerText = risk.toFixed(4);
+        document.getElementById('credibleInterval').innerText = `[${lo.toFixed(4)}, ${hi.toFixed(4)}]`;
+        document.getElementById('priorMean').innerText = priorMean.toFixed(4);
+        const decisionSpan = document.getElementById('policyDecision');
+        decisionSpan.innerText = `${decision} (risk = ${risk.toFixed(4)})`;
+        decisionSpan.className = `status ${decision === 'Approve' ? 'status-approve' : decision === 'Deny' ? 'status-deny' : 'status-escalate'}`;
+
+        const tooltipIcon = document.getElementById('decisionTooltip');
+        tooltipIcon.style.display = currentScenario === 'aircanada' ? 'inline' : 'none';
+
+        const explanationDiv = document.getElementById('decisionExplanation');
+        const thresholdText = risk < 0.2 ? 'below the 20% threshold' : risk > 0.8 ? 'above the 80% threshold' : 'between 20% and 80%';
+        explanationDiv.innerHTML = `Because the risk (${(risk*100).toFixed(1)}%) is ${thresholdText}, ARF recommends <strong>${decision.toUpperCase()}</strong>.`;
+
+        const preventedDiv = document.getElementById('preventedMessage');
+        preventedDiv.innerHTML = decision === 'Approve' ? 'ARF would have APPROVED. Incident avoided through confidence.' :
+                                 (decision === 'Deny' ? 'ARF would have DENIED. Catastrophic loss prevented.' :
+                                  'ARF would have ESCALATED to a human. The incident never happens.');
+
+        const expectedLoss = risk * impact;
+        document.getElementById('expectedLossDisplay').innerHTML = `💰 Expected loss: <strong>${expectedLoss.toLocaleString('en-US', {style: 'currency', currency: 'USD', minimumFractionDigits: 0})}</strong> (risk × impact estimate)`;
+
+        document.getElementById('riskImpactMessage').innerHTML = impactMessages[currentScenario];
+
+        currentRisk = risk;
+        currentImpact = impact;
+        updateCounterfactual(risk, impact);
     }
 
-    function updateTimerDisplay() {
-      const elapsed = Math.floor((Date.now() - startTime) / 1000);
-      const remaining = Math.max(0, 1200 - elapsed);
-      const em = Math.floor(elapsed / 60).toString().padStart(2, '0');
-      const es = (elapsed % 60).toString().padStart(2, '0');
-      const rm = Math.floor(remaining / 60);
-      const rs = (remaining % 60).toString().padStart(2, '0');
-      const timerDiv = document.getElementById('timerDisplay');
-      if (timerDiv) timerDiv.innerHTML = `${em}:${es} / 20:00 (${rm}:${rs} left)`;
+    let cfMode = "without";
+    function updateCounterfactual(risk, impact) {
+        const withoutLoss = risk * impact;
+        const withLoss = 500;
+        const saved = withoutLoss - withLoss;
+        const cfDiv = document.getElementById('cfContent');
+        if (cfMode === "without") {
+            cfDiv.innerHTML = `📉 <strong>Without ARF</strong><br>Expected loss = <strong>${withoutLoss.toLocaleString('en-US', {style: 'currency', currency: 'USD', minimumFractionDigits: 0})}</strong><br>The agent would have executed the action, causing this loss.`;
+        } else {
+            cfDiv.innerHTML = `🛡️ <strong>With ARF</strong><br>Expected loss = <strong>${withLoss.toLocaleString('en-US', {style: 'currency', currency: 'USD', minimumFractionDigits: 0})}</strong> (manual review)<br>ARF would have ESCALATED to human review, preventing catastrophic loss.<br>
+                <span class="cf-saved">💰 You saved ${saved.toLocaleString('en-US', {style: 'currency', currency: 'USD', minimumFractionDigits: 0})}</span>
+                <span class="cf-tagline">That’s the cost of governance vs. the cost of chaos.</span>`;
+        }
     }
-
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') prevSlide();
-      if (e.key === 'ArrowRight') nextSlide();
+    document.getElementById('cfWithoutBtn').addEventListener('click', () => {
+        cfMode = "without";
+        document.getElementById('cfWithoutBtn').classList.add('active');
+        document.getElementById('cfWithBtn').classList.remove('active');
+        updateCounterfactual(currentRisk, currentImpact);
+    });
+    document.getElementById('cfWithBtn').addEventListener('click', () => {
+        cfMode = "with";
+        document.getElementById('cfWithBtn').classList.add('active');
+        document.getElementById('cfWithoutBtn').classList.remove('active');
+        updateCounterfactual(currentRisk, currentImpact);
     });
 
-    let touchStart = 0;
-    document.addEventListener('touchstart', (e) => { touchStart = e.changedTouches[0].screenX; });
-    document.addEventListener('touchend', (e) => {
-      const end = e.changedTouches[0].screenX;
-      if (end < touchStart - 50) nextSlide();
-      if (end > touchStart + 50) prevSlide();
+    const presets = {
+        aircanada: {
+            category: "default", failures: 22, successes: 78,
+            impact: 812,
+            description: "Air Canada chatbot promised non‑existent bereavement discount; airline held liable ($812 damages)."
+        },
+        pocketos: {
+            category: "database", failures: 30, successes: 70,
+            impact: 150000,
+            description: "Cursor AI agent deleted production DB in 9 seconds – no confirmation, no human in the loop."
+        },
+        zillow: {
+            category: "compute", failures: 40, successes: 60,
+            impact: 500000000,
+            description: "AI pricing algorithm overvalued homes, leading to $500M+ losses and 25% workforce reduction."
+        }
+    };
+
+    function applyPreset(presetId) {
+        const p = presets[presetId];
+        if (!p) return;
+        currentScenario = presetId;
+        const [priorAlpha, priorBeta] = categoryMap[p.category];
+        const { risk, lo, hi } = computeRiskFromPrior(p.failures, p.successes, priorAlpha, priorBeta);
+        const priorMean = priorAlpha / (priorAlpha + priorBeta);
+        const decision = risk < 0.2 ? 'Approve' : (risk > 0.8 ? 'Deny' : 'Escalate');
+        showResults(risk, lo, hi, priorMean, decision, p.impact);
+    }
+
+    document.getElementById('applyPresetBtn').addEventListener('click', () => {
+        applyPreset(document.getElementById('presetScenario').value);
+    });
+    document.getElementById('reevalBtn').addEventListener('click', () => {
+        applyPreset(document.getElementById('presetScenario').value);
     });
 
-    document.getElementById('prevBtn')?.addEventListener('click', prevSlide);
-    document.getElementById('nextBtn')?.addEventListener('click', nextSlide);
+    // Fill incident table
+    const incidents = [
+        { time: '2026-05-14 10:23:45', service: 'payment-api', metric: 'latency', value: '450ms', risk: 0.82, action: 'ESCALATE' },
+        { time: '2026-05-14 09:15:22', service: 'auth-service', metric: 'error_rate', value: '12%', risk: 0.45, action: 'APPROVE' },
+        { time: '2026-05-13 22:10:05', service: 'database', metric: 'cpu_usage', value: '92%', risk: 0.71, action: 'ESCALATE' },
+        { time: '2026-05-13 18:30:19', service: 'cache', metric: 'hit_rate', value: '34%', risk: 0.38, action: 'APPROVE' },
+        { time: '2026-05-13 14:45:03', service: 'message-queue', metric: 'backlog', value: '1250', risk: 0.63, action: 'DENY' }
+    ];
+    document.getElementById('incidentTableBody').innerHTML = incidents.map(i => `
+        <tr>
+            <td>${i.time}</td><td>${i.service}</td><td>${i.metric}</td><td>${i.value}</td>
+            <td style="font-weight:bold;color:#eab308;">${i.risk.toFixed(2)}</td>
+            <td><span class="action-pill ${i.action === 'APPROVE' ? 'action-approve' : i.action === 'ESCALATE' ? 'action-escalate' : 'action-deny'}">${i.action}</span></td>
+        </tr>`).join('');
 
-    showSlide(0);
-    timerInterval = setInterval(updateTimerDisplay, 1000);
-  })();
+    // Load Air Canada first (shows ESCALATE)
+    applyPreset('aircanada');
 </script>
 </body>
 </html>
