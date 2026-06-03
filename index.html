@@ -55,6 +55,7 @@
     .slide.active { opacity: 1; pointer-events: auto; }
 
     .slide-content {
+      position: relative; /* needed for absolute positioning of slide numbers */
       max-width: 1100px; width: 85%; margin: 0 auto; padding: 2rem;
       background: rgba(18, 22, 28, 0.85); backdrop-filter: blur(12px);
       border-radius: 2rem; border: 1px solid rgba(56, 189, 248, 0.4);
@@ -125,7 +126,20 @@
     .faq-q { font-weight: 700; color: #38bdf8; font-size: 0.95rem; margin-bottom: 0.3rem; }
     .faq-a { font-size: 0.85rem; color: #cbd5e1; margin-top: 0.2rem; line-height: 1.5; }
 
-    /* Spacious bullet list for enterprise slides */
+    /* Slide number badge (injected via JS) */
+    .slide-number-badge {
+      position: absolute;
+      top: 0.5rem;
+      right: 1rem;
+      font-size: 0.7rem;
+      color: #5b6e8c;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 0.2rem 0.5rem;
+      border-radius: 1rem;
+      z-index: 2;
+      pointer-events: none;
+    }
+
     .spaced-list li { margin-bottom: 1.3rem; }
 
     @media (max-width: 680px) {
@@ -276,7 +290,7 @@
         <li>Same input → same decision (SHA‑3 signed)</li>
         <li>Runs locally – air‑gapped possible</li>
         <li>Policy algebra: "never execute destructive commands without human approval"</li>
-        <li><a href="https://a-r-f-arf-sandbox-api.hf.space/docs" target="_blank" rel="noopener" style="color:#7dd3fc;">Interactive API documentation (Hugging Face)</a></li>
+        <li><a href="https://a-r-f-arf-sandbox-api.hf.space/docs" target="_blank" rel="noopener noreferrer" style="color:#7dd3fc;">Interactive API documentation (Hugging Face)</a></li>
       </ul>
       <div class="code-block">
         // Example audit trail entry (real format from HealingIntent schema)
@@ -330,12 +344,12 @@
         <iframe src="https://arf-foundation.github.io/arf-risk-demo/" title="ARF Risk Demo" loading="lazy" onerror="this.style.display='none'; document.getElementById('demoFallback').style.display='block';"></iframe>
       </div>
       <div id="demoFallback" style="display:none; text-align:center; padding:1rem; background:#1e293b; border-radius:1rem;">
-        ⚠️ Iframe couldn't load. <a href="https://arf-foundation.github.io/arf-risk-demo/" target="_blank" rel="noopener" style="color:#7dd3fc;">Open manually</a> or scan QR.
+        ⚠️ Iframe couldn't load. <a href="https://arf-foundation.github.io/arf-risk-demo/" target="_blank" rel="noopener noreferrer" style="color:#7dd3fc;">Open manually</a> or scan QR.
       </div>
       <div class="qr"><img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://arf-foundation.github.io/arf-risk-demo/" alt="QR to risk demo"></div>
     </div></div>
 
-    <!-- SLIDE 9: TRACTION (enterprise‑grade, minimalistic) -->
+    <!-- SLIDE 9: TRACTION -->
     <div class="slide"><div class="slide-content">
       <h2>🚀 Where we are</h2>
       <ul class="bullet-list spaced-list">
@@ -376,7 +390,7 @@
       </ul>
       <div class="cta" style="margin-top:2rem;">
         🔥 <strong>Limited pilot spots for Q3 2026</strong> – founder‑led onboarding, no cost for qualified teams.<br>
-        <a href="https://www.arf-ai.com/signup" target="_blank" rel="noopener" style="color:#fff;">Request pilot access → arf-ai.com/signup</a><br>
+        <a href="https://www.arf-ai.com/signup" target="_blank" rel="noopener noreferrer" style="color:#fff;">Request pilot access → arf-ai.com/signup</a><br>
         ✉️ Or email me directly: <span onclick="navigator.clipboard.writeText('juan@arf-ai.com'); alert('Email copied!')" style="cursor:pointer; background:#1e293b; padding:0.2rem 0.6rem; border-radius:1rem;">📋 juan@arf-ai.com</span>
       </div>
       <div class="qr"><img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://www.arf-ai.com/signup" alt="QR to pilot signup"></div>
@@ -405,9 +419,9 @@
       <div style="margin-top:1.2rem; text-align:center;">
         <strong style="color:#7dd3fc;">Collaborators</strong>
         <p style="font-size:0.9rem; margin-top:0.3rem; color:#e2e8f0;">
-          <a href="https://www.linkedin.com/in/shageenth-sandrakumar/" target="_blank" rel="noopener" style="color:#e2e8f0; text-decoration:underline;">Shageenth Sandrakumar</a> &nbsp;·&nbsp;
-          <a href="https://www.linkedin.com/in/astromainak/" target="_blank" rel="noopener" style="color:#e2e8f0; text-decoration:underline;">Mainak Roy (Singha)</a> &nbsp;·&nbsp;
-          <a href="https://www.linkedin.com/in/shantanu/" target="_blank" rel="noopener" style="color:#e2e8f0; text-decoration:underline;">Shantanu (Shanta) Sharma, PhD</a>
+          <a href="https://www.linkedin.com/in/shageenth-sandrakumar/" target="_blank" rel="noopener noreferrer" style="color:#e2e8f0; text-decoration:underline;">Shageenth Sandrakumar</a> &nbsp;·&nbsp;
+          <a href="https://www.linkedin.com/in/astromainak/" target="_blank" rel="noopener noreferrer" style="color:#e2e8f0; text-decoration:underline;">Mainak Roy (Singha)</a> &nbsp;·&nbsp;
+          <a href="https://www.linkedin.com/in/shantanu/" target="_blank" rel="noopener noreferrer" style="color:#e2e8f0; text-decoration:underline;">Shantanu (Shanta) Sharma, PhD</a>
         </p>
       </div>
       <!-- Two clearly separated QR codes -->
@@ -428,7 +442,7 @@
     </div></div>
 
   </div>
-  <footer>© 2026 ARF · hybrid pricing (fixed + outcome/retainer) · pilot‑first · <a href="https://arf-ai.com" target="_blank" rel="noopener" style="color:#7dd3fc;">arf-ai.com</a></footer>
+  <footer>© 2026 ARF · hybrid pricing (fixed + outcome/retainer) · pilot‑first · <a href="https://arf-ai.com" target="_blank" rel="noopener noreferrer" style="color:#7dd3fc;">arf-ai.com</a></footer>
 </div>
 
 <iframe src="https://arf-foundation.github.io/arf-risk-demo/" style="display:none;" title="Preload Risk Demo"></iframe>
@@ -436,32 +450,91 @@
 <script>
   (function() {
     const slides = Array.from(document.querySelectorAll('.slide'));
+    const totalSlides = slides.length;
     let currentIdx = 0, startTime = Date.now(), timerInterval;
+
+    // Inject slide number badges
+    slides.forEach((slide, idx) => {
+      const badge = document.createElement('div');
+      badge.className = 'slide-number-badge';
+      badge.textContent = `${idx + 1}/${totalSlides}`;
+      slide.querySelector('.slide-content').appendChild(badge);
+    });
+
     function showSlide(i) {
-      if (i < 0) i = 0; if (i >= slides.length) i = slides.length - 1;
+      if (i < 0) i = 0;
+      if (i >= totalSlides) i = totalSlides - 1;
       slides.forEach((s, j) => s.classList.toggle('active', j === i));
-      currentIdx = i; updateDots(); updateProgress(); updateTimerDisplay();
+      currentIdx = i;
+      updateDots();
+      updateProgress();
+      updateTimerDisplay();
+
+      // Reload iframe when demo slide (index 7) becomes active
+      if (i === 7) {
+        const iframe = document.querySelector('.demo-frame iframe');
+        if (iframe) {
+          iframe.src = iframe.src; // triggers fresh load
+        }
+      }
     }
+
     function nextSlide() { showSlide(currentIdx + 1); }
     function prevSlide() { showSlide(currentIdx - 1); }
+
     function updateDots() {
-      const c = document.getElementById('navDots'); if (!c) return; c.innerHTML = '';
-      slides.forEach((_, i) => { const d = document.createElement('div'); d.classList.add('dot'); if (i === currentIdx) d.classList.add('active'); d.addEventListener('click', () => showSlide(i)); c.appendChild(d); });
+      const c = document.getElementById('navDots');
+      if (!c) return;
+      c.innerHTML = '';
+      slides.forEach((_, i) => {
+        const d = document.createElement('div');
+        d.classList.add('dot');
+        if (i === currentIdx) d.classList.add('active');
+        d.addEventListener('click', () => showSlide(i));
+        c.appendChild(d);
+      });
     }
-    function updateProgress() { const b = document.getElementById('progressBar'); if (b) b.style.width = `${(currentIdx + 1) / slides.length * 100}%`; }
+
+    function updateProgress() {
+      const b = document.getElementById('progressBar');
+      if (b) b.style.width = `${(currentIdx + 1) / totalSlides * 100}%`;
+    }
+
     function updateTimerDisplay() {
-      const elapsed = Math.floor((Date.now() - startTime) / 1000), remaining = Math.max(0, 1200 - elapsed);
-      const em = Math.floor(elapsed / 60).toString().padStart(2, '0'), es = (elapsed % 60).toString().padStart(2, '0');
-      const rm = Math.floor(remaining / 60), rs = (remaining % 60).toString().padStart(2, '0');
-      const td = document.getElementById('timerDisplay'); if (td) td.innerHTML = `${em}:${es} / 20:00 (${rm}:${rs} left)`;
+      const elapsed = Math.floor((Date.now() - startTime) / 1000),
+            remaining = Math.max(0, 1200 - elapsed);
+      const em = Math.floor(elapsed / 60).toString().padStart(2, '0'),
+            es = (elapsed % 60).toString().padStart(2, '0');
+      const rm = Math.floor(remaining / 60),
+            rs = (remaining % 60).toString().padStart(2, '0');
+      const td = document.getElementById('timerDisplay');
+      if (td) td.innerHTML = `${em}:${es} / 20:00 (${rm}:${rs} left)`;
     }
-    window.addEventListener('keydown', e => { if (e.key === 'ArrowLeft') prevSlide(); if (e.key === 'ArrowRight') nextSlide(); });
+
+    // Keyboard: arrow keys + D for demo
+    window.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft') prevSlide();
+      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'd' || e.key === 'D') {
+        e.preventDefault(); // avoid typing in iframes/inputs
+        showSlide(7); // jump to slide 8 (index 7)
+      }
+    });
+
+    // Touch swipe
     let touchStart = 0;
     document.addEventListener('touchstart', e => { touchStart = e.changedTouches[0].screenX; });
-    document.addEventListener('touchend', e => { const end = e.changedTouches[0].screenX; if (end < touchStart - 50) nextSlide(); if (end > touchStart + 50) prevSlide(); });
+    document.addEventListener('touchend', e => {
+      const end = e.changedTouches[0].screenX;
+      if (end < touchStart - 50) nextSlide();
+      if (end > touchStart + 50) prevSlide();
+    });
+
     document.getElementById('prevBtn')?.addEventListener('click', prevSlide);
     document.getElementById('nextBtn')?.addEventListener('click', nextSlide);
-    showSlide(0); timerInterval = setInterval(updateTimerDisplay, 1000);
+
+    showSlide(0);
+    timerInterval = setInterval(updateTimerDisplay, 1000);
   })();
 </script>
 </body>
