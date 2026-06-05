@@ -112,10 +112,10 @@
     .engine-desc { font-size: 0.8rem; color: #cbd5e1; }
     .test-badge-large { display: inline-block; background: rgba(56, 189, 248, 0.2); border: 1px solid #38bdf8; padding: 0.5rem 1rem; border-radius: 2rem; font-size: 0.9rem; margin-top: 1rem; }
     .code-block { background: #0a0c14; padding: 0.6rem; border-radius: 0.6rem; font-family: monospace; font-size: 0.8rem; overflow-x: auto; margin: 0.8rem 0; white-space: pre-wrap; }
-    .faq-grid { display: flex; flex-direction: column; gap: 0.8rem; margin: 1rem 0; }
-    .faq-item { background: rgba(15, 23, 42, 0.6); border-radius: 0.8rem; padding: 0.6rem 1rem; }
-    .faq-q { font-weight: 700; color: #38bdf8; font-size: 0.95rem; margin-bottom: 0.3rem; }
-    .faq-a { font-size: 0.85rem; color: #cbd5e1; margin-top: 0.2rem; line-height: 1.5; }
+    .faq-grid { display: flex; flex-direction: column; gap: 0.6rem; margin: 0.8rem 0; }
+    .faq-item { background: rgba(15, 23, 42, 0.6); border-radius: 0.8rem; padding: 0.5rem 0.8rem; }
+    .faq-q { font-weight: 700; color: #38bdf8; font-size: 0.85rem; margin-bottom: 0.1rem; }
+    .faq-a { font-size: 0.75rem; color: #cbd5e1; }
     .slide-number {
       position: absolute;
       bottom: 1rem;
@@ -153,6 +153,8 @@
       .verticals-grid { gap: 0.4rem; }
       .vertical-badge { font-size: 0.7rem; padding: 0.3rem 0.7rem; }
       .slide-number { font-size: 0.7rem; bottom: 0.5rem; right: 0.5rem; }
+      .faq-q { font-size: 0.8rem; }
+      .faq-a { font-size: 0.7rem; }
     }
     @media print {
       .nav-dots, .nav-arrows, .timer { display: none; }
@@ -353,18 +355,15 @@
       <div class="cta" style="background:#1e293b; margin-top:2rem;">Trusted decision infrastructure for AI‑driven operations.</div>
     </div></div>
 
-    <!-- SLIDE 10: FAQ -->
+    <!-- SLIDE 10: FAQ – shortened to 5 most psychologically important questions -->
     <div class="slide"><div class="slide-content">
-      <h2>❓ Frequently Asked Questions</h2>
+      <h2>❓ FAQ</h2>
       <div class="faq-grid">
-        <div class="faq-item"><div class="faq-q">⚡ Latency?</div><div class="faq-a">&lt;50ms core – faster than human review.</div></div>
-        <div class="faq-item"><div class="faq-q">🔒 Data privacy?</div><div class="faq-a">Runs on‑prem or VPC – no data leaves your environment.</div></div>
-        <div class="faq-item"><div class="faq-q">🎮 Can agents game the system?</div><div class="faq-a">No – we track historical accuracy, so lying about confidence backfires.</div></div>
-        <div class="faq-item"><div class="faq-q">👥 Does ARF replace humans?</div><div class="faq-a">No – it escalates when uncertain. <strong>You stay in control.</strong></div></div>
-        <div class="faq-item"><div class="faq-q">🔐 How do I get access to the real engine?</div><div class="faq-a">Submit a pilot request at arf-ai.com/signup or email juan@arf-ai.com. Access is reviewed case by case for qualified use cases.</div></div>
-        <div class="faq-item"><div class="faq-q">🧪 What's the difference between demo and real engine?</div><div class="faq-a">The demo uses mock/advisory data to explain the workflow. The real engine is private, access‑controlled, and offers mechanical enforcement and full audit trails.</div></div>
-        <div class="faq-item"><div class="faq-q">📊 How many requests per second can the real engine handle?</div><div class="faq-a">The core engine is designed for high throughput – contact us for specific benchmarks based on your deployment profile.</div></div>
-        <div class="faq-item"><div class="faq-q">🏢 How does ARF compare to hyperscaler governance tools?</div><div class="faq-a">Hyperscalers build governance into their own platforms – ARF is <strong>infrastructure‑agnostic</strong>. It works across AWS, Azure, GCP, and on‑premises. New entrants focus on model‑level guardrails; ARF operates at the <strong>decision layer</strong>, evaluating the action, not just the prompt. The difference: most tools advise; ARF enforces – and when it can't, it escalates to a human with a complete audit trail.</div></div>
+        <div class="faq-item"><div class="faq-q">⚡ Latency?</div><div class="faq-a">&lt;50ms – faster than human review.</div></div>
+        <div class="faq-item"><div class="faq-q">🔒 Data privacy?</div><div class="faq-a">Runs on‑prem / VPC – no data leaves your environment.</div></div>
+        <div class="faq-item"><div class="faq-q">🎮 Can agents game the system?</div><div class="faq-a">No – we track historical accuracy; lying backfires.</div></div>
+        <div class="faq-item"><div class="faq-q">👥 Does ARF replace humans?</div><div class="faq-a">No – escalates when uncertain. <strong>You stay in control.</strong></div></div>
+        <div class="faq-item"><div class="faq-q">🔐 How to get access?</div><div class="faq-a">Pilot request at arf-ai.com/signup or juan@arf-ai.com.</div></div>
       </div>
     </div></div>
 
