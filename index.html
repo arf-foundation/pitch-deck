@@ -1,507 +1,1596 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <title>ARF – The Missing Layer in Agentic AI: Governance | Juan Petter @ LLMday 2026</title>
-  <meta name="description" content="Deterministic governance layer for autonomous AI agents – Bayesian risk scoring, expected loss minimisation, cryptographic audit trails.">
-  <meta name="author" content="Juan Petter – ARF">
-  <meta name="theme-color" content="#0a0c10">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background: #0a0c10;
-      color: #eef2ff;
-      line-height: 1.4;
-      overflow: hidden;
-      height: 100vh;
-      width: 100vw;
-      position: relative;
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover" name="viewport"/>
+<title>ARF AI - Investor Deck | The Control Plane for Autonomous AI</title>
+<meta content="ARF AI investor deck - execution governance for autonomous AI, combining risk-aware decisioning, deterministic policy, candidate selection, trusted signing, reversibility, and auditable execution." name="description"/>
+<meta content="Juan Petter - Founder, ARF AI" name="author"/>
+<meta content="noindex, nofollow" name="robots"/>
+<meta content="#0a0c10" name="theme-color"/>
+<style>
+    :root {
+      --bg: #0a0c10;
+      --panel: rgba(16, 21, 29, 0.92);
+      --panel-soft: rgba(15, 23, 42, 0.72);
+      --text: #eef2ff;
+      --muted: #a9b5c7;
+      --muted-2: #7f8da2;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.14);
+      --accent-border: rgba(56, 189, 248, 0.38);
+      --border: rgba(148, 163, 184, 0.16);
+      --good: #34d399;
+      --warn: #f59e0b;
+      --danger: #ef4444;
+      --shadow: 0 28px 60px rgba(0, 0, 0, 0.48);
     }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      font-family:
+        Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.42;
+      overflow: hidden;
+    }
+
     body::before {
       content: "";
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background-image: 
-        linear-gradient(rgba(56, 189, 248, 0.18) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(56, 189, 248, 0.18) 1px, transparent 1px);
-      background-size: 40px 40px;
-      pointer-events: none; z-index: 0;
-      animation: gridMove 20s linear infinite;
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(56, 189, 248, 0.09) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(56, 189, 248, 0.09) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, black 0%, rgba(0,0,0,0.55) 75%, transparent 100%);
     }
-    @keyframes gridMove { 0% { background-position: 0 0; } 100% { background-position: 40px 40px; } }
+
     body::after {
       content: "";
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: radial-gradient(circle at 30% 40%, rgba(56, 189, 248, 0.12), transparent 80%);
-      pointer-events: none; z-index: 0;
-      animation: pulseGlow 6s ease infinite;
-    }
-    @keyframes pulseGlow { 0% { opacity: 0.4; } 50% { opacity: 0.8; } 100% { opacity: 0.4; } }
-    .presentation { position: relative; width: 100%; height: 100%; overflow: hidden; z-index: 1; }
-    .slide-container { position: relative; width: 100%; height: 100%; }
-    .slide {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      display: flex; align-items: center; justify-content: center;
-      opacity: 0; transition: opacity 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 62vw;
+      height: 62vh;
       pointer-events: none;
-      background: rgba(10, 12, 16, 0.65); backdrop-filter: blur(3px);
+      z-index: 0;
+      background: radial-gradient(circle at 35% 35%, rgba(56, 189, 248, 0.11), transparent 70%);
     }
-    .slide.active { opacity: 1; pointer-events: auto; }
-    .slide-content {
+
+    a {
+      color: #8bdcff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .presentation {
       position: relative;
-      max-width: 1100px; width: 85%; margin: 0 auto; padding: 2rem;
-      background: rgba(18, 22, 28, 0.85); backdrop-filter: blur(12px);
-      border-radius: 2rem; border: 1px solid rgba(56, 189, 248, 0.4);
-      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.6); transition: transform 0.3s ease;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 1;
     }
-    h1 { font-size: 2.5rem; font-weight: 700; background: linear-gradient(135deg, #ffffff, #38bdf8); background-clip: text; -webkit-background-clip: text; color: transparent; margin-bottom: 0.5rem; letter-spacing: -0.02em; }
-    .main-title-line { font-size: 1.6rem; font-weight: 500; color: #7dd3fc; margin-bottom: 0.5rem; letter-spacing: 1px; }
-    h2 { font-size: 2.5rem; font-weight: 600; border-left: 5px solid #38bdf8; padding-left: 1rem; margin: 0 0 1rem 0; color: #f0f9ff; line-height: 1.2; }
-    h3 { font-size: 1.4rem; font-weight: 600; margin: 0.5rem 0; color: #bae6fd; }
-    .tagline { font-size: 1.2rem; color: #94a3b8; margin-bottom: 1rem; }
-    .stat-grid { display: flex; flex-wrap: wrap; gap: 1.2rem; margin: 1.5rem 0; }
-    .stat-card { background: rgba(15, 23, 42, 0.8); border-radius: 1.5rem; padding: 1rem 1.2rem; flex: 1; text-align: center; border: 1px solid #1e293b; }
-    .stat-number { font-size: 2.2rem; font-weight: 800; color: #38bdf8; }
-    .bullet-list { list-style: none; padding-left: 0; margin: 1rem 0; }
-    .bullet-list li { margin-bottom: 0.8rem; padding-left: 1.8rem; position: relative; font-size: 1rem; }
-    .bullet-list li::before { content: "▹"; color: #38bdf8; position: absolute; left: 0; font-size: 1.2rem; }
-    .two-columns, .three-columns { display: flex; gap: 1.5rem; flex-wrap: wrap; margin: 1rem 0; }
-    .col { background: rgba(15, 23, 42, 0.6); padding: 1rem; border-radius: 1rem; flex: 1; }
-    .cta { background: linear-gradient(95deg, #0f172a, #020617); padding: 1rem; border-radius: 2rem; text-align: center; margin-top: 1.2rem; font-size: 1.1rem; }
-    .badge { background: rgba(56, 189, 248, 0.15); color: #7dd3fc; padding: 0.3rem 1rem; border-radius: 2rem; font-size: 0.9rem; display: inline-block; margin-bottom: 0.8rem; }
-    .logo-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
-    .logo-row img { height: 48px; width: auto; }
-    .demo-frame { background: #0f172a; border-radius: 1rem; overflow: hidden; margin: 1rem 0; border: 1px solid #1e293b; }
-    .demo-frame iframe { width: 100%; height: 320px; border: none; }
-    .qr { text-align: center; margin: 1rem 0; }
-    .qr img { width: 140px; height: 140px; background: white; padding: 0.5rem; border-radius: 1rem; }
-    .nav-dots { position: fixed; right: 1.5rem; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 0.8rem; z-index: 200; }
-    .dot { width: 12px; height: 12px; background: #5b6e8c; border-radius: 50%; cursor: pointer; transition: all 0.2s; }
-    .dot.active { background: #38bdf8; transform: scale(1.5); box-shadow: 0 0 8px #38bdf8; }
-    .nav-arrows { position: fixed; bottom: 2rem; left: 0; right: 0; display: flex; justify-content: center; gap: 1.2rem; z-index: 200; }
-    .nav-btn { background: #1e293b; border: none; color: white; padding: 0.6rem 1.2rem; border-radius: 3rem; cursor: pointer; font-size: 1rem; font-weight: 500; transition: 0.2s; }
-    .nav-btn:hover { background: #38bdf8; color: #0a0c10; }
-    .timer { position: fixed; top: 1rem; right: 1rem; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(4px); padding: 0.3rem 0.8rem; border-radius: 2rem; font-family: monospace; font-size: 0.9rem; z-index: 200; border: 1px solid #38bdf8; }
-    footer { position: fixed; bottom: 0.5rem; left: 0; right: 0; text-align: center; font-size: 0.7rem; color: #5b6e8c; z-index: 200; background: rgba(0, 0, 0, 0.3); padding: 0.3rem; }
-    .verticals-grid { display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; margin: 1rem 0; }
-    .vertical-badge { background: rgba(56, 189, 248, 0.2); border: 1px solid rgba(56, 189, 248, 0.4); padding: 0.4rem 1rem; border-radius: 2rem; font-size: 0.9rem; font-weight: 500; }
-    .vertical-badge.active { background: rgba(56, 189, 248, 0.4); color: white; }
-    .vertical-badge.coming { opacity: 0.7; border-style: dashed; }
-    .abstract-title { font-size: 2.2rem; font-weight: 700; text-align: center; margin-bottom: 1.5rem; line-height: 1.3; }
-    .abstract-highlight { color: #38bdf8; border-bottom: 2px solid #38bdf8; display: inline-block; }
-    .pillar-grid { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin: 2rem 0; }
-    .pillar-item { text-align: center; background: rgba(15, 23, 42, 0.7); padding: 1rem; border-radius: 1.5rem; width: 180px; transition: transform 0.2s; }
-    .pillar-icon { font-size: 2.5rem; display: block; margin-bottom: 0.5rem; }
-    .pillar-label { font-size: 1rem; font-weight: 600; color: #bae6fd; }
-    .pillar-desc { font-size: 0.8rem; color: #94a3b8; margin-top: 0.3rem; }
-    .arf-statement { text-align: center; font-size: 1.2rem; margin: 1.5rem 0; padding: 0.5rem; background: rgba(56, 189, 248, 0.1); border-radius: 1rem; }
-    .tech-badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem; margin-top: 1rem; }
-    .tech-badge { background: rgba(56, 189, 248, 0.2); border: 1px solid rgba(56, 189, 248, 0.5); padding: 0.3rem 0.8rem; border-radius: 2rem; font-size: 0.8rem; }
-    .solution-flow { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; margin: 1.5rem 0; }
-    .flow-card { background: rgba(15, 23, 42, 0.8); border-radius: 1rem; padding: 1rem; width: 180px; text-align: center; }
-    .flow-icon { font-size: 2rem; display: block; margin-bottom: 0.5rem; }
-    .flow-title { font-weight: 700; color: #38bdf8; margin-bottom: 0.3rem; }
-    .flow-desc { font-size: 0.8rem; color: #cbd5e1; }
-    .capabilities-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin: 1rem 0; }
-    .cap-card { background: rgba(15, 23, 42, 0.6); border-radius: 0.8rem; padding: 0.6rem 1rem; width: auto; text-align: center; }
-    .engine-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.2rem; margin: 1.5rem 0; }
-    .engine-card { background: rgba(15, 23, 42, 0.7); border-radius: 1rem; padding: 1rem; width: 200px; text-align: center; transition: transform 0.2s; }
-    .engine-icon { font-size: 2rem; display: block; margin-bottom: 0.5rem; }
-    .engine-title { font-size: 1rem; font-weight: 700; color: #38bdf8; margin-bottom: 0.3rem; }
-    .engine-desc { font-size: 0.8rem; color: #cbd5e1; }
-    .test-badge-large { display: inline-block; background: rgba(56, 189, 248, 0.2); border: 1px solid #38bdf8; padding: 0.5rem 1rem; border-radius: 2rem; font-size: 0.9rem; margin-top: 1rem; }
-    .code-block { background: #0a0c14; padding: 0.6rem; border-radius: 0.6rem; font-family: monospace; font-size: 0.8rem; overflow-x: auto; margin: 0.8rem 0; white-space: pre-wrap; }
-    .faq-grid { display: flex; flex-direction: column; gap: 0.6rem; margin: 0.8rem 0; }
-    .faq-item { background: rgba(15, 23, 42, 0.6); border-radius: 0.8rem; padding: 0.5rem 0.8rem; }
-    .faq-q { font-weight: 700; color: #38bdf8; font-size: 0.85rem; margin-bottom: 0.1rem; }
-    .faq-a { font-size: 0.75rem; color: #cbd5e1; }
+
+    .progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: 0%;
+      background: var(--accent);
+      z-index: 400;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.45);
+      transition: width 0.25s ease;
+    }
+
+    .top-meta {
+      position: fixed;
+      top: 14px;
+      left: 20px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      pointer-events: none;
+      z-index: 250;
+      color: var(--muted-2);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .top-meta .left {
+      color: #c8d5e5;
+    }
+
+    .top-meta .right {
+      color: #8ea0b6;
+    }
+
+    .slides {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 4rem 5.5vw 4.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.38s ease;
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .slide-content {
+      width: min(1180px, 92vw);
+      max-height: 86vh;
+      overflow: auto;
+      padding: clamp(1.5rem, 3vw, 2.5rem);
+      border: 1px solid var(--accent-border);
+      border-radius: 28px;
+      background: linear-gradient(
+        145deg,
+        rgba(19, 25, 34, 0.94),
+        rgba(9, 13, 19, 0.92)
+      );
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      scrollbar-width: thin;
+      scrollbar-color: #334155 transparent;
+    }
+
+    .slide-content::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .slide-content::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 99px;
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      color: #a8e4fb;
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-border);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: clamp(2.3rem, 5vw, 4.5rem);
+      line-height: 1.02;
+      letter-spacing: -0.045em;
+      margin-bottom: 0.9rem;
+      max-width: 950px;
+    }
+
+    h1 .accent {
+      color: var(--accent);
+    }
+
+    h2 {
+      font-size: clamp(1.85rem, 3.4vw, 3rem);
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+      margin-bottom: 0.8rem;
+    }
+
+    h3 {
+      font-size: 1.02rem;
+      line-height: 1.2;
+      color: #d9e8f6;
+      margin-bottom: 0.45rem;
+    }
+
+    p {
+      color: var(--muted);
+    }
+
+    .lead {
+      font-size: clamp(1rem, 1.8vw, 1.3rem);
+      max-width: 900px;
+      color: #c6d2e2;
+      margin-bottom: 1.4rem;
+    }
+
+    .small {
+      font-size: 0.82rem;
+      color: var(--muted-2);
+    }
+
+    .grid-2,
+    .grid-3,
+    .grid-4 {
+      display: grid;
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .card {
+      background: var(--panel-soft);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 1rem 1.05rem;
+    }
+
+    .card .number,
+    .metric .number {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--accent);
+      margin-bottom: 0.2rem;
+    }
+
+    .card p,
+    .metric p {
+      font-size: 0.9rem;
+    }
+
+    .metric-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .metric {
+      background: rgba(15, 23, 42, 0.78);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 1rem 1.1rem;
+      text-align: center;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      margin-top: 1rem;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.38rem 0.68rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.14);
+      color: #cad8e7;
+      font-size: 0.78rem;
+    }
+
+    .callout {
+      margin-top: 1.2rem;
+      padding: 1rem 1.1rem;
+      border-radius: 18px;
+      background: linear-gradient(90deg, rgba(56,189,248,0.10), rgba(15,23,42,0.6));
+      border: 1px solid var(--accent-border);
+      color: #d8e8f7;
+      font-size: 1rem;
+    }
+
+    .quote {
+      padding: 1.5rem;
+      border-left: 4px solid var(--accent);
+      background: rgba(15, 23, 42, 0.6);
+      border-radius: 0 18px 18px 0;
+      margin-top: 1.3rem;
+    }
+
+    .quote p {
+      color: #e5edf6;
+      font-size: clamp(1.2rem, 2.2vw, 1.8rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    .quote .small {
+      margin-top: 0.65rem;
+    }
+
+    .problem-card {
+      min-height: 210px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .problem-card .event {
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #9eb1c7;
+      margin-bottom: 0.5rem;
+    }
+
+    .problem-card .lesson {
+      margin-top: 0.8rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border);
+      color: #cbd8e6;
+      font-size: 0.86rem;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: 1fr auto 1.35fr auto 1fr;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .flow-node {
+      padding: 1.2rem 1rem;
+      min-height: 110px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.72);
+    }
+
+    .flow-node strong {
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    .flow-node span {
+      font-size: 0.76rem;
+      color: var(--muted);
+    }
+
+    .flow-arrow {
+      color: var(--accent);
+      font-size: 1.5rem;
+      text-align: center;
+    }
+
+    .gate-chain {
+      padding: 1rem;
+      border: 1px solid var(--accent-border);
+      background: rgba(56, 189, 248, 0.06);
+      border-radius: 18px;
+    }
+
+    .gate-chain .gate-line {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 0.55rem;
+      margin-top: 0.8rem;
+    }
+
+    .gate {
+      padding: 0.75rem 0.55rem;
+      text-align: center;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.82);
+      border: 1px solid var(--border);
+      font-size: 0.78rem;
+      color: #d2dfed;
+    }
+
+    .ladder {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .ladder .level {
+      padding: 1rem;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.72);
+    }
+
+    .level .label {
+      font-weight: 800;
+      color: #e2ebf4;
+      margin-bottom: 0.25rem;
+    }
+
+    .level p {
+      font-size: 0.78rem;
+    }
+
+    .level.advisory { border-color: rgba(52, 211, 153, 0.28); }
+    .level.supervised { border-color: rgba(245, 158, 11, 0.28); }
+    .level.autonomous { border-color: rgba(239, 68, 68, 0.28); }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+
+    .list {
+      display: grid;
+      gap: 0.75rem;
+      margin-top: 0.9rem;
+    }
+
+    .list-item {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 0.6rem;
+      align-items: start;
+    }
+
+    .list-item .icon {
+      color: var(--accent);
+      font-weight: 800;
+      padding-top: 1px;
+    }
+
+    .list-item strong {
+      color: #e5edf6;
+    }
+
+    .list-item p {
+      font-size: 0.88rem;
+      margin-top: 0.15rem;
+    }
+
+    .code {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 16px;
+      background: #070a0f;
+      border: 1px solid rgba(148, 163, 184, 0.15);
+      color: #d8e4ef;
+      font:
+        0.77rem/1.55 ui-monospace, SFMono-Regular, Menlo, Monaco,
+        Consolas, "Liberation Mono", "Courier New", monospace;
+      white-space: pre-wrap;
+      overflow: auto;
+    }
+
+    .matrix {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.8rem;
+      margin-top: 1.1rem;
+    }
+
+    .matrix .box {
+      min-height: 150px;
+      border-radius: 16px;
+      padding: 1rem;
+      background: rgba(15, 23, 42, 0.72);
+      border: 1px solid var(--border);
+    }
+
+    .matrix .box h3 {
+      margin-bottom: 0.7rem;
+    }
+
+    .matrix .box p,
+    .matrix .box li {
+      font-size: 0.82rem;
+    }
+
+    .bullet-list {
+      margin-top: 0.8rem;
+      padding-left: 1rem;
+    }
+
+    .bullet-list li {
+      margin: 0.42rem 0;
+      color: #c9d5e2;
+      font-size: 0.88rem;
+    }
+
+    .market-stack {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.8rem;
+      margin-top: 1.2rem;
+    }
+
+    .market-step {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 1rem;
+      align-items: center;
+      padding: 0.9rem 1rem;
+      border-radius: 16px;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid var(--border);
+    }
+
+    .market-step .label {
+      color: var(--accent);
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+
+    .market-step p {
+      font-size: 0.86rem;
+    }
+
+    .funding {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 1rem;
+      margin-top: 1.25rem;
+      align-items: stretch;
+    }
+
+    .raise-card {
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 1.6rem;
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at 50% 25%, rgba(56,189,248,0.18), transparent 62%),
+        rgba(15, 23, 42, 0.72);
+      border: 1px solid var(--accent-border);
+    }
+
+    .raise-card .amount {
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 900;
+      letter-spacing: -0.06em;
+      color: #f1f7fc;
+    }
+
+    .raise-card .close {
+      font-size: 1rem;
+      color: #aee7fb;
+      margin-top: 0.4rem;
+    }
+
+    .uses {
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .use-row {
+      display: grid;
+      grid-template-columns: 145px 1fr;
+      gap: 0.8rem;
+      padding: 0.75rem 0.9rem;
+      border: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.65);
+      border-radius: 14px;
+    }
+
+    .use-row strong {
+      color: #e2ebf4;
+    }
+
+    .use-row span {
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .confidential {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.76rem;
+      color: #b9c6d5;
+      padding: 0.34rem 0.65rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.62);
+      margin-top: 1rem;
+    }
+
+    .footer {
+      position: fixed;
+      left: 18px;
+      right: 18px;
+      bottom: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #6f7f93;
+      font-size: 0.68rem;
+      z-index: 240;
+      pointer-events: none;
+    }
+
+    .footer .right {
+      text-align: right;
+    }
+
+    .nav {
+      position: fixed;
+      right: 18px;
+      bottom: 28px;
+      display: flex;
+      gap: 0.55rem;
+      z-index: 300;
+    }
+
+    .nav button {
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      color: #dbe9f5;
+      background: rgba(15, 23, 42, 0.82);
+      cursor: pointer;
+    }
+
+    .nav button:hover {
+      border-color: var(--accent);
+      color: #071018;
+      background: var(--accent);
+    }
+
+    .dots {
+      position: fixed;
+      left: 18px;
+      bottom: 28px;
+      display: flex;
+      gap: 0.35rem;
+      z-index: 300;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #405067;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    .dot.active {
+      background: var(--accent);
+      transform: scale(1.25);
+    }
+
     .slide-number {
       position: absolute;
-      bottom: 1rem;
-      right: 1rem;
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #38bdf8;
-      background: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(4px);
-      padding: 0.2rem 0.6rem;
-      border-radius: 1rem;
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      z-index: 10;
-      pointer-events: none;
-      font-family: monospace;
+      right: 1.3rem;
+      top: 1.2rem;
+      font: 0.72rem/1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      color: #6f8196;
+      letter-spacing: 0.08em;
     }
-    .spaced-list li { margin-bottom: 1.3rem; }
-    @media (max-width: 680px) {
-      .slide-content { padding: 1rem; width: 92%; }
-      h1, h2 { font-size: 1.7rem; }
-      .main-title-line { font-size: 1.1rem; }
-      .bullet-list li { font-size: 0.9rem; }
-      .stat-number { font-size: 1.4rem; }
-      .nav-dots { display: none; }
-      .nav-arrows { bottom: 1rem; }
-      .abstract-title { font-size: 1.4rem; }
-      .pillar-item { width: 130px; padding: 0.6rem; }
-      .pillar-icon { font-size: 1.6rem; }
-      .arf-statement { font-size: 0.9rem; }
-      .flow-card { width: 130px; padding: 0.5rem; }
-      .engine-card { width: 140px; padding: 0.6rem; }
-      .engine-icon { font-size: 1.4rem; }
-      .code-block { font-size: 0.65rem; word-break: break-all; }
-      .qr img { width: 100px; height: 100px; }
-      .verticals-grid { gap: 0.4rem; }
-      .vertical-badge { font-size: 0.7rem; padding: 0.3rem 0.7rem; }
-      .slide-number { font-size: 0.7rem; bottom: 0.5rem; right: 0.5rem; }
-      .faq-q { font-size: 0.8rem; }
-      .faq-a { font-size: 0.7rem; }
+
+    .center {
+      text-align: center;
     }
+
+    .center .lead {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .logo-row img {
+      height: 46px;
+      width: auto;
+    }
+
+    .logo-fallback {
+      display: none;
+      color: var(--accent);
+      font-weight: 800;
+      letter-spacing: 0.08em;
+    }
+
+    .cta-line {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      align-items: center;
+      margin-top: 1.25rem;
+    }
+
+    .button-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.62rem 0.85rem;
+      border-radius: 10px;
+      border: 1px solid var(--accent-border);
+      background: rgba(56, 189, 248, 0.08);
+      color: #cfefff;
+      font-size: 0.82rem;
+    }
+
+    @media (max-width: 900px) {
+      .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid-3 { grid-template-columns: 1fr; }
+      .grid-2,
+      .split,
+      .funding {
+        grid-template-columns: 1fr;
+      }
+      .flow {
+        grid-template-columns: 1fr;
+      }
+      .flow-arrow {
+        transform: rotate(90deg);
+      }
+      .gate-chain .gate-line {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .metric-row,
+      .matrix {
+        grid-template-columns: 1fr;
+      }
+      .market-step {
+        grid-template-columns: 110px 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .slide {
+        padding: 3.6rem 1rem 4.5rem;
+      }
+
+      .slide-content {
+        width: 96vw;
+        max-height: 85vh;
+        padding: 1.2rem;
+        border-radius: 20px;
+      }
+
+      .top-meta {
+        font-size: 0.6rem;
+      }
+
+      .grid-4 {
+        grid-template-columns: 1fr;
+      }
+
+      .ladder {
+        grid-template-columns: 1fr;
+      }
+
+      .gate-chain .gate-line {
+        grid-template-columns: 1fr;
+      }
+
+      .market-step,
+      .use-row {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        right: 12px;
+        bottom: 28px;
+      }
+
+      .dots {
+        left: 12px;
+        bottom: 32px;
+      }
+    }
+
     @media print {
-      .nav-dots, .nav-arrows, .timer { display: none; }
-      .slide { position: relative; display: block; opacity: 1; break-after: page; }
-      body { overflow: auto; height: auto; }
-      .presentation { height: auto; overflow: auto; }
+      body {
+        overflow: visible;
+        background: white;
+        color: #111827;
+      }
+
+      body::before,
+      body::after,
+      .top-meta,
+      .progress,
+      .footer,
+      .nav,
+      .dots {
+        display: none !important;
+      }
+
+      .presentation,
+      .slides {
+        height: auto;
+        overflow: visible;
+      }
+
+      .slide {
+        position: relative;
+        opacity: 1 !important;
+        pointer-events: auto;
+        min-height: 100vh;
+        page-break-after: always;
+        padding: 0.4in;
+      }
+
+      .slide-content {
+        width: 100%;
+        max-height: none;
+        overflow: visible;
+        box-shadow: none;
+        border-color: #cbd5e1;
+        background: white;
+        color: #111827;
+      }
+
+      p,
+      .small,
+      .list-item p,
+      .matrix .box p,
+      .matrix .box li,
+      .market-step p,
+      .use-row span {
+        color: #334155 !important;
+      }
+
+      h1,
+      h2,
+      h3,
+      .list-item strong,
+      .quote p,
+      .problem-card .lesson,
+      .level .label,
+      .use-row strong {
+        color: #111827 !important;
+      }
+
+      .tag,
+      .card,
+      .metric,
+      .problem-card,
+      .flow-node,
+      .gate,
+      .level,
+      .matrix .box,
+      .market-step,
+      .use-row,
+      .code {
+        background: #f8fafc !important;
+        border-color: #cbd5e1 !important;
+      }
+
+      .raise-card {
+        background: #f8fafc !important;
+        color: #111827 !important;
+      }
+
+      .slide-number {
+        color: #64748b;
+      }
     }
   </style>
 </head>
 <body>
-<div id="progressBar" style="position:fixed; top:0; left:0; height:3px; background:#38bdf8; width:0%; z-index:300; transition:width 0.2s;"></div>
-<div class="timer" id="timerDisplay">00:00 / 20:00</div>
-<div class="nav-dots" id="navDots"></div>
-<div class="nav-arrows">
-  <button class="nav-btn" id="prevBtn">← Prev</button>
-  <button class="nav-btn" id="nextBtn">Next →</button>
+<div class="progress" id="progress"></div>
+<div class="top-meta">
+<div class="left">ARF AI · Investor Deck</div>
+<div class="right">Confidential · Pre-Seed · Non-Confidential Materials</div>
 </div>
-
-<div class="presentation">
-  <div class="slide-container" id="slideContainer">
-
-    <!-- SLIDE 1: TITLE -->
-    <div class="slide"><div class="slide-content">
-      <div class="logo-row"><img src="ARF - Primary Logo.png" alt="ARF Logo"></div>
-      <div class="main-title-line">Govern every AI decision</div>
-      <h1>The Missing Layer in Agentic AI: Governance</h1>
-      <div class="tagline">Juan Petter – Founder, ARF · ex‑NetApp</div>
-      <div class="badge" style="background:#2dd4bf20; color:#2dd4bf;">🔐 You stay in control – we escalate, not replace</div>
-      <div class="stat-grid">
-        <div class="stat-card"><div class="stat-number">>$100k</div><div>typical loss per silent AI incident</div></div>
-        <div class="stat-card"><div class="stat-number">~70%</div><div>agentic AI projects fail in production</div></div>
-        <div class="stat-card"><div class="stat-number">54/54</div><div>pressure tests passed</div></div>
-      </div>
-      <div style="display:flex; gap:0.8rem; justify-content:center; flex-wrap:wrap; margin-top:0.5rem;">
-        <span style="background:#0f172a; padding:0.3rem 0.8rem; border-radius:2rem;">🔒 Deterministic</span>
-        <span style="background:#0f172a; padding:0.3rem 0.8rem; border-radius:2rem;">📜 Audit trail</span>
-        <span style="background:#0f172a; padding:0.3rem 0.8rem; border-radius:2rem;">⚡ &lt;50ms</span>
-        <span style="background:#0f172a; padding:0.3rem 0.8rem; border-radius:2rem;">🌐 Air‑gap ready</span>
-      </div>
-    </div></div>
-
-    <!-- SLIDE 2: PROBLEM – THREE INCIDENTS WITH PROGRESSION -->
-    <div class="slide"><div class="slide-content">
-      <h2>⚠️ The Problem – Real failures, one missing layer</h2>
-      <div class="three-columns">
-        <div class="col">
-          <h3>✈️ Air Canada (2022)</h3>
-          <ul class="bullet-list">
-            <li>Customer asked about bereavement fares.</li>
-            <li>Chatbot invented a discount policy.</li>
-            <li>Airline was held liable.</li>
-          </ul>
-          <div class="cta" style="background:rgba(56,189,248,0.1); margin-top:0.5rem; font-size:0.8rem;">📌 Lesson: AI output becomes organisational liability.</div>
-        </div>
-        <div class="col">
-          <h3>🌩️ Cloudflare (Feb 2026)</h3>
-          <ul class="bullet-list">
-            <li>A single configuration change propagated.</li>
-            <li>1,100 customer prefixes withdrawn.</li>
-            <li>Multi‑hour global outage, >$10M in SLA credits.</li>
-          </ul>
-          <div class="cta" style="background:rgba(56,189,248,0.1); margin-top:0.5rem; font-size:0.8rem;">📌 Lesson: Sophisticated systems still fail when actions are insufficiently governed.</div>
-        </div>
-        <div class="col">
-          <h3>💀 PocketOS (April 2026)</h3>
-          <ul class="bullet-list">
-            <li>Autonomous coding agent had root API token.</li>
-            <li>In 9 seconds, deleted production DB + backups.</li>
-            <li>3 months of customer data lost.</li>
-          </ul>
-          <div class="cta" style="background:rgba(56,189,248,0.1); margin-top:0.5rem; font-size:0.8rem;">📌 Lesson: Autonomy without governance increases blast radius.</div>
-        </div>
-      </div>
-      <div class="cta" style="background:transparent; margin-top:1rem;">📌 Same pattern: insufficient control before action. Capability ≠ Control.</div>
-    </div></div>
-
-    <!-- SLIDE 3: ABSTRACT / FRAMING -->
-    <div class="slide"><div class="slide-content">
-      <div class="abstract-title">“The real problem is not <span style="color:#94a3b8;">capability</span> — it is <span class="abstract-highlight">control</span>.”</div>
-      <div class="pillar-grid">
-        <div class="pillar-item"><span class="pillar-icon">📊</span><div class="pillar-label">Evaluate risk</div><div class="pillar-desc">Bayesian risk scoring</div></div>
-        <div class="pillar-item"><span class="pillar-icon">🔗</span><div class="pillar-label">Bound autonomy</div><div class="pillar-desc">Escalate, not auto‑execute</div></div>
-        <div class="pillar-item"><span class="pillar-icon">📜</span><div class="pillar-label">Auditability</div><div class="pillar-desc">Cryptographic trail</div></div>
-        <div class="pillar-item"><span class="pillar-icon">⚖️</span><div class="pillar-label">Stability</div><div class="pillar-desc">Uncertainty‑aware</div></div>
-      </div>
-      <div class="arf-statement">⚡ ARF converts probabilistic AI outputs into <strong>deterministic, auditable decisions</strong></div>
-      <div class="tech-badges">
-        <span class="tech-badge">🎯 Bayesian risk scoring</span><span class="tech-badge">⚡ Expected‑loss decisioning</span>
-        <span class="tech-badge">🧠 Bounded memory</span><span class="tech-badge">🔁 Calibrated escalation</span>
-      </div>
-    </div></div>
-
-    <!-- SLIDE 4: SOLUTION -->
-    <div class="slide"><div class="slide-content">
-      <h2>🔧 The Solution: ARF Governance Layer</h2>
-      <div class="solution-flow">
-        <div class="flow-card"><span class="flow-icon">🗂️</span><div class="flow-title">1. Check Memory</div><div class="flow-desc">Similar failures flagged</div></div>
-        <div class="flow-card"><span class="flow-icon">📈</span><div class="flow-title">2. Risk Score</div><div class="flow-desc">Bayesian probability of failure</div></div>
-        <div class="flow-card"><span class="flow-icon">⚠️</span><div class="flow-title">3. Expected Loss</div><div class="flow-desc">Catastrophic → ESCALATE</div></div>
-        <div class="flow-card"><span class="flow-icon">📜</span><div class="flow-title">4. Audit Trail</div><div class="flow-desc">Signed, timestamped decision</div></div>
-      </div>
-      <div class="capabilities-grid">
-        <span class="cap-card">🔒 Deterministic risk scoring</span><span class="cap-card">🔗 Bounded autonomy (escalation)</span>
-        <span class="cap-card">📜 Cryptographic audit trail</span><span class="cap-card">🧠 Operational memory</span>
-      </div>
-      <div class="cta">“You wouldn't give a junior engineer root access without guardrails. Why give it to an agent?”</div>
-    </div></div>
-
-    <!-- SLIDE 5: BAYESIAN ENGINE -->
-    <div class="slide"><div class="slide-content">
-      <h2>🧠 Bayesian risk engine – how it works</h2>
-      <div class="engine-grid">
-        <div class="engine-card"><span class="engine-icon">🔄</span><div class="engine-title">Online learning</div><div class="engine-desc">Every outcome updates the risk estimate – fast & lightweight</div></div>
-        <div class="engine-card"><span class="engine-icon">🗂️</span><div class="engine-title">Hierarchical memory</div><div class="engine-desc">Sparse categories borrow strength – no cold start</div></div>
-        <div class="engine-card"><span class="engine-icon">📈</span><div class="engine-title">Offline deep model</div><div class="engine-desc">Trains on time, role, environment – catches subtle risks</div></div>
-        <div class="engine-card"><span class="engine-icon">⚖️</span><div class="engine-title">Weighted fusion</div><div class="engine-desc">Blends all sources – more data = more weight on deep model</div></div>
-        <div class="engine-card"><span class="engine-icon">🎯</span><div class="engine-title">Calibrated confidence</div><div class="engine-desc">1% predicted risk = 1% actual failure (54/54 tests)</div></div>
-      </div>
-      <div style="text-align:center;"><span class="test-badge-large">📊 54/54 pressure tests passed – edge cases, concurrency, large‑scale data</span></div>
-    </div></div>
-
-    <!-- SLIDE 6: DETERMINISTIC & OFFLINE -->
-    <div class="slide"><div class="slide-content">
-      <h2>🔒 Deterministic. Offline. Auditable.</h2>
-      <ul class="bullet-list">
-        <li>Same input → same decision (SHA‑3 signed)</li>
-        <li>Runs locally – air‑gapped possible</li>
-        <li>Policy algebra: "never execute destructive commands without human approval"</li>
-        <li><a href="https://a-r-f-arf-sandbox-api.hf.space/docs" target="_blank" rel="noopener noreferrer" style="color:#7dd3fc;">Interactive API documentation (Hugging Face)</a></li>
-      </ul>
-      <div class="code-block">
-        // Example audit trail entry (real format from HealingIntent schema)
-        {
-          "decision_id": "arf-20260604-143022-9a3f",
-          "timestamp": "2026-06-04T14:30:22Z",
-          "agent_action": "delete_prod_snapshot",
-          "risk_score": 0.94,
-          "expected_loss": 48000,
-          "policy_evaluation": "escalate",
-          "audit_hash": "sha3-256:7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1f..."
-        }
-      </div>
-    </div></div>
-
-    <!-- SLIDE 7: OUTCOME + VERTICALS + PRICING -->
-    <div class="slide"><div class="slide-content">
-      <h2>📈 The Outcome & Where We Fit</h2>
-      <div class="three-columns">
-        <div class="col3">✅ <strong>No silent failures</strong><br>Every decision evaluated before execution</div>
-        <div class="col3">📜 <strong>Auditable compliance</strong><br>Ready for EU AI Act, NIST</div>
-        <div class="col3">💰 <strong>Cost avoidance</strong><br>Pay only when we save you money</div>
-      </div>
-      <div class="stat-grid" style="margin-top:0.5rem;">
-        <div class="stat-card"><div class="stat-number">100%</div><div>determinism (54/54 tests)</div></div>
-        <div class="stat-card"><div class="stat-number">&lt;50ms</div><div>decision latency</div></div>
-      </div>
-      <h3 style="margin-top:0.5rem;">🎯 Industry‑Agnostic Governance</h3>
-      <div class="verticals-grid">
-        <span class="vertical-badge active">Cloud Infrastructure</span>
-        <span class="vertical-badge active">Financial Services</span>
-        <span class="vertical-badge active">Healthcare</span>
-        <span class="vertical-badge active">Legal & Compliance</span>
-        <span class="vertical-badge active">E‑commerce</span>
-        <span class="vertical-badge coming">Energy</span>
-        <span class="vertical-badge coming">Logistics</span>
-      </div>
-      <h3 style="margin-top:0.8rem;">💰 Hybrid Pricing Model</h3>
-      <ul class="bullet-list">
-        <li><strong>Fixed fee</strong> – deployment, maintenance, training your internal teams</li>
-        <li><strong>Plus either:</strong> retainer <strong>OR</strong> outcome‑based (you pay a % of loss avoided)</li>
-        <li>No surprises – we succeed only when you do</li>
-      </ul>
-    </div></div>
-
-    <!-- SLIDE 8: LIVE DEMO (links to risk demo) -->
-    <div class="slide"><div class="slide-content">
-      <h2>🎮 Live demo: See ARF in action</h2>
-      <p>Load a real scenario – Air Canada, Cloudflare, or PocketOS – and see how ARF would have decided.</p>
-      <div class="demo-frame">
-        <iframe src="https://arf-foundation.github.io/arf-risk-demo/" title="ARF Risk Demo" loading="lazy" onerror="this.style.display='none'; document.getElementById('demoFallback').style.display='block';"></iframe>
-      </div>
-      <div id="demoFallback" style="display:none; text-align:center; padding:1rem; background:#1e293b; border-radius:1rem;">
-        ⚠️ Iframe couldn't load. <a href="https://arf-foundation.github.io/arf-risk-demo/" target="_blank" rel="noopener noreferrer" style="color:#7dd3fc;">Open manually</a> or scan QR.
-      </div>
-      <div class="qr"><img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://arf-foundation.github.io/arf-risk-demo/" alt="QR to risk demo"></div>
-    </div></div>
-
-    <!-- SLIDE 9: TRACTION (removed unsubstantiated claim) -->
-    <div class="slide"><div class="slide-content">
-      <h2>🚀 Where we are</h2>
-      <ul class="bullet-list spaced-list">
-        <li><strong>Proven determinism</strong> – 54/54 pressure tests, consistent outputs across environments.</li>
-        <li><strong>Founder‑led onboarding</strong> – I work directly with every pilot. No salespeople, just engineers.</li>
-        <li><strong>Whitepaper ARF v4.0</strong> – open specification (weeks away).</li>
-        <li><strong>Designed for compliance‑ready environments</strong> – SOC2, ISO 27001, GDPR-aligned workflows.</li>
-        <li><strong>Pilot‑first deployment</strong> – time‑limited access, outcome‑based pricing after evaluation.</li>
-      </ul>
-      <div class="cta" style="background:#1e293b; margin-top:2rem;">Trusted decision infrastructure for AI‑driven operations.</div>
-    </div></div>
-
-    <!-- SLIDE 10: FAQ – shortened to 5 most psychologically important questions -->
-    <div class="slide"><div class="slide-content">
-      <h2>❓ FAQ</h2>
-      <div class="faq-grid">
-        <div class="faq-item"><div class="faq-q">⚡ Latency?</div><div class="faq-a">&lt;50ms – faster than human review.</div></div>
-        <div class="faq-item"><div class="faq-q">🔒 Data privacy?</div><div class="faq-a">Runs on‑prem / VPC – no data leaves your environment.</div></div>
-        <div class="faq-item"><div class="faq-q">🎮 Can agents game the system?</div><div class="faq-a">No – we track historical accuracy; lying backfires.</div></div>
-        <div class="faq-item"><div class="faq-q">👥 Does ARF replace humans?</div><div class="faq-a">No – escalates when uncertain. <strong>You stay in control.</strong></div></div>
-        <div class="faq-item"><div class="faq-q">🔐 How to get access?</div><div class="faq-a">Pilot request at arf-ai.com/signup or juan@arf-ai.com.</div></div>
-      </div>
-    </div></div>
-
-    <!-- SLIDE 11: CTA FOR DECISION MAKERS -->
-    <div class="slide"><div class="slide-content">
-      <h2>🎯 For decision makers (CTO, VP Eng, Head of AI)</h2>
-      <p style="margin-bottom:1.5rem;">You're responsible for production reliability, compliance, and team efficiency. ARF gives you:</p>
-      <ul class="bullet-list spaced-list">
-        <li>📊 <strong>Real‑time risk visibility</strong> before agents act</li>
-        <li>📜 <strong>Audit trails</strong> ready for regulators (EU AI Act, NIST)</li>
-        <li>🧠 <strong>Operational memory</strong> – agents learn from past mistakes</li>
-        <li>💰 <strong>Predictable hybrid pricing</strong> – fixed deployment + outcome‑based upside</li>
-      </ul>
-      <div class="cta" style="margin-top:2rem;">
-        🔥 <strong>Limited pilot spots for Q3 2026</strong> – founder‑led onboarding, no cost for qualified teams.<br>
-        <a href="https://www.arf-ai.com/signup" target="_blank" rel="noopener noreferrer" style="color:#fff;">Request pilot access → arf-ai.com/signup</a><br>
-        ✉️ Or email me directly: <span onclick="navigator.clipboard.writeText('juan@arf-ai.com'); alert('Email copied!')" style="cursor:pointer; background:#1e293b; padding:0.2rem 0.6rem; border-radius:1rem;">📋 juan@arf-ai.com</span>
-      </div>
-      <div class="qr"><img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://www.arf-ai.com/signup" alt="QR to pilot signup"></div>
-    </div></div>
-
-    <!-- SLIDE 12: NEXT STEPS -->
-    <div class="slide"><div class="slide-content">
-      <h2>📋 After you request access</h2>
-      <ul class="bullet-list spaced-list">
-        <li>📬 <strong>I personally review</strong> every application within 48 hours.</li>
-        <li>📞 <strong>30‑min call</strong> to understand your use case, scale, and compliance needs.</li>
-        <li>🔐 <strong>NDA available</strong> – protect your context before we talk details.</li>
-        <li>🧪 If it's a fit → <strong>pilot sandbox</strong>, no cost, no obligation.</li>
-        <li>⚙️ We deploy <strong>fixed‑fee first</strong>, then outcome‑based or retainer – your choice.</li>
-        <li>📈 <strong>Test on a non‑critical workflow</strong>, prove value, then expand.</li>
-        <li>🤝 <strong>Ongoing founder support</strong> throughout the pilot and beyond.</li>
-      </ul>
-    </div></div>
-
-    <!-- SLIDE 13: THANK YOU + Q&A -->
-    <div class="slide"><div class="slide-content">
-      <h2>🙏 Thank you</h2>
-      <p style="font-size:1.4rem; margin:1rem 0;">“I've been paged at 2am. ARF is the governance layer I wish I had.”</p>
-      <p>— Juan Petter</p>
-      <div style="margin-top:1.2rem; text-align:center;">
-        <strong style="color:#7dd3fc;">Collaborators</strong>
-        <p style="font-size:0.9rem; margin-top:0.3rem; color:#e2e8f0;">
-          <a href="https://www.linkedin.com/in/shageenth-sandrakumar/" target="_blank" rel="noopener noreferrer" style="color:#e2e8f0; text-decoration:underline;">Shageenth Sandrakumar</a> &nbsp;·&nbsp;
-          <a href="https://www.linkedin.com/in/astromainak/" target="_blank" rel="noopener noreferrer" style="color:#e2e8f0; text-decoration:underline;">Mainak Roy (Singha)</a> &nbsp;·&nbsp;
-          <a href="https://www.linkedin.com/in/shantanu/" target="_blank" rel="noopener noreferrer" style="color:#e2e8f0; text-decoration:underline;">Shantanu (Shanta) Sharma, PhD</a>
-        </p>
-      </div>
-      <div style="display:flex; justify-content:center; gap:3rem; margin-top:2.5rem; flex-wrap:wrap;">
-        <div style="text-align:center; min-width:160px;">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://arf-foundation.github.io/pitch-deck/" alt="QR to presentation" style="width:140px; height:140px; background:white; padding:0.5rem; border-radius:1rem;">
-          <p style="margin-top:1rem; font-size:0.8rem; color:#94a3b8;">Presentation</p>
-        </div>
-        <div style="text-align:center; min-width:160px;">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://www.arf-ai.com/signup" alt="QR to pilot signup" style="width:140px; height:140px; background:white; padding:0.5rem; border-radius:1rem;">
-          <p style="margin-top:1rem; font-size:0.8rem; color:#94a3b8;">Request Pilot Access</p>
-        </div>
-      </div>
-      <div style="margin-top:2.5rem; text-align:center; font-size:1rem; color:#cbd5e1;">
-        📬 Q&A – I'll be by the sponsors area. Let's discuss your use case.
-      </div>
-    </div></div>
-
-  </div>
-  <footer>© 2026 ARF · hybrid pricing (fixed + outcome/retainer) · pilot‑first · <a href="https://arf-ai.com" target="_blank" rel="noopener noreferrer" style="color:#7dd3fc;">arf-ai.com</a></footer>
+<main class="presentation">
+<div class="slides" id="slides">
+<!-- SLIDE 1 -->
+<section class="slide active"><div class="slide-content"><div class="slide-number">01 / 12</div>
+<div class="logo-row">
+<img alt="ARF AI" onerror="this.style.display='none'; document.getElementById('logoFallback').style.display='inline';" src="ARF - Primary Logo.png"/>
+<span class="logo-fallback" id="logoFallback">ARF AI</span>
 </div>
+<div class="kicker">Investor Overview · Pre-Seed</div>
+<h1>
+  The <span class="accent">Control Plane</span><br/>
+  for Autonomous AI
+</h1>
+<p class="lead">
+  ARF sits between agent intent and production execution, enforcing
+  risk-aware decisioning, deterministic policy, trusted authorization,
+  reversibility, and auditable execution before autonomous actions reach
+  critical systems.
+</p>
+<div class="metric-row">
+<div class="metric">
+<div class="number">101/101</div>
+<p>pressure / stress tests passing in the current core build</p>
+</div>
+<div class="metric">
+<div class="number">326</div>
+<p>tests in the current core validation suite</p>
+</div>
+<div class="metric">
+<div class="number">$500K</div>
+<p>pre-seed raise · $250K first close</p>
+</div>
+</div>
+<div class="tag-row">
+<span class="tag">Execution governance</span>
+<span class="tag">Bayesian risk</span>
+<span class="tag">Candidate selection</span>
+<span class="tag">Trusted signing</span>
+<span class="tag">Reversibility</span>
+<span class="tag">Auditability</span>
+</div>
+<div class="confidential">
+  Non-confidential investor materials · proprietary implementation details reserved for diligence
+</div>
+</div></section>
+<!-- SLIDE 2 -->
+<section class="slide"><div class="slide-content"><div class="slide-number">02 / 12</div>
+<div class="kicker">The category problem</div>
+<h2>AI is gaining the ability to act faster than enterprises can govern it.</h2>
+<p class="lead">
+  The risk is no longer limited to an incorrect answer. Once agents can
+  modify infrastructure, trigger workflows, change configuration, or take
+  other consequential actions, enterprises need controls before execution -
+  not only observability after failure.
+</p>
+<div class="grid-3">
+<div class="card problem-card">
+<div>
+<div class="event">Air Canada · cited case</div>
+<h3>AI output became organizational liability.</h3>
+<p>A customer-facing AI response crossed the boundary between generated advice and an organizational commitment.</p>
+</div>
+<div class="lesson">Lesson: model output can become an operational and legal decision.</div>
+</div>
+<div class="card problem-card">
+<div>
+<div class="event">Cloudflare · cited case</div>
+<h3>A small configuration action can create systemic impact.</h3>
+<p>Infrastructure changes can propagate across large production surfaces.</p>
+</div>
+<div class="lesson">Lesson: reliability requires controls before execution, not only monitoring after failure.</div>
+</div>
+<div class="card problem-card">
+<div>
+<div class="event">PocketOS · cited case</div>
+<h3>Excessive autonomy can multiply blast radius.</h3>
+<p>A highly privileged autonomous workflow can turn a local mistake into a destructive event.</p>
+</div>
+<div class="lesson">Lesson: autonomy needs bounded permissions, selection, and recovery paths.</div>
+</div>
+</div>
+<div class="callout">
+<strong>Category thesis:</strong> as agents become actors, execution governance becomes a distinct infrastructure requirement.
+</div>
+</div></section>
+<!-- SLIDE 3 -->
+<section class="slide"><div class="slide-content"><div class="slide-number">03 / 12</div>
+<div class="kicker">Why this is a new layer</div>
+<div class="quote">
+<p>“The real problem is not capability - it is control.”</p>
+<div class="small">ARF product thesis</div>
+</div>
+<div class="grid-4">
+<div class="card">
+<div class="number">01</div>
+<h3>Evaluate</h3>
+<p>Quantify risk, consequence, uncertainty, and available evidence before release.</p>
+</div>
+<div class="card">
+<div class="number">02</div>
+<h3>Authorize</h3>
+<p>Apply deterministic policies, permissions, signing, and autonomy boundaries at execution time.</p>
+</div>
+<div class="card">
+<div class="number">03</div>
+<h3>Recover</h3>
+<p>Treat reversibility and compensation as part of the decision rather than an afterthought.</p>
+</div>
+<div class="card">
+<div class="number">04</div>
+<h3>Prove</h3>
+<p>Record the proposed action, selected action, decision basis, and execution outcome for review.</p>
+</div>
+</div>
+<div class="callout">
+  Think of ARF as <strong>execution governance for agents</strong> - the control layer between probabilistic intent and production state.
+</div>
+</div></section>
+<!-- SLIDE 4 -->
+<section class="slide"><div class="slide-content"><div class="slide-number">04 / 12</div>
+<div class="kicker">Product architecture</div>
+<h2>ARF separates candidate choice, safety gating, and execution.</h2>
+<p class="lead">
+  The current enterprise layer no longer relies on simulated legacy branching
+  branches. Candidate alternatives are generated and scored upstream, the
+  execution layer selects among scored options, and the selected candidate is
+  the one the gates authorize and the actuator executes.
+</p>
+<div class="flow">
+<div class="flow-node">
+<div>
+<strong>Signed Intent</strong>
+<span>agent request + context + declared constraints</span>
+</div>
+</div>
+<div class="flow-arrow">→</div>
+<div class="gate-chain">
+<strong>Candidate + Governance Path</strong>
+<div class="gate-line">
+<div class="gate">Generate</div>
+<div class="gate">Score</div>
+<div class="gate">Select</div>
+<div class="gate">Gate</div>
+<div class="gate">Approve</div>
+</div>
+</div>
+<div class="flow-arrow">→</div>
+<div class="flow-node">
+<div>
+<strong>Actuator</strong>
+<span>only the selected, authorized action executes</span>
+</div>
+</div>
+</div>
+<div class="ladder">
+<div class="level advisory">
+<div class="label">Advisory</div>
+<p>Provide a governed recommendation without production authority.</p>
+</div>
+<div class="level supervised">
+<div class="label">Supervised</div>
+<p>Route the selected action through an explicit approval boundary.</p>
+</div>
+<div class="level autonomous">
+<div class="label">Autonomous</div>
+<p>Permit execution only where policy, risk, trust, and recovery constraints allow it.</p>
+</div>
+</div>
+<div class="callout">
+<strong>Key invariant:</strong> gates, approval requirements, and audit records describe the same selected candidate that the executor ultimately actuates.
+</div>
+</div></section>
+<!-- SLIDE 5 -->
+<section class="slide"><div class="slide-content"><div class="slide-number">05 / 12</div>
+<div class="kicker">Technical differentiation</div>
+<h2>Probabilistic intelligence feeding deterministic execution governance.</h2>
+<div class="grid-3">
+<div class="card">
+<h3>Bayesian risk fusion</h3>
+<p>Conjugate online updates, optional hierarchical shrinkage, and offline HMC prediction combine into a risk estimate that evolves as evidence accumulates.</p>
+</div>
+<div class="card">
+<h3>Expected loss + CVaR</h3>
+<p>Approval, denial, and escalation are selected by expected-loss minimization, with the 95% CVaR tail used by default to account for adverse outcomes.</p>
+</div>
+<div class="card">
+<h3>Epistemic uncertainty</h3>
+<p>Hallucination, forecast uncertainty, and data sparsity are combined into a bounded uncertainty measure with Shapley attribution.</p>
+</div>
+</div>
+<div class="grid-3">
+<div class="card">
+<h3>Semantic memory</h3>
+<p>FAISS-backed incident retrieval can adjust risk using evidence from prior outcomes, with learned or Bayesian memory weights.</p>
+</div>
+<div class="card">
+<h3>Causal counterfactuals</h3>
+<p>The core advisory layer includes IPW and heterogeneous treatment-effect machinery for explaining alternative decisions and their observed outcomes.</p>
+</div>
+<div class="card">
+<h3>Formal verification</h3>
+<p>Policy algebra is model-checked in TLA+ and property-tested across Python and Rust on the permit/deny decision projection.</p>
+</div>
+</div>
+<div class="tag-row">
+<span class="tag">AGSF online risk tracking</span>
+<span class="tag">Temporal drift detection</span>
+<span class="tag">Lyapunov stability monitoring</span>
+<span class="tag">Deterministic seeded sampling</span>
+<span class="tag">Immutable HealingIntent contract</span>
+</div>
+<div class="code">
+Illustrative signed intent boundary
 
-<iframe src="https://arf-foundation.github.io/arf-risk-demo/" style="display:none;" title="Preload Risk Demo"></iframe>
-
+{
+  "intent_id": "123",
+  "action": "restart_container",
+  "risk_score": 0.20,
+  "requires_enterprise": true,
+  "signature": "Ed25519:...",
+  "public_key_fingerprint": "...",
+  "context_hash": "sha256:..."
+}
+</div>
+<p class="small" style="margin-top:0.75rem;">
+  The core probabilistic layer estimates risk and uncertainty; the enterprise layer applies
+  deterministic policy, trust, approval, and execution controls to the resulting decision.
+</p>
+</div></section>
+<!-- SLIDE 6 -->
+<section class="slide"><div class="slide-content"><div class="slide-number">06 / 12</div>
+<div class="kicker">Defensibility &amp; IP</div>
+<h2>ARF's moat is a protected execution runtime plus the policy, risk, and integration layer around it.</h2>
+<div class="matrix">
+<div class="box">
+<h3>Proprietary / access-controlled</h3>
+<ul class="bullet-list">
+<li>Protected core engine</li>
+<li>Enterprise execution layer</li>
+<li>Risk / governance implementation</li>
+<li>Trusted signing and candidate-selection runtime</li>
+<li>Private APIs, deployment logic, and internal specifications</li>
+</ul>
+</div>
+<div class="box">
+<h3>Public / controlled ecosystem</h3>
+<ul class="bullet-list">
+<li>Presentation and documentation</li>
+<li>Sanitized risk demonstrations</li>
+<li>Selected specification / interface material</li>
+<li>Public organization and integration entry points</li>
+</ul>
+</div>
+<div class="box">
+<h3>Compounding advantage</h3>
+<ul class="bullet-list">
+<li>Governance policy libraries</li>
+<li>Action / outcome history</li>
+<li>Risk calibration by category and environment</li>
+<li>Enterprise integrations and execution footprint</li>
+<li>Operational knowledge accumulated at the control boundary</li>
+</ul>
+</div>
+</div>
+<div class="callout">
+<strong>Engineering axioms:</strong> risk, policy, and reversibility remain distinct;
+  the selected action is the governed action; missing evidence is not treated as evidence of safety;
+  and the audit trail should never assert data the runtime did not retain.
+</div>
+<div class="grid-2" style="margin-top:1rem;">
+<div class="card">
+<h3>Current release line</h3>
+<p><strong>Core v4.3.6 · Enterprise v4.3.6</strong>. The enterprise layer adds the execution boundary, trusted signing, candidate selection, and actuator integration around the protected core.</p>
+</div>
+<div class="card">
+<h3>Next release in development</h3>
+<p><strong>v4.3.7</strong> adds first-class reversibility, further gate hardening, clearer abstention semantics, stronger audit retention, and additional execution capability.</p>
+</div>
+</div>
+<p class="small" style="margin-top:0.8rem;">
+  This deck does not claim patent protection. Formal diligence can distinguish company-owned software and methods,
+  third-party dependencies, and any filed or registered IP.
+</p>
+</div></section>
+<!-- SLIDE 7 -->
+<section class="slide"><div class="slide-content"><div class="slide-number">07 / 12</div><div class="kicker">Platform thesis</div><h2>ARF is designed to become a standard control boundary for high-consequence autonomous systems.</h2><p class="lead">
+  Models generate intelligence. Agents coordinate action. ARF governs what crosses into production.
+  The architecture is deliberately orthogonal to the model or application layer.
+</p><div class="market-stack">
+<div class="market-step">
+<div class="label">Model layer</div>
+<p>Generates predictions, plans, and language.</p>
+</div>
+<div class="market-step">
+<div class="label">Agent layer</div>
+<p>Coordinates tools, context, workflows, and proposed actions.</p>
+</div>
+<div class="market-step">
+<div class="label">ARF layer</div>
+<p><strong>Evaluates, selects, constrains, authorizes, logs, and governs execution.</strong></p>
+</div>
+<div class="market-step">
+<div class="label">System layer</div>
+<p>Cloud infrastructure, business systems, financial workflows, healthcare operations, and other production environments.</p>
+</div>
+</div><div class="grid-2">
+<div class="card">
+<h3>Not another observability dashboard</h3>
+<p>ARF is positioned at the pre-execution boundary, where an organization can still prevent an unsafe action rather than only explain it afterward.</p>
+</div>
+<div class="card">
+<h3>Why the layer can persist</h3>
+<p>Once many different agents operate across the same environment, a common governance boundary can become more valuable than governance implemented independently inside every agent.</p>
+</div>
+</div><div class="callout">
+<strong>Positioning:</strong> model guardrails protect prompts and outputs; observability explains what happened;
+  ARF is designed to govern whether a consequential action should cross the execution boundary.
+  Analogy: <strong>service mesh for agent execution</strong>.
+</div></div></section>
+<!-- SLIDE 8 -->
+<section class="slide"><div class="slide-content"><div class="slide-number">08 / 12</div>
+<div class="kicker">Initial market wedge</div>
+<h2>Start where autonomous mistakes are expensive.</h2>
+<p class="lead">
+  ARF is architecture-level infrastructure, but commercialization should begin
+  where organizations already feel the cost of uncontrolled autonomous actions.
+</p>
+<div class="grid-4">
+<div class="card">
+<h3>Cloud infrastructure</h3>
+<p>Configuration, remediation, incident response, deployments, and privileged operational actions.</p>
+</div>
+<div class="card">
+<h3>Financial services</h3>
+<p>High-consequence workflows where authorization, risk, and traceability matter.</p>
+</div>
+<div class="card">
+<h3>Healthcare</h3>
+<p>Controlled workflows where uncertainty and governance requirements are material.</p>
+</div>
+<div class="card">
+<h3>Legal &amp; compliance</h3>
+<p>AI workflows where evidence, escalation, and auditability are part of the deliverable.</p>
+</div>
+</div>
+<div class="grid-2">
+<div class="card">
+<h3>Expansion</h3>
+<p>Energy, logistics, robotics, and other environments where software-driven decisions affect physical or economic state.</p>
+</div>
+<div class="card">
+<h3>Commercial wedge</h3>
+<p>Pilot one non-critical workflow, prove governance value, then expand the policy and execution surface.</p>
+</div>
+</div>
+<div class="callout">
+<strong>Go-to-market principle:</strong> sell first where the cost of one bad autonomous action makes governance a budgeted problem rather than a theoretical one.
+</div>
+</div></section>
+<!-- SLIDE 9 -->
+<section class="slide"><div class="slide-content"><div class="slide-number">09 / 12</div>
+<div class="kicker">Business model</div>
+<h2>Pilot-first enterprise sales with a path to recurring platform revenue.</h2>
+<div class="grid-3">
+<div class="card">
+<h3>Deployment</h3>
+<p><strong>Starting at $50,000</strong> for deployment, integration, and implementation work, depending on complexity.</p>
+</div>
+<div class="card">
+<h3>Maintenance</h3>
+<p><strong>Starting at $5,000/month</strong> for ongoing support, maintenance, and governance operations.</p>
+</div>
+<div class="card">
+<h3>Outcome-informed expansion</h3>
+<p>Optional training, retainers, annual terms, and verified risk-reduction incentives can expand account value.</p>
+</div>
+</div>
+<div class="split">
+<div class="card">
+<h3>Land</h3>
+<div class="list">
+<div class="list-item">
+<div class="icon">01</div>
+<div>
+<strong>High-consequence workflow</strong>
+<p>Start where a governance decision can be observed and measured.</p>
+</div>
+</div>
+<div class="list-item">
+<div class="icon">02</div>
+<div>
+<strong>Controlled deployment</strong>
+<p>Use a bounded environment and establish the customer's policy boundary.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="card">
+<h3>Expand</h3>
+<div class="list">
+<div class="list-item">
+<div class="icon">03</div>
+<div>
+<strong>More actions and agents</strong>
+<p>Extend governance across additional tools and workflows.</p>
+</div>
+</div>
+<div class="list-item">
+<div class="icon">04</div>
+<div>
+<strong>Production dependency</strong>
+<p>Move ARF from pilot control to a reusable enterprise execution boundary.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout">
+  The commercial objective is to turn a high-value pilot into a recurring control-plane dependency.
+</div>
+</div></section>
+<!-- SLIDE 10 -->
+<section class="slide"><div class="slide-content"><div class="slide-number">10 / 12</div>
+<div class="kicker">Current status &amp; roadmap</div>
+<h2>Core technology is materially hardened; the next value unlock is repeatable enterprise deployment.</h2>
+<div class="grid-3">
+<div class="card">
+<div class="number">101/101</div>
+<h3>Core pressure / stress tests</h3>
+<p>The current core README reports 101/101 pressure tests and a broader 326-test validation suite spanning unit, property-based, and formal-verification work.</p>
+</div>
+<div class="card">
+<div class="number">326</div>
+<h3>Total core test suite</h3>
+<p>Coverage includes risk fusion, uncertainty, policy gating, memory weighting, causal estimation, deterministic behavior, and formal invariants.</p>
+</div>
+<div class="card">
+<div class="number">4.3.7</div>
+<h3>Next release · in development</h3>
+<p>The enterprise roadmap is extending reversibility, gate semantics, audit retention, and actuator coverage without presenting those changes as released.</p>
+</div>
+</div>
+<div class="split">
+<div class="card">
+<h3>Shipped / current state</h3>
+<ul class="bullet-list">
+<li>Bayesian risk fusion + CVaR expected-loss decisioning</li>
+<li>Formal policy verification on the decision projection</li>
+<li>Enterprise trust anchor + Ed25519 intent signing</li>
+<li>Real candidate alternatives + deterministic selected-candidate execution</li>
+<li>Controlled execution ladder and structured audit integration</li>
+<li>Cloud actuator implementation and enterprise packaging</li>
+</ul>
+</div>
+<div class="card">
+<h3>In development / next value unlock</h3>
+<ul class="bullet-list">
+<li>First-class per-candidate reversibility classification</li>
+<li>Gate abstention when required evidence is unavailable</li>
+<li>Audit persistence for proposed vs. selected actions</li>
+<li>Broader production actuator coverage</li>
+<li>Repeatable enterprise pilots, contracts, and reference deployments</li>
+</ul>
+</div>
+</div>
+<div class="callout">
+  The critical transition is no longer “can ARF govern a decision?” but
+  “can ARF become the reusable governance dependency enterprises deploy across many autonomous workflows?”
+</div>
+<div class="cta-line">
+<a class="button-link" href="https://arf-foundation.github.io/arf-risk-demo/" rel="noopener" target="_blank">View public risk demo →</a>
+<a class="button-link" href="https://github.com/arf-foundation" rel="noopener" target="_blank">View public GitHub organization →</a>
+</div>
+<p class="small" style="margin-top:0.8rem;">
+  Repository state referenced here was reviewed against the current ARF core and enterprise READMEs on Sep 1, 2026.
+  Public materials intentionally do not expose the proprietary core runtime.
+</p>
+</div></section>
+<!-- SLIDE 11 -->
+<section class="slide"><div class="slide-content"><div class="slide-number">11 / 12</div>
+<div class="kicker">Financing</div>
+<h2>Capital to turn a differentiated execution-control platform into an enterprise company.</h2>
+<div class="funding">
+<div class="raise-card">
+<div>
+<div class="amount">$500K</div>
+<div class="close">Pre-seed raise · $250K first close</div>
+<p style="margin-top:0.75rem;">
+        Pilot-first · enterprise-oriented · outcome-informed
+      </p>
+</div>
+</div>
+<div class="uses">
+<div class="use-row">
+<strong>Product hardening</strong>
+<span>Reliability, integrations, deployment tooling, actuator coverage, and production readiness.</span>
+</div>
+<div class="use-row">
+<strong>Enterprise readiness</strong>
+<span>Security controls, governance documentation, customer deployment tooling, and compliance packaging.</span>
+</div>
+<div class="use-row">
+<strong>Pilot conversion</strong>
+<span>Move qualified evaluations into paid deployments and reference accounts.</span>
+</div>
+<div class="use-row">
+<strong>Distribution</strong>
+<span>Founder-led enterprise sales, strategic partnerships, and repeatable GTM systems.</span>
+</div>
+<div class="use-row">
+<strong>Execution capacity</strong>
+<span>Increase the team's ability to ship, deploy, support, and commercialize the control plane.</span>
+</div>
+</div>
+</div>
+<div class="callout">
+<strong>Investment thesis:</strong> fund the transition from a technically differentiated governance engine
+  to a repeatable enterprise control-plane business at a time when autonomous systems are acquiring meaningful production authority.
+</div>
+<p class="small" style="margin-top:0.8rem;">
+  Final securities terms, valuation/cap table, and allocation are provided during formal fundraising diligence.
+</p>
+</div></section>
+<!-- SLIDE 12 -->
+<section class="slide"><div class="slide-content"><div class="slide-number">12 / 12</div>
+<div class="kicker">Investor next step</div>
+<h2>Let's evaluate the architecture, evidence, economics, and path to scale.</h2>
+<p class="lead">
+  I would welcome a focused discussion covering the current ARF runtime,
+  enterprise execution layer, technical validation, IP boundary, commercialization strategy,
+  and the milestones this round is intended to fund.
+</p>
+<div class="grid-3">
+<div class="card">
+<div class="number">01</div>
+<h3>Technology</h3>
+<p>Walk through candidate selection, trusted signing, gates, risk decisioning, and execution.</p>
+</div>
+<div class="card">
+<div class="number">02</div>
+<h3>Diligence</h3>
+<p>Review proprietary vs. public components, development history, IP structure, tests, and current limitations.</p>
+</div>
+<div class="card">
+<div class="number">03</div>
+<h3>Investment</h3>
+<p>Discuss the raise, milestones, initial enterprise wedge, pricing model, and route to recurring revenue.</p>
+</div>
+</div>
+<div class="callout">
+<strong>Juan Petter</strong> · Founder, ARF AI<br/>
+<a href="mailto:juan@arf-ai.com">juan@arf-ai.com</a> ·
+  <a href="https://www.arf-ai.com" rel="noopener" target="_blank">arf-ai.com</a> ·
+  <a href="https://www.linkedin.com/in/petterjuan/" rel="noopener" target="_blank">LinkedIn</a>
+</div>
+<div class="confidential">
+  Non-confidential investor deck · additional technical and IP diligence available through the appropriate process
+</div>
+</div></section>
+</div>
+</main>
+<div aria-label="Slide navigation" class="dots" id="dots"></div>
+<div class="nav">
+<button aria-label="Previous slide" id="prevBtn" type="button">←</button>
+<button aria-label="Next slide" id="nextBtn" type="button">→</button>
+</div>
+<div class="footer">
+<div>© 2026 ARF AI · Proprietary execution runtime · Investor materials · Current as of Sep 1, 2026</div>
+<div class="right">Use Arrow Keys · Space · P / N</div>
+</div>
 <script>
-  (function() {
-    const slides = Array.from(document.querySelectorAll('.slide'));
-    const totalSlides = slides.length;
-    let currentIdx = 0, startTime = Date.now(), timerInterval;
-    slides.forEach((slide, idx) => {
-      const numDiv = document.createElement('div');
-      numDiv.className = 'slide-number';
-      numDiv.textContent = `${idx + 1}/${totalSlides}`;
-      slide.querySelector('.slide-content').appendChild(numDiv);
-    });
-    function showSlide(i) {
-      if (i < 0) i = 0;
-      if (i >= totalSlides) i = totalSlides - 1;
-      slides.forEach((s, j) => s.classList.toggle('active', j === i));
-      currentIdx = i;
-      updateDots();
-      updateProgress();
-      updateTimerDisplay();
-      if (i === 7) {
-        const iframe = document.querySelector('.demo-frame iframe');
-        if (iframe) iframe.src = iframe.src;
+    (() => {
+      const slides = Array.from(document.querySelectorAll(".slide"));
+      const dots = document.getElementById("dots");
+      const progress = document.getElementById("progress");
+      const prevBtn = document.getElementById("prevBtn");
+      const nextBtn = document.getElementById("nextBtn");
+
+      let index = 0;
+
+      function renderDots() {
+        dots.innerHTML = "";
+        slides.forEach((_, i) => {
+          const button = document.createElement("button");
+          button.className = "dot" + (i === index ? " active" : "");
+          button.type = "button";
+          button.setAttribute("aria-label", `Go to slide ${i + 1}`);
+          button.addEventListener("click", () => goTo(i));
+          dots.appendChild(button);
+        });
       }
-    }
-    function nextSlide() { showSlide(currentIdx + 1); }
-    function prevSlide() { showSlide(currentIdx - 1); }
-    function updateDots() {
-      const c = document.getElementById('navDots');
-      if (!c) return;
-      c.innerHTML = '';
-      slides.forEach((_, i) => {
-        const d = document.createElement('div');
-        d.classList.add('dot');
-        if (i === currentIdx) d.classList.add('active');
-        d.addEventListener('click', () => showSlide(i));
-        c.appendChild(d);
-      });
-    }
-    function updateProgress() {
-      const b = document.getElementById('progressBar');
-      if (b) b.style.width = `${(currentIdx + 1) / totalSlides * 100}%`;
-    }
-    function updateTimerDisplay() {
-      const e = Math.floor((Date.now() - startTime) / 1000);
-      const r = Math.max(0, 1200 - e);
-      const em = Math.floor(e / 60).toString().padStart(2, '0');
-      const es = (e % 60).toString().padStart(2, '0');
-      const rm = Math.floor(r / 60);
-      const rs = (r % 60).toString().padStart(2, '0');
-      const td = document.getElementById('timerDisplay');
-      if (td) td.innerHTML = `${em}:${es} / 20:00 (${rm}:${rs} left)`;
-    }
-    window.addEventListener('keydown', e => {
-      if (e.key === 'ArrowLeft') prevSlide();
-      if (e.key === 'ArrowRight') nextSlide();
-      if (e.key === 'd' || e.key === 'D') { e.preventDefault(); showSlide(7); }
-    });
-    let touchStart = 0;
-    document.addEventListener('touchstart', e => { touchStart = e.changedTouches[0].screenX; });
-    document.addEventListener('touchend', e => {
-      const end = e.changedTouches[0].screenX;
-      if (end < touchStart - 50) nextSlide();
-      if (end > touchStart + 50) prevSlide();
-    });
-    document.getElementById('prevBtn')?.addEventListener('click', prevSlide);
-    document.getElementById('nextBtn')?.addEventListener('click', nextSlide);
-    showSlide(0);
-    timerInterval = setInterval(updateTimerDisplay, 1000);
-  })();
-</script>
+
+      function update() {
+        slides.forEach((slide, i) => {
+          slide.classList.toggle("active", i === index);
+        });
+
+        progress.style.width = `${((index + 1) / slides.length) * 100}%`;
+
+        Array.from(dots.children).forEach((dot, i) => {
+          dot.classList.toggle("active", i === index);
+        });
+
+        const activeContent = slides[index]?.querySelector(".slide-content");
+        if (activeContent) activeContent.scrollTop = 0;
+
+        document.title =
+          `ARF AI - Investor Deck | ${String(index + 1).padStart(2, "0")}/${slides.length}`;
+      }
+
+      function goTo(nextIndex) {
+        index = Math.max(0, Math.min(slides.length - 1, nextIndex));
+        update();
+      }
+
+      function next() {
+        goTo(index + 1);
+      }
+
+      function prev() {
+        goTo(index - 1);
+      }
+
+      function handleKeydown(event) {
+        const key = event.key.toLowerCase();
+
+        if (key === "arrowright" || key === " " || key === "pagedown" || key === "n") {
+          event.preventDefault();
+          next();
+        }
+
+        if (key === "arrowleft" || key === "pageup" || key === "p") {
+          event.preventDefault();
+          prev();
+        }
+
+        if (key === "home") {
+          event.preventDefault();
+          goTo(0);
+        }
+
+        if (key === "end") {
+          event.preventDefault();
+          goTo(slides.length - 1);
+        }
+
+        if (key >= "1" && key <= "9") {
+          const target = Number(key) - 1;
+          if (target < slides.length) goTo(target);
+        }
+
+        if (key === "0") {
+          goTo(9 < slides.length ? 9 : slides.length - 1);
+        }
+      }
+
+      let touchStartX = null;
+
+      document.addEventListener("keydown", handleKeydown);
+      prevBtn.addEventListener("click", prev);
+      nextBtn.addEventListener("click", next);
+
+      document.addEventListener("touchstart", (event) => {
+        touchStartX = event.changedTouches[0].screenX;
+      }, { passive: true });
+
+      document.addEventListener("touchend", (event) => {
+        if (touchStartX === null) return;
+        const endX = event.changedTouches[0].screenX;
+        const delta = endX - touchStartX;
+        if (Math.abs(delta) > 50) {
+          delta < 0 ? next() : prev();
+        }
+        touchStartX = null;
+      }, { passive: true });
+
+      renderDots();
+      update();
+    })();
+  </script>
 </body>
 </html>
