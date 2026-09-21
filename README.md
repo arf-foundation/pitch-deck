@@ -81,6 +81,8 @@ This pitch deck is for **informational purposes only** and does not imply public
 - **Code** (HTML, CSS, JS) – licensed under **Apache 2.0**.  
 - **ARF core engine, API, and enterprise components** – remain proprietary and access‑controlled (not covered by this license).
 
+Full terms, including which parts of this repository each grant covers, are in [LICENSE](LICENSE).
+
 ---
 
 ## 🤝 Contributing & Feedback
