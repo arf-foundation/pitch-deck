@@ -1,95 +1,287 @@
-# ARF Pitch Deck – Agentic Reliability Framework
+# ARF AI Investor Deck — The Control Plane for Autonomous AI
 
-This repository contains the **public pitch deck** for the Agentic Reliability Framework (ARF) – a 20‑minute presentation delivered at LLMday NYC 2026.
+This repository hosts the **non-confidential investor deck** for **ARF AI / Agentic Reliability Framework (ARF)**.
 
-**Live URL:** [https://arf-foundation.github.io/pitch-deck/](https://arf-foundation.github.io/pitch-deck/)
+The current presentation is a **14-slide, 1920×1080 investor deck** positioning ARF as an execution-governance control plane between probabilistic agent intent and production state.
 
----
+**Live deck:** [https://arf-foundation.github.io/pitch-deck/](https://arf-foundation.github.io/pitch-deck/)
 
-## ⚠️ Important Note
-
-The ARF **core engine is not open source**. It is access‑controlled and offered to qualified pilots under a **hybrid pricing model** (fixed fee for deployment/maintenance/training + retainer or outcome‑based).  
-This pitch deck is for **informational purposes only** and does not imply public availability of the core engine.
+**Deck status date:** September 1, 2026
 
 ---
 
-## 🎯 Purpose
+## Important Note
 
-- Communicate ARF’s value proposition to potential pilots and enterprise customers  
-- Explain the technical foundations: Bayesian risk scoring, expected‑loss minimisation, semantic memory, deterministic audit trails  
-- Outline the ecosystem, **current verticals** (law‑tech, fintech, health tech), and **hybrid commercial model**  
-- Provide a speaker‑ready presentation with **separate speaker notes** for memorisation
+The ARF **core engine, API control plane, gateway, and enterprise components are proprietary and access-controlled**. They are not open source and are not contained in this repository.
+
+This repository contains non-confidential presentation material and presentation code only. Public access to the deck does not imply public access to the protected ARF runtime or enterprise implementation.
+
+The deck also explicitly **does not claim patent protection**. Formal diligence is intended to distinguish company-owned software and methods, third-party dependencies, and any filed or registered intellectual property.
 
 ---
 
-## 📄 What's in this repository
+## Purpose
+
+The deck is designed for investor and diligence conversations around:
+
+- ARF's thesis that autonomous AI requires a **pre-execution governance layer**
+- The architecture separating **candidate choice, safety gating, authorization, and execution**
+- ARF's technical foundation: probabilistic risk reasoning feeding deterministic execution controls
+- The initial enterprise market wedge and pilot-first commercialization strategy
+- Current validation status, shipped capabilities, and near-term roadmap
+- The pre-seed financing plan and path toward recurring platform revenue
+
+---
+
+## Deck Structure
+
+The current `index.html` contains 14 slides:
+
+1. **Title** — The Control Plane for Autonomous AI
+2. **Problem** — AI is gaining the ability to act faster than enterprises can govern it
+3. **Thesis** — Evaluate, Authorize, Recover, Prove
+4. **Architecture** — Candidate generation/scoring, selection, gating, approval, and actuation
+5. **Differentiation** — Probabilistic intelligence feeding deterministic execution governance
+6. **Signed Intent** — Trusted authorization boundary using Ed25519-signed intent
+7. **Defensibility** — Protected runtime, policy/risk layer, integrations, and accumulated governance knowledge
+8. **Platform** — ARF as a standard control boundary for high-consequence autonomous systems
+9. **Market Wedge** — Cloud infrastructure first, with financial services, healthcare, legal/compliance, and later expansion
+10. **Business Model** — Pilot-first enterprise sales with recurring deployment and maintenance revenue
+11. **Status** — Current release line, test coverage, and validation status
+12. **Roadmap** — Shipped capabilities vs. in-development enterprise work
+13. **Financing** — Pre-seed raise and use of funds
+14. **Next Step** — Technology, diligence, and investment discussion
+
+---
+
+## Product Positioning
+
+ARF is presented as the control layer between agent intent and production execution.
+
+The deck's core execution-governance model is:
+
+- **Evaluate** — quantify risk, consequence, uncertainty, and evidence before release
+- **Authorize** — apply deterministic policy, permissions, trusted signing, and autonomy boundaries
+- **Recover** — treat reversibility and compensation as part of the decision
+- **Prove** — retain an auditable record of the proposed action, selected action, decision basis, and execution outcome
+
+The enterprise execution ladder shown in the deck includes:
+
+- **Advisory** — governed recommendation without production authority
+- **Supervised** — explicit approval boundary before execution
+- **Autonomous** — execution only where policy, risk, trust, and recovery constraints allow it
+
+A key invariant in the current architecture is that the **selected candidate is the same candidate described by the gates, approval requirements, audit records, and executor**.
+
+---
+
+## Technical Foundation
+
+The investor deck currently highlights:
+
+- **Bayesian risk fusion** — conjugate online updates, optional hierarchical shrinkage, and offline HMC prediction
+- **Expected-loss minimization + CVaR** — approval, denial, and escalation decisions with the 95% CVaR tail used by default
+- **Epistemic uncertainty** — bounded uncertainty combining hallucination, forecast uncertainty, and data sparsity, with Shapley attribution
+- **Semantic memory** — FAISS-backed incident retrieval with learned or Bayesian memory weighting
+- **Causal counterfactuals** — IPW and heterogeneous treatment-effect machinery
+- **Formal verification** — TLA+ model checking plus property testing across Python and Rust for the permit/deny decision projection
+- **AGSF online risk tracking**
+- **Temporal drift detection**
+- **Lyapunov stability monitoring**
+- **Deterministic seeded sampling**
+- **Immutable HealingIntent contract**
+
+The signed-intent example in the deck uses **Ed25519** and a **SHA-256 context hash**.
+
+---
+
+## Market Wedge
+
+The current deck starts commercialization where autonomous mistakes are expensive:
+
+- **Cloud infrastructure** — configuration, remediation, incident response, deployments, and privileged operational actions
+- **Financial services** — high-consequence workflows requiring authorization, risk controls, and traceability
+- **Healthcare** — controlled workflows where uncertainty and governance requirements are material
+- **Legal & compliance** — workflows where evidence, escalation, and auditability are part of the deliverable
+- **Expansion** — energy, logistics, robotics, and other environments where software-driven decisions affect physical or economic state
+
+The commercial wedge is to **pilot one non-critical workflow, prove governance value, then expand the policy and execution surface**.
+
+---
+
+## Business Model
+
+The current deck describes a pilot-first enterprise model with a path to recurring platform revenue:
+
+- **Deployment:** starting at **$50,000** for deployment, integration, and implementation work, depending on complexity
+- **Maintenance:** starting at **$5,000/month**
+- **Optional expansion:** training, retainers, annual terms, and verified risk-reduction incentives
+
+The intended account progression is:
+
+**Land a high-consequence workflow → controlled deployment → expand across more actions and agents → become a recurring production control-plane dependency.**
+
+---
+
+## Current Status
+
+The deck reports the following current-state metrics and release information:
+
+- **101/101** core pressure / stress tests passing
+- **326** tests in the broader core validation suite
+- Coverage across risk fusion, uncertainty, policy gating, memory weighting, causal estimation, deterministic behavior, and formal invariants
+- **Core v4.3.6**
+- **Enterprise v4.3.6**
+- **4.3.7** identified as the next release and explicitly marked **in development**
+
+The enterprise layer is described as adding the execution boundary, trusted signing, candidate selection, and actuator integration around the protected core.
+
+### Shipped / Current State
+
+- Bayesian risk fusion + CVaR expected-loss decisioning
+- Formal policy verification on the decision projection
+- Enterprise trust anchor + Ed25519 intent signing
+- Real candidate alternatives + deterministic selected-candidate execution
+- Controlled execution ladder and structured audit integration
+- Cloud actuator implementation and enterprise packaging
+
+### In Development
+
+- First-class per-candidate reversibility classification
+- Gate abstention when required evidence is unavailable
+- Audit persistence for proposed vs. selected actions
+- Broader production actuator coverage
+- Repeatable enterprise pilots, contracts, and reference deployments
+
+The deck states that the referenced core and enterprise repository state was reviewed on **September 1, 2026**.
+
+---
+
+## Financing
+
+The current investor deck presents:
+
+- **$500K pre-seed raise**
+- **$250K first close**
+
+Planned use of capital includes:
+
+- Product hardening
+- Enterprise readiness
+- Pilot conversion
+- Distribution
+- Execution capacity
+
+Final securities terms, valuation/cap table, and allocation are reserved for formal fundraising diligence.
+
+---
+
+## Cited Cases in the Deck
+
+The problem slide uses three cited examples to illustrate the execution-governance category:
+
+- **Air Canada** — AI output becoming organizational liability
+- **Cloudflare** — small configuration actions creating systemic impact
+- **PocketOS** — excessive autonomy multiplying blast radius
+
+These examples support the deck's thesis that governance must operate **before consequential execution**, not only through observability after failure.
+
+---
+
+## What's in This Repository
 
 | File | Description |
 |------|-------------|
-| `index.html` | Full, self‑contained presentation (12 slides, 16:9, animated grid, full‑screen, offline‑capable) |
-| `SpeakerNotes.md` | Script with timing cues, joke, psychological triggers, and delivery tips – for memorisation only (not visible on slides) |
-| `ARF - Primary Logo.png` | Primary logo used on title slide |
-| `ARF - Transparent Primary Logo.png` | Alternative logo (background‑friendly) |
-| `.nojekyll` | Ensures GitHub Pages serves raw HTML without Jekyll processing |
-| `robots.txt` | Web crawler instructions |
+| `index.html` | Self-contained packaged investor presentation with 14 animated 16:9 slides |
+| `README.md` | Repository overview aligned with the current investor deck |
+| `ARF - Primary Logo.png` | ARF primary logo asset |
+| `ARF - Transparent Primary Logo.png` | Transparent ARF logo asset |
+| `LICENSE` | Licensing terms for deck content and deck source code |
+| `.nojekyll` | Ensures GitHub Pages serves the repository without Jekyll processing |
+| `robots.txt` | Crawler directives for the published deck |
+
+There is **no separate `SpeakerNotes.md` file in the current repository**.
 
 ---
 
-## 🔗 Links
+## Presentation Controls
 
-- **Live pitch deck:** [https://arf-foundation.github.io/pitch-deck/](https://arf-foundation.github.io/pitch-deck/)  
-- **Public risk demo (sanitised UI):** [https://arf-frontend-sandy.vercel.app](https://arf-frontend-sandy.vercel.app)  
-- **Public specification (open data models & API contracts):** [https://github.com/arf-foundation/arf-spec](https://github.com/arf-foundation/arf-spec)  
-- **GitHub organisation:** [https://github.com/arf-foundation](https://github.com/arf-foundation)  
-- **Pilot access request:** [https://www.arf-ai.com/signup](https://www.arf-ai.com/signup) *(or use the QR code in the presentation)*  
-- **Contact:** [juan@arf-ai.com](mailto:juan@arf-ai.com)  
+The deck runtime provides:
 
----
+- Keyboard navigation with **← / → / ↑ / ↓**
+- **Page Up / Page Down**
+- **Space** to advance
+- **Home / End**
+- Number-key navigation
+- **R** to reset to the first slide
+- On touch devices, tapping the **left or right half** of the stage navigates backward or forward
+- A bottom-center navigation overlay with slide count and controls
+- A desktop thumbnail rail outside presentation mode
+- Automatic scaling to fit the viewport
+- Reduced-motion support via `prefers-reduced-motion`
+- Browser printing with one slide per page for **Print → Save as PDF**
 
-## 🧠 Key topics covered in the deck
-
-1. **Problem** – Real‑world case: Air Canada chatbot lawsuit (uncontrolled AI risk)  
-2. **Solution** – ARF governance layer: Bayesian risk scoring, bounded autonomy, deterministic audit trails  
-3. **Outcome** – No silent failures, audit‑ready compliance, hybrid pricing (fixed + outcome/retainer)  
-4. **Current verticals** – Law‑tech, fintech, health tech (10–100 employees) – expanding to energy, robotics, logistics  
-5. **Technical foundation** – Transparent Bayesian reasoning, operational memory, offline capability, SHA‑3 signed decisions  
-6. **Live demo** – Interactive risk sandbox (mock data, real logic) showing how ARF would have prevented the Air Canada incident  
-7. **Traction** – Core engine v4, active pilots, open specification (weeks away), founder‑led onboarding  
-8. **Call to action** – For decision makers (CTO, VP Eng, Head of AI): limited pilot spots for Q3 2026, no cost for qualified teams  
+The current deck does **not** include the old 20-minute presentation timer or a separate speaker-notes document.
 
 ---
 
-## 🛠️ Using the presentation
+## Links
 
-### Presenter
-- Open `index.html` in any modern browser (works offline once loaded).  
-- Navigate with **keyboard arrows**, **onscreen buttons**, or **touch swipe** (mobile).  
-- **Timer** (top right) counts up and shows remaining time (20 min target).  
-- **Speaker notes are NOT visible on slides** – they are in `SpeakerNotes.md` for you to read beforehand or print.
-
-### Deploying to GitHub Pages
-1. Fork or clone this repository.  
-2. Ensure `index.html` is at the **root** of the `main` branch.  
-3. Go to repository **Settings → Pages** → set source to `main` branch `/ (root)`.  
-4. Wait 2 minutes, then visit `https://your-username.github.io/pitch-deck/`.  
+- **Live investor deck:** [https://arf-foundation.github.io/pitch-deck/](https://arf-foundation.github.io/pitch-deck/)
+- **Public risk demo:** [https://arf-foundation.github.io/arf-risk-demo/](https://arf-foundation.github.io/arf-risk-demo/)
+- **ARF GitHub organization:** [https://github.com/arf-foundation](https://github.com/arf-foundation)
+- **ARF AI website:** [https://www.arf-ai.com](https://www.arf-ai.com)
+- **Juan Petter on LinkedIn:** [https://www.linkedin.com/in/petterjuan/](https://www.linkedin.com/in/petterjuan/)
+- **Contact:** [juan@arf-ai.com](mailto:juan@arf-ai.com)
 
 ---
 
-## 📄 License
+## GitHub Pages
 
-- **Content** (text, images, slides) – provided for informational purposes only; not licensed for redistribution without permission.  
-- **Code** (HTML, CSS, JS) – licensed under **Apache 2.0**.  
-- **ARF core engine, API, and enterprise components** – remain proprietary and access‑controlled (not covered by this license).
+The deck is published from the repository root.
 
-Full terms, including which parts of this repository each grant covers, are in [LICENSE](LICENSE).
+To deploy a fork:
 
----
+1. Place `index.html` at the root of the default branch.
+2. Open **Settings → Pages**.
+3. Configure GitHub Pages to publish from the branch root.
+4. Open the resulting GitHub Pages URL.
 
-## 🤝 Contributing & Feedback
-
-This pitch deck is stewarded by the founder, **Juan Petter**.  
-For pilot inquiries, partnership opportunities, or feedback, please email [juan@arf-ai.com](mailto:juan@arf-ai.com) or use the pilot request form linked above.
+The bundled presentation is designed to run as a browser-based HTML deck and includes its presentation runtime and assets inside the packaged `index.html`.
 
 ---
 
-*Last updated: May 2026 – reflects hybrid pricing model, current verticals, and Air Canada case study.*
+## Search / Crawler Behavior
+
+The current `index.html` declares:
+
+`noindex, nofollow`
+
+The repository's `robots.txt` also disallows crawling. The deck may be publicly reachable by URL while still being intentionally excluded from indexing.
+
+---
+
+## License
+
+The repository license separates deck content, rendering code, and ARF software:
+
+- **Deck content** — text, narrative, slides, diagrams, and images are © ARF Foundation, all rights reserved; viewing and linking are permitted, but copying, redistribution, adaptation, and derivative works require permission
+- **Deck source code** — the HTML, CSS, and JavaScript that render `index.html` are licensed under **Apache License 2.0**
+- **ARF software** — the core engine, API control plane, gateway, and enterprise components remain proprietary, access-controlled, and outside the scope of this repository's license
+
+See [LICENSE](LICENSE) for the governing terms.
+
+---
+
+## Contact
+
+For investor discussions, technical diligence, enterprise deployment conversations, or partnership inquiries:
+
+**Juan Petter**  
+Founder, ARF AI  
+[juan@arf-ai.com](mailto:juan@arf-ai.com)  
+[https://www.arf-ai.com](https://www.arf-ai.com)
+
+---
+
+*README aligned with the current `index.html` investor deck. Deck content current as of September 1, 2026.*
