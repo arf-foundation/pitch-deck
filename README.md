@@ -6,7 +6,7 @@ The current presentation is a **14-slide, 1920×1080 investor deck** positioning
 
 **Live deck:** [https://arf-foundation.github.io/pitch-deck/](https://arf-foundation.github.io/pitch-deck/)
 
-**Deck status date:** September 1, 2026
+**Deck status date:** October 3, 2026
 
 ---
 
@@ -27,7 +27,7 @@ The deck is designed for investor and diligence conversations around:
 - ARF's thesis that autonomous AI requires a **pre-execution governance layer**
 - The architecture separating **candidate choice, safety gating, authorization, and execution**
 - ARF's technical foundation: probabilistic risk reasoning feeding deterministic execution controls
-- The initial enterprise market wedge and pilot-first commercialization strategy
+- The initial market wedge and review-first commercialization strategy
 - Current validation status, shipped capabilities, and near-term roadmap
 - The pre-seed financing plan and path toward recurring platform revenue
 
@@ -46,7 +46,7 @@ The current `index.html` contains 14 slides:
 7. **Defensibility** — Protected runtime, policy/risk layer, integrations, and accumulated governance knowledge
 8. **Platform** — ARF as a standard control boundary for high-consequence autonomous systems
 9. **Market Wedge** — Cloud infrastructure first, with financial services, healthcare, legal/compliance, and later expansion
-10. **Business Model** — Pilot-first enterprise sales with recurring deployment and maintenance revenue
+10. **Business Model** — A free snapshot, a fixed-price write-access review, then a recurring continuous gate
 11. **Status** — Current release line, test coverage, and validation status
 12. **Roadmap** — Shipped capabilities vs. in-development enterprise work
 13. **Financing** — Pre-seed raise and use of funds
@@ -105,17 +105,17 @@ The current deck starts commercialization where autonomous mistakes are expensiv
 - **Legal & compliance** — workflows where evidence, escalation, and auditability are part of the deliverable
 - **Expansion** — energy, logistics, robotics, and other environments where software-driven decisions affect physical or economic state
 
-The commercial wedge is to **pilot one non-critical workflow, prove governance value, then expand the policy and execution surface**.
+The commercial wedge is **infrastructure-agent vendors moving from read-only to production writes, storage first**. A second track covers **agents that make regulated customer commitments** (lending, collections, refunds).
 
 ---
 
 ## Business Model
 
-The current deck describes a pilot-first enterprise model with a path to recurring platform revenue:
+The current deck describes a review-first model with a path to recurring platform revenue:
 
-- **Deployment:** starting at **$50,000** for deployment, integration, and implementation work, depending on complexity
-- **Maintenance:** starting at **$5,000/month**
-- **Optional expansion:** training, retainers, annual terms, and verified risk-reduction incentives
+- **Pilot snapshot:** free, for three founding teams, covering five named write tools from one agent, in exchange for a written reference
+- **Write-access review:** **$4,500** fixed per agent. It covers every write path in the agreed tool inventory, mapped for reversibility and approval.
+- **Continuous gate:** recurring, by invitation after a review. It is priced per engagement once a write path is modeled and validated.
 
 The intended account progression is:
 
@@ -127,12 +127,12 @@ The intended account progression is:
 
 The deck reports the following current-state metrics and release information:
 
-- **101/101** core pressure / stress tests passing
-- **326** tests in the broader core validation suite
-- Coverage across risk fusion, uncertainty, policy gating, memory weighting, causal estimation, deterministic behavior, and formal invariants
+- **536** core tests passing in CI on each of Python 3.10, 3.11 and 3.12; 95 of the 117 pressure tests run on every push
+- **772** enterprise tests passing in CI on each Python version, plus **113** Rust tests for the execution ladder
+- Coverage across risk fusion, uncertainty, policy gating, signing, admission, approvals, reversibility, and the ONTAP admission proxy
 - **Core v4.3.6**
 - **Enterprise v4.3.6**
-- **4.3.7** identified as the next release and explicitly marked **in development**
+- **4.3.7**, the next release: its changes are merged and tested on main, and the version is not yet tagged
 
 The enterprise layer is described as adding the execution boundary, trusted signing, candidate selection, and actuator integration around the protected core.
 
@@ -141,19 +141,19 @@ The enterprise layer is described as adding the execution boundary, trusted sign
 - Bayesian risk fusion + CVaR expected-loss decisioning
 - Formal policy verification on the decision projection
 - Enterprise trust anchor + Ed25519 intent signing
-- Real candidate alternatives + deterministic selected-candidate execution
-- Controlled execution ladder and structured audit integration
-- Cloud actuator implementation and enterprise packaging
+- Real candidate alternatives + per-candidate reversibility from live provider state
+- No committed audit entry, no execution; one approval admits one attempt
+- ONTAP MCP admission proxy, demonstrated on a simulated cluster
 
 ### In Development
 
-- First-class per-candidate reversibility classification
-- Gate abstention when required evidence is unavailable
-- Audit persistence for proposed vs. selected actions
+- Live-cluster validation of the ONTAP write path
+- Production execution for a first design partner (deployed, off by default)
+- Customer-pulled audit exports for independent verification
 - Broader production actuator coverage
 - Repeatable enterprise pilots, contracts, and reference deployments
 
-The deck states that the referenced core and enterprise repository state was reviewed on **September 1, 2026**.
+The deck states that the referenced core and enterprise repository state and CI were checked on **October 3, 2026**.
 
 ---
 
@@ -228,7 +228,7 @@ The current deck does **not** include the old 20-minute presentation timer or a 
 ## Links
 
 - **Live investor deck:** [https://arf-foundation.github.io/pitch-deck/](https://arf-foundation.github.io/pitch-deck/)
-- **Public risk demo:** [https://arf-foundation.github.io/arf-risk-demo/](https://arf-foundation.github.io/arf-risk-demo/)
+- **Public sandbox:** [https://www.arf-ai.com/#explore](https://www.arf-ai.com/#explore)
 - **ARF GitHub organization:** [https://github.com/arf-foundation](https://github.com/arf-foundation)
 - **ARF AI website:** [https://www.arf-ai.com](https://www.arf-ai.com)
 - **Juan Petter on LinkedIn:** [https://www.linkedin.com/in/petterjuan/](https://www.linkedin.com/in/petterjuan/)
@@ -284,4 +284,4 @@ Founder, ARF AI
 
 ---
 
-*README aligned with the current `index.html` investor deck. Deck content current as of September 1, 2026.*
+*README aligned with the current `index.html` investor deck. Deck content current as of October 3, 2026.*
